@@ -8,6 +8,7 @@ import { CurrencyProvider } from "@/lib/currency-context";
 import { I18nProvider } from "@/lib/i18n-context";
 import { Toaster } from "@/components/ui/toaster";
 import { I18nDocument } from "@/components/i18n-document";
+import { TawkToChat } from "@/components/tawk-to-chat";
 import "@/lib/ssr-polyfills";
 import "./globals.css";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
                 <I18nDocument />
                 {children}
                 <Toaster />
+                <TawkToChat />
               </CartProvider>
             </AuthProvider>
           </CurrencyProvider>

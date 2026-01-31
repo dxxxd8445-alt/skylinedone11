@@ -34,14 +34,157 @@ export function PopularCheats({ products }: PopularCheatsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  // Take up to 12 products for carousel
+  const displayProducts = products.slice(0, 12);
+
+  // ALL HOOKS MUST BE CALLED BEFORE ANY CONDITIONAL RETURNS
+  
   // Ensure component is mounted before accessing browser APIs
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Take up to 12 products for carousel
-  const displayProducts = products.slice(0, 12);
+  // Intersection observer effect - always called
+  useEffect(() => {
+    if (!isMounted) return;
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isMounted]);
+
+  // Track mouse movement for parallax effect - always called
+  useEffect(() => {
+    if (!isMounted || displayProducts.length === 0) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!carouselRef.current) return;
+      const rect = carouselRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
+      const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+      setMousePosition({ x, y });
+    };
+
+    const carousel = carouselRef.current;
+    if (carousel) {
+      carousel.addEventListener("mousemove", handleMouseMove);
+      return () => carousel.removeEventListener("mousemove", handleMouseMove);
+    }
+  }, [isMounted, displayProducts.length]);
+
+  // Auto-rotate carousel - always called
+  useEffect(() => {
+    if (!isMounted || !isAutoPlaying || displayProducts.length === 0) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % displayProducts.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isMounted, isAutoPlaying, displayProducts.length]);
+
+  // ALL useCallback hooks must be called before conditional returns
+  const goToSlide = useCallback((index: number) => {
+    if (index === currentIndex) return;
+    setCurrentIndex(index);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  }, [currentIndex]);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + displayProducts.length) % displayProducts.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  }, [displayProducts.length]);
+
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % displayProducts.length);
+    setIsAutoPlaying(false);
+    setTimeout(() => setIsAutoPlaying(true), 10000);
+  }, [displayProducts.length]);
+
+  // Get visible products for carousel
+  const getVisibleProducts = useCallback(() => {
+    const items = [];
+    for (let i = -2; i <= 2; i++) {
+      const index = (currentIndex + i + displayProducts.length) % displayProducts.length;
+      items.push({ ...displayProducts[index], position: i, originalIndex: index });
+    }
+    return items;
+  }, [currentIndex, displayProducts]);
+
+  // Enhanced card styles with parallax
+  const getCardStyles = useCallback((position: number, isHovered: boolean) => {
+    const baseTransition = "all 1200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+    const hoverScale = isHovered ? 1.1 : 1.05;
+    const parallaxX = mousePosition.x * 8 * (position === 0 ? 1 : 0.3);
+    const parallaxY = mousePosition.y * 8 * (position === 0 ? 1 : 0.3);
+    
+    switch (position) {
+      case 0: // Center card
+        return {
+          transform: `translateX(calc(0% + ${parallaxX}px)) translateY(${parallaxY}px) scale(${hoverScale}) rotateY(0deg)`,
+          opacity: 1,
+          zIndex: 30,
+          filter: `brightness(${isHovered ? 1.2 : 1.1}) saturate(${isHovered ? 1.3 : 1.2})`,
+          transition: baseTransition,
+        };
+      case -1: // Left card
+        return {
+          transform: `translateX(calc(-65% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.88) rotateY(12deg)`,
+          opacity: 0.75,
+          zIndex: 20,
+          filter: "brightness(0.7) saturate(0.8)",
+          transition: baseTransition,
+        };
+      case 1: // Right card
+        return {
+          transform: `translateX(calc(65% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.88) rotateY(-12deg)`,
+          opacity: 0.75,
+          zIndex: 20,
+          filter: "brightness(0.7) saturate(0.8)",
+          transition: baseTransition,
+        };
+      case -2: // Far left
+        return {
+          transform: `translateX(calc(-130% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.75) rotateY(20deg)`,
+          opacity: 0.4,
+          zIndex: 10,
+          filter: "brightness(0.5) saturate(0.6)",
+          transition: baseTransition,
+        };
+      case 2: // Far right
+        return {
+          transform: `translateX(calc(130% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.75) rotateY(-20deg)`,
+          opacity: 0.4,
+          zIndex: 10,
+          filter: "brightness(0.5) saturate(0.6)",
+          transition: baseTransition,
+        };
+      default:
+        return {
+          transform: "translateX(0) scale(0)",
+          opacity: 0,
+          zIndex: 0,
+          filter: "brightness(0.3)",
+          transition: baseTransition,
+        };
+    }
+  }, [mousePosition]);
+
+  // NOW we can do conditional returns after all hooks are called
+  
   // Don't render until mounted to avoid SSR issues
   if (!isMounted) {
     return (
@@ -99,140 +242,8 @@ export function PopularCheats({ products }: PopularCheatsProps) {
     );
   }
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Track mouse movement for parallax effect
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!carouselRef.current) return;
-      const rect = carouselRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-      const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
-      setMousePosition({ x, y });
-    };
-
-    const carousel = carouselRef.current;
-    if (carousel) {
-      carousel.addEventListener("mousemove", handleMouseMove);
-      return () => carousel.removeEventListener("mousemove", handleMouseMove);
-    }
-  }, []);
-
-  // Auto-rotate carousel
-  useEffect(() => {
-    if (!isAutoPlaying || displayProducts.length === 0) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % displayProducts.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, displayProducts.length]);
-
-  const goToSlide = useCallback((index: number) => {
-    if (index === currentIndex) return;
-    setCurrentIndex(index);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  }, [currentIndex]);
-
-  const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + displayProducts.length) % displayProducts.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  }, [displayProducts.length]);
-
-  const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % displayProducts.length);
-    setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
-  }, [displayProducts.length]);
-
   // Get visible products for carousel
-  const getVisibleProducts = () => {
-    const items = [];
-    for (let i = -2; i <= 2; i++) {
-      const index = (currentIndex + i + displayProducts.length) % displayProducts.length;
-      items.push({ ...displayProducts[index], position: i, originalIndex: index });
-    }
-    return items;
-  };
-
   const visibleProducts = getVisibleProducts();
-
-  // Enhanced card styles with parallax
-  const getCardStyles = (position: number, isHovered: boolean) => {
-    const baseTransition = "all 1200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-    const hoverScale = isHovered ? 1.1 : 1.05;
-    const parallaxX = mousePosition.x * 8 * (position === 0 ? 1 : 0.3);
-    const parallaxY = mousePosition.y * 8 * (position === 0 ? 1 : 0.3);
-    
-    switch (position) {
-      case 0: // Center card
-        return {
-          transform: `translateX(calc(0% + ${parallaxX}px)) translateY(${parallaxY}px) scale(${hoverScale}) rotateY(0deg)`,
-          opacity: 1,
-          zIndex: 30,
-          filter: `brightness(${isHovered ? 1.2 : 1.1}) saturate(${isHovered ? 1.3 : 1.2})`,
-          transition: baseTransition,
-        };
-      case -1: // Left card
-        return {
-          transform: `translateX(calc(-65% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.88) rotateY(12deg)`,
-          opacity: 0.75,
-          zIndex: 20,
-          filter: "brightness(0.7) saturate(0.8)",
-          transition: baseTransition,
-        };
-      case 1: // Right card
-        return {
-          transform: `translateX(calc(65% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.88) rotateY(-12deg)`,
-          opacity: 0.75,
-          zIndex: 20,
-          filter: "brightness(0.7) saturate(0.8)",
-          transition: baseTransition,
-        };
-      case -2: // Far left
-        return {
-          transform: `translateX(calc(-130% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.75) rotateY(20deg)`,
-          opacity: 0.4,
-          zIndex: 10,
-          filter: "brightness(0.5) saturate(0.6)",
-          transition: baseTransition,
-        };
-      case 2: // Far right
-        return {
-          transform: `translateX(calc(130% + ${parallaxX}px)) translateY(${parallaxY}px) scale(0.75) rotateY(-20deg)`,
-          opacity: 0.4,
-          zIndex: 10,
-          filter: "brightness(0.5) saturate(0.6)",
-          transition: baseTransition,
-        };
-      default:
-        return {
-          transform: "translateX(0) scale(0)",
-          opacity: 0,
-          zIndex: 0,
-          filter: "brightness(0.3)",
-          transition: baseTransition,
-        };
-    }
-  };
 
   return (
     <section

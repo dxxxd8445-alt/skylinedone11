@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe, formatAmountFromStripe } from '@/lib/stripe';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { headers } from 'next/headers';
+import { triggerWebhooks } from '@/lib/discord-webhook';
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -54,7 +55,7 @@ export async function POST(request: NextRequest) {
           order_number: `STRIPE-${session.id.slice(-8).toUpperCase()}`,
           customer_email: session.customer_details?.email || session.metadata?.customer_email,
           customer_name: session.customer_details?.name || 'Unknown',
-          amount: formatAmountFromStripe(session.amount_total || 0),
+          amount_cents: session.amount_total || 0, // Store in cents as integer
           currency: session.currency?.toUpperCase() || 'USD',
           status: 'completed',
           payment_method: 'stripe',
@@ -175,6 +176,37 @@ export async function POST(request: NextRequest) {
 
         // TODO: Send confirmation email to customer
         console.log('Payment processing completed for session:', session.id);
+
+        // Trigger Discord webhooks for new order
+        await triggerWebhooks('payment.completed', {
+          order_number: order.order_number,
+          customer_email: orderData.customer_email,
+          customer_name: orderData.customer_name,
+          amount: formatAmountFromStripe(orderData.amount_cents), // Convert cents to dollars for display
+          currency: orderData.currency,
+          payment_intent_id: session.payment_intent,
+          stripe_session_id: session.id,
+          items: fullSession.line_items?.data?.map(item => ({
+            name: (item.price?.product as any)?.name || 'Unknown Product',
+            quantity: item.quantity || 1,
+            price: formatAmountFromStripe(item.amount_total || 0),
+          })) || [],
+        });
+
+        // Also trigger order.completed event
+        await triggerWebhooks('order.completed', {
+          order_number: order.order_number,
+          customer_email: orderData.customer_email,
+          customer_name: orderData.customer_name,
+          amount: formatAmountFromStripe(orderData.amount_cents), // Convert cents to dollars for display
+          currency: orderData.currency,
+          status: 'completed',
+          items: fullSession.line_items?.data?.map(item => ({
+            name: (item.price?.product as any)?.name || 'Unknown Product',
+            quantity: item.quantity || 1,
+            price: formatAmountFromStripe(item.amount_total || 0),
+          })) || [],
+        });
         break;
       }
 
@@ -205,6 +237,15 @@ export async function POST(request: NextRequest) {
             updated_at: new Date().toISOString(),
           })
           .eq('payment_intent_id', paymentIntent.id);
+
+        // Trigger Discord webhooks for failed payment
+        await triggerWebhooks('payment.failed', {
+          payment_intent_id: paymentIntent.id,
+          customer_email: paymentIntent.receipt_email,
+          amount: formatAmountFromStripe(paymentIntent.amount || 0),
+          currency: paymentIntent.currency?.toUpperCase(),
+          error_message: paymentIntent.last_payment_error?.message || 'Payment failed',
+        });
         break;
       }
 

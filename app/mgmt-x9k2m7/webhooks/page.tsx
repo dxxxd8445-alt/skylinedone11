@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
-import { RefreshCw, Plus, Edit, Trash2, Webhook, Link2, Zap, Activity, Check, X, AlertCircle, Globe, CheckCircle2, Clock, DollarSign, Package, Key, ShoppingCart } from "lucide-react";
+import { RefreshCw, Plus, Edit, Trash2, Webhook, Link2, Zap, Activity, Check, X, AlertCircle, Globe, CheckCircle2, Clock, DollarSign, Package, Key, ShoppingCart, TestTube } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { createWebhook, updateWebhook, deleteWebhook } from "@/app/actions/admin-webhooks";
 
@@ -44,6 +44,8 @@ export default function WebhooksPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showTestModal, setShowTestModal] = useState(false);
+  const [testEventType, setTestEventType] = useState("payment.completed");
   const [selectedWebhook, setSelectedWebhook] = useState<Webhook | null>(null);
   const [formData, setFormData] = useState<WebhookFormData>({
     name: "",
@@ -147,6 +149,45 @@ export default function WebhooksPage() {
       toast({
         title: "Error",
         description: error.message || "Failed to update webhook. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setProcessing(null);
+    }
+  }
+
+  async function handleTestWebhook() {
+    try {
+      setProcessing("test");
+      
+      const response = await fetch('/api/admin/test-webhook', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          eventType: testEventType,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send test webhook');
+      }
+
+      toast({
+        title: "Success",
+        description: `Test webhook sent for ${testEventType}`,
+        className: "border-green-500/20 bg-green-500/10",
+      });
+      
+      setShowTestModal(false);
+    } catch (error: any) {
+      console.error("Failed to send test webhook:", error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to send test webhook. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -401,6 +442,16 @@ export default function WebhooksPage() {
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Refresh
+          </Button>
+          <Button
+            onClick={() => setShowTestModal(true)}
+            variant="outline"
+            size="sm"
+            disabled={webhooks.length === 0}
+            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-blue-500/30 transition-all"
+          >
+            <TestTube className="w-4 h-4 mr-2" />
+            Test Webhooks
           </Button>
         </div>
         <Button
@@ -754,6 +805,86 @@ export default function WebhooksPage() {
                 <>
                   <Trash2 className="w-4 h-4 mr-2" />
                   Delete Webhook
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Test Webhook Modal */}
+      <Dialog open={showTestModal} onOpenChange={setShowTestModal}>
+        <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                <TestTube className="w-4 h-4 text-blue-400" />
+              </div>
+              Test Webhooks
+            </DialogTitle>
+            <DialogDescription className="text-white/50">
+              Send a test event to all active webhooks
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="py-6">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-white/70 mb-2">
+                  Event Type
+                </label>
+                <select
+                  value={testEventType}
+                  onChange={(e) => setTestEventType(e.target.value)}
+                  className="w-full px-3 py-2 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white focus:border-blue-500/50 transition-colors"
+                >
+                  {AVAILABLE_EVENTS.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.label} ({event.id})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <AlertCircle className="w-4 h-4 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-blue-400 mb-1">Test Information</p>
+                    <p className="text-xs text-white/60 leading-relaxed">
+                      This will send a test {testEventType} event to all active webhooks ({activeWebhooks} webhook{activeWebhooks !== 1 ? 's' : ''}). 
+                      The test data will include sample order information and can be used to verify your Discord webhook integration.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <DialogFooter className="gap-2">
+            <Button
+              onClick={() => setShowTestModal(false)}
+              variant="outline"
+              className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] transition-colors"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleTestWebhook}
+              disabled={processing === "test" || activeWebhooks === 0}
+              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              {processing === "test" ? (
+                <>
+                  <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <TestTube className="w-4 h-4 mr-2" />
+                  Send Test
                 </>
               )}
             </Button>

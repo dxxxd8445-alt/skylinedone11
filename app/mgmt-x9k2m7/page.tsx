@@ -51,36 +51,38 @@ export default function AdminDashboard() {
       // Get current period revenue (last 30 days)
       const { data: currentOrders } = await supabase
         .from("orders")
-        .select("amount")
+        .select("amount_cents")
         .eq("status", "completed")
         .gte("created_at", thirtyDaysAgo.toISOString());
 
       const currentRevenue =
-        currentOrders?.reduce((sum, order) => sum + (order.amount || 0), 0) || 0;
+        currentOrders?.reduce((sum, order) => sum + (order.amount_cents || 0), 0) / 100 || 0;
 
       // Get previous period revenue (30-60 days ago)
       const { data: previousOrders } = await supabase
         .from("orders")
-        .select("amount")
+        .select("amount_cents")
         .eq("status", "completed")
         .gte("created_at", sixtyDaysAgo.toISOString())
         .lt("created_at", thirtyDaysAgo.toISOString());
 
       const previousRevenue =
-        previousOrders?.reduce((sum, order) => sum + (order.amount || 0), 0) || 0;
+        previousOrders?.reduce((sum, order) => sum + (order.amount_cents || 0), 0) / 100 || 0;
       const revenueGrowth =
         previousRevenue > 0 ? ((currentRevenue - previousRevenue) / previousRevenue) * 100 : 0;
 
-      // Get current period order count
+      // Get current period order count (completed only)
       const { count: currentOrderCount } = await supabase
         .from("orders")
         .select("*", { count: "exact", head: true })
+        .eq("status", "completed")
         .gte("created_at", thirtyDaysAgo.toISOString());
 
-      // Get previous period order count
+      // Get previous period order count (completed only)
       const { count: previousOrderCount } = await supabase
         .from("orders")
         .select("*", { count: "exact", head: true })
+        .eq("status", "completed")
         .gte("created_at", sixtyDaysAgo.toISOString())
         .lt("created_at", thirtyDaysAgo.toISOString());
 
@@ -107,10 +109,11 @@ export default function AdminDashboard() {
           ? ((currentLicenseCount || 0) - previousLicenseCount) / previousLicenseCount * 100
           : 0;
 
-      // Get total counts for display
+      // Get total counts for display (completed orders only)
       const { count: totalOrderCount } = await supabase
         .from("orders")
-        .select("*", { count: "exact", head: true });
+        .select("*", { count: "exact", head: true })
+        .eq("status", "completed");
 
       const { count: totalLicenseCount } = await supabase
         .from("licenses")
@@ -119,16 +122,16 @@ export default function AdminDashboard() {
       // Get all-time revenue
       const { data: allOrders } = await supabase
         .from("orders")
-        .select("amount")
+        .select("amount_cents")
         .eq("status", "completed");
 
       const totalRevenue =
-        allOrders?.reduce((sum, order) => sum + (order.amount || 0), 0) || 0;
+        allOrders?.reduce((sum, order) => sum + (order.amount_cents || 0), 0) / 100 || 0;
 
       // Get recent activity (last 5 orders)
       const { data: recentOrders } = await supabase
         .from("orders")
-        .select("id, customer_email, amount, status, created_at")
+        .select("id, customer_email, amount_cents, status, created_at")
         .order("created_at", { ascending: false })
         .limit(5);
 
@@ -558,7 +561,7 @@ export default function AdminDashboard() {
                             order.status === "completed" ? "text-emerald-400" : "text-white/70"
                           }`}
                         >
-                          ${order.amount?.toFixed(2)}
+                          ${(order.amount_cents / 100)?.toFixed(2)}
                         </span>
                       </div>
 
