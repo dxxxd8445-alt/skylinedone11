@@ -56,6 +56,7 @@ export default function ProductsPage() {
   const [variantForm, setVariantForm] = useState({ duration: "", price: "" });
   const [editingVariant, setEditingVariant] = useState<ProductVariantRow | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [addModalVariants, setAddModalVariants] = useState<{duration: string, price: number}[]>([]);
   const [formData, setFormData] = useState<ProductFormData>({
     name: "",
     slug: "",
@@ -131,9 +132,28 @@ export default function ProductsPage() {
         throw new Error(result.error);
       }
 
+      // If variants were added, create them for the new product
+      if (result.productId && addModalVariants.length > 0) {
+        console.log('Creating variants for new product:', result.productId);
+        
+        for (const variant of addModalVariants) {
+          if (variant.duration.trim() && variant.price > 0) {
+            const variantResult = await createVariant({
+              product_id: result.productId,
+              duration: variant.duration.trim(),
+              price: variant.price,
+            });
+            
+            if (!variantResult.success) {
+              console.warn('Failed to create variant:', variantResult.error);
+            }
+          }
+        }
+      }
+
       toast({
         title: "Success",
-        description: "Product created successfully",
+        description: `Product created successfully${addModalVariants.length > 0 ? ` with ${addModalVariants.length} variant(s)` : ''}`,
         className: "border-green-500/20 bg-green-500/10",
       });
       
@@ -242,7 +262,7 @@ export default function ProductsPage() {
     setGalleryInput("");
     setVariants([]);
     setEditingVariant(null);
-    setVariantForm({ duration: "", price: "", stock: "0" });
+    setVariantForm({ duration: "", price: "" });
     setShowEditModal(true);
     setVariantsLoading(true);
     try {
@@ -285,8 +305,9 @@ export default function ProductsPage() {
     });
     setGalleryInput("");
     setVariants([]);
-    setVariantForm({ duration: "", price: "", stock: "0" });
+    setVariantForm({ duration: "", price: "" });
     setEditingVariant(null);
+    setAddModalVariants([]);
   }
 
   function addGalleryImage() {
@@ -735,6 +756,88 @@ export default function ProductsPage() {
                 />
               </div>
             </div>
+
+            {/* Variants & pricing for new products */}
+            <div className="space-y-4 pt-4 border-t border-[#1a1a1a]">
+              <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wider flex items-center gap-2">
+                <DollarSign className="w-4 h-4" />
+                Variants & pricing
+              </h3>
+              <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
+                <p className="text-white/60 text-sm mb-4">
+                  Add pricing variants for different durations (e.g., 1 Day, 7 Days, 30 Days). You can add more variants after creating the product.
+                </p>
+                
+                <div className="space-y-3">
+                  {addModalVariants.map((variant, index) => (
+                    <div key={index} className="flex items-center gap-3 p-3 bg-[#0a0a0a] rounded-lg border border-[#262626]">
+                      <Input
+                        placeholder="e.g., 1 Day"
+                        value={variant.duration}
+                        onChange={(e) => {
+                          const newVariants = [...addModalVariants];
+                          newVariants[index].duration = e.target.value;
+                          setAddModalVariants(newVariants);
+                        }}
+                        className="w-32 bg-[#1a1a1a] border-[#262626] text-white text-sm"
+                      />
+                      <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="9.99"
+                        value={variant.price}
+                        onChange={(e) => {
+                          const newVariants = [...addModalVariants];
+                          newVariants[index].price = parseFloat(e.target.value) || 0;
+                          setAddModalVariants(newVariants);
+                        }}
+                        className="w-24 bg-[#1a1a1a] border-[#262626] text-white text-sm"
+                      />
+                      <span className="text-white/40 text-sm">USD</span>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="text-red-400 hover:bg-red-500/10"
+                        onClick={() => {
+                          const newVariants = addModalVariants.filter((_, i) => i !== index);
+                          setAddModalVariants(newVariants);
+                        }}
+                      >
+                        <X className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]"
+                    onClick={() => {
+                      setAddModalVariants([...addModalVariants, { duration: "", price: 0 }]);
+                    }}
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Variant
+                  </Button>
+                </div>
+                
+                {addModalVariants.length === 0 && (
+                  <div className="text-center py-6">
+                    <p className="text-white/40 text-sm mb-3">No variants added yet</p>
+                    <Button
+                      size="sm"
+                      className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+                      onClick={() => {
+                        setAddModalVariants([{ duration: "1 Day", price: 9.99 }]);
+                      }}
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add First Variant
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
           
           <DialogFooter className="gap-2">
@@ -907,7 +1010,7 @@ export default function ProductsPage() {
                                 type="number"
                                 step="0.01"
                                 placeholder="Price"
-                                defaultValue={v.price}
+                                defaultValue={(v.price / 100).toFixed(2)}
                                 id={`edit-price-${v.id}`}
                                 className="w-24 bg-[#0a0a0a] border-[#262626] text-white text-sm"
                               />
@@ -917,8 +1020,9 @@ export default function ProductsPage() {
                               </div>
                               <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => {
                                 const dur = (document.getElementById(`edit-duration-${v.id}`) as HTMLInputElement)?.value?.trim() || v.duration;
-                                const pr = parseFloat((document.getElementById(`edit-price-${v.id}`) as HTMLInputElement)?.value ?? "0");
-                                handleUpdateVariant(v, { duration: dur, price: isNaN(pr) ? v.price : pr });
+                                const priceInput = (document.getElementById(`edit-price-${v.id}`) as HTMLInputElement)?.value ?? "0";
+                                const priceInDollars = parseFloat(priceInput);
+                                handleUpdateVariant(v, { duration: dur, price: isNaN(priceInDollars) ? (v.price / 100) : priceInDollars });
                               }}>
                                 <Check className="w-3 h-3 mr-1" /> Save
                               </Button>
@@ -930,7 +1034,7 @@ export default function ProductsPage() {
                             <div key={v.id} className="px-4 py-3 flex flex-wrap items-center justify-between gap-2">
                               <div className="flex items-center gap-3">
                                 <span className="font-medium text-white">{v.duration}</span>
-                                <span className="text-emerald-400">${v.price.toFixed(2)}</span>
+                                <span className="text-emerald-400">${(v.price / 100).toFixed(2)}</span>
                                 <span className="text-white/50 text-sm">stock {v.stock}</span>
                               </div>
                               <div className="flex gap-1">

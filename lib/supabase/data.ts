@@ -32,7 +32,7 @@ function transformProduct(product: any, pricing: any[], features: any[], require
     status: product.status,
     pricing: pricing.map((p) => ({
       duration: p.duration,
-      price: p.price,
+      price: p.price / 100, // Convert cents to dollars for frontend
       stock: p.stock ?? 100,
     })),
     features: featuresByCategory,
@@ -81,7 +81,7 @@ export async function getProducts() {
       status: product.status,
       pricing: (product.product_variants || []).map((variant: any) => ({
         duration: variant.duration,
-        price: variant.price,
+        price: variant.price / 100, // Convert cents to dollars for frontend
         stock: variant.stock || 0,
       })),
       features: {
@@ -157,7 +157,7 @@ export async function getProductBySlug(slug: string) {
       status: product.status,
       pricing: (product.product_variants || []).map((variant: any) => ({
         duration: variant.duration,
-        price: variant.price,
+        price: variant.price / 100, // Convert cents to dollars for frontend
         stock: variant.stock || 0,
       })),
       features: {

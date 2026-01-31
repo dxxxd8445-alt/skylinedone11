@@ -64,12 +64,16 @@ export async function createProduct(data: {
       // Gallery column doesn't exist, skip it
     }
 
-    const { error } = await supabase.from("products").insert(insertData);
+    const { data: product, error } = await supabase
+      .from("products")
+      .insert(insertData)
+      .select("id")
+      .single();
 
     if (error) throw error;
 
     revalidatePath("/mgmt-x9k2m7/products");
-    return { success: true };
+    return { success: true, productId: product?.id };
   } catch (error: any) {
     if (error?.message === "Unauthorized" || /Forbidden|insufficient permissions/i.test(error?.message ?? ""))
       return { success: false, error: "You don't have permission to do this." };
@@ -281,7 +285,7 @@ export async function getVariantsForProduct(
         
         return {
           ...variant,
-          price: Number(variant.price) / 100, // Convert cents back to dollars
+          price: Number(variant.price), // Keep price in cents for consistency
           stock: count || 0, // Actual count of unused licenses for this variant
         };
       })
@@ -336,7 +340,7 @@ export async function updateVariant(
     const payload: Record<string, unknown> = {};
     if (data.duration !== undefined) payload.duration = data.duration.trim() || "1 Day";
     if (data.price !== undefined) {
-      // Convert price from dollars to cents
+      // Price is already in cents from the database, so we need to convert from dollars to cents
       payload.price = Math.round(Number(data.price) * 100);
     }
     if (Object.keys(payload).length === 0) return { success: true };

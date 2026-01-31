@@ -14,7 +14,15 @@ export async function POST(request: NextRequest) {
       cancel_url 
     } = body;
 
+    console.log('🛒 Creating Stripe checkout session:', {
+      itemCount: items?.length,
+      customerEmail: customer_email,
+      couponCode: coupon_code,
+      discountAmount: coupon_discount_amount
+    });
+
     if (!items || !Array.isArray(items) || items.length === 0) {
+      console.error('❌ No items provided');
       return NextResponse.json(
         { error: 'No items provided' },
         { status: 400 }
@@ -22,6 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (!customer_email) {
+      console.error('❌ Customer email is required');
       return NextResponse.json(
         { error: 'Customer email is required' },
         { status: 400 }
@@ -30,11 +39,14 @@ export async function POST(request: NextRequest) {
 
     // Create line items for Stripe
     const lineItems = createStripeLineItems(items);
+    console.log('📦 Created line items:', lineItems);
 
     // Calculate totals
     const subtotal = items.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
     const discountAmount = coupon_discount_amount || 0;
     const total = Math.max(0, subtotal - discountAmount);
+
+    console.log('💰 Calculated totals:', { subtotal, discountAmount, total });
 
     // Create checkout session parameters
     const sessionParams: any = {
@@ -69,6 +81,7 @@ export async function POST(request: NextRequest) {
 
     // Add discount if coupon is applied
     if (coupon_code && discountAmount > 0) {
+      console.log('🎫 Creating Stripe coupon for discount');
       // Create a discount coupon in Stripe for this session
       const stripeCoupon = await stripe.coupons.create({
         amount_off: formatAmountForStripe(discountAmount),
@@ -86,13 +99,16 @@ export async function POST(request: NextRequest) {
       }];
     }
 
+    console.log('🔄 Creating Stripe checkout session...');
     // Create the checkout session
     const session = await stripe.checkout.sessions.create(sessionParams);
+    console.log('✅ Stripe session created:', session.id);
 
     // Store session information in database for webhook processing
     const supabase = createAdminClient();
     try {
-      await supabase.from('stripe_sessions').insert({
+      console.log('💾 Storing session in database...');
+      const { error: dbError } = await supabase.from('stripe_sessions').insert({
         session_id: session.id,
         customer_email,
         items: JSON.stringify(items),
@@ -103,18 +119,26 @@ export async function POST(request: NextRequest) {
         status: 'pending',
         created_at: new Date().toISOString(),
       });
+
+      if (dbError) {
+        console.warn('⚠️ Failed to store session in database:', dbError);
+        // Don't fail the checkout if database storage fails
+      } else {
+        console.log('✅ Session stored in database');
+      }
     } catch (dbError) {
-      console.warn('Failed to store session in database:', dbError);
+      console.warn('⚠️ Database storage error:', dbError);
       // Don't fail the checkout if database storage fails
     }
 
+    console.log('🎉 Checkout session created successfully');
     return NextResponse.json({ 
       sessionId: session.id,
       url: session.url 
     });
 
   } catch (error: any) {
-    console.error('Stripe checkout session creation failed:', error);
+    console.error('❌ Stripe checkout session creation failed:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to create checkout session' },
       { status: 500 }
