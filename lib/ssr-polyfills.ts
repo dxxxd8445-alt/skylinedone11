@@ -1,0 +1,49 @@
+/**
+ * SSR Polyfills
+ * Provides browser API polyfills for server-side rendering
+ */
+
+// Polyfill for browser APIs during SSR
+if (typeof window === 'undefined') {
+  // @ts-ignore
+  global.window = {
+    location: {
+      href: 'https://magmacheats.cc',
+      origin: 'https://magmacheats.cc',
+      protocol: 'https:',
+      host: 'magmacheats.cc',
+      hostname: 'magmacheats.cc',
+      port: '',
+      pathname: '/',
+      search: '',
+      hash: '',
+      assign: () => {},
+      replace: () => {},
+      reload: () => {},
+      toString: () => 'https://magmacheats.cc',
+    },
+    document: {
+      documentElement: {
+        lang: 'en',
+        dir: 'ltr',
+      },
+    },
+    localStorage: {
+      getItem: () => null,
+      setItem: () => {},
+      removeItem: () => {},
+      clear: () => {},
+    },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+  };
+
+  // @ts-ignore
+  global.location = global.window.location;
+  // @ts-ignore
+  global.document = global.window.document;
+  // @ts-ignore
+  global.localStorage = global.window.localStorage;
+}
+
+export {};

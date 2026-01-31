@@ -8,6 +8,7 @@ import { CurrencyProvider } from "@/lib/currency-context";
 import { I18nProvider } from "@/lib/i18n-context";
 import { Toaster } from "@/components/ui/toaster";
 import { I18nDocument } from "@/components/i18n-document";
+import "@/lib/ssr-polyfills";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });

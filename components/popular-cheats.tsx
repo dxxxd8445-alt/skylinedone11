@@ -30,11 +30,33 @@ export function PopularCheats({ products }: PopularCheatsProps) {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  // Ensure component is mounted before accessing browser APIs
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Take up to 12 products for carousel
   const displayProducts = products.slice(0, 12);
+
+  // Don't render until mounted to avoid SSR issues
+  if (!isMounted) {
+    return (
+      <section className="py-16 sm:py-24 bg-[#0a0a0a] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+              Popular Cheats
+            </h2>
+            <p className="text-white/60 text-lg">Loading...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   // Show enhanced empty state if no products
   if (displayProducts.length === 0) {
