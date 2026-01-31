@@ -44,26 +44,33 @@ function PaymentSuccessContent() {
     
     // Fetch order details
     async function fetchOrderDetails() {
-      if (!orderNumber) {
+      // Try to get order by session_id first, then by order number
+      const queryParam = sessionId ? `session_id=${sessionId}` : orderNumber ? `order_number=${orderNumber}` : null;
+      
+      if (!queryParam) {
+        setError("No order information provided");
         setIsLoading(false);
         return;
       }
       
       try {
-        const response = await fetch(`/api/payments/moneymotion/check-status?order=${orderNumber}`);
+        const response = await fetch(`/api/stripe/order-status?${queryParam}`);
         const data = await response.json();
         
         if (data.success && data.order) {
+          // Get the first license key if available
+          const firstLicense = data.licenses?.[0];
+          
           setOrderData({
             order_number: data.order.order_number,
-            product_name: data.order.product_name,
-            duration: data.order.duration,
+            product_name: firstLicense?.product_name || "Your Purchase",
+            duration: "License", // We don't store duration in the new schema
             amount: data.order.amount,
-            license_key: data.license?.license_key,
+            license_key: firstLicense?.license_key,
             customer_email: data.order.customer_email,
           });
         } else {
-          setError("Order not found");
+          setError(data.error || "Order not found");
         }
       } catch (err) {
         console.error("Error fetching order:", err);
@@ -74,7 +81,7 @@ function PaymentSuccessContent() {
     }
     
     fetchOrderDetails();
-  }, [orderNumber]);
+  }, [orderNumber, sessionId]);
 
   // Fallback license key if not found
   const licenseKey = orderData?.license_key || 
@@ -246,7 +253,7 @@ function PaymentSuccessContent() {
 
         {/* Transaction ID */}
         <p className="text-center text-white/40 text-sm mt-4">
-          Transaction ID: {token || "N/A"}
+          Transaction ID: {sessionId || orderNumber || "N/A"}
         </p>
       </div>
     </div>

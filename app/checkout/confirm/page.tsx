@@ -22,7 +22,8 @@ import {
   Mail,
 } from "lucide-react";
 import Image from "next/image";
-import { processPurchase, validateCoupon } from "@/lib/purchase-actions";
+import { redirectToStripeCheckout, validateCheckoutData } from "@/lib/stripe-checkout";
+import { validateCoupon } from "@/lib/purchase-actions";
 import { useCurrency } from "@/lib/currency-context";
 import { useI18n } from "@/lib/i18n-context";
 import { formatMoney } from "@/lib/money";
@@ -77,48 +78,55 @@ export default function ConfirmCheckoutPage() {
       return;
     }
 
+    if (!user?.email) {
+      setError("Please sign in to complete your purchase");
+      return;
+    }
+
     setIsProcessing(true);
     setError(null);
 
     try {
-      const firstItem = items[0];
-      const result = await processPurchase({
-        productId: firstItem.productId,
-        productName: firstItem.productName,
-        productSlug: firstItem.productSlug,
-        duration: firstItem.duration,
-        price: total,
-        customerEmail: user?.email || "",
+      // Prepare checkout items for Stripe
+      const checkoutItems = items.map(item => ({
+        id: item.id,
+        productId: item.productId,
+        productName: item.productName,
+        game: item.game || 'Unknown',
+        duration: item.duration,
+        price: item.price,
+        quantity: item.quantity,
+        variantId: item.variantId,
+      }));
+
+      // Validate checkout data
+      const validationError = validateCheckoutData({
+        items: checkoutItems,
+        customerEmail: user.email,
         couponCode: couponValid ? couponCode : undefined,
+        couponDiscountAmount: discount,
       });
 
-      if (result.success) {
-        const isMockSession = (result.sessionId || "").startsWith("mock_");
-        const sessionIdFromResult = !isMockSession ? result.sessionId : null;
-
-        const extractSessionIdFromCheckoutUrl = (checkoutUrl: string): string | null => {
-          try {
-            const url = new URL(checkoutUrl, process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc');
-            const fromQuery = url.searchParams.get("sessionId");
-            if (fromQuery) return fromQuery;
-            const match = url.pathname.match(/\/checkout\/([^/]+)/i);
-            return match?.[1] ?? null;
-          } catch {
-            return null;
-          }
-        };
-
-        const sessionId = sessionIdFromResult || (result.checkoutUrl ? extractSessionIdFromCheckoutUrl(result.checkoutUrl) : null);
-
-        if (sessionId) {
-          window.location.href = `https://moneymotion.io/checkout/${sessionId}`;
-          return;
-        }
-
-        setError(result.error || "Failed to redirect to Money Motion checkout. Please try again.");
-      } else {
-        setError(result.error || "Failed to process purchase. Please try again.");
+      if (validationError) {
+        setError(validationError);
+        return;
       }
+
+      // Redirect to Stripe Checkout
+      const result = await redirectToStripeCheckout({
+        items: checkoutItems,
+        customerEmail: user.email,
+        couponCode: couponValid ? couponCode : undefined,
+        couponDiscountAmount: discount,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/cancelled`,
+      });
+
+      if (!result.success) {
+        setError(result.error || 'Failed to redirect to checkout');
+      }
+      // Note: If successful, user will be redirected to Stripe, so no need to handle success here
+      
     } catch (error) {
       console.error("Checkout error:", error);
       setError("An error occurred. Please try again.");
@@ -381,7 +389,7 @@ export default function ConfirmCheckoutPage() {
                 </div>
 
                 <p className="text-white/50 text-xs text-center mt-4">
-                  Powered by <span className="text-[#dc2626] font-semibold">Money Motion</span>
+                  Powered by <span className="text-[#dc2626] font-semibold">Stripe</span>
                 </p>
               </div>
             </div>

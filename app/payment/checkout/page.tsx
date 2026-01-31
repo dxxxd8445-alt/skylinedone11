@@ -192,7 +192,7 @@ export default function CheckoutPage() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">Secure Payment</h1>
-                <p className="text-white/60 text-sm">Powered by MoneyMotion</p>
+                <p className="text-white/60 text-sm">Powered by Stripe</p>
               </div>
             </div>
           </div>
@@ -277,25 +277,22 @@ export default function CheckoutPage() {
                 <div className="bg-[#0a0a0a] rounded-xl p-4 mb-6">
                   <p className="text-white/60 text-sm mb-2">Payment Instructions:</p>
                   <ul className="text-white text-sm space-y-1 list-disc list-inside">
-                    <li>Click the button below to proceed to MoneyMotion checkout</li>
+                    <li>Click the button below to proceed to Stripe checkout</li>
                     <li>Complete your payment securely</li>
                     <li>You will be redirected back after payment</li>
                   </ul>
                 </div>
 
-                {/* Proceed to MoneyMotion */}
+                {/* Proceed to Stripe */}
                 <Button
                   onClick={() => {
-                    // Redirect to MoneyMotion checkout URL
-                    const checkoutUrl = sessionId ? 
-                      `${window.location.origin}/api/payments/moneymotion/redirect?session=${sessionId}` :
-                      `/api/payments/brickpay/redirect?token=${token}`;
-                    window.location.href = checkoutUrl;
+                    // Redirect to cart for Stripe checkout
+                    window.location.href = '/cart';
                   }}
                   className="w-full bg-[#dc2626] hover:bg-[#ef4444] text-white py-6"
                 >
                   <Wallet className="w-5 h-5 mr-2" />
-                  Proceed to Payment
+                  Proceed to Stripe Checkout
                 </Button>
 
                 {/* Demo: Simulate payment button */}
@@ -312,7 +309,7 @@ export default function CheckoutPage() {
                 <div className="flex items-center gap-2 mt-4 p-3 bg-[#0a0a0a] rounded-lg">
                   <Shield className="w-5 h-5 text-[#dc2626]" />
                   <p className="text-white/60 text-sm">
-                    Secure payment powered by MoneyMotion
+                    Secure payment powered by Stripe
                   </p>
                 </div>
               </>
