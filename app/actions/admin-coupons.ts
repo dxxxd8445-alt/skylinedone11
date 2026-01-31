@@ -14,6 +14,23 @@ export async function createCoupon(data: {
     await requirePermission("manage_coupons");
     const supabase = createAdminClient();
     
+    // Check if coupon code already exists
+    const { data: existingCoupon, error: checkError } = await supabase
+      .from("coupons")
+      .select("id")
+      .eq("code", data.code.toUpperCase())
+      .single();
+    
+    if (existingCoupon) {
+      return { success: false, error: `Coupon code "${data.code.toUpperCase()}" already exists. Please choose a different code.` };
+    }
+    
+    // If checkError is not "PGRST116" (no rows found), it's a real error
+    if (checkError && checkError.code !== "PGRST116") {
+      console.error("[Admin] Check coupon error:", checkError);
+      return { success: false, error: "Failed to validate coupon code" };
+    }
+    
     const { error } = await supabase.from("coupons").insert({
       code: data.code.toUpperCase(),
       discount_type: 'percent',
@@ -24,7 +41,13 @@ export async function createCoupon(data: {
       expires_at: data.valid_until,
     });
 
-    if (error) throw error;
+    if (error) {
+      console.error("[Admin] Create coupon error:", error);
+      if (error.code === "23505") { // Unique constraint violation
+        return { success: false, error: `Coupon code "${data.code.toUpperCase()}" already exists. Please choose a different code.` };
+      }
+      throw error;
+    }
 
     revalidatePath("/mgmt-x9k2m7/coupons");
     return { success: true };
@@ -41,7 +64,6 @@ export async function updateCoupon(id: string, data: {
   discount_percent: number;
   max_uses: number | null;
   valid_until: string | null;
-  is_active: boolean;
 }) {
   try {
     await requirePermission("manage_coupons");
@@ -55,7 +77,7 @@ export async function updateCoupon(id: string, data: {
         discount_value: data.discount_percent,
         max_uses: data.max_uses,
         expires_at: data.valid_until,
-        is_active: data.is_active,
+        updated_at: new Date().toISOString(),
       })
       .eq("id", id);
 

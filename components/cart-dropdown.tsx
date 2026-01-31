@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/lib/cart-context";
-import { ShoppingCart, X, Trash2, Sparkles, ArrowRight, Package } from "lucide-react";
+import { ShoppingCart, X, Trash2, Sparkles, ArrowRight, Package, Tag, Percent } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -10,7 +10,7 @@ import { useI18n } from "@/lib/i18n-context";
 import { formatMoney } from "@/lib/money";
 
 export function CartDropdown() {
-  const { items, removeFromCart, getTotal, getItemCount } = useCart();
+  const { items, removeFromCart, getSubtotal, getDiscount, getTotal, getItemCount, appliedCoupon } = useCart();
   const { currency } = useCurrency();
   const { locale, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
@@ -190,9 +190,29 @@ export function CartDropdown() {
 
                 {/* Footer with Gradient Background */}
                 <div className="p-5 border-t border-[#1a1a1a] space-y-4 bg-gradient-to-b from-transparent to-[#0a0a0a]">
+                  {/* Coupon Display */}
+                  {appliedCoupon && (
+                    <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/20">
+                      <div className="flex items-center gap-2">
+                        <Tag className="w-4 h-4 text-green-400" />
+                        <div>
+                          <p className="text-green-400 font-semibold text-sm">{appliedCoupon.code}</p>
+                          <p className="text-green-400/70 text-xs">
+                            {appliedCoupon.type === "percentage" ? `${appliedCoupon.discount}% off` : `$${appliedCoupon.discount} off`}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-green-400 font-bold text-sm">
+                        -{formatMoney({ amountUsd: getDiscount(), currency, locale })}
+                      </span>
+                    </div>
+                  )}
+
                   {/* Subtotal with Animation */}
                   <div className="flex items-center justify-between p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
-                    <span className="text-white/60 text-sm font-medium">Subtotal</span>
+                    <span className="text-white/60 text-sm font-medium">
+                      {appliedCoupon ? "Total" : "Subtotal"}
+                    </span>
                     <div className="flex items-baseline gap-2">
                       <span className="text-transparent bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] bg-clip-text font-bold text-2xl animate-pulse">
                         {formatMoney({ amountUsd: getTotal(), currency, locale })}

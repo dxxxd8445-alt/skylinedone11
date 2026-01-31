@@ -255,15 +255,15 @@ export async function validateCoupon(code: string): Promise<{
       return { valid: false, message: "Coupon has been fully redeemed" };
     }
     
-    // Check expiry
-    if (coupon.valid_until && new Date(coupon.valid_until) < new Date()) {
+    // Check expiry (using expires_at column)
+    if (coupon.expires_at && new Date(coupon.expires_at) < new Date()) {
       return { valid: false, message: "Coupon has expired" };
     }
     
     return {
       valid: true,
-      discount: coupon.discount_percent,
-      type: "percentage",
+      discount: coupon.discount_value, // Using discount_value column
+      type: coupon.discount_type === 'percent' ? "percentage" : "fixed",
     };
     
   } catch (error) {

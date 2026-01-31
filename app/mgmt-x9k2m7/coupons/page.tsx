@@ -45,23 +45,104 @@ export default function CouponsPage() {
     max_uses: "",
     valid_until: "",
   });
+  const [codeValidation, setCodeValidation] = useState<{
+    isChecking: boolean;
+    isValid: boolean;
+    message: string;
+  }>({
+    isChecking: false,
+    isValid: true,
+    message: "",
+  });
   const { toast } = useToast();
 
   useEffect(() => {
     loadCoupons();
   }, []);
 
+  // Real-time coupon code validation
+  useEffect(() => {
+    const validateCouponCode = async () => {
+      if (!formData.code.trim() || formData.code.length < 2) {
+        setCodeValidation({ isChecking: false, isValid: true, message: "" });
+        return;
+      }
+
+      setCodeValidation({ isChecking: true, isValid: true, message: "Checking..." });
+
+      try {
+        const supabase = createClient();
+        const { data: existingCoupon } = await supabase
+          .from("coupons")
+          .select("id")
+          .eq("code", formData.code.toUpperCase())
+          .single();
+
+        if (existingCoupon) {
+          setCodeValidation({
+            isChecking: false,
+            isValid: false,
+            message: "This coupon code already exists",
+          });
+        } else {
+          setCodeValidation({
+            isChecking: false,
+            isValid: true,
+            message: "Code is available",
+          });
+        }
+      } catch (error: any) {
+        // PGRST116 means no rows found, which is good (code is available)
+        if (error.code === "PGRST116") {
+          setCodeValidation({
+            isChecking: false,
+            isValid: true,
+            message: "Code is available",
+          });
+        } else {
+          setCodeValidation({
+            isChecking: false,
+            isValid: true,
+            message: "",
+          });
+        }
+      }
+    };
+
+    const timeoutId = setTimeout(validateCouponCode, 500); // Debounce
+    return () => clearTimeout(timeoutId);
+  }, [formData.code]);
+
   async function loadCoupons() {
     try {
       setLoading(true);
       const supabase = createClient();
+      
+      // Debug: Log the query
+      console.log("[Coupons] Loading coupons...");
+      
       const { data, error } = await supabase
         .from("coupons")
         .select("*")
         .order("created_at", { ascending: false });
 
-      if (error) throw error;
+      console.log("[Coupons] Query result:", { data, error });
+
+      if (error) {
+        console.error("[Coupons] Database error:", error);
+        toast({
+          title: "Database Error",
+          description: `Failed to load coupons: ${error.message}`,
+          variant: "destructive",
+        });
+        return;
+      }
+      
       setCoupons(data || []);
+      console.log("[Coupons] Loaded", data?.length || 0, "coupons");
+      
+      // Force a re-render by updating the key
+      setLoading(false);
     } catch (error) {
       console.error("Failed to load coupons:", error);
       toast({
@@ -234,6 +315,11 @@ export default function CouponsPage() {
       max_uses: "",
       valid_until: "",
     });
+    setCodeValidation({
+      isChecking: false,
+      isValid: true,
+      message: "",
+    });
   }
 
   // Calculate stats
@@ -315,7 +401,7 @@ export default function CouponsPage() {
       label: "Status",
       sortable: true,
       render: (coupon: Coupon) => {
-        const isExpired = coupon.valid_until && new Date(coupon.valid_until) < new Date();
+        const isExpired = coupon.expires_at && new Date(coupon.expires_at) < new Date();
         const status = isExpired ? "expired" : (coupon.is_active ? "active" : "inactive");
         
         const statusConfig = {
@@ -358,10 +444,10 @@ export default function CouponsPage() {
       label: "Expires",
       sortable: true,
       render: (coupon: Coupon) => {
-        const isExpired = coupon.valid_until && new Date(coupon.valid_until) < new Date();
-        const isExpiringSoon = coupon.valid_until && 
-          new Date(coupon.valid_until) > new Date() && 
-          new Date(coupon.valid_until) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+        const isExpired = coupon.expires_at && new Date(coupon.expires_at) < new Date();
+        const isExpiringSoon = coupon.expires_at && 
+          new Date(coupon.expires_at) > new Date() && 
+          new Date(coupon.expires_at) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
         
         return (
           <div className="flex items-center gap-2">
@@ -371,7 +457,7 @@ export default function CouponsPage() {
               isExpiringSoon ? "text-amber-400" : 
               "text-white/50"
             }`}>
-              {coupon.valid_until ? new Date(coupon.valid_until).toLocaleDateString("en-US", {
+              {coupon.expires_at ? new Date(coupon.expires_at).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
                 year: "numeric",
@@ -545,15 +631,42 @@ export default function CouponsPage() {
               </label>
               <div className="relative">
                 <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
-                <Input
+                <input
                   value={formData.code}
                   onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
                   placeholder="e.g., SUMMER25"
-                  className="bg-[#1a1a1a] border-[#262626] text-white font-mono uppercase pl-10 focus:border-[#dc2626]/50 transition-colors"
+                  className={`bg-[#1a1a1a] border text-white font-mono uppercase pl-10 pr-10 py-3 rounded-lg focus:outline-none focus:ring-2 transition-colors w-full ${
+                    !formData.code.trim() 
+                      ? "border-[#262626] focus:border-[#dc2626]/50 focus:ring-[#dc2626]/20" 
+                      : codeValidation.isValid 
+                        ? "border-green-500/50 focus:border-green-500 focus:ring-green-500/20" 
+                        : "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
+                  }`}
                   maxLength={20}
                 />
+                {/* Validation indicator */}
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  {codeValidation.isChecking ? (
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : formData.code.trim() && formData.code.length >= 2 ? (
+                    codeValidation.isValid ? (
+                      <Check className="w-4 h-4 text-green-400" />
+                    ) : (
+                      <X className="w-4 h-4 text-red-400" />
+                    )
+                  ) : null}
+                </div>
               </div>
-              <p className="text-xs text-white/40">Use uppercase letters and numbers only</p>
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-white/40">Use uppercase letters and numbers only</p>
+                {formData.code.trim() && formData.code.length >= 2 && (
+                  <p className={`text-xs font-medium ${
+                    codeValidation.isValid ? "text-green-400" : "text-red-400"
+                  }`}>
+                    {codeValidation.message}
+                  </p>
+                )}
+              </div>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
@@ -616,7 +729,7 @@ export default function CouponsPage() {
             </Button>
             <Button
               onClick={handleAddCoupon}
-              disabled={processing === "add" || !formData.code || !formData.discount_percent}
+              disabled={processing === "add" || !formData.code || !formData.discount_percent || !codeValidation.isValid || codeValidation.isChecking}
               className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "add" ? (

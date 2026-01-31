@@ -9,17 +9,22 @@ import { useI18n } from "@/lib/i18n-context";
 import { formatMoney } from "@/lib/money";
 import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus, ShoppingCart, ArrowLeft, X, Sparkles, Shield, Zap, Package, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingCart, ArrowLeft, X, Sparkles, Shield, Zap, Package, Trash2, Tag, Percent } from "lucide-react";
 import { useState } from "react";
 
 export default function CartPage() {
   const router = useRouter();
-  const { items, removeFromCart, updateQuantity, getTotal, clearCart, isHydrated } = useCart();
+  const { items, removeFromCart, updateQuantity, getSubtotal, getDiscount, getTotal, clearCart, isHydrated, appliedCoupon, applyCoupon, removeCoupon } = useCart();
   const { currency } = useCurrency();
   const { locale } = useI18n();
   const [removingItem, setRemovingItem] = useState<string | null>(null);
+  const [couponCode, setCouponCode] = useState("");
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [couponError, setCouponError] = useState<string | null>(null);
 
-  const subtotal = getTotal();
+  const subtotal = getSubtotal();
+  const discount = getDiscount();
+  const total = getTotal();
 
   const handleCheckout = () => {
     router.push("/checkout/login");
@@ -31,6 +36,28 @@ export default function CartPage() {
       removeFromCart(id);
       setRemovingItem(null);
     }, 400);
+  };
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    
+    setCouponLoading(true);
+    setCouponError(null);
+    
+    const result = await applyCoupon(couponCode.trim());
+    
+    if (result.success) {
+      setCouponCode("");
+    } else {
+      setCouponError(result.error || "Invalid coupon code");
+    }
+    
+    setCouponLoading(false);
+  };
+
+  const handleRemoveCoupon = () => {
+    removeCoupon();
+    setCouponError(null);
   };
 
   if (!isHydrated) return null;
@@ -232,6 +259,74 @@ export default function CartPage() {
                         <span className="text-white font-semibold">{formatMoney({ amountUsd: subtotal, currency, locale })}</span>
                       </div>
 
+                      {/* Coupon Section */}
+                      {!appliedCoupon ? (
+                        <div className="space-y-3">
+                          <div className="flex gap-2">
+                            <div className="relative flex-1">
+                              <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                              <input
+                                type="text"
+                                value={couponCode}
+                                onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                                placeholder="Enter coupon code"
+                                className="w-full pl-10 pr-4 py-2.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none text-sm font-mono uppercase"
+                                onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
+                              />
+                            </div>
+                            <button
+                              onClick={handleApplyCoupon}
+                              disabled={couponLoading || !couponCode.trim()}
+                              className="px-4 py-2.5 bg-[#dc2626] hover:bg-[#ef4444] disabled:bg-[#dc2626]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all flex items-center gap-2"
+                            >
+                              {couponLoading ? (
+                                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                              ) : (
+                                <Tag className="w-4 h-4" />
+                              )}
+                              Apply
+                            </button>
+                          </div>
+                          {couponError && (
+                            <p className="text-red-400 text-xs flex items-center gap-1">
+                              <X className="w-3 h-3" />
+                              {couponError}
+                            </p>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-between p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/20">
+                          <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                              <Tag className="w-3 h-3 text-green-400" />
+                            </div>
+                            <div>
+                              <p className="text-green-400 font-semibold text-sm">{appliedCoupon.code}</p>
+                              <p className="text-green-400/70 text-xs">
+                                {appliedCoupon.type === "percentage" ? `${appliedCoupon.discount}% off` : `$${appliedCoupon.discount} off`}
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={handleRemoveCoupon}
+                            className="text-white/40 hover:text-red-400 p-1 rounded transition-colors"
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Discount Display */}
+                      {discount > 0 && (
+                        <div className="flex items-center justify-between text-green-400">
+                          <span className="flex items-center gap-2">
+                            <Percent className="w-4 h-4" />
+                            Discount ({appliedCoupon?.code})
+                          </span>
+                          <span className="font-semibold">-{formatMoney({ amountUsd: discount, currency, locale })}</span>
+                        </div>
+                      )}
+
                       <div className="flex items-center gap-2 p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl border border-green-500/20">
                         <Zap className="w-4 h-4 text-green-400" />
                         <span className="text-green-400 text-xs font-medium">Instant digital delivery</span>
@@ -240,7 +335,7 @@ export default function CartPage() {
                       <div className="flex items-center justify-between p-4 bg-[#0a0a0a] rounded-xl border border-[#dc2626]/20">
                         <span className="text-white font-bold text-lg">Total</span>
                         <span className="text-transparent bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] bg-clip-text font-bold text-3xl animate-pulse">
-                          {formatMoney({ amountUsd: subtotal, currency, locale })}
+                          {formatMoney({ amountUsd: total, currency, locale })}
                         </span>
                       </div>
                     </div>
