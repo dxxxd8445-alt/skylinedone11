@@ -4,6 +4,30 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 import { requirePermission } from "@/lib/admin-auth";
 
+export async function loadProducts() {
+  try {
+    await requirePermission("manage_products");
+    const supabase = createAdminClient();
+    
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("[Admin] Load products error:", error);
+      throw error;
+    }
+
+    return { success: true, products: data || [] };
+  } catch (error: any) {
+    if (error?.message === "Unauthorized" || /Forbidden|insufficient permissions/i.test(error?.message ?? ""))
+      return { success: false, error: "You don't have permission to do this." };
+    console.error("[Admin] Load products error:", error);
+    return { success: false, error: error.message };
+  }
+}
+
 export async function createProduct(data: {
   name: string;
   slug: string;
@@ -237,7 +261,7 @@ export async function getVariantsForProduct(
     
     // Get variants
     const { data: variants, error } = await supabase
-      .from("product_pricing")
+      .from("product_variants")
       .select("id, product_id, duration, price, created_at")
       .eq("product_id", productId)
       .order("duration");
@@ -257,7 +281,7 @@ export async function getVariantsForProduct(
         
         return {
           ...variant,
-          price: Number(variant.price),
+          price: Number(variant.price) / 100, // Convert cents back to dollars
           stock: count || 0, // Actual count of unused licenses for this variant
         };
       })
@@ -281,10 +305,14 @@ export async function createVariant(data: {
   try {
     await requirePermission("manage_products");
     const supabase = createAdminClient();
-    const { error } = await supabase.from("product_pricing").insert({
+    
+    // Convert price from dollars to cents
+    const priceInCents = Math.round((Number(data.price) || 0) * 100);
+    
+    const { error } = await supabase.from("product_variants").insert({
       product_id: data.product_id,
       duration: (data.duration || "").trim() || "1 Day",
-      price: Number(data.price) || 0,
+      price: priceInCents,
     });
     if (error) throw error;
     revalidatePath("/mgmt-x9k2m7/products");
@@ -307,9 +335,12 @@ export async function updateVariant(
     const supabase = createAdminClient();
     const payload: Record<string, unknown> = {};
     if (data.duration !== undefined) payload.duration = data.duration.trim() || "1 Day";
-    if (data.price !== undefined) payload.price = Number(data.price);
+    if (data.price !== undefined) {
+      // Convert price from dollars to cents
+      payload.price = Math.round(Number(data.price) * 100);
+    }
     if (Object.keys(payload).length === 0) return { success: true };
-    const { error } = await supabase.from("product_pricing").update(payload).eq("id", id);
+    const { error } = await supabase.from("product_variants").update(payload).eq("id", id);
     if (error) throw error;
     revalidatePath("/mgmt-x9k2m7/products");
     return { success: true };
@@ -326,7 +357,7 @@ export async function deleteVariant(id: string) {
   try {
     await requirePermission("manage_products");
     const supabase = createAdminClient();
-    const { error } = await supabase.from("product_pricing").delete().eq("id", id);
+    const { error } = await supabase.from("product_variants").delete().eq("id", id);
     if (error) throw error;
     revalidatePath("/mgmt-x9k2m7/products");
     return { success: true };

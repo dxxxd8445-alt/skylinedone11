@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { DataTable } from "@/components/admin/data-table";
-import { createClient } from "@/lib/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { RefreshCw, Plus, Edit, Trash2, Package, AlertCircle, Check, X, Image as ImageIcon, Tag, Gamepad2, DollarSign, Server } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { createProduct, updateProduct, deleteProduct, forceDeleteProduct, getOrdersAndLicensesForProduct, getVariantsForProduct, createVariant, updateVariant, deleteVariant, type ProductBlockers, type ProductVariantRow } from "@/app/actions/admin-products";
+import { createProduct, updateProduct, deleteProduct, forceDeleteProduct, getOrdersAndLicensesForProduct, getVariantsForProduct, createVariant, updateVariant, deleteVariant, loadProducts, type ProductBlockers, type ProductVariantRow } from "@/app/actions/admin-products";
 import { ImageUploader } from "@/components/admin/image-uploader";
 import { GalleryUploader } from "@/components/admin/gallery-uploader";
 
@@ -73,20 +72,32 @@ export default function ProductsPage() {
   const { toast } = useToast();
 
   useEffect(() => {
-    loadProducts();
+    loadProductsData();
   }, []);
 
-  async function loadProducts() {
+  async function loadProductsData() {
     try {
       setLoading(true);
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("products")
-        .select("*")
-        .order("created_at", { ascending: false });
+      
+      console.log("[Products] Loading products via server action...");
+      
+      const result = await loadProducts();
 
-      if (error) throw error;
-      setProducts(data || []);
+      console.log("[Products] Server action result:", result);
+
+      if (!result.success) {
+        console.error("[Products] Server action error:", result.error);
+        toast({
+          title: "Error",
+          description: result.error || "Failed to load products",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      setProducts(result.products || []);
+      console.log("[Products] Loaded", result.products?.length || 0, "products");
+      
     } catch (error) {
       console.error("Failed to load products:", error);
       toast({
@@ -128,7 +139,7 @@ export default function ProductsPage() {
       
       setShowAddModal(false);
       resetForm();
-      await loadProducts();
+      await loadProductsData();
     } catch (error: any) {
       console.error("Failed to add product:", error);
       toast({
@@ -173,7 +184,7 @@ export default function ProductsPage() {
       setShowEditModal(false);
       setSelectedProduct(null);
       resetForm();
-      await loadProducts();
+      await loadProductsData();
     } catch (error: any) {
       console.error("Failed to edit product:", error);
       toast({
@@ -200,7 +211,7 @@ export default function ProductsPage() {
       setShowDeleteModal(false);
       setSelectedProduct(null);
       setDeleteBlockers(null);
-      await loadProducts();
+      await loadProductsData();
     } catch (error: any) {
       console.error("Failed to delete product:", error);
       toast({
@@ -517,7 +528,7 @@ export default function ProductsPage() {
       <div className="mb-6 flex items-center justify-between">
         <div className="flex gap-2">
           <Button
-            onClick={() => loadProducts()}
+            onClick={() => loadProductsData()}
             variant="outline"
             size="sm"
             disabled={loading}

@@ -329,30 +329,6 @@ export default function AdminDashboard() {
 
   const quickActions = [
     {
-      title: "Manage Orders",
-      description: "View and process customer orders",
-      Icon: ShoppingCart,
-      styleKey: "blue" as const,
-      href: "/mgmt-x9k2m7/orders",
-      accentGradient: "from-blue-500 to-blue-600",
-    },
-    {
-      title: "Manage Products",
-      description: "Add or edit your products",
-      Icon: Package,
-      styleKey: "purple" as const,
-      href: "/mgmt-x9k2m7/products",
-      accentGradient: "from-purple-500 to-purple-600",
-    },
-    {
-      title: "License Keys",
-      description: "Manage and generate keys",
-      Icon: Key,
-      styleKey: "emerald" as const,
-      href: "/mgmt-x9k2m7/licenses",
-      accentGradient: "from-emerald-500 to-emerald-600",
-    },
-    {
       title: "Team Members",
       description: "Manage your admin team",
       Icon: Users,

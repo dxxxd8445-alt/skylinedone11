@@ -10,6 +10,8 @@ import { formatMoney } from "@/lib/money";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingCart, ArrowLeft, X, Sparkles, Shield, Zap, Package, Trash2, Tag, Percent } from "lucide-react";
+import { redirectToStripeCheckout, validateCheckoutData } from "@/lib/stripe-checkout";
+import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 
 export default function CartPage() {
@@ -17,17 +19,81 @@ export default function CartPage() {
   const { items, removeFromCart, updateQuantity, getSubtotal, getDiscount, getTotal, clearCart, isHydrated, appliedCoupon, applyCoupon, removeCoupon } = useCart();
   const { currency } = useCurrency();
   const { locale } = useI18n();
+  const { user } = useAuth();
   const [removingItem, setRemovingItem] = useState<string | null>(null);
   const [couponCode, setCouponCode] = useState("");
   const [couponLoading, setCouponLoading] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   const subtotal = getSubtotal();
   const discount = getDiscount();
   const total = getTotal();
 
-  const handleCheckout = () => {
-    router.push("/checkout/login");
+  const handleCheckout = async () => {
+    // If user is not logged in, redirect to login page
+    if (!user) {
+      router.push("/checkout/login");
+      return;
+    }
+
+    console.log('🛒 Starting checkout process...');
+    setCheckoutLoading(true);
+
+    try {
+      // Prepare checkout items for Stripe
+      const checkoutItems = items.map(item => ({
+        id: item.id,
+        productId: item.productId,
+        productName: item.productName,
+        game: item.game || 'Unknown',
+        duration: item.duration,
+        price: item.price,
+        quantity: item.quantity,
+        variantId: item.variantId,
+      }));
+
+      console.log('📦 Checkout items prepared:', checkoutItems);
+
+      // Validate checkout data
+      const validationError = validateCheckoutData({
+        items: checkoutItems,
+        customerEmail: user.email || '',
+        couponCode: appliedCoupon?.code,
+        couponDiscountAmount: discount,
+      });
+
+      if (validationError) {
+        console.error('❌ Validation error:', validationError);
+        alert(validationError);
+        setCheckoutLoading(false);
+        return;
+      }
+
+      console.log('✅ Validation passed');
+
+      // Redirect to Stripe Checkout
+      console.log('🔄 Redirecting to Stripe checkout...');
+      const result = await redirectToStripeCheckout({
+        items: checkoutItems,
+        customerEmail: user.email || '',
+        couponCode: appliedCoupon?.code,
+        couponDiscountAmount: discount,
+        successUrl: `${window.location.origin}/payment/success`,
+        cancelUrl: `${window.location.origin}/cart`,
+      });
+
+      if (!result.success) {
+        console.error('❌ Checkout failed:', result.error);
+        alert(result.error || 'Failed to redirect to checkout');
+        setCheckoutLoading(false);
+      }
+      // Note: If successful, user will be redirected to Stripe, so no need to set loading to false
+    } catch (error: any) {
+      console.error('❌ Checkout error:', error);
+      alert('Failed to proceed to checkout. Please try again.');
+      setCheckoutLoading(false);
+    }
   };
 
   const handleRemove = (id: string) => {
@@ -343,13 +409,23 @@ export default function CartPage() {
                     <div className="mt-6 space-y-3">
                       <button
                         onClick={handleCheckout}
-                        className="group/checkout relative w-full py-4 rounded-xl overflow-hidden font-bold text-white transition-all duration-300 hover:scale-[1.02] active:scale-95"
+                        disabled={checkoutLoading}
+                        className="group/checkout relative w-full py-4 rounded-xl overflow-hidden font-bold text-white transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient-x" />
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/checkout:translate-x-full transition-transform duration-1000" />
                         <span className="relative flex items-center justify-center gap-2 text-base">
-                          Proceed to Checkout
-                          <ArrowLeft className="w-5 h-5 rotate-180 group-hover/checkout:translate-x-1 transition-transform" />
+                          {checkoutLoading ? (
+                            <>
+                              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                              Processing...
+                            </>
+                          ) : (
+                            <>
+                              {user ? 'Proceed to Stripe Checkout' : 'Sign In to Checkout'}
+                              <ArrowLeft className="w-5 h-5 rotate-180 group-hover/checkout:translate-x-1 transition-transform" />
+                            </>
+                          )}
                         </span>
                         <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#dc2626] to-[#ef4444] opacity-50 group-hover/checkout:opacity-75 transition-opacity" />
                       </button>

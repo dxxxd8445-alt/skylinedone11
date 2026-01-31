@@ -4,6 +4,30 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 import { requirePermission } from "@/lib/admin-auth";
 
+export async function loadCoupons() {
+  try {
+    await requirePermission("manage_coupons");
+    const supabase = createAdminClient();
+    
+    const { data, error } = await supabase
+      .from("coupons")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("[Admin] Load coupons error:", error);
+      throw error;
+    }
+
+    return { success: true, coupons: data || [] };
+  } catch (error: any) {
+    if (error?.message === "Unauthorized" || /Forbidden|insufficient permissions/i.test(error?.message ?? ""))
+      return { success: false, error: "You don't have permission to do this." };
+    console.error("[Admin] Load coupons error:", error);
+    return { success: false, error: error.message };
+  }
+}
+
 export async function createCoupon(data: {
   code: string;
   discount_percent: number;

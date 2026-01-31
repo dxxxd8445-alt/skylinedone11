@@ -504,12 +504,6 @@ export function PopularCheats({ products }: PopularCheatsProps) {
                   <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 animate-shimmer" />
                 </div>
               </div>
-              
-              <div className="flex items-center justify-center gap-2 mt-3 text-white/60 text-sm font-medium">
-                <span className="text-[#dc2626] font-bold text-lg">{currentIndex + 1}</span>
-                <span>/</span>
-                <span>{displayProducts.length}</span>
-              </div>
             </div>
           )}
 

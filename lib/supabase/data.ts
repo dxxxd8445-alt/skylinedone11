@@ -51,11 +51,15 @@ export async function getProducts() {
   try {
     const supabase = await createClient();
     
-    // Fetch all products with their related data
+    // Fetch all products with their variants
     const { data: products, error: productsError } = await supabase
       .from("products")
-      .select("*")
-      .order("name");
+      .select(`
+        *,
+        product_variants (*)
+      `)
+      .eq("status", "active")
+      .order("display_order");
     
     if (productsError) {
       console.error("[Products] Database error:", productsError.message);
@@ -63,61 +67,36 @@ export async function getProducts() {
     }
 
     if (!products || products.length === 0) {
-      // No products yet - return empty array (admin will add products)
       return [];
     }
 
-    // Fetch pricing, features, requirements, and stock for all products
-    const productIds = products.map((p) => p.id);
-    
-    const [pricingResult, featuresResult, requirementsResult, stockResult] = await Promise.all([
-      supabase.from("product_pricing").select("*").in("product_id", productIds),
-      supabase.from("product_features").select("*").in("product_id", productIds),
-      supabase.from("product_requirements").select("*").in("product_id", productIds),
-      supabase.from("licenses").select("product_id, variant_id").eq("status", "unused"),
-    ]);
-
-    // Calculate stock counts
-    let generalStock = 0;
-    const productStockMap = new Map<string, number>(); // product_id -> count
-    const variantStockMap = new Map<string, number>(); // variant_id -> count
-
-    if (stockResult.data) {
-      stockResult.data.forEach((l) => {
-        if (!l.product_id) {
-          // General stock (available to all)
-          generalStock++;
-        } else if (!l.variant_id) {
-          // Product specific stock (available to all variants of this product)
-          productStockMap.set(l.product_id, (productStockMap.get(l.product_id) || 0) + 1);
-        } else {
-          // Variant specific stock
-          variantStockMap.set(l.variant_id, (variantStockMap.get(l.variant_id) || 0) + 1);
-        }
-      });
-    }
-
-    // Transform products with their related data
-    return products.map((product) => {
-      let pricing = pricingResult.data?.filter((p) => p.product_id === product.id) || [];
-      
-      // Inject real stock counts
-      pricing = pricing.map(p => {
-        const productLevelStock = productStockMap.get(product.id) || 0;
-        const variantLevelStock = variantStockMap.get(p.id) || 0;
-        const totalStock = generalStock + productLevelStock + variantLevelStock;
-        
-        return {
-          ...p,
-          stock: totalStock
-        };
-      });
-
-      const features = featuresResult.data?.filter((f) => f.product_id === product.id) || [];
-      const requirements = requirementsResult.data?.filter((r) => r.product_id === product.id) || [];
-      
-      return transformProduct(product, pricing, features, requirements);
-    });
+    // Transform products to match expected format
+    return products.map((product) => ({
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      game: product.game,
+      description: product.description,
+      image: product.image || `/images/${product.slug}.jpg`,
+      status: product.status,
+      pricing: (product.product_variants || []).map((variant: any) => ({
+        duration: variant.duration,
+        price: variant.price,
+        stock: variant.stock || 0,
+      })),
+      features: {
+        aimbot: product.features?.filter((f: string) => f.toLowerCase().includes('aim')) || [],
+        esp: product.features?.filter((f: string) => f.toLowerCase().includes('esp') || f.toLowerCase().includes('wall')) || [],
+        misc: product.features?.filter((f: string) => !f.toLowerCase().includes('aim') && !f.toLowerCase().includes('esp') && !f.toLowerCase().includes('wall')) || product.features || [],
+      },
+      requirements: {
+        cpu: "Intel/AMD",
+        windows: product.requirements?.[0] || "Windows 10/11",
+        cheatType: "External",
+        controller: false,
+      },
+      gallery: product.gallery || [],
+    }));
   } catch (e) {
     console.error("[Products] Exception:", e);
     return [];
@@ -153,10 +132,13 @@ export async function getProductBySlug(slug: string) {
   try {
     const supabase = await createClient();
     
-    // Fetch product by slug
+    // Fetch product by slug with variants
     const { data: product, error: productError } = await supabase
       .from("products")
-      .select("*")
+      .select(`
+        *,
+        product_variants (*)
+      `)
       .eq("slug", slug)
       .single();
 
@@ -164,51 +146,33 @@ export async function getProductBySlug(slug: string) {
       return null;
     }
 
-    // Fetch related data
-    const [pricingResult, featuresResult, requirementsResult, stockResult] = await Promise.all([
-      supabase.from("product_pricing").select("*").eq("product_id", product.id),
-      supabase.from("product_features").select("*").eq("product_id", product.id),
-      supabase.from("product_requirements").select("*").eq("product_id", product.id),
-      supabase
-        .from("licenses")
-        .select("product_id, variant_id")
-        .eq("status", "unused")
-        .or(`product_id.is.null,product_id.eq.${product.id}`),
-    ]);
-
-    // Calculate stock counts
-    let generalStock = 0;
-    let productSpecificStock = 0;
-    const variantStockMap = new Map<string, number>();
-
-    if (stockResult.data) {
-      stockResult.data.forEach((l) => {
-        if (!l.product_id) {
-          generalStock++;
-        } else if (!l.variant_id) {
-          productSpecificStock++;
-        } else {
-          variantStockMap.set(l.variant_id, (variantStockMap.get(l.variant_id) || 0) + 1);
-        }
-      });
-    }
-
-    let pricing = pricingResult.data || [];
-    // Inject real stock counts
-    pricing = pricing.map(p => {
-      const variantLevelStock = variantStockMap.get(p.id) || 0;
-      return {
-        ...p,
-        stock: generalStock + productSpecificStock + variantLevelStock
-      };
-    });
-
-    return transformProduct(
-      product,
-      pricing,
-      featuresResult.data || [],
-      requirementsResult.data || []
-    );
+    // Transform product to match expected format
+    return {
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      game: product.game,
+      description: product.description,
+      image: product.image || `/images/${product.slug}.jpg`,
+      status: product.status,
+      pricing: (product.product_variants || []).map((variant: any) => ({
+        duration: variant.duration,
+        price: variant.price,
+        stock: variant.stock || 0,
+      })),
+      features: {
+        aimbot: product.features?.filter((f: string) => f.toLowerCase().includes('aim')) || [],
+        esp: product.features?.filter((f: string) => f.toLowerCase().includes('esp') || f.toLowerCase().includes('wall')) || [],
+        misc: product.features?.filter((f: string) => !f.toLowerCase().includes('aim') && !f.toLowerCase().includes('esp') && !f.toLowerCase().includes('wall')) || product.features || [],
+      },
+      requirements: {
+        cpu: "Intel/AMD",
+        windows: product.requirements?.[0] || "Windows 10/11",
+        cheatType: "External",
+        controller: false,
+      },
+      gallery: product.gallery || [],
+    };
   } catch (e) {
     console.error("[Products] Exception fetching product:", e);
     return null;

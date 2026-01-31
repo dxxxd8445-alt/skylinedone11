@@ -14,8 +14,10 @@ const STORAGE_KEY = "magma_currency";
 
 export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const [currency, setCurrencyState] = useState<SupportedCurrency>("USD");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) setCurrencyState(raw as SupportedCurrency);
@@ -25,9 +27,11 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
 
   const setCurrency = (c: SupportedCurrency) => {
     setCurrencyState(c);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, c);
-    } catch {
+    if (mounted) {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, c);
+      } catch {
+      }
     }
   };
 

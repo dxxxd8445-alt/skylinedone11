@@ -154,6 +154,11 @@ export async function inviteTeamMember(data: {
       return { success: false, error: `Invite created but email failed: ${emailResult.error}` };
     }
 
+    // Log domain verification issues as info, not error
+    if (isResendTestModeError) {
+      console.info("[Admin] Email not sent due to domain verification:", emailResult.error);
+    }
+
     revalidatePath("/mgmt-x9k2m7/team");
     return {
       success: true,

@@ -1,0 +1,36 @@
+# ============================================
+# MAGMA STORE - NEW SUPABASE CONFIGURATION
+# Copy this to your .env.local file and fill in your values
+# ============================================
+
+# MoneyMotion Payment Configuration
+MONEYMOTION_API_KEY=mk_live_wxqbJHDGKmtI291K6kHNYZ2Bb2jx1srg
+MONEYMOTION_WEBHOOK_SECRET=201390195d17ee7f46c1dbb0b35e94de08582fa2b54662f295fd4dc528c23c0c
+
+# Resend Email Configuration
+RESEND_API_KEY=re_Rx5NegU6_9a5aHZXFUUJakWFYT8kMM2Cy
+RESEND_FROM_EMAIL=Magma <noreply@yourdomain.com>
+
+# Application Configuration
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+ADMIN_PASSWORD=mG7vK2QpN9xR5tH3yL8sD4wZ
+STORE_SESSION_SECRET=your_32_character_random_secret_key_here_make_it_secure
+
+# ⚠️ REPLACE THESE WITH YOUR NEW SUPABASE PROJECT VALUES ⚠️
+# Get these from: Supabase Dashboard > Settings > API
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_ID.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_public_key_here
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_secret_key_here
+
+# Discord Configuration
+NEXT_PUBLIC_DISCORD_URL=https://discord.gg/magmacheats
+
+# ============================================
+# INSTRUCTIONS:
+# 1. Create new Supabase project at https://supabase.com/dashboard
+# 2. Go to Settings > API and copy your keys
+# 3. Replace the SUPABASE values above
+# 4. Run the SQL setup scripts in your Supabase SQL Editor
+# 5. Update your .env.local file with these values
+# 6. Restart your development server
+# ============================================

@@ -20,6 +20,7 @@ import { searchProducts } from "@/lib/supabase/data";
 import { AuthDropdown } from "@/components/auth-dropdown";
 import { useCart } from "@/lib/cart-context";
 import { CartDropdown } from "@/components/cart-dropdown";
+import { CartCounter } from "@/components/cart-counter";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,15 +34,22 @@ import type { SupportedCurrency } from "@/lib/money";
 
 export function Header() {
   const router = useRouter();
-  const { getItemCount } = useCart();
+  const [cartCount, setCartCount] = useState(0);
+  const [mounted, setMounted] = useState(false);
+  
+  // Always call hooks - never conditionally
   const { currency, setCurrency } = useCurrency();
   const { language, setLanguage, t } = useI18n();
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  const cartCount = getItemCount();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Handle search
   useEffect(() => {
@@ -98,7 +106,8 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { icon: Home, label: "HOME", href: "/", mobileOnly: true },
+    { icon: null, label: "HOME", href: "/", isLogo: true },
+    { icon: Home, label: "HOME", href: "/" },
     { icon: Store, label: t("nav_store"), href: "/store" },
     { icon: BarChart3, label: t("nav_status"), href: "/status" },
     { icon: BookOpen, label: t("nav_guides"), href: "/guides" },
@@ -212,21 +221,23 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
             <div className="relative transition-transform duration-300 group-hover:scale-110">
               <Image
                 src="/images/magma-logo.png"
                 alt="Magma Cheats"
                 width={300}
                 height={80}
-                className="h-10 sm:h-11 md:h-11 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_14px_rgba(220,38,38,0.6)]"
+                className="h-6 sm:h-7 md:h-8 lg:h-9 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_14px_rgba(220,38,38,0.6)]"
+                priority
               />
             </div>
           </Link>
 
           {/* Navigation - Desktop */}
           <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
-            {navItems.filter(item => !item.mobileOnly).map((item, i) =>
+            {/* Render navigation items (excluding logo since it's already in the main logo section) */}
+            {navItems.filter(item => !item.isLogo && item.label !== "HOME").map((item, i) =>
               item.external ? (
                 <a
                   key={i}
@@ -235,7 +246,7 @@ export function Header() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-white/70 hover:text-[#dc2626] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap"
                 >
-                  <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                  {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
                   <span>{item.label}</span>
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#dc2626] transition-all duration-300 group-hover:w-full" />
                 </a>
@@ -245,7 +256,7 @@ export function Header() {
                   href={item.href}
                   className="flex items-center gap-1.5 text-white/70 hover:text-[#dc2626] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap"
                 >
-                  <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                  {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
                   <span>{item.label}</span>
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#dc2626] transition-all duration-300 group-hover:w-full" />
                 </Link>
@@ -345,31 +356,33 @@ export function Header() {
 
             {/* Cart & Auth Dropdown */}
             <div className="hidden md:flex items-center gap-2">
-              <div className="hidden md:flex items-center gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold"
-                      aria-label="Currency"
-                      type="button"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <img
-                          src={currencyMeta[currency].flagUrl}
-                          alt={currency}
-                          className="w-4 h-4 rounded-[2px]"
-                          loading="lazy"
-                        />
-                        <span className="text-white/90">{currencyMeta[currency].symbol}</span>
-                        <span>{currency}</span>
-                      </span>
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-44 bg-[#111111] border border-[#1a1a1a] text-white">
-                    <DropdownMenuRadioGroup
-                      value={currency}
-                      onValueChange={(v) => setCurrency(v as SupportedCurrency)}
-                    >
+              {mounted && (
+                <div className="hidden md:flex items-center gap-2" suppressHydrationWarning>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold"
+                        aria-label="Currency"
+                        type="button"
+                        suppressHydrationWarning
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <img
+                            src={currencyMeta[currency].flagUrl}
+                            alt={currency}
+                            className="w-4 h-4 rounded-[2px]"
+                            loading="lazy"
+                          />
+                          <span className="text-white/90">{currencyMeta[currency].symbol}</span>
+                          <span>{currency}</span>
+                        </span>
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-44 bg-[#111111] border border-[#1a1a1a] text-white">
+                      <DropdownMenuRadioGroup
+                        value={currency}
+                        onValueChange={(v) => setCurrency(v as SupportedCurrency)}
+                      >
                       {currencyOptions.map((c) => (
                         <DropdownMenuRadioItem key={c.code} value={c.code} className="text-white/80">
                           <span className="inline-flex items-center gap-2">
@@ -394,6 +407,7 @@ export function Header() {
                       className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold"
                       aria-label="Language"
                       type="button"
+                      suppressHydrationWarning
                     >
                       <span className="inline-flex items-center gap-2">
                         <img
@@ -429,6 +443,7 @@ export function Header() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
+              )}
               <CartDropdown />
               <AuthDropdown />
             </div>
@@ -465,7 +480,7 @@ export function Header() {
                   alt="Magma Cheats"
                   width={240}
                   height={64}
-                  className="h-11 w-auto"
+                  className="h-8 w-auto"
                 />
               </Link>
               <button
@@ -540,61 +555,64 @@ export function Header() {
 
             {/* Mobile Cart & Auth Section */}
             <div className="px-5 py-4 border-b border-[#1a1a1a] space-y-3">
-              <div className="flex items-center gap-3">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      className="flex-1 h-11 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#dc2626]/30 hover:bg-[#262626] transition-all text-sm font-semibold"
-                      type="button"
-                      aria-label="Currency"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <img
-                          src={currencyMeta[currency].flagUrl}
-                          alt={currency}
-                          className="w-4 h-4 rounded-[2px]"
-                          loading="lazy"
-                        />
-                        <span className="text-white/90">{currencyMeta[currency].symbol}</span>
-                        <span>{currency}</span>
-                      </span>
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-48 bg-[#111111] border border-[#1a1a1a] text-white">
-                    <DropdownMenuRadioGroup
-                      value={currency}
-                      onValueChange={(v) => setCurrency(v as SupportedCurrency)}
-                    >
-                      {currencyOptions.map((c) => (
-                        <DropdownMenuRadioItem key={c.code} value={c.code} className="text-white/80">
-                          <span className="inline-flex items-center gap-2">
-                            <img
-                              src={currencyMeta[c.code].flagUrl}
-                              alt={c.code}
-                              className="w-4 h-4 rounded-[2px]"
-                              loading="lazy"
-                            />
-                            <span className="w-10 text-white/90">{currencyMeta[c.code].symbol}</span>
-                            <span>{c.label}</span>
-                          </span>
-                        </DropdownMenuRadioItem>
-                      ))}
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              {mounted && (
+                <div className="flex items-center gap-3">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className="flex-1 h-11 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#dc2626]/30 hover:bg-[#262626] transition-all text-sm font-semibold"
+                        type="button"
+                        aria-label="Currency"
+                        suppressHydrationWarning
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <img
+                            src={currencyMeta[currency].flagUrl}
+                            alt={currency}
+                            className="w-4 h-4 rounded-[2px]"
+                            loading="lazy"
+                          />
+                          <span className="text-white/90">{currencyMeta[currency].symbol}</span>
+                          <span>{currency}</span>
+                        </span>
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="w-48 bg-[#111111] border border-[#1a1a1a] text-white">
+                      <DropdownMenuRadioGroup
+                        value={currency}
+                        onValueChange={(v) => setCurrency(v as SupportedCurrency)}
+                      >
+                        {currencyOptions.map((c) => (
+                          <DropdownMenuRadioItem key={c.code} value={c.code} className="text-white/80">
+                            <span className="inline-flex items-center gap-2">
+                              <img
+                                src={currencyMeta[c.code].flagUrl}
+                                alt={c.code}
+                                className="w-4 h-4 rounded-[2px]"
+                                loading="lazy"
+                              />
+                              <span className="w-10 text-white/90">{currencyMeta[c.code].symbol}</span>
+                              <span>{c.label}</span>
+                            </span>
+                          </DropdownMenuRadioItem>
+                        ))}
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
 
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button
-                      className="flex-1 h-11 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#dc2626]/30 hover:bg-[#262626] transition-all text-sm font-semibold"
-                      type="button"
-                      aria-label="Language"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        <img
-                          src={languageMeta[language].flagUrl}
-                          alt={language.toUpperCase()}
-                          className="w-4 h-4 rounded-[2px]"
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button
+                        className="flex-1 h-11 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#dc2626]/30 hover:bg-[#262626] transition-all text-sm font-semibold"
+                        type="button"
+                        aria-label="Language"
+                        suppressHydrationWarning
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <img
+                            src={languageMeta[language].flagUrl}
+                            alt={language.toUpperCase()}
+                            className="w-4 h-4 rounded-[2px]"
                           loading="lazy"
                         />
                         <span>{language.toUpperCase()}</span>
@@ -624,28 +642,34 @@ export function Header() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
+              )}
 
-              <Link
-                href="/cart"
-                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#1a1a1a] transition-colors"
-              >
-                <div className="relative">
-                  <ShoppingCart className="w-5 h-5 text-white/60" />
-                  {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#dc2626] text-white text-xs font-bold rounded-full flex items-center justify-center">
-                      {cartCount > 9 ? "9+" : cartCount}
-                    </span>
-                  )}
-                </div>
-                <span className="text-white/80 font-medium">Cart ({cartCount})</span>
-              </Link>
+              <CartCounter />
               <AuthDropdown />
             </div>
 
             {/* Navigation Links */}
             <nav className="flex-1 px-5 py-4 overflow-y-auto">
               <ul className="space-y-1">
-                {navItems.map((item, i) => (
+                {/* Always render logo first */}
+                <li>
+                  <Link
+                    href="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626]"
+                  >
+                    <Image
+                      src="/images/magma-logo.png"
+                      alt="Magma"
+                      width={160}
+                      height={42}
+                      className="h-7 w-auto transition-all duration-300"
+                    />
+                  </Link>
+                </li>
+                
+                {/* Render other navigation items */}
+                {navItems.filter(item => !item.isLogo).map((item, i) => (
                   <li key={i}>
                     {item.external ? (
                       <a
@@ -656,7 +680,7 @@ export function Header() {
                         className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626]"
                       >
                         <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#1a1a1a]">
-                          <item.icon className="w-5 h-5" />
+                          {item.icon && <item.icon className="w-5 h-5" />}
                         </div>
                         <span className="text-lg font-medium">{item.label}</span>
                       </a>
@@ -673,7 +697,7 @@ export function Header() {
                         <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${
                           item.label === "ADMIN" ? "bg-[#dc2626]/20" : "bg-[#1a1a1a]"
                         }`}>
-                          <item.icon className="w-5 h-5" />
+                          {item.icon && <item.icon className="w-5 h-5" />}
                         </div>
                         <span className="text-lg font-medium">{item.label}</span>
                       </Link>

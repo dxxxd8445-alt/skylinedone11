@@ -470,8 +470,10 @@ const translations: Record<SupportedLanguage, Record<string, string>> = {
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<SupportedLanguage>("en");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       if (raw) setLanguageState(raw as SupportedLanguage);
@@ -481,9 +483,11 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
 
   const setLanguage = (l: SupportedLanguage) => {
     setLanguageState(l);
-    try {
-      window.localStorage.setItem(STORAGE_KEY, l);
-    } catch {
+    if (mounted) {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, l);
+      } catch {
+      }
     }
   };
 

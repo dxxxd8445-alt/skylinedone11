@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +12,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    // Use admin client instead of server client to bypass RLS
+    const supabase = createAdminClient();
 
     // Query the coupon
     const { data: coupon, error } = await supabase
@@ -23,6 +24,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error || !coupon) {
+      console.log("[API] Coupon validation - not found:", { code: code.toUpperCase(), error: error?.message });
       return NextResponse.json({
         valid: false,
         message: "Invalid coupon code",
@@ -44,6 +46,8 @@ export async function POST(request: NextRequest) {
         message: "Coupon has expired",
       });
     }
+
+    console.log("[API] Coupon validation - success:", { code: coupon.code, discount: coupon.discount_value });
 
     return NextResponse.json({
       valid: true,

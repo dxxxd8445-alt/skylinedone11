@@ -3,14 +3,13 @@
 import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { DataTable } from "@/components/admin/data-table";
-import { createClient } from "@/lib/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { RefreshCw, Plus, Edit, Trash2, Power, Tag, Percent, Users, Calendar, AlertCircle, Check, X, Ticket, TrendingUp, Infinity } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { createCoupon, updateCoupon, deleteCoupon, toggleCouponStatus } from "@/app/actions/admin-coupons";
+import { createCoupon, updateCoupon, deleteCoupon, toggleCouponStatus, loadCoupons } from "@/app/actions/admin-coupons";
 
 interface Coupon {
   id: string;
@@ -57,7 +56,7 @@ export default function CouponsPage() {
   const { toast } = useToast();
 
   useEffect(() => {
-    loadCoupons();
+    loadCouponsData();
   }, []);
 
   // Real-time coupon code validation
@@ -71,20 +70,26 @@ export default function CouponsPage() {
       setCodeValidation({ isChecking: true, isValid: true, message: "Checking..." });
 
       try {
-        const supabase = createClient();
-        const { data: existingCoupon } = await supabase
-          .from("coupons")
-          .select("id")
-          .eq("code", formData.code.toUpperCase())
-          .single();
+        // Use the validation API endpoint instead of direct database query
+        const response = await fetch('/api/validate-coupon', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ code: formData.code.toUpperCase() }),
+        });
 
-        if (existingCoupon) {
+        const result = await response.json();
+
+        if (result.valid) {
+          // Coupon exists and is valid, so it's NOT available for creation
           setCodeValidation({
             isChecking: false,
             isValid: false,
             message: "This coupon code already exists",
           });
         } else {
+          // Coupon doesn't exist or is invalid, so it's available for creation
           setCodeValidation({
             isChecking: false,
             isValid: true,
@@ -92,20 +97,12 @@ export default function CouponsPage() {
           });
         }
       } catch (error: any) {
-        // PGRST116 means no rows found, which is good (code is available)
-        if (error.code === "PGRST116") {
-          setCodeValidation({
-            isChecking: false,
-            isValid: true,
-            message: "Code is available",
-          });
-        } else {
-          setCodeValidation({
-            isChecking: false,
-            isValid: true,
-            message: "",
-          });
-        }
+        console.error('Validation error:', error);
+        setCodeValidation({
+          isChecking: false,
+          isValid: true,
+          message: "",
+        });
       }
     };
 
@@ -113,36 +110,30 @@ export default function CouponsPage() {
     return () => clearTimeout(timeoutId);
   }, [formData.code]);
 
-  async function loadCoupons() {
+  async function loadCouponsData() {
     try {
       setLoading(true);
-      const supabase = createClient();
       
       // Debug: Log the query
-      console.log("[Coupons] Loading coupons...");
+      console.log("[Coupons] Loading coupons via server action...");
       
-      const { data, error } = await supabase
-        .from("coupons")
-        .select("*")
-        .order("created_at", { ascending: false });
+      const result = await loadCoupons();
 
-      console.log("[Coupons] Query result:", { data, error });
+      console.log("[Coupons] Server action result:", result);
 
-      if (error) {
-        console.error("[Coupons] Database error:", error);
+      if (!result.success) {
+        console.error("[Coupons] Server action error:", result.error);
         toast({
-          title: "Database Error",
-          description: `Failed to load coupons: ${error.message}`,
+          title: "Error",
+          description: result.error || "Failed to load coupons",
           variant: "destructive",
         });
         return;
       }
       
-      setCoupons(data || []);
-      console.log("[Coupons] Loaded", data?.length || 0, "coupons");
+      setCoupons(result.coupons || []);
+      console.log("[Coupons] Loaded", result.coupons?.length || 0, "coupons");
       
-      // Force a re-render by updating the key
-      setLoading(false);
     } catch (error) {
       console.error("Failed to load coupons:", error);
       toast({
@@ -178,7 +169,7 @@ export default function CouponsPage() {
       
       setShowAddModal(false);
       resetForm();
-      await loadCoupons();
+      await loadCouponsData();
     } catch (error: any) {
       console.error("Failed to add coupon:", error);
       toast({
@@ -217,7 +208,7 @@ export default function CouponsPage() {
       setShowEditModal(false);
       setSelectedCoupon(null);
       resetForm();
-      await loadCoupons();
+      await loadCouponsData();
     } catch (error: any) {
       console.error("Failed to edit coupon:", error);
       toast({
@@ -250,7 +241,7 @@ export default function CouponsPage() {
       
       setShowDeleteModal(false);
       setSelectedCoupon(null);
-      await loadCoupons();
+      await loadCouponsData();
     } catch (error: any) {
       console.error("Failed to delete coupon:", error);
       toast({
@@ -279,7 +270,7 @@ export default function CouponsPage() {
         className: !coupon.is_active ? "border-green-500/20 bg-green-500/10" : "border-gray-500/20 bg-gray-500/10",
       });
       
-      await loadCoupons();
+      await loadCouponsData();
     } catch (error: any) {
       console.error("Failed to toggle coupon status:", error);
       toast({
@@ -540,7 +531,7 @@ export default function CouponsPage() {
       <div className="mb-6 flex items-center justify-between">
         <div className="flex gap-2">
           <Button
-            onClick={() => loadCoupons()}
+            onClick={() => loadCouponsData()}
             variant="outline"
             size="sm"
             disabled={loading}

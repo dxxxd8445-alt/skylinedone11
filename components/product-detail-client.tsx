@@ -241,7 +241,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
       image: product.image,
       duration: selectedTier.duration,
       price: selectedTier.price,
-      quantity: quantity,
+      quantity: 1, // Fixed quantity since selector removed
     });
     setShowAddToCartModal(true);
   };
@@ -284,7 +284,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
         throw new Error("No pricing available for this product");
       }
       
-      let totalAmount = selectedTier.price * quantity;
+      let totalAmount = selectedTier.price; // Single quantity since selector removed
       
       if (couponDiscount > 0) {
         totalAmount = totalAmount * (1 - couponDiscount / 100);
@@ -464,87 +464,80 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               </div>
             </div>
 
-            {/* Enhanced Price Display */}
-            <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#dc2626]/30 rounded-2xl p-6 relative overflow-hidden group">
+            {/* Enhanced Price Display - Mobile Optimized */}
+            <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#dc2626]/30 rounded-2xl p-4 sm:p-6 relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="relative flex items-end justify-between">
+              <div className="relative">
                 {selectedTier ? (
-                  <>
-                    <div>
-                      <p className="text-white/60 text-sm mb-2 flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        {selectedTier.duration}
-                      </p>
-                      <p className="text-5xl font-bold text-white flex items-baseline gap-2">
-                        <span className="text-[#dc2626]">
-                          {formatMoney({ amountUsd: selectedTier.price, currency, locale })}
-                        </span>
-                      </p>
-                      <p className="text-white/40 text-sm mt-1">per license</p>
+                  <div className="space-y-4">
+                    {/* Duration and Price */}
+                    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                      <div className="flex-1">
+                        <p className="text-white/60 text-sm mb-2 flex items-center gap-2">
+                          <Clock className="w-4 h-4" />
+                          {selectedTier.duration}
+                        </p>
+                        <p className="text-4xl sm:text-5xl font-bold text-white flex items-baseline gap-2">
+                          <span className="text-[#dc2626]">
+                            {formatMoney({ amountUsd: selectedTier.price, currency, locale })}
+                          </span>
+                        </p>
+                        <p className="text-white/40 text-sm mt-1">per license</p>
+                      </div>
+                      
+                      {/* Stock Indicator - Removed per user request */}
                     </div>
-                  </>
+                    
+                    {/* Quantity selector removed - users can adjust in cart */}
+                  </div>
                 ) : (
                   <div>
                     <p className="text-white/60 text-sm mb-2">No pricing available</p>
                     <p className="text-2xl font-bold text-white/40">Contact admin</p>
                   </div>
                 )}
-                
-                {/* Enhanced Quantity Selector */}
-                <div className="flex items-center gap-3 bg-[#0a0a0a] rounded-xl p-2 border border-[#1a1a1a]">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95"
-                  >
-                    <Minus className="w-5 h-5" />
-                  </button>
-                  <span className="w-12 text-center text-white font-bold text-xl">{quantity}</span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95"
-                  >
-                    <Plus className="w-5 h-5" />
-                  </button>
-                </div>
               </div>
             </div>
 
-            {/* Enhanced Variant Cards */}
+            {/* Enhanced Variant Cards - Mobile Optimized */}
             <div className="space-y-3">
               <p className="text-white/60 text-sm font-medium flex items-center gap-2">
                 <Package className="w-4 h-4" />
                 Select Duration
               </p>
               {hasPricing ? (
-                product.pricing.map((tier, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedPriceIndex(index)}
-                    className={`relative w-full p-5 rounded-xl border-2 transition-all text-left group overflow-hidden ${
-                      selectedPriceIndex === index
-                        ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] border-[#dc2626] text-white shadow-2xl shadow-[#dc2626]/40 scale-105"
-                        : "bg-[#111111] border-[#262626] text-white hover:border-[#dc2626]/50 hover:bg-[#1a1a1a] hover:scale-102"
-                    }`}
-                  >
-                    {selectedPriceIndex === index && (
-                      <div className="absolute top-3 right-3">
-                        <CheckCircle className="w-6 h-6 text-white" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                  {product.pricing.map((tier, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedPriceIndex(index)}
+                      className={`relative w-full p-4 sm:p-5 rounded-xl border-2 transition-all text-left group overflow-hidden touch-manipulation ${
+                        selectedPriceIndex === index
+                          ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] border-[#dc2626] text-white shadow-2xl shadow-[#dc2626]/40 scale-105"
+                          : "bg-[#111111] border-[#262626] text-white hover:border-[#dc2626]/50 hover:bg-[#1a1a1a] hover:scale-102"
+                      }`}
+                    >
+                      {selectedPriceIndex === index && (
+                        <div className="absolute top-3 right-3">
+                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                        </div>
+                      )}
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pr-8 sm:pr-10 gap-2">
+                        <div className="flex-1">
+                          <p className="text-white/80 text-sm flex items-center gap-2 mb-1">
+                            <Clock className="w-3 h-3" />
+                            {tier.duration}
+                          </p>
+                          <p className="font-bold text-xl sm:text-2xl">{formatMoney({ amountUsd: tier.price, currency, locale })}</p>
+                          {selectedPriceIndex !== index && (
+                            <p className="text-xs text-white/50 mt-1">Save more with longer plans</p>
+                          )}
+                        </div>
+                        {/* Stock info removed per user request */}
                       </div>
-                    )}
-                    <div className="flex items-center justify-between pr-10">
-                      <div>
-                        <p className="text-white/80 text-sm flex items-center gap-2">
-                          <Clock className="w-3 h-3" />
-                          {tier.duration}
-                        </p>
-                        <p className="font-bold text-2xl">{formatMoney({ amountUsd: tier.price, currency, locale })}</p>
-                        {selectedPriceIndex !== index && (
-                          <p className="text-xs text-white/50 mt-1">Save more with longer plans</p>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-                ))
+                    </button>
+                  ))}
+                </div>
               ) : (
                 <div className="p-6 bg-[#111111] border-2 border-[#262626] rounded-xl text-center">
                   <p className="text-white/60 mb-2">No pricing configured</p>
@@ -561,29 +554,29 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               </div>
             )}
 
-            {/* Enhanced Action Buttons */}
-            <div className="space-y-4">
+            {/* Enhanced Action Buttons - Mobile Optimized */}
+            <div className="space-y-3 sm:space-y-4">
               <button
                 onClick={handleAddToCart}
-                className="relative w-full py-5 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-white text-[#0a0a0a] hover:bg-white/90 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-1"
+                className="relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-white text-[#0a0a0a] hover:bg-white/90 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-1 touch-manipulation"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <ShoppingCart className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform" />
                 Add To Cart
               </button>
               
               <button
                 onClick={handleBuyNow}
-                disabled={!selectedTier || selectedTier.stock === 0}
-                className="relative w-full py-5 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white hover:from-[#ef4444] hover:to-[#dc2626] hover:shadow-2xl hover:shadow-[#dc2626]/40 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+                disabled={!selectedTier}
+                className="relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white hover:from-[#ef4444] hover:to-[#dc2626] hover:shadow-2xl hover:shadow-[#dc2626]/40 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none touch-manipulation"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <Zap className="w-6 h-6 group-hover:scale-110 transition-transform" />
-                {selectedTier 
-                  ? (selectedTier.stock > 0 
-                      ? `Buy Now - ${formatMoney({ amountUsd: selectedTier.price * quantity, currency, locale })}` 
-                      : 'Out of Stock') 
-                  : 'No pricing available'}
+                <Zap className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
+                <span className="text-center">
+                  {selectedTier 
+                    ? `Buy Now - ${formatMoney({ amountUsd: selectedTier.price, currency, locale })}` 
+                    : 'No pricing available'}
+                </span>
               </button>
             </div>
 
@@ -896,18 +889,18 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
             <div className="bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl p-5 mb-6 space-y-3">
               <div className="flex justify-between text-white/80">
                 <span>Subtotal</span>
-                <span className="font-semibold">{formatMoney({ amountUsd: product.pricing[selectedPriceIndex].price * quantity, currency, locale })}</span>
+                <span className="font-semibold">{formatMoney({ amountUsd: product.pricing[selectedPriceIndex].price, currency, locale })}</span>
               </div>
               {couponDiscount > 0 && (
                 <div className="flex justify-between text-green-400">
                   <span>Discount ({couponDiscount}%)</span>
-                  <span className="font-semibold">-{formatMoney({ amountUsd: (product.pricing[selectedPriceIndex].price * quantity * couponDiscount) / 100, currency, locale })}</span>
+                  <span className="font-semibold">-{formatMoney({ amountUsd: (product.pricing[selectedPriceIndex].price * couponDiscount) / 100, currency, locale })}</span>
                 </div>
               )}
               <div className="border-t-2 border-[#1a1a1a] pt-3 flex justify-between items-center">
                 <span className="text-white font-bold text-lg">Total</span>
                 <span className="text-[#dc2626] font-bold text-3xl">
-                  {formatMoney({ amountUsd: (product.pricing[selectedPriceIndex].price * quantity) * (1 - couponDiscount / 100), currency, locale })}
+                  {formatMoney({ amountUsd: product.pricing[selectedPriceIndex].price * (1 - couponDiscount / 100), currency, locale })}
                 </span>
               </div>
             </div>
@@ -1003,7 +996,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
           name: product.name,
           image: product.image,
           duration: selectedTier ? selectedTier.duration : 'N/A',
-          quantity: quantity,
+          quantity: 1, // Fixed quantity since selector removed
         }}
       />
 
