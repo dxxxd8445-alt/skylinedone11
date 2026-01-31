@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { processPurchase, validateCoupon } from "@/lib/purchase-actions";
+import { validateCoupon } from "@/lib/purchase-actions";
 import { useCart } from "@/lib/cart-context";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -290,27 +290,36 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
         totalAmount = totalAmount * (1 - couponDiscount / 100);
       }
 
-      const result = await processPurchase({
+      // Prepare checkout item for Stripe
+      const checkoutItem = {
+        id: `${product.id}-${selectedTier.duration}`,
         productId: product.id,
-        productName: `${product.name} - ${product.game}`,
-        productSlug: product.slug,
+        productName: product.name,
+        game: product.game,
         duration: selectedTier.duration,
-        price: totalAmount,
+        price: selectedTier.price,
+        quantity: 1,
+      };
+
+      console.log('🛒 Starting Stripe checkout for product:', checkoutItem);
+
+      // Import and use Stripe checkout
+      const { redirectToStripeCheckout } = await import("@/lib/stripe-checkout");
+      
+      const result = await redirectToStripeCheckout({
+        items: [checkoutItem],
         customerEmail: customerEmail,
         couponCode: couponValid ? couponCode : undefined,
+        couponDiscountAmount: couponDiscount > 0 ? (selectedTier.price * couponDiscount / 100) : undefined,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/payment/cancelled`,
       });
 
-      if (result.success && result.checkoutUrl) {
-        window.location.href = result.checkoutUrl;
-      } else if (result.success && result.licenseKey) {
-        setOrderDetails({
-          orderNumber: result.orderNumber || "",
-          licenseKey: result.licenseKey,
-        });
-        setPurchaseComplete(true);
-      } else {
-        setCheckoutError(result.error || "Failed to process purchase. Please try again.");
+      if (!result.success) {
+        setCheckoutError(result.error || "Failed to redirect to checkout. Please try again.");
       }
+      // Note: If successful, user will be redirected to Stripe, so no need to handle success here
+      
     } catch (error) {
       console.error("Checkout error:", error);
       setCheckoutError("An error occurred. Please try again.");
