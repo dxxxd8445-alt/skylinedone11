@@ -98,7 +98,7 @@ export default function ConfirmCheckoutPage() {
 
         const extractSessionIdFromCheckoutUrl = (checkoutUrl: string): string | null => {
           try {
-            const url = new URL(checkoutUrl, window.location.origin);
+            const url = new URL(checkoutUrl, process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc');
             const fromQuery = url.searchParams.get("sessionId");
             if (fromQuery) return fromQuery;
             const match = url.pathname.match(/\/checkout\/([^/]+)/i);

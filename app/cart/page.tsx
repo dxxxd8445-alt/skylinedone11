@@ -79,8 +79,8 @@ export default function CartPage() {
         customerEmail: user.email || '',
         couponCode: appliedCoupon?.code,
         couponDiscountAmount: discount,
-        successUrl: `${window.location.origin}/payment/success`,
-        cancelUrl: `${window.location.origin}/cart`,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/cart`,
       });
 
       if (!result.success) {

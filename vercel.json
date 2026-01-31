@@ -1,0 +1,13 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://magmacheats.cc",
+    "NEXT_PUBLIC_SUPABASE_URL": "https://bcjzfqvomwtuyznnlxha.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjanpmcXZvbXd0dXl6bm5seGhhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4NzA1NTUsImV4cCI6MjA4NTQ0NjU1NX0.sH5IPQ97DxvuSRATjtmnY9uw0ie76zNxRHDuIJzATNg",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_live_51Sf1VaRpmEagB4DmdsqbTNmaifi1alcAG9ixEewr11M3KLQ4BwpV7dkMiCTkA5gBLfRO9f6EgRz8w1AQdHk8jZE300esuBR7kj",
+    "NEXT_PUBLIC_DISCORD_URL": "https://discord.gg/magmacheats"
+  }
+}

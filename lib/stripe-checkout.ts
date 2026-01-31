@@ -23,6 +23,14 @@ export interface CheckoutOptions {
 }
 
 export async function redirectToStripeCheckout(options: CheckoutOptions) {
+  // Ensure this only runs on the client side
+  if (typeof window === 'undefined') {
+    return { 
+      success: false, 
+      error: 'This function can only be called on the client side' 
+    };
+  }
+
   try {
     console.log('🚀 Starting Stripe checkout with options:', options);
 
