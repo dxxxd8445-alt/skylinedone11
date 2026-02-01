@@ -168,11 +168,49 @@ export async function updateOrderStatus(
           updated_at: new Date().toISOString(),
         });
       }
+
+      // Trigger completed order webhook
+      const { triggerWebhooks } = await import("@/lib/discord-webhook");
+      await triggerWebhooks('order.completed', {
+        order_number: order.order_number,
+        customer_email: order.customer_email,
+        customer_name: order.customer_name || 'Unknown',
+        amount: order.amount_cents ? (order.amount_cents / 100) : (order.amount || 0),
+        currency: order.currency || 'USD',
+        status: 'completed',
+        items: [{
+          name: `${order.product_name} - ${order.duration}`,
+          quantity: 1,
+          price: order.amount_cents ? (order.amount_cents / 100) : (order.amount || 0),
+        }],
+      });
     } else if (newStatus === "refunded") {
       await supabase
         .from("licenses")
         .update({ status: "revoked", updated_at: new Date().toISOString() })
         .eq("order_id", orderId);
+
+      // Trigger refund webhook
+      const { triggerWebhooks } = await import("@/lib/discord-webhook");
+      await triggerWebhooks('order.refunded', {
+        order_number: order.order_number,
+        customer_email: order.customer_email,
+        customer_name: order.customer_name || 'Unknown',
+        amount: order.amount_cents ? (order.amount_cents / 100) : (order.amount || 0),
+        currency: order.currency || 'USD',
+        reason: 'Manual refund by admin',
+      });
+    } else if (newStatus === "failed") {
+      // Trigger failed payment webhook
+      const { triggerWebhooks } = await import("@/lib/discord-webhook");
+      await triggerWebhooks('payment.failed', {
+        order_number: order.order_number,
+        customer_email: order.customer_email,
+        customer_name: order.customer_name || 'Unknown',
+        amount: order.amount_cents ? (order.amount_cents / 100) : (order.amount || 0),
+        currency: order.currency || 'USD',
+        error_message: 'Order marked as failed by admin',
+      });
     }
 
     revalidatePath("/mgmt-x9k2m7/orders");

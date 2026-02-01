@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe, createStripeLineItems, formatAmountForStripe, STRIPE_CONFIG } from '@/lib/stripe';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { triggerWebhooks } from '@/lib/discord-webhook';
 
 export async function POST(request: NextRequest) {
   try {
@@ -104,8 +105,9 @@ export async function POST(request: NextRequest) {
     const session = await stripe.checkout.sessions.create(sessionParams);
     console.log('✅ Stripe session created:', session.id);
 
-    // Store session information in database for webhook processing
     const supabase = createAdminClient();
+
+    // Store session information in database for webhook processing
     try {
       console.log('💾 Storing session in database...');
       const { error: dbError } = await supabase.from('stripe_sessions').insert({
@@ -122,13 +124,86 @@ export async function POST(request: NextRequest) {
 
       if (dbError) {
         console.warn('⚠️ Failed to store session in database:', dbError);
-        // Don't fail the checkout if database storage fails
       } else {
         console.log('✅ Session stored in database');
       }
     } catch (dbError) {
       console.warn('⚠️ Database storage error:', dbError);
-      // Don't fail the checkout if database storage fails
+    }
+
+    // Create pending order immediately
+    try {
+      console.log('📝 Creating pending order...');
+      const orderNumber = `STRIPE-${Date.now()}-${session.id.slice(-8).toUpperCase()}`;
+      
+      // Get the first item for the order (assuming single product checkout for now)
+      const firstItem = items[0];
+      
+      const orderData = {
+        order_number: orderNumber,
+        customer_email,
+        product_id: firstItem.productId,
+        product_name: firstItem.productName,
+        duration: firstItem.duration,
+        amount_cents: Math.round(total * 100), // Store in cents
+        currency: 'USD',
+        status: 'pending',
+        payment_method: 'stripe',
+        stripe_session_id: session.id,
+        coupon_code: coupon_code || null,
+        coupon_discount_amount: discountAmount > 0 ? discountAmount : null,
+        metadata: JSON.stringify({
+          stripe_session: session.id,
+          items: items,
+          subtotal: subtotal,
+          discount: discountAmount,
+        }),
+        created_at: new Date().toISOString(),
+      };
+
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert(orderData)
+        .select()
+        .single();
+
+      if (orderError) {
+        console.error('❌ Failed to create pending order:', orderError);
+      } else {
+        console.log('✅ Pending order created:', order.order_number);
+
+        // Trigger checkout started webhook
+        await triggerWebhooks('checkout.started', {
+          customer_email,
+          session_id: session.id,
+          items: items.map((item: any) => ({
+            name: `${item.productName} - ${item.duration}`,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          subtotal,
+          discount: discountAmount,
+          total,
+          currency: 'USD',
+        });
+
+        // Trigger pending order webhook
+        await triggerWebhooks('order.pending', {
+          order_number: orderNumber,
+          customer_email,
+          amount: total,
+          currency: 'USD',
+          payment_method: 'stripe',
+          items: items.map((item: any) => ({
+            name: `${item.productName} - ${item.duration}`,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        });
+      }
+    } catch (orderError) {
+      console.error('❌ Error creating pending order:', orderError);
+      // Don't fail the checkout if order creation fails
     }
 
     console.log('🎉 Checkout session created successfully');

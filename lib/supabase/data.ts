@@ -79,11 +79,13 @@ export async function getProducts() {
       description: product.description,
       image: product.image || `/images/${product.slug}.jpg`,
       status: product.status,
-      pricing: (product.product_variants || []).map((variant: any) => ({
-        duration: variant.duration,
-        price: variant.price / 100, // Convert cents to dollars for frontend
-        stock: variant.stock || 0,
-      })),
+      pricing: (product.product_variants || [])
+        .map((variant: any) => ({
+          duration: variant.duration,
+          price: variant.price / 100, // Convert cents to dollars for frontend
+          stock: variant.stock || 0,
+        }))
+        .sort((a, b) => a.price - b.price), // Sort by price ascending (lowest first)
       features: {
         aimbot: product.features?.filter((f: string) => f.toLowerCase().includes('aim')) || [],
         esp: product.features?.filter((f: string) => f.toLowerCase().includes('esp') || f.toLowerCase().includes('wall')) || [],
@@ -155,11 +157,13 @@ export async function getProductBySlug(slug: string) {
       description: product.description,
       image: product.image || `/images/${product.slug}.jpg`,
       status: product.status,
-      pricing: (product.product_variants || []).map((variant: any) => ({
-        duration: variant.duration,
-        price: variant.price / 100, // Convert cents to dollars for frontend
-        stock: variant.stock || 0,
-      })),
+      pricing: (product.product_variants || [])
+        .map((variant: any) => ({
+          duration: variant.duration,
+          price: variant.price / 100, // Convert cents to dollars for frontend
+          stock: variant.stock || 0,
+        }))
+        .sort((a, b) => a.price - b.price), // Sort by price ascending (lowest first)
       features: {
         aimbot: product.features?.filter((f: string) => f.toLowerCase().includes('aim')) || [],
         esp: product.features?.filter((f: string) => f.toLowerCase().includes('esp') || f.toLowerCase().includes('wall')) || [],

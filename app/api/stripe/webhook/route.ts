@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as any;
-        console.log('Checkout session completed:', session.id);
+        console.log('🎉 Checkout session completed:', session.id);
 
         // Get session details with line items
         const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
@@ -50,41 +50,71 @@ export async function POST(request: NextRequest) {
           })
           .eq('session_id', session.id);
 
-        // Create order record
-        const orderData = {
-          order_number: `STRIPE-${session.id.slice(-8).toUpperCase()}`,
-          customer_email: session.customer_details?.email || session.metadata?.customer_email,
-          customer_name: session.customer_details?.name || 'Unknown',
-          amount_cents: session.amount_total || 0, // Store in cents as integer
-          currency: session.currency?.toUpperCase() || 'USD',
-          status: 'completed',
-          payment_method: 'stripe',
-          payment_intent_id: session.payment_intent,
-          stripe_session_id: session.id,
-          billing_address: JSON.stringify(session.customer_details?.address),
-          coupon_code: session.metadata?.coupon_code || null,
-          coupon_discount_amount: session.metadata?.coupon_discount_amount ? 
-            parseFloat(session.metadata.coupon_discount_amount) : null,
-          metadata: JSON.stringify({
-            stripe_session: session.id,
-            customer_details: session.customer_details,
-            custom_fields: session.custom_fields,
-          }),
-          created_at: new Date().toISOString(),
-        };
-
-        const { data: order, error: orderError } = await supabase
+        // Find and update the pending order
+        const { data: existingOrder } = await supabase
           .from('orders')
-          .insert(orderData)
-          .select()
+          .select('*')
+          .eq('stripe_session_id', session.id)
           .single();
 
-        if (orderError) {
-          console.error('Failed to create order:', orderError);
-          throw orderError;
-        }
+        let order;
+        if (existingOrder) {
+          // Update existing pending order
+          const { data: updatedOrder, error: updateError } = await supabase
+            .from('orders')
+            .update({
+              status: 'completed',
+              payment_intent_id: session.payment_intent,
+              billing_address: JSON.stringify(session.customer_details?.address),
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', existingOrder.id)
+            .select()
+            .single();
 
-        console.log('Order created:', order.id);
+          if (updateError) {
+            console.error('Failed to update existing order:', updateError);
+            throw updateError;
+          }
+          order = updatedOrder;
+          console.log('✅ Updated existing order:', order.order_number);
+        } else {
+          // Create new order if none exists (fallback)
+          const orderData = {
+            order_number: `STRIPE-${session.id.slice(-8).toUpperCase()}`,
+            customer_email: session.customer_details?.email || session.metadata?.customer_email,
+            customer_name: session.customer_details?.name || 'Unknown',
+            amount_cents: session.amount_total || 0,
+            currency: session.currency?.toUpperCase() || 'USD',
+            status: 'completed',
+            payment_method: 'stripe',
+            payment_intent_id: session.payment_intent,
+            stripe_session_id: session.id,
+            billing_address: JSON.stringify(session.customer_details?.address),
+            coupon_code: session.metadata?.coupon_code || null,
+            coupon_discount_amount: session.metadata?.coupon_discount_amount ? 
+              parseFloat(session.metadata.coupon_discount_amount) : null,
+            metadata: JSON.stringify({
+              stripe_session: session.id,
+              customer_details: session.customer_details,
+              custom_fields: session.custom_fields,
+            }),
+            created_at: new Date().toISOString(),
+          };
+
+          const { data: newOrder, error: orderError } = await supabase
+            .from('orders')
+            .insert(orderData)
+            .select()
+            .single();
+
+          if (orderError) {
+            console.error('Failed to create order:', orderError);
+            throw orderError;
+          }
+          order = newOrder;
+          console.log('✅ Created new order:', order.order_number);
+        }
 
         // Process each line item to create licenses
         if (fullSession.line_items?.data) {
@@ -127,15 +157,15 @@ export async function POST(request: NextRequest) {
                   .from('licenses')
                   .update({
                     status: 'active',
-                    customer_email: orderData.customer_email,
+                    customer_email: order.customer_email,
                     order_id: order.id,
                     assigned_at: new Date().toISOString(),
                   })
                   .eq('id', availableLicense.id);
 
-                console.log(`License assigned: ${availableLicense.license_key}`);
+                console.log(`✅ License assigned: ${availableLicense.license_key}`);
               } else {
-                console.warn(`No available license for product ${productId}, variant ${variantId}`);
+                console.warn(`⚠️ No available license for product ${productId}, variant ${variantId}`);
                 
                 // Create a placeholder license record to track the sale
                 await supabase.from('licenses').insert({
@@ -144,7 +174,7 @@ export async function POST(request: NextRequest) {
                   product_name: productData?.name || 'Unknown Product',
                   license_key: `PENDING-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
                   status: 'pending',
-                  customer_email: orderData.customer_email,
+                  customer_email: order.customer_email,
                   order_id: order.id,
                   assigned_at: new Date().toISOString(),
                   created_at: new Date().toISOString(),
@@ -156,7 +186,6 @@ export async function POST(request: NextRequest) {
 
         // Update coupon usage if applicable
         if (session.metadata?.coupon_code) {
-          // Get current usage and increment
           const { data: coupon } = await supabase
             .from('coupons')
             .select('current_uses')
@@ -174,16 +203,15 @@ export async function POST(request: NextRequest) {
           }
         }
 
-        // TODO: Send confirmation email to customer
-        console.log('Payment processing completed for session:', session.id);
+        console.log('🎉 Payment processing completed for session:', session.id);
 
-        // Trigger Discord webhooks for new order
+        // Trigger Discord webhooks for completed order
         await triggerWebhooks('payment.completed', {
           order_number: order.order_number,
-          customer_email: orderData.customer_email,
-          customer_name: orderData.customer_name,
-          amount: formatAmountFromStripe(orderData.amount_cents), // Convert cents to dollars for display
-          currency: orderData.currency,
+          customer_email: order.customer_email,
+          customer_name: order.customer_name || session.customer_details?.name || 'Unknown',
+          amount: formatAmountFromStripe(order.amount_cents),
+          currency: order.currency,
           payment_intent_id: session.payment_intent,
           stripe_session_id: session.id,
           items: fullSession.line_items?.data?.map(item => ({
@@ -196,10 +224,10 @@ export async function POST(request: NextRequest) {
         // Also trigger order.completed event
         await triggerWebhooks('order.completed', {
           order_number: order.order_number,
-          customer_email: orderData.customer_email,
-          customer_name: orderData.customer_name,
-          amount: formatAmountFromStripe(orderData.amount_cents), // Convert cents to dollars for display
-          currency: orderData.currency,
+          customer_email: order.customer_email,
+          customer_name: order.customer_name || session.customer_details?.name || 'Unknown',
+          amount: formatAmountFromStripe(order.amount_cents),
+          currency: order.currency,
           status: 'completed',
           items: fullSession.line_items?.data?.map(item => ({
             name: (item.price?.product as any)?.name || 'Unknown Product',
@@ -212,7 +240,7 @@ export async function POST(request: NextRequest) {
 
       case 'checkout.session.expired': {
         const session = event.data.object as any;
-        console.log('Checkout session expired:', session.id);
+        console.log('⏰ Checkout session expired:', session.id);
 
         // Update session status
         await supabase
@@ -222,30 +250,112 @@ export async function POST(request: NextRequest) {
             updated_at: new Date().toISOString(),
           })
           .eq('session_id', session.id);
+
+        // Update any related pending orders to failed
+        const { data: expiredOrder } = await supabase
+          .from('orders')
+          .update({
+            status: 'failed',
+            updated_at: new Date().toISOString(),
+          })
+          .eq('stripe_session_id', session.id)
+          .select()
+          .single();
+
+        if (expiredOrder) {
+          // Trigger webhook for expired/failed order
+          await triggerWebhooks('payment.failed', {
+            order_number: expiredOrder.order_number,
+            customer_email: expiredOrder.customer_email,
+            amount: formatAmountFromStripe(expiredOrder.amount_cents),
+            currency: expiredOrder.currency,
+            error_message: 'Checkout session expired - customer did not complete payment',
+          });
+        }
         break;
       }
 
       case 'payment_intent.payment_failed': {
         const paymentIntent = event.data.object as any;
-        console.log('Payment failed:', paymentIntent.id);
+        console.log('❌ Payment failed:', paymentIntent.id);
 
         // Update any related orders
-        await supabase
+        const { data: failedOrders } = await supabase
           .from('orders')
           .update({ 
             status: 'failed',
             updated_at: new Date().toISOString(),
           })
-          .eq('payment_intent_id', paymentIntent.id);
+          .eq('payment_intent_id', paymentIntent.id)
+          .select();
 
         // Trigger Discord webhooks for failed payment
-        await triggerWebhooks('payment.failed', {
-          payment_intent_id: paymentIntent.id,
-          customer_email: paymentIntent.receipt_email,
-          amount: formatAmountFromStripe(paymentIntent.amount || 0),
-          currency: paymentIntent.currency?.toUpperCase(),
-          error_message: paymentIntent.last_payment_error?.message || 'Payment failed',
-        });
+        if (failedOrders && failedOrders.length > 0) {
+          for (const failedOrder of failedOrders) {
+            await triggerWebhooks('payment.failed', {
+              payment_intent_id: paymentIntent.id,
+              order_number: failedOrder.order_number,
+              customer_email: failedOrder.customer_email,
+              customer_name: failedOrder.customer_name,
+              amount: formatAmountFromStripe(failedOrder.amount_cents),
+              currency: failedOrder.currency,
+              error_message: paymentIntent.last_payment_error?.message || 'Payment failed',
+            });
+          }
+        } else {
+          // Fallback webhook if no order found
+          await triggerWebhooks('payment.failed', {
+            payment_intent_id: paymentIntent.id,
+            customer_email: paymentIntent.receipt_email,
+            amount: formatAmountFromStripe(paymentIntent.amount || 0),
+            currency: paymentIntent.currency?.toUpperCase(),
+            error_message: paymentIntent.last_payment_error?.message || 'Payment failed',
+          });
+        }
+        break;
+      }
+
+      case 'charge.dispute.created': {
+        const dispute = event.data.object as any;
+        console.log('⚖️ Dispute created:', dispute.id);
+
+        // Find related order by payment intent
+        const { data: disputedOrder } = await supabase
+          .from('orders')
+          .select('*')
+          .eq('payment_intent_id', dispute.payment_intent)
+          .single();
+
+        if (disputedOrder) {
+          // Update order status to disputed
+          await supabase
+            .from('orders')
+            .update({
+              status: 'disputed',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', disputedOrder.id);
+
+          // Revoke any associated licenses
+          await supabase
+            .from('licenses')
+            .update({
+              status: 'revoked',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('order_id', disputedOrder.id);
+
+          // Trigger webhook for dispute
+          await triggerWebhooks('order.disputed', {
+            order_number: disputedOrder.order_number,
+            customer_email: disputedOrder.customer_email,
+            customer_name: disputedOrder.customer_name,
+            amount: formatAmountFromStripe(disputedOrder.amount_cents),
+            currency: disputedOrder.currency,
+            dispute_reason: dispute.reason,
+            dispute_amount: formatAmountFromStripe(dispute.amount),
+          });
+        }
         break;
       }
 
@@ -256,7 +366,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ received: true });
 
   } catch (error: any) {
-    console.error('Webhook processing error:', error);
+    console.error('❌ Webhook processing error:', error);
     return NextResponse.json(
       { error: 'Webhook processing failed' },
       { status: 500 }

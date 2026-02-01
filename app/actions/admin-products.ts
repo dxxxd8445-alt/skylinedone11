@@ -263,12 +263,12 @@ export async function getVariantsForProduct(
     await requirePermission("manage_products");
     const supabase = createAdminClient();
     
-    // Get variants
+    // Get variants sorted by price (lowest first)
     const { data: variants, error } = await supabase
       .from("product_variants")
       .select("id, product_id, duration, price, created_at")
       .eq("product_id", productId)
-      .order("duration");
+      .order("price", { ascending: true }); // Sort by price ascending (lowest first)
     
     if (error) throw error;
     

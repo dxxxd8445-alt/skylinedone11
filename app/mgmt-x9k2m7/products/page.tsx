@@ -789,6 +789,8 @@ export default function ProductsPage() {
                         onChange={(e) => {
                           const newVariants = [...addModalVariants];
                           newVariants[index].price = parseFloat(e.target.value) || 0;
+                          // Sort variants by price (lowest first) after updating
+                          newVariants.sort((a, b) => a.price - b.price);
                           setAddModalVariants(newVariants);
                         }}
                         className="w-24 bg-[#1a1a1a] border-[#262626] text-white text-sm"
@@ -813,7 +815,10 @@ export default function ProductsPage() {
                     variant="outline"
                     className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]"
                     onClick={() => {
-                      setAddModalVariants([...addModalVariants, { duration: "", price: 0 }]);
+                      const newVariants = [...addModalVariants, { duration: "", price: 0 }];
+                      // Sort variants by price (lowest first)
+                      newVariants.sort((a, b) => a.price - b.price);
+                      setAddModalVariants(newVariants);
                     }}
                   >
                     <Plus className="w-4 h-4 mr-2" />
@@ -828,7 +833,9 @@ export default function ProductsPage() {
                       size="sm"
                       className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
                       onClick={() => {
-                        setAddModalVariants([{ duration: "1 Day", price: 9.99 }]);
+                        const newVariants = [{ duration: "1 Day", price: 9.99 }];
+                        // Already sorted since it's just one item
+                        setAddModalVariants(newVariants);
                       }}
                     >
                       <Plus className="w-4 h-4 mr-2" />
