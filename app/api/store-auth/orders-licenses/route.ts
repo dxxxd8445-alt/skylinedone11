@@ -16,7 +16,7 @@ export async function GET() {
     const [ordersRes, licensesRes] = await Promise.all([
       supabase
         .from("orders")
-        .select("id, order_number, product_name, duration, amount, status, created_at")
+        .select("id, order_number, product_name, duration, amount_cents, status, created_at")
         .eq("customer_email", session.email)
         .order("created_at", { ascending: false }),
       supabase
@@ -26,7 +26,10 @@ export async function GET() {
         .order("created_at", { ascending: false }),
     ]);
 
-    const orders = (ordersRes.data ?? []).map((o) => ({ ...o, amount: Number(o.amount) }));
+    const orders = (ordersRes.data ?? []).map((o) => ({ 
+      ...o, 
+      amount: o.amount_cents ? Number(o.amount_cents) / 100 : 0
+    }));
     const licenses = licensesRes.data ?? [];
     return NextResponse.json({ orders, licenses });
   } catch {

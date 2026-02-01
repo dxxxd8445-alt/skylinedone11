@@ -49,7 +49,7 @@ export async function getOrders(statusFilter?: OrderStatus | "all"): Promise<{
     if (error) throw error;
     const rows = (data ?? []).map((o) => ({
       ...o,
-      amount: Number(o.amount),
+      amount: o.amount_cents ? Number(o.amount_cents) / 100 : Number(o.amount || 0),
     })) as OrderRow[];
     return { success: true, data: rows };
   } catch (e: unknown) {
@@ -87,7 +87,7 @@ export async function getOrderDetail(orderId: string): Promise<{
     const license = licenses?.[0] ?? null;
     const detail: OrderDetail = {
       ...order,
-      amount: Number(order.amount),
+      amount: order.amount_cents ? Number(order.amount_cents) / 100 : Number(order.amount || 0),
       license: license ? {
         id: license.id,
         license_key: license.license_key,
