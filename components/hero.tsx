@@ -86,35 +86,6 @@ export function Hero() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-        {/* Hero Image */}
-        <div
-          className={`mb-8 transition-all duration-1000 delay-100 ${
-            isVisible
-              ? "opacity-100 translate-y-0 scale-100"
-              : "opacity-0 translate-y-10 scale-95"
-          }`}
-        >
-          <div className="relative group">
-            {/* Glow effect behind image */}
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-[#dc2626]/20 via-[#dc2626]/30 to-[#dc2626]/20 blur-2xl opacity-60 group-hover:opacity-100 transition-all duration-700" />
-            
-            {/* Image container */}
-            <div className="relative rounded-2xl overflow-hidden border-2 border-[#dc2626]/30 group-hover:border-[#dc2626]/60 transition-all duration-500 shadow-2xl shadow-[#dc2626]/20">
-              <img
-                src="https://cdn.discordapp.com/attachments/1467397448715735061/1467399963498774752/IMG_4324.png"
-                alt="Magma Cheats - Dominate Every Game"
-                className="w-full max-w-2xl h-auto transition-transform duration-700 group-hover:scale-105"
-                style={{
-                  filter: 'brightness(1.1) contrast(1.1)',
-                }}
-              />
-              
-              {/* Overlay gradient for better text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            </div>
-          </div>
-        </div>
-
         {/* Main heading with staggered animation and enhanced styling */}
         <h1
           className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center text-white mt-4 sm:mt-8 mb-6 sm:mb-8 max-w-5xl leading-tight transition-all duration-1000 delay-200 px-2 ${
