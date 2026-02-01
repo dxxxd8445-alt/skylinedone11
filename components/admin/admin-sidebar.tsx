@@ -53,11 +53,31 @@ export function AdminSidebar() {
 
   useEffect(() => {
     setMounted(true);
-    // Ensure sidebar is open by default for admin pages
-    if (!sidebarOpen) {
-      setSidebarOpen(true);
-    }
+    
+    // Function to handle responsive sidebar behavior
+    const handleResize = () => {
+      const isDesktop = window.innerWidth >= 1024;
+      if (isDesktop && !sidebarOpen) {
+        setSidebarOpen(true);
+      }
+      // Don't auto-close on mobile resize - let user control it
+    };
+
+    // Set initial state
+    handleResize();
+
+    // Add resize listener
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [sidebarOpen, setSidebarOpen]);
+
+  // Debug effect to log sidebar state changes
+  useEffect(() => {
+    console.log('Sidebar state changed:', sidebarOpen);
+  }, [sidebarOpen]);
 
   useEffect(() => {
     fetch("/api/auth/context")
@@ -77,11 +97,36 @@ export function AdminSidebar() {
   const isOpen = mounted ? sidebarOpen : true;
 
   return (
-    <aside
-      className={cn(
-        "fixed left-0 top-0 z-50 h-screen bg-gradient-to-b from-[#0a0a0a] to-[#000000] border-r border-[#1a1a1a] transition-all duration-300 flex flex-col w-64"
+    <>
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Overlay clicked, closing sidebar');
+            setSidebarOpen(false);
+          }}
+          onTouchEnd={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Overlay touched, closing sidebar');
+            setSidebarOpen(false);
+          }}
+        />
       )}
-    >
+      
+      <aside
+        className={cn(
+          "fixed left-0 top-0 z-50 h-screen bg-gradient-to-b from-[#0a0a0a] to-[#000000] border-r border-[#1a1a1a] transition-all duration-300 flex flex-col",
+          // Desktop: always show, width based on open state
+          "lg:translate-x-0",
+          isOpen ? "lg:w-64" : "lg:w-16",
+          // Mobile: slide in/out, always full width when open
+          isOpen ? "translate-x-0 w-64" : "-translate-x-full w-64"
+        )}
+      >
       {/* Logo Header */}
       <div className="h-16 flex items-center justify-between px-4 border-b border-[#1a1a1a] relative">
         <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626]/5 to-transparent opacity-50" />
@@ -102,7 +147,7 @@ export function AdminSidebar() {
         <button
           type="button"
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="relative z-10 w-8 h-8 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 group"
+          className="relative z-10 w-8 h-8 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 group lg:flex hidden"
           title={isOpen ? "Collapse sidebar" : "Expand sidebar"}
         >
           {isOpen ? (
@@ -110,6 +155,16 @@ export function AdminSidebar() {
           ) : (
             <ChevronRight className="w-4 h-4 group-hover:scale-110 transition-transform" />
           )}
+        </button>
+        
+        {/* Mobile Close Button */}
+        <button
+          type="button"
+          onClick={() => setSidebarOpen(false)}
+          className="relative z-10 w-8 h-8 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 group lg:hidden"
+          title="Close sidebar"
+        >
+          <ChevronLeft className="w-4 h-4 group-hover:scale-110 transition-transform" />
         </button>
       </div>
 
@@ -123,6 +178,12 @@ export function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => {
+                // Close sidebar on mobile after navigation
+                if (window.innerWidth < 1024) {
+                  setSidebarOpen(false);
+                }
+              }}
               className={cn(
                 "relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group overflow-hidden",
                 isActive
@@ -175,6 +236,12 @@ export function AdminSidebar() {
         {canSettings && (
         <Link
           href="/mgmt-x9k2m7/settings"
+          onClick={() => {
+            // Close sidebar on mobile after navigation
+            if (window.innerWidth < 1024) {
+              setSidebarOpen(false);
+            }
+          }}
           className={cn(
             "relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group overflow-hidden",
             pathname === "/mgmt-x9k2m7/settings"
@@ -244,6 +311,7 @@ export function AdminSidebar() {
           </div>
         )}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AdminShell } from "@/components/admin/admin-shell";
 
 interface Message {
   id: string;
@@ -143,13 +144,7 @@ export default function SiteMessagesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white p-6">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Site Messages</h1>
-        <p className="text-white/60">Create and manage announcements for your website</p>
-      </div>
-
+    <AdminShell title="Site Messages" subtitle="Create and manage announcements for your website">
       {/* Error Display */}
       {error && (
         <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
@@ -165,24 +160,24 @@ export default function SiteMessagesPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
-          <h3 className="text-white/60 text-sm font-medium">Total Messages</h3>
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4">
+          <h3 className="text-white/50 text-xs font-medium uppercase tracking-wider mb-1">Total Messages</h3>
           <p className="text-2xl font-bold text-white">{messages.length}</p>
         </div>
-        <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
-          <h3 className="text-white/60 text-sm font-medium">Active</h3>
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4">
+          <h3 className="text-white/50 text-xs font-medium uppercase tracking-wider mb-1">Active</h3>
           <p className="text-2xl font-bold text-green-400">
             {messages.filter(m => m.is_active).length}
           </p>
         </div>
-        <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
-          <h3 className="text-white/60 text-sm font-medium">High Priority</h3>
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4">
+          <h3 className="text-white/50 text-xs font-medium uppercase tracking-wider mb-1">High Priority</h3>
           <p className="text-2xl font-bold text-amber-400">
             {messages.filter(m => m.priority >= 5).length}
           </p>
         </div>
-        <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
-          <h3 className="text-white/60 text-sm font-medium">Hidden</h3>
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4">
+          <h3 className="text-white/50 text-xs font-medium uppercase tracking-wider mb-1">Hidden</h3>
           <p className="text-2xl font-bold text-gray-400">
             {messages.filter(m => !m.is_active).length}
           </p>
@@ -193,14 +188,14 @@ export default function SiteMessagesPage() {
       <div className="flex gap-4 mb-6">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="px-6 py-3 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-lg font-medium transition-colors"
+          className="px-6 py-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#dc2626]/30"
         >
           {showForm ? "Cancel" : "Create Message"}
         </button>
         <button
           onClick={loadMessages}
           disabled={loading}
-          className="px-6 py-3 bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] text-white rounded-lg font-medium transition-colors disabled:opacity-50"
+          className="px-6 py-3 bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] text-white rounded-xl font-medium transition-colors disabled:opacity-50"
         >
           {loading ? "Loading..." : "Refresh"}
         </button>
@@ -208,7 +203,7 @@ export default function SiteMessagesPage() {
 
       {/* Form */}
       {showForm && (
-        <div className="mb-8 p-6 bg-[#1a1a1a] border border-[#262626] rounded-lg">
+        <div className="mb-8 p-6 bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl">
           <h2 className="text-xl font-bold text-white mb-4">
             {editingId ? "Edit Message" : "Create New Message"}
           </h2>
@@ -224,7 +219,7 @@ export default function SiteMessagesPage() {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   required
-                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50"
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
                   placeholder="Enter message title"
                 />
               </div>
@@ -236,7 +231,7 @@ export default function SiteMessagesPage() {
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50"
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
                 >
                   <option value="info">Info</option>
                   <option value="success">Success</option>
@@ -255,7 +250,7 @@ export default function SiteMessagesPage() {
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 required
                 rows={4}
-                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 resize-none"
+                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all resize-none"
                 placeholder="Enter your message content"
               />
             </div>
@@ -270,21 +265,21 @@ export default function SiteMessagesPage() {
                 max="10"
                 value={formData.priority}
                 onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })}
-                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50"
+                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
               />
             </div>
             
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-lg font-medium transition-colors"
+                className="px-6 py-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#dc2626]/30"
               >
                 {editingId ? "Update Message" : "Create Message"}
               </button>
               <button
                 type="button"
                 onClick={cancelEdit}
-                className="px-6 py-3 bg-[#262626] hover:bg-[#1a1a1a] text-white rounded-lg font-medium transition-colors"
+                className="px-6 py-3 bg-[#262626] hover:bg-[#1a1a1a] text-white rounded-xl font-medium transition-colors"
               >
                 Cancel
               </button>
@@ -294,7 +289,7 @@ export default function SiteMessagesPage() {
       )}
 
       {/* Messages List */}
-      <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg">
+      <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl">
         <div className="p-6">
           <h2 className="text-xl font-bold text-white mb-4">All Messages</h2>
           
@@ -309,7 +304,7 @@ export default function SiteMessagesPage() {
               <p className="text-white/40 mb-6">Create your first site message to get started</p>
               <button
                 onClick={() => setShowForm(true)}
-                className="px-6 py-3 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-lg font-medium transition-colors"
+                className="px-6 py-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#dc2626]/30"
               >
                 Create First Message
               </button>
@@ -319,7 +314,7 @@ export default function SiteMessagesPage() {
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className="bg-[#0a0a0a] border border-[#262626] rounded-lg p-4 hover:border-[#dc2626]/30 transition-all"
+                  className="bg-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#dc2626]/30 transition-all"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
@@ -374,6 +369,6 @@ export default function SiteMessagesPage() {
           )}
         </div>
       </div>
-    </div>
+    </AdminShell>
   );
 }

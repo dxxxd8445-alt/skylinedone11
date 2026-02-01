@@ -22,6 +22,11 @@ import {
   Copy,
   ChevronDown,
   Filter,
+  CalendarDays,
+  TrendingUp,
+  DollarSign,
+  ShoppingCart,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -34,20 +39,43 @@ const STATUS_OPTIONS: { value: OrderStatus | "all"; label: string }[] = [
   { value: "refunded", label: "Refunded" },
 ];
 
+const DATE_FILTERS = [
+  { value: "today", label: "Today" },
+  { value: "yesterday", label: "Yesterday" },
+  { value: "last7days", label: "Last 7 Days" },
+  { value: "last30days", label: "Last 30 Days" },
+  { value: "thisMonth", label: "This Month" },
+  { value: "lastMonth", label: "Last Month" },
+  { value: "all", label: "All Time" },
+];
+
 export default function OrdersPage() {
   const [orders, setOrders] = useState<OrderRow[]>([]);
+  const [filteredOrders, setFilteredOrders] = useState<OrderRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<OrderStatus | "all">("completed");
+  const [dateFilter, setDateFilter] = useState<string>("all");
   const [detailModal, setDetailModal] = useState<OrderDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
+  const [dateFilterOpen, setDateFilterOpen] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
+  const dateFilterRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Date filter stats
+  const [dateStats, setDateStats] = useState({
+    totalOrders: 0,
+    totalRevenue: 0,
+    avgOrderValue: 0,
+    completedOrders: 0,
+  });
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (filterRef.current && !filterRef.current.contains(e.target as Node)) setFilterOpen(false);
+      if (dateFilterRef.current && !dateFilterRef.current.contains(e.target as Node)) setDateFilterOpen(false);
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -56,6 +84,92 @@ export default function OrdersPage() {
   useEffect(() => {
     loadOrders();
   }, [statusFilter]);
+
+  useEffect(() => {
+    applyDateFilter();
+  }, [orders, dateFilter]);
+
+  function getDateRange(filter: string) {
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    
+    switch (filter) {
+      case "today":
+        return {
+          start: today,
+          end: new Date(today.getTime() + 24 * 60 * 60 * 1000 - 1)
+        };
+      case "yesterday":
+        const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+        return {
+          start: yesterday,
+          end: new Date(yesterday.getTime() + 24 * 60 * 60 * 1000 - 1)
+        };
+      case "last7days":
+        return {
+          start: new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000),
+          end: now
+        };
+      case "last30days":
+        return {
+          start: new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000),
+          end: now
+        };
+      case "thisMonth":
+        return {
+          start: new Date(now.getFullYear(), now.getMonth(), 1),
+          end: now
+        };
+      case "lastMonth":
+        const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59);
+        return {
+          start: lastMonth,
+          end: lastMonthEnd
+        };
+      default:
+        return null;
+    }
+  }
+
+  function applyDateFilter() {
+    if (dateFilter === "all") {
+      setFilteredOrders(orders);
+      calculateStats(orders);
+      return;
+    }
+
+    const range = getDateRange(dateFilter);
+    if (!range) {
+      setFilteredOrders(orders);
+      calculateStats(orders);
+      return;
+    }
+
+    const filtered = orders.filter(order => {
+      const orderDate = new Date(order.created_at);
+      return orderDate >= range.start && orderDate <= range.end;
+    });
+
+    setFilteredOrders(filtered);
+    calculateStats(filtered);
+  }
+
+  function calculateStats(orderList: OrderRow[]) {
+    const totalOrders = orderList.length;
+    const completedOrders = orderList.filter(o => o.status === "completed").length;
+    const totalRevenue = orderList
+      .filter(o => o.status === "completed")
+      .reduce((sum, o) => sum + o.amount, 0);
+    const avgOrderValue = completedOrders > 0 ? totalRevenue / completedOrders : 0;
+
+    setDateStats({
+      totalOrders,
+      totalRevenue,
+      avgOrderValue,
+      completedOrders,
+    });
+  }
 
   async function loadOrders() {
     try {
@@ -128,7 +242,7 @@ export default function OrdersPage() {
       label: "Order #",
       sortable: true,
       render: (o: OrderRow) => (
-        <span className="font-mono text-white">{o.order_number}</span>
+        <span className="font-mono text-white text-sm">{o.order_number}</span>
       ),
     },
     {
@@ -136,7 +250,7 @@ export default function OrdersPage() {
       label: "Customer",
       sortable: true,
       render: (o: OrderRow) => (
-        <span className="text-white/70">{o.customer_email}</span>
+        <span className="text-white/70 text-sm">{o.customer_email}</span>
       ),
     },
     {
@@ -145,7 +259,7 @@ export default function OrdersPage() {
       sortable: true,
       render: (o: OrderRow) => (
         <div>
-          <p className="text-white font-medium">{o.product_name}</p>
+          <p className="text-white font-medium text-sm">{o.product_name}</p>
           <p className="text-xs text-white/50">{o.duration}</p>
         </div>
       ),
@@ -155,7 +269,7 @@ export default function OrdersPage() {
       label: "Amount",
       sortable: true,
       render: (o: OrderRow) => (
-        <span className="text-white font-semibold">${o.amount.toFixed(2)}</span>
+        <span className="text-white font-semibold text-sm">${o.amount.toFixed(2)}</span>
       ),
     },
     {
@@ -163,7 +277,7 @@ export default function OrdersPage() {
       label: "Status",
       sortable: true,
       render: (o: OrderRow) => (
-        <Badge className={statusColors[o.status] ?? "bg-white/10 text-white/70"}>
+        <Badge className={`text-xs ${statusColors[o.status] ?? "bg-white/10 text-white/70"}`}>
           {o.status}
         </Badge>
       ),
@@ -173,16 +287,103 @@ export default function OrdersPage() {
       label: "Date",
       sortable: true,
       render: (o: OrderRow) => (
-        <span className="text-white/50 text-sm">{new Date(o.created_at).toLocaleDateString()}</span>
+        <div className="text-white/50 text-sm">
+          <div>{new Date(o.created_at).toLocaleDateString()}</div>
+          <div className="text-xs text-white/30">{new Date(o.created_at).toLocaleTimeString()}</div>
+        </div>
       ),
     },
   ];
 
-  const filteredOrders = orders;
-
   return (
-    <AdminShell title="Orders" subtitle="Customer orders. Filter by status and view full details.">
+    <AdminShell title="Orders" subtitle="Track and manage customer orders with date filtering">
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+              <ShoppingCart className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-xs text-white/50 uppercase tracking-wider">Total Orders</p>
+              <p className="text-xl font-bold text-white">{dateStats.totalOrders}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
+              <DollarSign className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-xs text-white/50 uppercase tracking-wider">Revenue</p>
+              <p className="text-xl font-bold text-white">${dateStats.totalRevenue.toFixed(2)}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+              <BarChart3 className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-xs text-white/50 uppercase tracking-wider">Avg Order</p>
+              <p className="text-xl font-bold text-white">${dateStats.avgOrderValue.toFixed(2)}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="text-xs text-white/50 uppercase tracking-wider">Completed</p>
+              <p className="text-xl font-bold text-white">{dateStats.completedOrders}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filters */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
+        {/* Date Filter */}
+        <div className="relative" ref={dateFilterRef}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setDateFilterOpen(!dateFilterOpen)}
+            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]"
+          >
+            <CalendarDays className="w-4 h-4 mr-2" />
+            {DATE_FILTERS.find((d) => d.value === dateFilter)?.label ?? "Date Range"}
+            <ChevronDown className={cn("w-4 h-4 ml-2 transition-transform", dateFilterOpen && "rotate-180")} />
+          </Button>
+          {dateFilterOpen && (
+            <div className="absolute top-full left-0 mt-1 z-10 py-1 rounded-lg bg-[#1a1a1a] border border-[#262626] min-w-[160px] shadow-xl">
+              {DATE_FILTERS.map((opt) => (
+                <button
+                  key={opt.value}
+                  onClick={() => {
+                    setDateFilter(opt.value);
+                    setDateFilterOpen(false);
+                  }}
+                  className={cn(
+                    "w-full px-3 py-2 text-left text-sm transition-colors",
+                    dateFilter === opt.value ? "bg-[#dc2626]/20 text-[#dc2626]" : "text-white/80 hover:bg-white/5"
+                  )}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Status Filter */}
         <div className="relative" ref={filterRef}>
           <Button
             variant="outline"
@@ -195,7 +396,7 @@ export default function OrdersPage() {
             <ChevronDown className={cn("w-4 h-4 ml-2 transition-transform", filterOpen && "rotate-180")} />
           </Button>
           {filterOpen && (
-            <div className="absolute top-full left-0 mt-1 z-10 py-1 rounded-lg bg-[#1a1a1a] border border-[#262626] min-w-[140px]">
+            <div className="absolute top-full left-0 mt-1 z-10 py-1 rounded-lg bg-[#1a1a1a] border border-[#262626] min-w-[140px] shadow-xl">
               {STATUS_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
@@ -214,6 +415,7 @@ export default function OrdersPage() {
             </div>
           )}
         </div>
+
         <Button
           variant="outline"
           size="sm"
@@ -237,14 +439,14 @@ export default function OrdersPage() {
           searchKey="customer_email"
           searchPlaceholder="Search by customer email..."
           actions={(order) => (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <Button
                 size="sm"
                 variant="ghost"
                 onClick={() => openDetail(order)}
-                className="text-white/70 hover:text-white hover:bg-white/10"
+                className="text-white/70 hover:text-white hover:bg-white/10 h-8 px-2"
               >
-                <Eye className="w-4 h-4 mr-1" /> View
+                <Eye className="w-4 h-4" />
               </Button>
               {order.status === "pending" && (
                 <Button
@@ -252,7 +454,7 @@ export default function OrdersPage() {
                   variant="ghost"
                   onClick={() => handleUpdateStatus(order.id, "completed")}
                   disabled={updating === order.id}
-                  className="text-green-400 hover:bg-green-500/10"
+                  className="text-green-400 hover:bg-green-500/10 h-8 px-2"
                 >
                   {updating === order.id ? <RefreshCw className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
                 </Button>
@@ -263,7 +465,7 @@ export default function OrdersPage() {
                   variant="ghost"
                   onClick={() => handleUpdateStatus(order.id, "refunded")}
                   disabled={updating === order.id}
-                  className="text-red-400 hover:bg-red-500/10"
+                  className="text-red-400 hover:bg-red-500/10 h-8 px-2"
                 >
                   {updating === order.id ? <RefreshCw className="w-4 h-4 animate-spin" /> : <XCircle className="w-4 h-4" />}
                 </Button>
@@ -274,7 +476,7 @@ export default function OrdersPage() {
                   variant="ghost"
                   onClick={() => handleUpdateStatus(order.id, "pending")}
                   disabled={updating === order.id}
-                  className="text-yellow-400 hover:bg-yellow-500/10"
+                  className="text-yellow-400 hover:bg-yellow-500/10 h-8 px-2"
                 >
                   {updating === order.id ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Clock className="w-4 h-4" />}
                 </Button>
@@ -301,7 +503,7 @@ export default function OrdersPage() {
                 </div>
                 <button
                   onClick={() => setDetailModal(null)}
-                  className="text-white/50 hover:text-white p-1"
+                  className="text-white/50 hover:text-white p-1 text-2xl leading-none"
                 >
                   ×
                 </button>
@@ -313,14 +515,14 @@ export default function OrdersPage() {
                   <Mail className="w-5 h-5 text-white/40" />
                   <div>
                     <p className="text-[10px] uppercase tracking-wider text-white/40">Customer</p>
-                    <p className="text-white font-medium truncate">{detailModal.customer_email}</p>
+                    <p className="text-white font-medium truncate text-sm">{detailModal.customer_email}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
                   <CreditCard className="w-5 h-5 text-white/40" />
                   <div>
                     <p className="text-[10px] uppercase tracking-wider text-white/40">Payment</p>
-                    <p className="text-white font-medium">{detailModal.payment_method || "—"}</p>
+                    <p className="text-white font-medium text-sm">{detailModal.payment_method || "—"}</p>
                   </div>
                 </div>
               </div>
@@ -328,7 +530,7 @@ export default function OrdersPage() {
                 <Package className="w-5 h-5 text-white/40" />
                 <div className="flex-1 min-w-0">
                   <p className="text-[10px] uppercase tracking-wider text-white/40">Product</p>
-                  <p className="text-white font-medium">{detailModal.product_name}</p>
+                  <p className="text-white font-medium text-sm">{detailModal.product_name}</p>
                   <p className="text-sm text-white/50">{detailModal.duration}</p>
                 </div>
                 <div className="text-right">
@@ -341,7 +543,7 @@ export default function OrdersPage() {
                   <Hash className="w-4 h-4 text-white/40" />
                   <span className="text-white/50 text-sm">Status</span>
                 </div>
-                <Badge className={statusColors[detailModal.status] ?? "bg-white/10"}>{detailModal.status}</Badge>
+                <Badge className={`text-xs ${statusColors[detailModal.status] ?? "bg-white/10"}`}>{detailModal.status}</Badge>
               </div>
               <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
                 <Calendar className="w-5 h-5 text-white/40" />
@@ -365,7 +567,7 @@ export default function OrdersPage() {
                       size="sm"
                       variant="ghost"
                       onClick={() => copyLicense(detailModal.license!.license_key)}
-                      className="text-white/70 hover:text-white shrink-0"
+                      className="text-white/70 hover:text-white shrink-0 h-8 px-2"
                     >
                       <Copy className="w-4 h-4" />
                     </Button>

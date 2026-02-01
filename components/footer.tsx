@@ -22,9 +22,9 @@ const undetectedCheats = [
 function getGameUrl(gameName: string): string {
   const gameMapping: Record<string, string> = {
     "Arc Raiders": "/store/arc-raiders",
-    "Rainbow Six Siege": "/store/rainbow-six-siege",
-    "Battlefield 6": "/store/battlefield",
-    "Black Ops & WZ": "/store/call-of-duty-bo6",
+    "Rainbow Six Siege": "/store/rainbow-six-siege", 
+    "Battlefield 6": "/store/battlefield-6",
+    "Black Ops & WZ": "/store/cod-bo6", // Maps to COD Black Ops 6
     "Rust": "/store/rust",
     "PUBG": "/store/pubg",
     "Fortnite": "/store/fortnite",

@@ -124,7 +124,7 @@ export const useAdminStore = create<AdminStore>()(
       _hasHydrated: false,
       setHasHydrated: (state) => set({ _hasHydrated: state }),
 
-      sidebarOpen: true,
+      sidebarOpen: false, // Start closed by default, will be opened on desktop by the sidebar component
 
       setSidebarOpen: (open) => set({ sidebarOpen: open }),
       setLoading: (loading) => set({ isLoading: loading }),

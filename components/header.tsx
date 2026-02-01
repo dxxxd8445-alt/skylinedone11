@@ -118,9 +118,9 @@ export function Header() {
     { icon: Heart, label: t("nav_reviews"), href: "/reviews" },
     {
       icon: Shield,
-      label: t("nav_support"),
-      href: "https://discord.gg/magmacheats",
-      external: true,
+      label: "DISCORD",
+      href: "/discord",
+      external: false,
     },
   ];
 
@@ -222,8 +222,8 @@ export function Header() {
 
   return (
     <header className="fixed left-0 right-0 z-[9998] bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#1a1a1a]" style={{ top: 'var(--announcement-height, 0px)' }}>
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16 gap-1.5 sm:gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-3">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
             <div className="relative transition-transform duration-300 group-hover:scale-110">
@@ -239,26 +239,38 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation Menu */}
-          <nav className="hidden lg:flex items-center gap-6 flex-1 justify-center">
+          <nav className="hidden lg:flex items-center gap-6 flex-1 justify-center max-w-2xl">
             {navItems.filter(item => !item.isLogo && item.label !== "HOME").map((item, i) => (
-              <div key={i}>
+              <div key={i} className="relative group">
                 {item.external ? (
                   <a
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-white/70 hover:text-white text-sm font-medium transition-colors"
+                    className="relative flex items-center gap-1.5 text-white/70 hover:text-white text-sm font-semibold transition-all duration-300 py-2 px-2.5 rounded-lg hover:bg-white/5"
                   >
-                    {item.icon && <item.icon className="w-4 h-4" />}
-                    <span>{item.label}</span>
+                    {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
+                    <span className="relative z-10">{item.label}</span>
+                    
+                    {/* Animated underline */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#dc2626] to-[#ef4444] transition-all duration-300 group-hover:w-full rounded-full" />
+                    
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#dc2626]/0 to-[#ef4444]/0 group-hover:from-[#dc2626]/10 group-hover:to-[#ef4444]/10 transition-all duration-300 -z-10" />
                   </a>
                 ) : (
                   <Link
                     href={item.href}
-                    className="flex items-center gap-2 text-white/70 hover:text-white text-sm font-medium transition-colors"
+                    className="relative flex items-center gap-1.5 text-white/70 hover:text-white text-sm font-semibold transition-all duration-300 py-2 px-2.5 rounded-lg hover:bg-white/5"
                   >
-                    {item.icon && <item.icon className="w-4 h-4" />}
-                    <span>{item.label}</span>
+                    {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
+                    <span className="relative z-10">{item.label}</span>
+                    
+                    {/* Animated underline */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#dc2626] to-[#ef4444] transition-all duration-300 group-hover:w-full rounded-full" />
+                    
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#dc2626]/0 to-[#ef4444]/0 group-hover:from-[#dc2626]/10 group-hover:to-[#ef4444]/10 transition-all duration-300 -z-10" />
                   </Link>
                 )}
               </div>
@@ -266,7 +278,7 @@ export function Header() {
           </nav>
 
           {/* Right side controls */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1.5 flex-shrink-0">
             {/* Mobile Auth Buttons - Always show on mobile, but change based on login status */}
             <div className="lg:hidden flex items-center gap-1.5 mr-2">
               {!user ? (
@@ -317,7 +329,7 @@ export function Header() {
                   placeholder={t("search_placeholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent text-sm text-white/80 placeholder:text-white/50 outline-none w-40 transition-all duration-300 focus:w-56"
+                  className="bg-transparent text-sm text-white/80 placeholder:text-white/50 outline-none w-32 transition-all duration-300 focus:w-44"
                 />
                 {searchQuery && (
                   <button
@@ -384,22 +396,22 @@ export function Header() {
             </div>
 
             {/* Desktop Controls */}
-            <div className="hidden lg:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-1.5">
               {mounted && (
-                <div className="hidden lg:flex items-center gap-2" suppressHydrationWarning>
+                <div className="hidden lg:flex items-center gap-1.5" suppressHydrationWarning>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
+                        className="h-9 px-2.5 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold min-h-[36px]"
                         aria-label="Currency"
                         type="button"
                         suppressHydrationWarning
                       >
-                        <span className="inline-flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5">
                           <img
                             src={currencyMeta[currency].flagUrl}
                             alt={currency}
-                            className="w-4 h-4 rounded-[2px]"
+                            className="w-3.5 h-3.5 rounded-[2px]"
                             loading="lazy"
                           />
                           <span className="text-white/90">{currencyMeta[currency].symbol}</span>
@@ -433,16 +445,16 @@ export function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
-                      className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
+                      className="h-9 px-2.5 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold min-h-[36px]"
                       aria-label="Language"
                       type="button"
                       suppressHydrationWarning
                     >
-                      <span className="inline-flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5">
                         <img
                           src={languageMeta[language].flagUrl}
                           alt={language.toUpperCase()}
-                          className="w-4 h-4 rounded-[2px]"
+                          className="w-3.5 h-3.5 rounded-[2px]"
                           loading="lazy"
                         />
                         <span>{language.toUpperCase()}</span>
@@ -761,6 +773,7 @@ export function Header() {
                              item.label === "STATUS" ? "Server status" :
                              item.label === "GUIDES" ? "How-to guides" :
                              item.label === "REVIEWS" ? "User reviews" :
+                             item.label === "DISCORD" ? "Join for support" :
                              "Navigate to page"}
                           </p>
                         </div>

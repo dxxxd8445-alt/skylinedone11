@@ -38,8 +38,9 @@ export function AnnouncementBanner() {
       announcement => !dismissedIds.includes(announcement.id)
     ).length;
     
-    const bannerHeight = visibleCount * 60;
-    const headerHeight = 64;
+    // Even smaller heights for better mobile experience
+    const bannerHeight = visibleCount * 36; // Further reduced to 36px
+    const headerHeight = 56; // Reduced back for compact design
     
     if (visibleCount > 0) {
       // Set CSS custom property for header positioning
@@ -145,34 +146,34 @@ export function AnnouncementBanner() {
             {/* Animated background effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse" />
             
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-between py-3 gap-4">
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  {/* Icon */}
-                  <div className={`${config.iconBg} rounded-lg p-2 flex-shrink-0 border border-white/30`}>
-                    <Icon className="w-5 h-5 text-white drop-shadow-lg" />
+            <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between py-1.5 sm:py-2 gap-2 sm:gap-4">
+                <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                  {/* Icon - much smaller on mobile */}
+                  <div className={`${config.iconBg} rounded-md p-1 flex-shrink-0 border border-white/30`}>
+                    <Icon className="w-3 h-3 sm:w-4 sm:h-4 text-white drop-shadow-lg" />
                   </div>
                   
-                  {/* Content */}
+                  {/* Content - ultra compact */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                      <h3 className="text-white font-bold text-base sm:text-lg drop-shadow-lg">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-0 sm:gap-2">
+                      <h3 className="text-white font-bold text-xs sm:text-sm lg:text-base drop-shadow-lg leading-tight">
                         {announcement.title}
                       </h3>
-                      <p className="text-white/95 text-sm sm:text-base font-medium drop-shadow-lg leading-tight">
+                      <p className="text-white/95 text-xs sm:text-sm font-medium drop-shadow-lg leading-tight">
                         {announcement.message}
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Dismiss button */}
+                {/* Dismiss button - much smaller on mobile */}
                 <button
                   onClick={() => dismissAnnouncement(announcement.id)}
-                  className="flex-shrink-0 w-8 h-8 rounded-lg bg-black/30 hover:bg-black/50 border border-white/30 hover:border-white/50 flex items-center justify-center text-white/90 hover:text-white transition-all duration-200 group backdrop-blur-sm"
+                  className="flex-shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-black/30 hover:bg-black/50 border border-white/30 hover:border-white/50 flex items-center justify-center text-white/90 hover:text-white transition-all duration-200 group backdrop-blur-sm"
                   title="Dismiss announcement"
                 >
-                  <X className="w-4 h-4 group-hover:scale-110 transition-transform drop-shadow-lg" />
+                  <X className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:scale-110 transition-transform drop-shadow-lg" />
                 </button>
               </div>
             </div>

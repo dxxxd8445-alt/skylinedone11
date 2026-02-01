@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react"
+import { Menu } from "lucide-react";
 
 import { useAdminStore } from "@/lib/admin-store";
 import { AdminSidebar } from "./admin-sidebar";
@@ -15,25 +16,82 @@ interface AdminShellProps {
 }
 
 export function AdminShell({ children, title, subtitle }: AdminShellProps) {
+  const { sidebarOpen, setSidebarOpen } = useAdminStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Handle escape key to close sidebar on mobile
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && sidebarOpen && window.innerWidth < 1024) {
+        setSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [sidebarOpen, setSidebarOpen]);
+
+  const handleMobileMenuClick = () => {
+    console.log('🍔 Mobile menu clicked in AdminShell!');
+    setSidebarOpen(true);
+    console.log('📱 Sidebar should now be open:', true);
+  };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-[#050505] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#dc2626]/30 border-t-[#dc2626] rounded-full animate-spin" />
+      </div>
+    );
+  }
+  
   return (
     <div className="min-h-screen bg-[#050505] flex">
       {/* Sidebar */}
-      <div className="w-64 h-screen bg-gradient-to-b from-[#0a0a0a] to-[#000000] border-r border-[#1a1a1a] fixed left-0 top-0 z-40">
-        <AdminSidebar />
-      </div>
+      <AdminSidebar />
       
       {/* Main content */}
-      <div className="flex-1 ml-64">
+      <div className={cn(
+        "flex-1 transition-all duration-300",
+        // Desktop: margin based on sidebar state
+        sidebarOpen ? "lg:ml-64" : "lg:ml-16",
+        // Mobile: no margin, full width
+        "ml-0"
+      )}>
         {/* Header */}
-        <div className="h-16 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-[#1a1a1a] flex items-center justify-between px-6">
-          <div>
-            <h1 className="text-xl font-bold text-white">{title}</h1>
-            {subtitle && <p className="text-sm text-white/50">{subtitle}</p>}
+        <div className="h-16 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#1a1a1a] flex items-center justify-between px-4 lg:px-6 sticky top-0 z-30">
+          <div className="flex items-center gap-4">
+            {/* Mobile Menu Button - ALWAYS VISIBLE ON MOBILE */}
+            <button
+              onClick={handleMobileMenuClick}
+              className="lg:hidden w-12 h-12 rounded-xl bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] flex items-center justify-center text-white transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg shadow-[#dc2626]/30 touch-manipulation"
+              aria-label="Open navigation menu"
+              type="button"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            
+            <div>
+              <h1 className="text-xl font-bold text-white">{title}</h1>
+              {subtitle && <p className="text-sm text-white/50">{subtitle}</p>}
+            </div>
           </div>
+
+          {/* Desktop Sidebar Toggle */}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="hidden lg:flex w-10 h-10 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] items-center justify-center text-white/60 hover:text-white transition-colors"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
         </div>
         
         {/* Content */}
-        <div className="p-6">
+        <div className="p-4 lg:p-6 min-h-[calc(100vh-4rem)]">
           {children}
         </div>
       </div>

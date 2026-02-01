@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendEmail, isResendConfigured } from "@/lib/resend";
+import { createPasswordResetEmail } from "@/lib/email-templates";
 import { randomBytes } from "crypto";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -54,16 +55,15 @@ export async function POST(request: NextRequest) {
     }
 
     const resetLink = `${BASE_URL}/reset-password?token=${token}`;
+    const emailHtml = createPasswordResetEmail({
+      username: user.username || user.email.split('@')[0],
+      resetLink: resetLink
+    });
+    
     const sent = await sendEmail({
       to: user.email,
       subject: "Reset your Magma password",
-      html: `
-        <p>Hi ${user.username || "there"},</p>
-        <p>You requested a password reset. Click the link below to set a new password:</p>
-        <p><a href="${resetLink}" style="color:#dc2626;text-decoration:underline;">Reset password</a></p>
-        <p>This link expires in 1 hour. If you didn't request this, you can ignore this email.</p>
-        <p>— Magma</p>
-      `,
+      html: emailHtml,
     });
 
     if (!sent.success) {
