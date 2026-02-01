@@ -21,6 +21,9 @@ import {
   FolderOpen,
   UserCog,
   FileText,
+  Megaphone,
+  Bug,
+  MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdminStore } from "@/lib/admin-store";
@@ -35,6 +38,8 @@ const navItems: { href: string; label: string; icon: typeof LayoutDashboard; per
   { href: "/mgmt-x9k2m7/coupons", label: "Coupons", icon: Tag, permission: "manage_coupons" },
   { href: "/mgmt-x9k2m7/webhooks", label: "Webhooks", icon: Webhook, permission: "manage_webhooks" },
   { href: "/mgmt-x9k2m7/team", label: "Team", icon: Users, permission: "manage_team" },
+  { href: "/mgmt-x9k2m7/site-messages", label: "Site Messages", icon: MessageSquare, permission: "manage_settings" },
+  { href: "/mgmt-x9k2m7/debug-announcements", label: "Debug Announcements", icon: Bug, permission: "manage_settings" },
   { href: "/mgmt-x9k2m7/logs", label: "Audit Logs", icon: FileText, permission: "manage_logins" },
   { href: "/mgmt-x9k2m7/logins", label: "Manage Logins", icon: UserCog, permission: "manage_logins" },
 ];

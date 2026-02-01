@@ -18,6 +18,24 @@ const undetectedCheats = [
   "Marvel Rivals",
 ];
 
+// Map game names to correct store URLs
+function getGameUrl(gameName: string): string {
+  const gameMapping: Record<string, string> = {
+    "Arc Raiders": "/store/arc-raiders",
+    "Rainbow Six Siege": "/store/rainbow-six-siege",
+    "Battlefield 6": "/store/battlefield",
+    "Black Ops & WZ": "/store/call-of-duty-bo6",
+    "Rust": "/store/rust",
+    "PUBG": "/store/pubg",
+    "Fortnite": "/store/fortnite",
+    "Apex Legends": "/store/apex-legends",
+    "EFT": "/store/escape-from-tarkov", // EFT = Escape from Tarkov
+    "Marvel Rivals": "/store/marvel-rivals",
+  };
+  
+  return gameMapping[gameName] || "/store";
+}
+
 const otherLinks = [
   { name: "Customer Support", href: "https://discord.gg/magmacheats" },
   { name: "Terms of Service", href: "/terms" },
@@ -154,7 +172,7 @@ export function Footer() {
               {undetectedCheats.map((cheat, index) => (
                 <Link
                   key={index}
-                  href="#"
+                  href={getGameUrl(cheat)}
                   onMouseEnter={() => setHoveredLink(cheat)}
                   onMouseLeave={() => setHoveredLink(null)}
                   className="group relative text-white/70 hover:text-[#dc2626] text-sm py-2 transition-all duration-300 inline-flex items-center gap-2"

@@ -64,8 +64,10 @@ export async function POST(request: NextRequest) {
             .from('orders')
             .update({
               status: 'completed',
-              payment_intent_id: session.payment_intent,
-              billing_address: JSON.stringify(session.customer_details?.address),
+              payment_intent_id: session.payment_intent as string,
+              customer_name: session.customer_details?.name || existingOrder.customer_name || 'Unknown Customer',
+              currency: (session.currency || existingOrder.currency || 'usd').toUpperCase(),
+              billing_address: session.customer_details?.address ? JSON.stringify(session.customer_details.address) : existingOrder.billing_address,
               updated_at: new Date().toISOString(),
             })
             .eq('id', existingOrder.id)
@@ -80,24 +82,34 @@ export async function POST(request: NextRequest) {
           console.log('✅ Updated existing order:', order.order_number);
         } else {
           // Create new order if none exists (fallback)
+          // Extract product info from first line item for order details
+          const firstLineItem = fullSession.line_items?.data?.[0];
+          const firstProduct = firstLineItem?.price?.product as any;
+          
           const orderData = {
             order_number: `STRIPE-${session.id.slice(-8).toUpperCase()}`,
-            customer_email: session.customer_details?.email || session.metadata?.customer_email,
-            customer_name: session.customer_details?.name || 'Unknown',
+            customer_email: session.customer_details?.email || session.metadata?.customer_email || 'unknown@example.com',
+            customer_name: session.customer_details?.name || session.metadata?.customer_name || 'Unknown Customer',
             amount_cents: session.amount_total || 0,
-            currency: session.currency?.toUpperCase() || 'USD',
+            currency: (session.currency || 'usd').toUpperCase(),
             status: 'completed',
             payment_method: 'stripe',
-            payment_intent_id: session.payment_intent,
+            payment_intent_id: session.payment_intent as string,
             stripe_session_id: session.id,
-            billing_address: JSON.stringify(session.customer_details?.address),
+            billing_address: session.customer_details?.address ? JSON.stringify(session.customer_details.address) : null,
             coupon_code: session.metadata?.coupon_code || null,
             coupon_discount_amount: session.metadata?.coupon_discount_amount ? 
               parseFloat(session.metadata.coupon_discount_amount) : null,
+            // Add product info from first line item
+            product_id: firstProduct?.metadata?.product_id || null,
+            variant_id: firstProduct?.metadata?.variant_id || null,
+            product_name: firstProduct?.name || 'Digital Product',
+            duration: firstProduct?.metadata?.duration || null,
             metadata: JSON.stringify({
               stripe_session: session.id,
               customer_details: session.customer_details,
               custom_fields: session.custom_fields,
+              line_items_count: fullSession.line_items?.data?.length || 0,
             }),
             created_at: new Date().toISOString(),
           };
@@ -205,36 +217,41 @@ export async function POST(request: NextRequest) {
 
         console.log('🎉 Payment processing completed for session:', session.id);
 
-        // Trigger Discord webhooks for completed order
-        await triggerWebhooks('payment.completed', {
-          order_number: order.order_number,
-          customer_email: order.customer_email,
-          customer_name: order.customer_name || session.customer_details?.name || 'Unknown',
-          amount: formatAmountFromStripe(order.amount_cents),
-          currency: order.currency,
-          payment_intent_id: session.payment_intent,
-          stripe_session_id: session.id,
-          items: fullSession.line_items?.data?.map(item => ({
-            name: (item.price?.product as any)?.name || 'Unknown Product',
-            quantity: item.quantity || 1,
-            price: formatAmountFromStripe(item.amount_total || 0),
-          })) || [],
-        });
+        // Trigger Discord webhooks for completed order (with error handling)
+        try {
+          await triggerWebhooks('payment.completed', {
+            order_number: order.order_number,
+            customer_email: order.customer_email,
+            customer_name: order.customer_name || session.customer_details?.name || 'Unknown Customer',
+            amount: formatAmountFromStripe(order.amount_cents || 0),
+            currency: order.currency || 'USD',
+            payment_intent_id: session.payment_intent as string,
+            stripe_session_id: session.id,
+            items: fullSession.line_items?.data?.map(item => ({
+              name: (item.price?.product as any)?.name || 'Unknown Product',
+              quantity: item.quantity || 1,
+              price: formatAmountFromStripe(item.amount_total || 0),
+            })) || [],
+          });
 
-        // Also trigger order.completed event
-        await triggerWebhooks('order.completed', {
-          order_number: order.order_number,
-          customer_email: order.customer_email,
-          customer_name: order.customer_name || session.customer_details?.name || 'Unknown',
-          amount: formatAmountFromStripe(order.amount_cents),
-          currency: order.currency,
-          status: 'completed',
-          items: fullSession.line_items?.data?.map(item => ({
-            name: (item.price?.product as any)?.name || 'Unknown Product',
-            quantity: item.quantity || 1,
-            price: formatAmountFromStripe(item.amount_total || 0),
-          })) || [],
-        });
+          // Also trigger order.completed event
+          await triggerWebhooks('order.completed', {
+            order_number: order.order_number,
+            customer_email: order.customer_email,
+            customer_name: order.customer_name || session.customer_details?.name || 'Unknown Customer',
+            amount: formatAmountFromStripe(order.amount_cents || 0),
+            currency: order.currency || 'USD',
+            status: 'completed',
+            items: fullSession.line_items?.data?.map(item => ({
+              name: (item.price?.product as any)?.name || 'Unknown Product',
+              quantity: item.quantity || 1,
+              price: formatAmountFromStripe(item.amount_total || 0),
+            })) || [],
+          });
+        } catch (webhookError) {
+          console.error('⚠️ Discord webhook failed (order still processed):', webhookError);
+          // Don't throw error - order was processed successfully
+        }
         break;
       }
 

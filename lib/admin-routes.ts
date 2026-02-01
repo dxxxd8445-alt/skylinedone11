@@ -10,6 +10,7 @@ export const ROUTE_PERMISSION_MAP: Record<string, string> = {
   "/mgmt-x9k2m7/webhooks": "manage_webhooks",
   "/mgmt-x9k2m7/team": "manage_team",
   "/mgmt-x9k2m7/logs": "manage_logins",
+  "/mgmt-x9k2m7/announcements": "manage_settings",
   "/mgmt-x9k2m7/debug-auth": "dashboard",
   "/mgmt-x9k2m7/settings": "manage_settings",
   "/mgmt-x9k2m7/logins": "manage_logins",

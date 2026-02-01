@@ -10,12 +10,17 @@ export interface OrderRow {
   id: string;
   order_number: string;
   customer_email: string;
+  customer_name?: string;
   product_id: string | null;
   product_name: string;
   duration: string;
   amount: number;
+  amount_cents?: number;
+  currency?: string;
   status: string;
   payment_method: string;
+  payment_intent_id?: string;
+  stripe_session_id?: string;
   created_at: string;
   updated_at: string;
 }
@@ -48,8 +53,22 @@ export async function getOrders(statusFilter?: OrderStatus | "all"): Promise<{
     const { data, error } = await q;
     if (error) throw error;
     const rows = (data ?? []).map((o) => ({
-      ...o,
+      id: o.id,
+      order_number: o.order_number || `ORD-${o.id.slice(0, 8)}`,
+      customer_email: o.customer_email || 'unknown@example.com',
+      customer_name: o.customer_name || 'Unknown Customer',
+      product_id: o.product_id,
+      product_name: o.product_name || 'Digital Product',
+      duration: o.duration || 'N/A',
       amount: o.amount_cents ? Number(o.amount_cents) / 100 : Number(o.amount || 0),
+      amount_cents: o.amount_cents,
+      currency: o.currency || 'USD',
+      status: o.status || 'pending',
+      payment_method: o.payment_method || 'unknown',
+      payment_intent_id: o.payment_intent_id,
+      stripe_session_id: o.stripe_session_id,
+      created_at: o.created_at,
+      updated_at: o.updated_at,
     })) as OrderRow[];
     return { success: true, data: rows };
   } catch (e: unknown) {
@@ -86,8 +105,22 @@ export async function getOrderDetail(orderId: string): Promise<{
       .limit(1);
     const license = licenses?.[0] ?? null;
     const detail: OrderDetail = {
-      ...order,
+      id: order.id,
+      order_number: order.order_number || `ORD-${order.id.slice(0, 8)}`,
+      customer_email: order.customer_email || 'unknown@example.com',
+      customer_name: order.customer_name || 'Unknown Customer',
+      product_id: order.product_id,
+      product_name: order.product_name || 'Digital Product',
+      duration: order.duration || 'N/A',
       amount: order.amount_cents ? Number(order.amount_cents) / 100 : Number(order.amount || 0),
+      amount_cents: order.amount_cents,
+      currency: order.currency || 'USD',
+      status: order.status || 'pending',
+      payment_method: order.payment_method || 'unknown',
+      payment_intent_id: order.payment_intent_id,
+      stripe_session_id: order.stripe_session_id,
+      created_at: order.created_at,
+      updated_at: order.updated_at,
       license: license ? {
         id: license.id,
         license_key: license.license_key,
