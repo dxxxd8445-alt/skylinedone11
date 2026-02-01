@@ -31,64 +31,63 @@ export default function CartPage() {
   const total = getTotal();
 
   const handleCheckout = async () => {
-    // If user is not logged in, redirect to login page
-    if (!user) {
-      router.push("/checkout/login");
-      return;
-    }
-
     console.log('🛒 Starting checkout process...');
     setCheckoutLoading(true);
 
     try {
-      // Prepare checkout items for Stripe
-      const checkoutItems = items.map(item => ({
-        id: item.id,
-        productId: item.productId,
-        productName: item.productName,
-        game: item.game || 'Unknown',
-        duration: item.duration,
-        price: item.price,
-        quantity: item.quantity,
-        variantId: item.variantId,
-      }));
+      // If user is logged in, proceed directly to Stripe
+      if (user) {
+        // Prepare checkout items for Stripe
+        const checkoutItems = items.map(item => ({
+          id: item.id,
+          productId: item.productId,
+          productName: item.productName,
+          game: item.game || 'Unknown',
+          duration: item.duration,
+          price: item.price,
+          quantity: item.quantity,
+          variantId: item.variantId,
+        }));
 
-      console.log('📦 Checkout items prepared:', checkoutItems);
+        console.log('📦 Checkout items prepared:', checkoutItems);
 
-      // Validate checkout data
-      const validationError = validateCheckoutData({
-        items: checkoutItems,
-        customerEmail: user.email || '',
-        couponCode: appliedCoupon?.code,
-        couponDiscountAmount: discount,
-      });
+        // Validate checkout data
+        const validationError = validateCheckoutData({
+          items: checkoutItems,
+          customerEmail: user.email || '',
+          couponCode: appliedCoupon?.code,
+          couponDiscountAmount: discount,
+        });
 
-      if (validationError) {
-        console.error('❌ Validation error:', validationError);
-        alert(validationError);
-        setCheckoutLoading(false);
-        return;
+        if (validationError) {
+          console.error('❌ Validation error:', validationError);
+          alert(validationError);
+          setCheckoutLoading(false);
+          return;
+        }
+
+        console.log('✅ Validation passed');
+
+        // Redirect to Stripe Checkout
+        console.log('🔄 Redirecting to Stripe checkout...');
+        const result = await redirectToStripeCheckout({
+          items: checkoutItems,
+          customerEmail: user.email || '',
+          couponCode: appliedCoupon?.code,
+          couponDiscountAmount: discount,
+          successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/success`,
+          cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/cart`,
+        });
+
+        if (!result.success) {
+          console.error('❌ Checkout failed:', result.error);
+          alert(result.error || 'Failed to redirect to checkout');
+          setCheckoutLoading(false);
+        }
+      } else {
+        // User not logged in - redirect to checkout options
+        router.push("/checkout/guest");
       }
-
-      console.log('✅ Validation passed');
-
-      // Redirect to Stripe Checkout
-      console.log('🔄 Redirecting to Stripe checkout...');
-      const result = await redirectToStripeCheckout({
-        items: checkoutItems,
-        customerEmail: user.email || '',
-        couponCode: appliedCoupon?.code,
-        couponDiscountAmount: discount,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/cart`,
-      });
-
-      if (!result.success) {
-        console.error('❌ Checkout failed:', result.error);
-        alert(result.error || 'Failed to redirect to checkout');
-        setCheckoutLoading(false);
-      }
-      // Note: If successful, user will be redirected to Stripe, so no need to set loading to false
     } catch (error: any) {
       console.error('❌ Checkout error:', error);
       alert('Failed to proceed to checkout. Please try again.');
@@ -422,13 +421,24 @@ export default function CartPage() {
                             </>
                           ) : (
                             <>
-                              {user ? 'Proceed to Stripe Checkout' : 'Sign In to Checkout'}
+                              {user ? 'Proceed to Stripe Checkout' : 'Continue as Guest'}
                               <ArrowLeft className="w-5 h-5 rotate-180 group-hover/checkout:translate-x-1 transition-transform" />
                             </>
                           )}
                         </span>
                         <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#dc2626] to-[#ef4444] opacity-50 group-hover/checkout:opacity-75 transition-opacity" />
                       </button>
+
+                      {/* Sign In Option for Guest Users */}
+                      {!user && (
+                        <button
+                          onClick={() => router.push("/checkout/login")}
+                          className="group/signin w-full py-3 rounded-xl bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 text-white/80 hover:text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
+                        >
+                          <span>Sign In Instead</span>
+                          <ArrowLeft className="w-4 h-4 rotate-180 group-hover/signin:translate-x-1 transition-transform" />
+                        </button>
+                      )}
 
                       <button
                         onClick={clearCart}

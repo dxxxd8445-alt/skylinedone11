@@ -20,6 +20,17 @@ export interface CheckoutOptions {
   couponDiscountAmount?: number;
   successUrl?: string;
   cancelUrl?: string;
+  guestCheckout?: boolean;
+  guestInfo?: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    address?: string;
+    city?: string;
+    zipCode?: string;
+    country?: string;
+    phone?: string;
+  };
 }
 
 export async function redirectToStripeCheckout(options: CheckoutOptions) {
@@ -47,6 +58,8 @@ export async function redirectToStripeCheckout(options: CheckoutOptions) {
         coupon_discount_amount: options.couponDiscountAmount,
         success_url: options.successUrl,
         cancel_url: options.cancelUrl,
+        guest_checkout: options.guestCheckout,
+        guest_info: options.guestInfo,
       }),
     });
 

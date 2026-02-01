@@ -5,12 +5,17 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { useCart } from "@/lib/cart-context";
 import { useRouter } from "next/navigation";
+import { useCurrency } from "@/lib/currency-context";
+import { useI18n } from "@/lib/i18n-context";
+import { formatMoney } from "@/lib/money";
 import { Mail, User, MapPin, Phone, CreditCard, Loader2, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 export default function GuestCheckoutPage() {
   const router = useRouter();
-  const { items, getTotal } = useCart();
+  const { items, getTotal, getSubtotal, getDiscount, appliedCoupon } = useCart();
+  const { currency } = useCurrency();
+  const { locale } = useI18n();
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,7 +29,9 @@ export default function GuestCheckoutPage() {
   const [country, setCountry] = useState("United States");
   const [phone, setPhone] = useState("");
 
-  const subtotal = getTotal();
+  const subtotal = getSubtotal();
+  const discount = getDiscount();
+  const total = getTotal();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,12 +46,48 @@ export default function GuestCheckoutPage() {
     }
 
     try {
-      // Process guest checkout
-      // This would integrate with your payment processor
-      router.push("/checkout/confirm");
-    } catch (err) {
-      setError("An error occurred. Please try again.");
-    } finally {
+      // Prepare checkout items for Stripe
+      const checkoutItems = items.map(item => ({
+        id: item.id,
+        productId: item.productId,
+        productName: item.productName,
+        game: item.game || 'Unknown',
+        duration: item.duration,
+        price: item.price,
+        quantity: item.quantity,
+        variantId: item.variantId,
+      }));
+
+      // Import the stripe checkout function
+      const { redirectToStripeCheckout } = await import("@/lib/stripe-checkout");
+
+      // Redirect to Stripe Checkout with guest email
+      const result = await redirectToStripeCheckout({
+        items: checkoutItems,
+        customerEmail: email,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/cart`,
+        guestCheckout: true,
+        guestInfo: {
+          firstName,
+          lastName,
+          email,
+          address,
+          city,
+          zipCode,
+          country,
+          phone,
+        },
+      });
+
+      if (!result.success) {
+        setError(result.error || 'Failed to redirect to checkout');
+        setIsProcessing(false);
+      }
+      // If successful, user will be redirected to Stripe
+    } catch (err: any) {
+      console.error('Guest checkout error:', err);
+      setError(err.message || "An error occurred. Please try again.");
       setIsProcessing(false);
     }
   };
@@ -238,7 +281,7 @@ export default function GuestCheckoutPage() {
                         <div className="flex items-center justify-between mt-1">
                           <span className="text-white/60 text-xs">x{item.quantity}</span>
                           <span className="text-[#dc2626] font-bold text-sm">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            {formatMoney({ amountUsd: item.price * item.quantity, currency, locale })}
                           </span>
                         </div>
                       </div>
@@ -250,11 +293,17 @@ export default function GuestCheckoutPage() {
                 <div className="border-t border-[#1a1a1a] pt-4 space-y-2">
                   <div className="flex justify-between text-white/60">
                     <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>{formatMoney({ amountUsd: subtotal, currency, locale })}</span>
                   </div>
+                  {discount > 0 && (
+                    <div className="flex justify-between text-green-400">
+                      <span>Discount ({appliedCoupon?.code})</span>
+                      <span>-{formatMoney({ amountUsd: discount, currency, locale })}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-white font-bold text-xl pt-2">
                     <span>Total</span>
-                    <span className="text-[#dc2626]">${subtotal.toFixed(2)}</span>
+                    <span className="text-[#dc2626]">{formatMoney({ amountUsd: total, currency, locale })}</span>
                   </div>
                 </div>
               </div>
