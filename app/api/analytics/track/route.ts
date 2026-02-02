@@ -99,11 +99,18 @@ export async function POST(request: NextRequest) {
     const referrer = request.headers.get('referer') || '';
 
     // Check if session exists
-    const { data: existingSession } = await supabase
+    const { data: existingSession, error: selectError } = await supabase
       .from('visitor_sessions')
       .select('*')
       .eq('session_id', sessionId)
       .single();
+
+    if (selectError && selectError.code !== 'PGRST116') {
+      // PGRST116 = no rows returned, which is expected for new sessions
+      console.error('Error checking session:', selectError);
+      // Don't fail the request, just skip session tracking
+      return NextResponse.json({ success: true });
+    }
 
     if (existingSession) {
       // Update existing session
@@ -148,7 +155,8 @@ export async function POST(request: NextRequest) {
 
       if (insertError) {
         console.error('Error creating session:', insertError);
-        return NextResponse.json({ error: 'Failed to create session' }, { status: 500 });
+        // Don't fail the request, just skip session tracking
+        return NextResponse.json({ success: true });
       }
     }
 
@@ -191,7 +199,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Analytics tracking error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    // Return success anyway to not break the frontend
+    return NextResponse.json({ success: true });
   }
 }
 
