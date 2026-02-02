@@ -211,19 +211,29 @@ export default function AffiliatesPage() {
     }
     
     try {
+      console.log(`[Delete] Attempting to delete affiliate: ${id}`);
+      
       const response = await fetch(`/api/admin/affiliates/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
       });
 
+      const data = await response.json();
+      console.log(`[Delete] Response status: ${response.status}`, data);
+
       if (response.ok) {
+        console.log(`[Delete] Success! Reloading affiliates...`);
         await loadAffiliates();
-        alert("Affiliate deleted successfully!");
+        alert("✅ Affiliate deleted successfully!");
       } else {
-        alert("Failed to delete affiliate");
+        console.error(`[Delete] Failed with status ${response.status}:`, data);
+        alert(`❌ Failed to delete affiliate: ${data.error || 'Unknown error'}`);
       }
     } catch (error) {
-      console.error("Failed to delete affiliate:", error);
-      alert("Failed to delete affiliate");
+      console.error("[Delete] Exception:", error);
+      alert(`❌ Error deleting affiliate: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -242,7 +252,7 @@ export default function AffiliatesPage() {
   }), { totalAffiliates: 0, totalEarnings: 0, totalReferrals: 0, pendingPayouts: 0 });
 
   return (
-    <AdminShell>
+    <AdminShell title="Affiliate Management" subtitle="Manage affiliate partners and commissions">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -449,6 +459,7 @@ export default function AffiliatesPage() {
                               variant="ghost"
                               onClick={() => viewAffiliateDetails(affiliate)}
                               className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
+                              title="View Details"
                             >
                               <Eye className="w-4 h-4" />
                             </Button>
@@ -457,6 +468,7 @@ export default function AffiliatesPage() {
                               variant="ghost"
                               onClick={() => editAffiliate(affiliate)}
                               className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
+                              title="Edit Affiliate"
                             >
                               <Edit className="w-4 h-4" />
                             </Button>
@@ -466,6 +478,7 @@ export default function AffiliatesPage() {
                                 variant="ghost"
                                 onClick={() => updateAffiliateStatus(affiliate.id, 'suspended')}
                                 className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                                title="Suspend Affiliate"
                               >
                                 <XCircle className="w-4 h-4" />
                               </Button>
@@ -475,6 +488,7 @@ export default function AffiliatesPage() {
                                 variant="ghost"
                                 onClick={() => updateAffiliateStatus(affiliate.id, 'active')}
                                 className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
+                                title="Activate Affiliate"
                               >
                                 <CheckCircle2 className="w-4 h-4" />
                               </Button>
@@ -484,6 +498,7 @@ export default function AffiliatesPage() {
                               variant="ghost"
                               onClick={() => deleteAffiliate(affiliate.id)}
                               className="text-red-500 hover:text-red-400 hover:bg-red-500/10"
+                              title="Delete Affiliate"
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
