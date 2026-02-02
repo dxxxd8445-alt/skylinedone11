@@ -15,7 +15,23 @@ export async function GET(request: NextRequest) {
     const { data: affiliatesWithUsers, error: joinError } = await supabase
       .from('affiliates')
       .select(`
-        *,
+        id,
+        user_id,
+        affiliate_code,
+        commission_rate,
+        total_earnings,
+        pending_earnings,
+        paid_earnings,
+        total_referrals,
+        total_sales,
+        status,
+        payment_email,
+        payment_method,
+        crypto_type,
+        cashapp_tag,
+        minimum_payout,
+        created_at,
+        updated_at,
         store_users!store_user_id (
           username,
           email
@@ -29,7 +45,25 @@ export async function GET(request: NextRequest) {
       // Fallback: try without join
       const { data: affiliatesOnly, error: simpleError } = await supabase
         .from('affiliates')
-        .select('*')
+        .select(`
+          id,
+          user_id,
+          affiliate_code,
+          commission_rate,
+          total_earnings,
+          pending_earnings,
+          paid_earnings,
+          total_referrals,
+          total_sales,
+          status,
+          payment_email,
+          payment_method,
+          crypto_type,
+          cashapp_tag,
+          minimum_payout,
+          created_at,
+          updated_at
+        `)
         .order('created_at', { ascending: false });
 
       if (simpleError) {
