@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
-import { RefreshCw, Plus, Trash2, Key, Copy, BarChart3, Package } from "lucide-react";
+import { Plus, Trash2, Key, Copy, BarChart3, Package, ChevronRight, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { 
   addLicenseStock, 
@@ -41,8 +41,8 @@ export default function LicensesPage() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
   
-  // Form State
-  const [stockType, setStockType] = useState<"general" | "product" | "variant">("general");
+  // Form State - Step-by-step workflow
+  const [step, setStep] = useState<"game" | "variant" | "keys">("game");
   const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [variants, setVariants] = useState<Variant[]>([]);
@@ -56,13 +56,13 @@ export default function LicensesPage() {
   }, []);
 
   useEffect(() => {
-    if (selectedProduct && stockType !== "general") {
+    if (selectedProduct) {
       loadVariants(selectedProduct);
     } else {
       setVariants([]);
       setSelectedVariant("");
     }
-  }, [selectedProduct, stockType]);
+  }, [selectedProduct]);
 
   async function loadData() {
     try {
@@ -128,20 +128,17 @@ export default function LicensesPage() {
       const keys = keysInput.split("\n").filter(k => k.trim().length > 0);
       
       const result: AddStockResult = await addLicenseStock({
-        product_id: stockType === "general" ? null : selectedProduct || null,
-        variant_id: stockType === "variant" ? selectedVariant || null : null,
+        product_id: selectedProduct || null,
+        variant_id: selectedVariant || null,
         license_keys: keys
       });
 
       console.log("[License Add] Result:", result);
 
       if (result.success) {
-        let message = `Added ${result.added} keys`;
+        let message = `✅ Added ${result.added} keys`;
         if (result.skipped > 0) {
-          message += `, skipped ${result.skipped} duplicates`;
-        }
-        if (result.invalid.length > 0) {
-          message += `, ${result.invalid.length} invalid format`;
+          message += ` (${result.skipped} skipped)`;
         }
 
         toast({
@@ -149,17 +146,18 @@ export default function LicensesPage() {
           description: message,
         });
         
+        // Reset form
         setShowAddModal(false);
         setKeysInput("");
         setSelectedProduct("");
         setSelectedVariant("");
-        setStockType("general");
+        setStep("game");
         loadData();
       } else {
         console.error("[License Add] Error:", result.error);
         toast({
           title: "Failed to Add Licenses",
-          description: result.error || "Unknown error occurred. Check console for details.",
+          description: result.error || "Unknown error occurred",
           variant: "destructive",
         });
       }
@@ -167,7 +165,7 @@ export default function LicensesPage() {
       console.error("[License Add] Exception:", error);
       toast({
         title: "Error Adding Licenses",
-        description: error instanceof Error ? error.message : "Something went wrong while adding licenses",
+        description: error instanceof Error ? error.message : "Something went wrong",
         variant: "destructive",
       });
     } finally {
@@ -245,63 +243,61 @@ export default function LicensesPage() {
   ];
 
   return (
-    <AdminShell title="License Key Inventory" subtitle="Manage your license key stock like a general inventory system">
+    <AdminShell title="License Key Inventory" subtitle="Stock and manage license keys for your products">
       <div className="p-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-white mb-2">License Key Inventory</h1>
-            <p className="text-gray-400">Manage your license key stock</p>
-            {stockSummary && (
-              <div className="flex gap-4 mt-3 text-sm">
-                <span className="text-emerald-400">
-                  {stockSummary.total_stock} total in stock
-                </span>
-                <span className="text-blue-400">
-                  {stockSummary.general_stock} general
-                </span>
-                <span className="text-green-400">
-                  {stockSummary.product_specific} product-specific
-                </span>
-                <span className="text-purple-400">
-                  {stockSummary.variant_specific} variant-specific
-                </span>
+        {/* Header Section */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-4xl font-bold text-white mb-2">License Key Inventory</h1>
+              <p className="text-white/60">Stock and manage license keys for your games</p>
+            </div>
+            <Button
+              onClick={() => {
+                setShowAddModal(true);
+                setStep("game");
+                setSelectedProduct("");
+                setSelectedVariant("");
+                setKeysInput("");
+              }}
+              className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white border-0 px-6 py-2 h-auto"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Stock Keys
+            </Button>
+          </div>
+
+          {/* Quick Stats */}
+          {stockSummary && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
+                <div className="text-white/60 text-sm mb-1">Total in Stock</div>
+                <div className="text-2xl font-bold text-emerald-400">{stockSummary.total_stock}</div>
               </div>
-            )}
-          </div>
-          <div className="flex gap-3">
-            <Button
-              variant="outline"
-              onClick={() => setShowSummaryModal(true)}
-              className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]"
-            >
-              <BarChart3 className="w-4 h-4 mr-2" />
-              Stock Summary
-            </Button>
-            <Button
-              variant="outline"
-              onClick={loadData}
-              className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]"
-            >
-              <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
-              Refresh
-            </Button>
-            <Button
-              onClick={() => setShowAddModal(true)}
-              className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white border-0"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Add Stock
-            </Button>
-          </div>
+              <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
+                <div className="text-white/60 text-sm mb-1">General Stock</div>
+                <div className="text-2xl font-bold text-blue-400">{stockSummary.general_stock}</div>
+              </div>
+              <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
+                <div className="text-white/60 text-sm mb-1">Product-Specific</div>
+                <div className="text-2xl font-bold text-green-400">{stockSummary.product_specific}</div>
+              </div>
+              <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
+                <div className="text-white/60 text-sm mb-1">Variant-Specific</div>
+                <div className="text-2xl font-bold text-purple-400">{stockSummary.variant_specific}</div>
+              </div>
+            </div>
+          )}
         </div>
 
-        <DataTable
-          data={licenses}
-          columns={columns}
-          searchKey="license_key"
-          searchPlaceholder="Search license keys..."
-          actions={(item) => (
-            <div className="flex gap-2">
+        {/* License Keys Table */}
+        <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg overflow-hidden">
+          <DataTable
+            data={licenses}
+            columns={columns}
+            searchKey="license_key"
+            searchPlaceholder="Search license keys..."
+            actions={(item) => (
               <Button
                 size="sm"
                 variant="ghost"
@@ -311,122 +307,129 @@ export default function LicensesPage() {
               >
                 <Trash2 className="w-4 h-4" />
               </Button>
-            </div>
-          )}
-        />
+            )}
+          />
+        </div>
 
-        {/* Add Stock Modal */}
+        {/* Stock Modal - Step-by-step workflow */}
         <Dialog open={showAddModal} onOpenChange={setShowAddModal}>
           <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white sm:max-w-[600px]">
             <DialogHeader>
-              <DialogTitle>Add License Keys to Stock</DialogTitle>
-              <DialogDescription className="text-white/50">
-                Add license keys to your inventory. Choose how they should be stocked.
+              <DialogTitle className="text-2xl">Stock License Keys</DialogTitle>
+              <DialogDescription className="text-white/50 mt-2">
+                {step === "game" && "Step 1: Select a game"}
+                {step === "variant" && "Step 2: Select duration/variant"}
+                {step === "keys" && "Step 3: Enter license keys"}
               </DialogDescription>
             </DialogHeader>
 
-            <div className="space-y-6 py-4">
-              {/* Stock Type Selection */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-white/70">Stock Type</label>
-                <div className="grid grid-cols-3 gap-3">
-                  <button
-                    onClick={() => setStockType("general")}
-                    className={`p-3 rounded-lg border text-left transition-colors ${
-                      stockType === "general"
-                        ? "border-blue-500 bg-blue-500/10 text-blue-400"
-                        : "border-[#262626] bg-[#1a1a1a] text-white/70 hover:bg-[#262626]"
-                    }`}
-                  >
-                    <Package className="w-4 h-4 mb-1" />
-                    <div className="text-sm font-medium">General Stock</div>
-                    <div className="text-xs opacity-70">Can be used for any product</div>
-                  </button>
-                  <button
-                    onClick={() => setStockType("product")}
-                    className={`p-3 rounded-lg border text-left transition-colors ${
-                      stockType === "product"
-                        ? "border-green-500 bg-green-500/10 text-green-400"
-                        : "border-[#262626] bg-[#1a1a1a] text-white/70 hover:bg-[#262626]"
-                    }`}
-                  >
-                    <Key className="w-4 h-4 mb-1" />
-                    <div className="text-sm font-medium">Product Stock</div>
-                    <div className="text-xs opacity-70">For specific product only</div>
-                  </button>
-                  <button
-                    onClick={() => setStockType("variant")}
-                    className={`p-3 rounded-lg border text-left transition-colors ${
-                      stockType === "variant"
-                        ? "border-purple-500 bg-purple-500/10 text-purple-400"
-                        : "border-[#262626] bg-[#1a1a1a] text-white/70 hover:bg-[#262626]"
-                    }`}
-                  >
-                    <Package className="w-4 h-4 mb-1" />
-                    <div className="text-sm font-medium">Variant Stock</div>
-                    <div className="text-xs opacity-70">For specific variant only</div>
-                  </button>
+            <div className="py-6 space-y-6">
+              {/* Progress Indicator */}
+              <div className="flex items-center gap-2">
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "game" || step === "variant" || step === "keys" ? "bg-[#dc2626] text-white" : "bg-[#262626] text-white/40"}`}>
+                  1
+                </div>
+                <div className={`flex-1 h-1 ${step === "variant" || step === "keys" ? "bg-[#dc2626]" : "bg-[#262626]"}`} />
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "variant" || step === "keys" ? "bg-[#dc2626] text-white" : "bg-[#262626] text-white/40"}`}>
+                  2
+                </div>
+                <div className={`flex-1 h-1 ${step === "keys" ? "bg-[#dc2626]" : "bg-[#262626]"}`} />
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "keys" ? "bg-[#dc2626] text-white" : "bg-[#262626] text-white/40"}`}>
+                  3
                 </div>
               </div>
 
-              {/* Product Selection */}
-              {stockType !== "general" && (
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/70">Product</label>
-                  <select
-                    className="w-full bg-[#1a1a1a] border border-[#262626] rounded-md p-2 text-white"
-                    value={selectedProduct}
-                    onChange={(e) => setSelectedProduct(e.target.value)}
-                  >
-                    <option value="">Select a product...</option>
-                    {products.map(p => (
-                      <option key={p.id} value={p.id}>{p.name}</option>
-                    ))}
-                  </select>
+              {/* Step 1: Game Selection */}
+              {step === "game" && (
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium text-white/70 mb-3 block">Select Game</label>
+                    <select
+                      className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-3 text-white focus:border-[#dc2626] focus:outline-none transition-colors"
+                      value={selectedProduct}
+                      onChange={(e) => setSelectedProduct(e.target.value)}
+                    >
+                      <option value="">Choose a game...</option>
+                      {products.map(p => (
+                        <option key={p.id} value={p.id}>{p.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 flex gap-3">
+                    <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm text-blue-300">
+                      Select the game you want to stock keys for. You can choose a specific duration variant in the next step.
+                    </div>
+                  </div>
                 </div>
               )}
 
-              {/* Variant Selection */}
-              {stockType === "variant" && selectedProduct && variants.length > 0 && (
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-white/70">Variant (Duration)</label>
-                  <select
-                    className="w-full bg-[#1a1a1a] border border-[#262626] rounded-md p-2 text-white"
-                    value={selectedVariant}
-                    onChange={(e) => setSelectedVariant(e.target.value)}
-                    disabled={loadingVariants}
-                  >
-                    <option value="">Select a variant...</option>
-                    {variants.map(v => (
-                      <option key={v.id} value={v.id}>
-                        {v.duration} - ${v.price}
-                      </option>
-                    ))}
-                  </select>
+              {/* Step 2: Variant/Duration Selection */}
+              {step === "variant" && (
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium text-white/70 mb-3 block">Select Duration</label>
+                    {loadingVariants ? (
+                      <div className="text-center py-4 text-white/60">Loading variants...</div>
+                    ) : variants.length > 0 ? (
+                      <select
+                        className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-3 text-white focus:border-[#dc2626] focus:outline-none transition-colors"
+                        value={selectedVariant}
+                        onChange={(e) => setSelectedVariant(e.target.value)}
+                      >
+                        <option value="">Choose a duration...</option>
+                        {variants.map(v => (
+                          <option key={v.id} value={v.id}>
+                            {v.duration} - ${v.price}
+                          </option>
+                        ))}
+                      </select>
+                    ) : (
+                      <div className="text-center py-4 text-white/60">No variants available for this game</div>
+                    )}
+                  </div>
+                  <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 flex gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <div className="text-sm text-green-300">
+                      Keys will be assigned to this specific duration. You can also stock general keys that work for any duration.
+                    </div>
+                  </div>
                 </div>
               )}
 
-              {/* License Keys Input */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-white/70">License Keys (One per line)</label>
-                <Textarea
-                  placeholder="Enter your license keys here&#10;One key per line&#10;Any format accepted"
-                  className="bg-[#1a1a1a] border-[#262626] text-white min-h-[150px] font-mono text-sm"
-                  value={keysInput}
-                  onChange={(e) => setKeysInput(e.target.value)}
-                />
-                <div className="flex justify-between text-xs text-white/40">
-                  <span>
-                    {keysInput.split("\n").filter(k => k.trim().length > 0).length} keys to add
-                  </span>
-                  <span>
-                    Any format accepted
-                  </span>
+              {/* Step 3: Key Input */}
+              {step === "keys" && (
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm font-medium text-white/70 mb-3 block">License Keys</label>
+                    <Textarea
+                      placeholder="Paste your license keys here&#10;One key per line&#10;Any format accepted"
+                      className="bg-[#1a1a1a] border-[#262626] text-white min-h-[200px] font-mono text-sm focus:border-[#dc2626] focus:outline-none transition-colors"
+                      value={keysInput}
+                      onChange={(e) => setKeysInput(e.target.value)}
+                    />
+                    <div className="flex justify-between text-xs text-white/40 mt-2">
+                      <span>{keysInput.split("\n").filter(k => k.trim().length > 0).length} keys ready</span>
+                      <span>Any format accepted</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
-            <DialogFooter>
+            <DialogFooter className="flex gap-3">
+              {step !== "game" && (
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    if (step === "variant") setStep("game");
+                    else if (step === "keys") setStep("variant");
+                  }}
+                  className="text-white/70 hover:text-white"
+                >
+                  Back
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 onClick={() => setShowAddModal(false)}
@@ -434,87 +437,31 @@ export default function LicensesPage() {
               >
                 Cancel
               </Button>
-              <Button
-                onClick={handleAddStock}
-                disabled={processing || !keysInput.trim() || (stockType !== "general" && !selectedProduct) || (stockType === "variant" && !selectedVariant)}
-                className="bg-red-600 hover:bg-red-700 text-white"
-              >
-                {processing ? "Adding..." : "Add to Stock"}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-
-        {/* Stock Summary Modal */}
-        <Dialog open={showSummaryModal} onOpenChange={setShowSummaryModal}>
-          <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white sm:max-w-[700px]">
-            <DialogHeader>
-              <DialogTitle>Stock Summary</DialogTitle>
-              <DialogDescription className="text-white/50">
-                Overview of your license key inventory
-              </DialogDescription>
-            </DialogHeader>
-
-            {stockSummary && (
-              <div className="space-y-6 py-4">
-                {/* Overall Stats */}
-                <div className="grid grid-cols-4 gap-4">
-                  <div className="bg-[#1a1a1a] p-4 rounded-lg border border-[#262626]">
-                    <div className="text-2xl font-bold text-emerald-400">{stockSummary.total_stock}</div>
-                    <div className="text-sm text-white/60">Total in Stock</div>
-                  </div>
-                  <div className="bg-[#1a1a1a] p-4 rounded-lg border border-[#262626]">
-                    <div className="text-2xl font-bold text-blue-400">{stockSummary.general_stock}</div>
-                    <div className="text-sm text-white/60">General Stock</div>
-                  </div>
-                  <div className="bg-[#1a1a1a] p-4 rounded-lg border border-[#262626]">
-                    <div className="text-2xl font-bold text-green-400">{stockSummary.product_specific}</div>
-                    <div className="text-sm text-white/60">Product-Specific</div>
-                  </div>
-                  <div className="bg-[#1a1a1a] p-4 rounded-lg border border-[#262626]">
-                    <div className="text-2xl font-bold text-purple-400">{stockSummary.variant_specific}</div>
-                    <div className="text-sm text-white/60">Variant-Specific</div>
-                  </div>
-                </div>
-
-                {/* Product Breakdown */}
-                {stockSummary.by_product.length > 0 && (
-                  <div>
-                    <h3 className="text-lg font-semibold text-white mb-3">Stock by Product</h3>
-                    <div className="space-y-3">
-                      {stockSummary.by_product.map(product => (
-                        <div key={product.product_id} className="bg-[#1a1a1a] p-4 rounded-lg border border-[#262626]">
-                          <div className="flex justify-between items-center mb-2">
-                            <h4 className="font-medium text-white">{product.product_name}</h4>
-                            <Badge className="bg-green-500/10 text-green-400 border-green-500/20 border">
-                              {product.total_stock} keys
-                            </Badge>
-                          </div>
-                          {product.variants.length > 0 && (
-                            <div className="grid grid-cols-2 gap-2 mt-3">
-                              {product.variants.map(variant => (
-                                <div key={variant.variant_id} className="bg-[#0a0a0a] p-2 rounded border border-[#262626]">
-                                  <div className="text-sm text-white">{variant.duration}</div>
-                                  <div className="text-xs text-white/60">{variant.stock_count} keys</div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            <DialogFooter>
-              <Button
-                onClick={() => setShowSummaryModal(false)}
-                className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]"
-              >
-                Close
-              </Button>
+              {step !== "keys" && (
+                <Button
+                  onClick={() => {
+                    if (step === "game" && selectedProduct) setStep("variant");
+                    else if (step === "variant") setStep("keys");
+                  }}
+                  disabled={
+                    (step === "game" && !selectedProduct) ||
+                    (step === "variant" && !selectedVariant && variants.length > 0)
+                  }
+                  className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+                >
+                  Next
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
+              )}
+              {step === "keys" && (
+                <Button
+                  onClick={handleAddStock}
+                  disabled={processing || !keysInput.trim()}
+                  className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+                >
+                  {processing ? "Adding..." : "Add to Stock"}
+                </Button>
+              )}
             </DialogFooter>
           </DialogContent>
         </Dialog>
