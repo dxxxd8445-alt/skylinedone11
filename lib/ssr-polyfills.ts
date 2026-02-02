@@ -8,11 +8,11 @@ if (typeof window === 'undefined') {
   // @ts-ignore
   global.window = {
     location: {
-      href: 'https://magmacheats.cc',
-      origin: 'https://magmacheats.cc',
+      href: 'https://magmacheats.com',
+      origin: 'https://magmacheats.com',
       protocol: 'https:',
-      host: 'magmacheats.cc',
-      hostname: 'magmacheats.cc',
+      host: 'magmacheats.com',
+      hostname: 'magmacheats.com',
       port: '',
       pathname: '/',
       search: '',
@@ -20,7 +20,7 @@ if (typeof window === 'undefined') {
       assign: () => {},
       replace: () => {},
       reload: () => {},
-      toString: () => 'https://magmacheats.cc',
+      toString: () => 'https://magmacheats.com',
     },
     document: {
       documentElement: {

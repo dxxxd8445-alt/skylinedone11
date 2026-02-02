@@ -28,6 +28,7 @@ import {
   Filter,
   Phone,
   Copy,
+  AlertCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -104,12 +105,12 @@ export default function ManageLoginsPage() {
   }
 
   return (
-    <AdminShell title="Manage Logins" subtitle="Owner-only: view store accounts, reset passwords, and track orders & delivered goods.">
+    <AdminShell title="Customer Logs" subtitle="View customer accounts, activity, and order history">
       {/* Breadcrumb */}
       <div className="flex flex-wrap items-center gap-2 text-sm text-white/50 mb-6">
         <Link href="/mgmt-x9k2m7" className="hover:text-white transition-colors">Dashboard</Link>
         <span>/</span>
-        <span className="text-white/70">Manage Logins</span>
+        <span className="text-white/70">Customer Logs</span>
       </div>
 
       {/* Info banner */}
@@ -325,98 +326,258 @@ export default function ManageLoginsPage() {
         </div>
       )}
 
-      {/* View orders/licenses modal */}
+      {/* View customer details modal */}
       {viewModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-4xl rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] shadow-xl p-6 sm:p-8 my-8">
+          <div className="w-full max-w-5xl rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] shadow-xl p-6 sm:p-8 my-8">
             <div className="flex items-start justify-between gap-4 mb-6">
               <div className="flex items-center gap-4 min-w-0">
-                <Avatar className="h-14 w-14 rounded-xl ring-2 ring-[#262626] flex-shrink-0">
+                <Avatar className="h-16 w-16 rounded-xl ring-2 ring-[#dc2626]/30 flex-shrink-0">
                   {viewModal.avatar_url ? (
                     <AvatarImage src={viewModal.avatar_url} alt={viewModal.username} className="object-cover" />
                   ) : null}
-                  <AvatarFallback className="bg-[#dc2626]/20 text-[#dc2626] font-semibold text-lg rounded-xl">
+                  <AvatarFallback className="bg-[#dc2626]/20 text-[#dc2626] font-semibold text-xl rounded-xl">
                     {(viewModal.username || viewModal.email)[0].toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="min-w-0">
-                  <h3 className="text-xl font-semibold text-white truncate">{viewModal.username || "—"}</h3>
-                  <p className="text-white/60 text-sm truncate">{viewModal.email}</p>
+                  <h3 className="text-2xl font-bold text-white truncate">{viewModal.username || "—"}</h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Mail className="w-4 h-4 text-white/40" />
+                    <p className="text-white/70 truncate">{viewModal.email}</p>
+                  </div>
                   {viewModal.phone && (
-                    <p className="text-white/50 text-sm flex items-center gap-1.5 mt-0.5">
-                      <Phone className="w-3.5 h-3.5" /> {viewModal.phone}
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Phone className="w-4 h-4 text-white/40" />
+                      <p className="text-white/60">{viewModal.phone}</p>
+                    </div>
                   )}
-                  <p className="text-white/40 text-xs mt-1 flex items-center gap-1">
-                    <Calendar className="w-3 h-3" /> Joined {new Date(viewModal.created_at).toLocaleDateString(undefined, { dateStyle: "medium" })}
-                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Calendar className="w-4 h-4 text-white/40" />
+                    <p className="text-white/50 text-sm">
+                      Account created: {new Date(viewModal.created_at).toLocaleDateString(undefined, { 
+                        weekday: 'long',
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </p>
+                  </div>
                 </div>
               </div>
-              <button onClick={() => { setViewModal(null); setDetail(null); }} className="text-white/50 hover:text-white p-1 text-2xl leading-none">×</button>
+              <button 
+                onClick={() => { setViewModal(null); setDetail(null); }} 
+                className="text-white/50 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-all text-xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Customer Status & Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div className="bg-gradient-to-br from-[#0a0a0a] to-[#111111] border border-[#262626] rounded-xl p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Status</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="text-emerald-400 font-semibold">Active</span>
+                    </div>
+                  </div>
+                  <UserCog className="w-8 h-8 text-emerald-400/30" />
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-[#0a0a0a] to-[#111111] border border-[#262626] rounded-xl p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Total Orders</p>
+                    <p className="text-2xl font-bold text-white mt-1">{viewModal.orders_count}</p>
+                  </div>
+                  <ShoppingCart className="w-8 h-8 text-blue-400/30" />
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-[#0a0a0a] to-[#111111] border border-[#262626] rounded-xl p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">License Keys</p>
+                    <p className="text-2xl font-bold text-white mt-1">{viewModal.licenses_count}</p>
+                  </div>
+                  <Package className="w-8 h-8 text-purple-400/30" />
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-[#0a0a0a] to-[#111111] border border-[#262626] rounded-xl p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Last Login</p>
+                    <p className="text-sm font-semibold text-white mt-1">
+                      {viewModal.updated_at ? new Date(viewModal.updated_at).toLocaleDateString() : 'Never'}
+                    </p>
+                  </div>
+                  <Calendar className="w-8 h-8 text-yellow-400/30" />
+                </div>
+              </div>
             </div>
 
             {detailLoading ? (
-              <div className="py-16 flex justify-center">
-                <div className="w-10 h-10 rounded-full border-2 border-[#dc2626]/30 border-t-[#dc2626] animate-spin" />
+              <div className="py-16 flex flex-col items-center justify-center gap-4">
+                <div className="w-12 h-12 rounded-full border-2 border-[#dc2626]/30 border-t-[#dc2626] animate-spin" />
+                <p className="text-white/50 text-sm">Loading customer data...</p>
               </div>
             ) : detail ? (
               <div className="space-y-6">
+                {/* Order History */}
                 <div>
-                  <h4 className="text-sm font-semibold text-white/70 uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <ShoppingCart className="w-4 h-4" /> Orders ({detail.orders.length})
+                  <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                      <ShoppingCart className="w-4 h-4 text-blue-400" />
+                    </div>
+                    Order History ({detail.orders.length})
                   </h4>
-                  <div className="rounded-xl border border-[#262626] divide-y divide-[#262626] max-h-56 overflow-y-auto">
+                  <div className="rounded-xl border border-[#262626] bg-[#0a0a0a]/50 overflow-hidden">
                     {detail.orders.length === 0 ? (
-                      <div className="py-8 text-center text-white/40 text-sm">No orders</div>
+                      <div className="py-12 text-center">
+                        <ShoppingCart className="w-12 h-12 text-white/20 mx-auto mb-3" />
+                        <p className="text-white/40">No orders found</p>
+                        <p className="text-white/30 text-sm mt-1">This customer hasn't made any purchases yet</p>
+                      </div>
                     ) : (
-                      detail.orders.map((o) => (
-                        <div key={o.id} className="p-4 flex flex-wrap items-center gap-3 text-sm">
-                          <span className="text-white/50"><Hash className="w-4 h-4 inline" /></span>
-                          <span className="font-mono text-white/80">{o.order_number}</span>
-                          <span className="text-white font-medium">{o.product_name}</span>
-                          <span className="text-white/50">{o.duration}</span>
-                          <span className="text-emerald-400 font-semibold">${o.amount.toFixed(2)}</span>
-                          <Badge variant="secondary" className="text-xs">{o.status}</Badge>
-                          <span className="text-white/40 text-xs ml-auto">{new Date(o.created_at).toLocaleString()}</span>
-                        </div>
-                      ))
+                      <div className="divide-y divide-[#262626] max-h-80 overflow-y-auto">
+                        {detail.orders.map((o) => (
+                          <div key={o.id} className="p-4 hover:bg-white/[0.02] transition-colors">
+                            <div className="flex flex-wrap items-center justify-between gap-3">
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                  <Hash className="w-5 h-5 text-blue-400" />
+                                </div>
+                                <div className="min-w-0">
+                                  <p className="font-mono text-white font-semibold">{o.order_number}</p>
+                                  <p className="text-white/70 text-sm truncate">{o.product_name}</p>
+                                  <p className="text-white/50 text-xs">{o.duration}</p>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-3 flex-shrink-0">
+                                <div className="text-right">
+                                  <p className="text-emerald-400 font-bold text-lg">${o.amount.toFixed(2)}</p>
+                                  <Badge 
+                                    variant="secondary" 
+                                    className={cn(
+                                      "text-xs",
+                                      o.status === 'completed' && "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
+                                      o.status === 'pending' && "bg-yellow-500/10 border-yellow-500/20 text-yellow-400",
+                                      o.status === 'failed' && "bg-red-500/10 border-red-500/20 text-red-400"
+                                    )}
+                                  >
+                                    {o.status}
+                                  </Badge>
+                                </div>
+                                <div className="text-right text-white/40 text-xs">
+                                  <p>{new Date(o.created_at).toLocaleDateString()}</p>
+                                  <p>{new Date(o.created_at).toLocaleTimeString()}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </div>
+
+                {/* License Keys / Delivered Products */}
                 <div>
-                  <h4 className="text-sm font-semibold text-white/70 uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <Package className="w-4 h-4" /> Licenses / delivered goods ({detail.licenses.length})
+                  <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+                      <Package className="w-4 h-4 text-purple-400" />
+                    </div>
+                    Delivered Products ({detail.licenses.length})
                   </h4>
-                  <div className="rounded-xl border border-[#262626] divide-y divide-[#262626] max-h-56 overflow-y-auto">
+                  <div className="rounded-xl border border-[#262626] bg-[#0a0a0a]/50 overflow-hidden">
                     {detail.licenses.length === 0 ? (
-                      <div className="py-8 text-center text-white/40 text-sm">No licenses</div>
+                      <div className="py-12 text-center">
+                        <Package className="w-12 h-12 text-white/20 mx-auto mb-3" />
+                        <p className="text-white/40">No products delivered</p>
+                        <p className="text-white/30 text-sm mt-1">No license keys or digital products have been delivered</p>
+                      </div>
                     ) : (
-                      detail.licenses.map((l) => (
-                        <div key={l.id} className="p-4 flex flex-wrap items-center gap-3 text-sm">
-                          <code className="px-3 py-1.5 rounded-lg bg-white/5 text-white/90 font-mono text-xs">{l.license_key}</code>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="h-7 w-7 p-0 text-white/50 hover:text-white"
-                            onClick={() => { navigator.clipboard.writeText(l.license_key); toast({ title: "Copied", description: "License key copied." }); }}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                          <span className="text-white font-medium">{l.product_name}</span>
-                          <Badge variant="secondary" className="text-xs">{l.status}</Badge>
-                          {l.expires_at && (
-                            <span className="text-white/40 text-xs flex items-center gap-1">
-                              <Calendar className="w-3.5 h-3.5" /> Expires {new Date(l.expires_at).toLocaleDateString(undefined, { dateStyle: "medium" })}
-                            </span>
-                          )}
-                        </div>
-                      ))
+                      <div className="divide-y divide-[#262626] max-h-80 overflow-y-auto">
+                        {detail.licenses.map((l) => (
+                          <div key={l.id} className="p-4 hover:bg-white/[0.02] transition-colors">
+                            <div className="flex items-center justify-between gap-4">
+                              <div className="flex items-center gap-3 min-w-0 flex-1">
+                                <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0">
+                                  <Key className="w-5 h-5 text-purple-400" />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <code className="px-3 py-1.5 rounded-lg bg-white/5 text-white/90 font-mono text-sm border border-white/10">
+                                      {l.license_key}
+                                    </code>
+                                    <Button
+                                      size="sm"
+                                      variant="ghost"
+                                      className="h-8 w-8 p-0 text-white/50 hover:text-white hover:bg-white/10"
+                                      onClick={() => { 
+                                        navigator.clipboard.writeText(l.license_key); 
+                                        toast({ 
+                                          title: "Copied!", 
+                                          description: "License key copied to clipboard",
+                                          className: "border-green-500/20 bg-green-500/10"
+                                        }); 
+                                      }}
+                                    >
+                                      <Copy className="w-4 h-4" />
+                                    </Button>
+                                  </div>
+                                  <p className="text-white font-medium">{l.product_name}</p>
+                                  <div className="flex items-center gap-3 mt-1">
+                                    <Badge 
+                                      variant="secondary" 
+                                      className={cn(
+                                        "text-xs",
+                                        l.status === 'active' && "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
+                                        l.status === 'expired' && "bg-red-500/10 border-red-500/20 text-red-400",
+                                        l.status === 'used' && "bg-blue-500/10 border-blue-500/20 text-blue-400"
+                                      )}
+                                    >
+                                      {l.status}
+                                    </Badge>
+                                    {l.expires_at && (
+                                      <span className="text-white/40 text-xs flex items-center gap-1">
+                                        <Calendar className="w-3.5 h-3.5" /> 
+                                        Expires {new Date(l.expires_at).toLocaleDateString(undefined, { dateStyle: "medium" })}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
                 </div>
               </div>
             ) : (
-              <p className="text-white/40 py-8">Could not load data.</p>
+              <div className="py-16 text-center">
+                <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-4">
+                  <AlertCircle className="w-8 h-8 text-red-400" />
+                </div>
+                <p className="text-white/60 text-lg font-medium">Could not load customer data</p>
+                <p className="text-white/40 text-sm mt-1">There was an error retrieving the customer information</p>
+                <Button 
+                  onClick={() => openView(viewModal)}
+                  className="mt-4 bg-[#dc2626] hover:bg-[#b91c1c] text-white"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Try Again
+                </Button>
+              </div>
             )}
           </div>
         </div>

@@ -44,7 +44,7 @@ function ResetPasswordContent() {
       }
       setSuccess(true);
       toast({ title: "Password updated", description: "You can sign in with your new password.", className: "border-green-500/20 bg-green-500/10" });
-      setTimeout(() => router.replace("/"), 2000);
+      setTimeout(() => router.replace("/account"), 3000);
     } catch {
       toast({ title: "Error", description: "Something went wrong. Please try again.", variant: "destructive" });
     } finally {
@@ -68,17 +68,31 @@ function ResetPasswordContent() {
   if (success) {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center p-4">
-        <div className="w-full max-w-md rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] p-6 text-center">
-          <div className="flex justify-center mb-4">
-            <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-              <CheckCircle className="w-6 h-6 text-green-500" />
+        <div className="w-full max-w-md rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] p-8 text-center">
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
+              <CheckCircle className="w-8 h-8 text-green-500" />
             </div>
           </div>
-          <h2 className="text-lg font-semibold text-white mb-2">Password updated</h2>
-          <p className="text-white/60 text-sm mb-4">Redirecting you to sign in…</p>
-          <Link href="/">
-            <Button variant="outline" className="border-[#262626] text-white/80">Go to store</Button>
-          </Link>
+          <h2 className="text-2xl font-bold text-white mb-3">Password Successfully Changed!</h2>
+          <p className="text-white/70 text-sm mb-6">
+            Your password has been updated successfully. You can now sign in to your customer dashboard with your new password.
+          </p>
+          <div className="space-y-3">
+            <Link href="/account">
+              <Button className="w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white font-semibold py-3">
+                Sign In to Customer Dashboard
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button variant="outline" className="w-full border-[#262626] text-white/80 hover:bg-[#1a1a1a]">
+                Back to Store
+              </Button>
+            </Link>
+          </div>
+          <p className="text-white/40 text-xs mt-4">
+            Redirecting to customer dashboard in 3 seconds...
+          </p>
         </div>
       </div>
     );

@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Flame, ArrowLeft, Mail, CheckCircle } from "lucide-react";
+import { Flame, ArrowLeft, Mail, CheckCircle, Smartphone, Monitor } from "lucide-react";
+import Image from "next/image";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -47,61 +48,175 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-6 transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          Back to store
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] flex flex-col">
+      {/* Background effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#dc2626]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#ef4444]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+      </div>
+
+      {/* Header - Mobile friendly */}
+      <div className="relative z-10 flex items-center justify-between p-4 border-b border-[#1a1a1a] lg:hidden">
+        <Link href="/" className="flex items-center gap-2 text-white/70 hover:text-white transition-colors">
+          <ArrowLeft className="w-5 h-5" />
+          <span>Back</span>
         </Link>
-        <div className="rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] p-6 sm:p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#dc2626] to-[#991b1b] flex items-center justify-center">
-              <Flame className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-white">Forgot password?</h1>
-              <p className="text-sm text-white/50">We&apos;ll email you a reset link</p>
-            </div>
-          </div>
-          {sent ? (
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 p-4 rounded-xl bg-green-500/10 border border-green-500/20">
-                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                <p className="text-sm text-white/80">
-                  If an account exists for that email, you&apos;ll receive a link to reset your password. Check spam if you don&apos;t see it.
+        
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/images/magma-logo.png"
+            alt="Magma Cheats"
+            width={120}
+            height={32}
+            className="h-8 w-auto"
+          />
+        </Link>
+        
+        <div className="w-16" /> {/* Spacer for centering */}
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          {/* Desktop back link */}
+          <Link href="/" className="hidden lg:inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-6 transition-colors">
+            <ArrowLeft className="w-4 h-4" />
+            Back to store
+          </Link>
+
+          {/* Main card */}
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+            <div className="relative rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] p-6 sm:p-8">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center shadow-lg shadow-[#dc2626]/30">
+                  <Mail className="w-8 h-8 text-white" />
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Forgot Password?</h1>
+                <p className="text-white/60">
+                  No worries! Enter your email and we&apos;ll send you a reset link
                 </p>
               </div>
-              <Link href="/">
-                <Button className="w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white">Return to store</Button>
-              </Link>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="email" className="text-white/70">Email</Label>
-                <div className="relative mt-1">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@example.com"
-                    required
-                    className="pl-10 bg-[#0a0a0a] border-[#262626] text-white"
-                  />
+
+              {sent ? (
+                <div className="space-y-6">
+                  {/* Success message */}
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-500/30">
+                      <CheckCircle className="w-8 h-8 text-white" />
+                    </div>
+                    <h2 className="text-xl font-bold text-white mb-3">Check Your Email</h2>
+                    <p className="text-white/70 mb-6">
+                      If an account exists for <strong className="text-white">{email}</strong>, you&apos;ll receive a password reset link shortly.
+                    </p>
+                  </div>
+
+                  {/* Instructions */}
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3 p-4 rounded-xl bg-[#0a0a0a]/50 border border-[#1a1a1a]">
+                      <Smartphone className="w-5 h-5 text-[#dc2626] mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-white font-medium text-sm">Mobile Users</p>
+                        <p className="text-white/60 text-sm">Check your email app and tap the reset link</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3 p-4 rounded-xl bg-[#0a0a0a]/50 border border-[#1a1a1a]">
+                      <Monitor className="w-5 h-5 text-[#dc2626] mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-white font-medium text-sm">Desktop Users</p>
+                        <p className="text-white/60 text-sm">Click the reset link in your email to continue</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Additional help */}
+                  <div className="p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
+                    <p className="text-yellow-200 text-sm">
+                      <strong>Don&apos;t see the email?</strong> Check your spam folder or try again with a different email address.
+                    </p>
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="space-y-3">
+                    <Button 
+                      onClick={() => setSent(false)}
+                      variant="outline"
+                      className="w-full border-[#1a1a1a] text-white hover:bg-[#1a1a1a]"
+                    >
+                      Try Different Email
+                    </Button>
+                    <Link href="/">
+                      <Button className="w-full bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/30">
+                        Return to Store
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-              <Button type="submit" disabled={submitting} className="w-full bg-[#dc2626] hover:bg-[#b91c1c] text-white">
-                {submitting ? "Sending…" : "Send reset link"}
-              </Button>
-              <p className="text-center">
-                <Link href="/" className="text-sm text-white/50 hover:text-[#dc2626] transition-colors">
-                  Back to sign in
-                </Link>
-              </p>
-            </form>
-          )}
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Email input */}
+                  <div>
+                    <Label htmlFor="email" className="text-white font-medium mb-2 block">
+                      Email Address
+                    </Label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                      <Input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="your@email.com"
+                        required
+                        className="pl-12 pr-4 py-4 bg-[#0a0a0a] border-[#1a1a1a] text-white placeholder:text-white/40 focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20 transition-all h-12"
+                      />
+                    </div>
+                    <p className="text-white/40 text-xs mt-2">
+                      Enter the email address associated with your account
+                    </p>
+                  </div>
+
+                  {/* Submit button */}
+                  <Button 
+                    type="submit" 
+                    disabled={submitting} 
+                    className="w-full py-4 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-[#dc2626]/30 h-12"
+                  >
+                    {submitting ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Sending Reset Link...
+                      </div>
+                    ) : (
+                      <>
+                        <Mail className="w-5 h-5 mr-2" />
+                        Send Reset Link
+                      </>
+                    )}
+                  </Button>
+
+                  {/* Footer links */}
+                  <div className="text-center space-y-3">
+                    <p className="text-white/50 text-sm">
+                      Remember your password?{" "}
+                      <Link href="/" className="text-[#dc2626] hover:text-[#ef4444] font-medium transition-colors">
+                        Sign in instead
+                      </Link>
+                    </p>
+                    
+                    <div className="flex items-center justify-center gap-4 text-xs text-white/40">
+                      <Link href="/terms" className="hover:text-white/60 transition-colors">Terms</Link>
+                      <span>•</span>
+                      <Link href="/privacy" className="hover:text-white/60 transition-colors">Privacy</Link>
+                      <span>•</span>
+                      <a href="https://discord.gg/magmacheats" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Support</a>
+                    </div>
+                  </div>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

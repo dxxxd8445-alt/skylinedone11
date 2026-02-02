@@ -65,8 +65,8 @@ export default function GuestCheckoutPage() {
       const result = await redirectToStripeCheckout({
         items: checkoutItems,
         customerEmail: email,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/cart`,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/cart`,
         guestCheckout: true,
         guestInfo: {
           firstName,

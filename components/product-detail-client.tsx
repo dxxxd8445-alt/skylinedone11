@@ -40,6 +40,7 @@ import { allReviews } from "@/lib/reviews-data";
 import { useCurrency } from "@/lib/currency-context";
 import { useI18n } from "@/lib/i18n-context";
 import { formatMoney } from "@/lib/money";
+import { trackProductView, trackAddToCart, trackCheckoutStart } from "@/lib/analytics-tracker";
 
 interface Product {
   id: string;
@@ -168,6 +169,11 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
     }
   }, [reviews]);
 
+  // Track product view for analytics
+  useEffect(() => {
+    trackProductView(product.name);
+  }, [product.name]);
+
   const handleReviewSubmit = async (data: { username: string; rating: number; text: string; image_url?: string }) => {
     try {
       const newReview = {
@@ -233,6 +239,9 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
       return;
     }
     
+    // Track add to cart event
+    trackAddToCart(product.name, selectedTier.price);
+    
     addToCart({
       productId: product.id,
       productName: product.name,
@@ -247,6 +256,10 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
   };
 
   const handleBuyNow = () => {
+    // Track checkout start
+    if (selectedTier) {
+      trackCheckoutStart(selectedTier.price);
+    }
     setShowCheckoutModal(true);
   };
 

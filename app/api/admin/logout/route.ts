@@ -34,46 +34,35 @@ async function logAuditEvent(
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
+    
+    // Get the current user info from cookies or session
     const adminSession = cookieStore.get("magma_admin_session");
     const staffSession = cookieStore.get("staff-session");
-
+    
     let actorRole: "admin" | "staff" = "admin";
-    let actorIdentifier = "admin";
-
-    // Determine who is logging out
-    if (staffSession?.value) {
+    let actorIdentifier = "unknown";
+    
+    if (staffSession) {
       actorRole = "staff";
-      // Try to get staff email from database
-      try {
-        const supabase = createAdminClient();
-        const { data: teamMember } = await supabase
-          .from("team_members")
-          .select("email")
-          .eq("id", staffSession.value)
-          .single();
-        
-        if (teamMember) {
-          actorIdentifier = teamMember.email;
-        } else {
-          actorIdentifier = `staff_${staffSession.value}`;
-        }
-      } catch (error) {
-        actorIdentifier = `staff_${staffSession.value}`;
-      }
+      actorIdentifier = staffSession.value;
+    } else if (adminSession) {
+      actorRole = "admin";
+      actorIdentifier = adminSession.value;
     }
 
-    // Log the logout event before clearing cookies
+    // Log the logout event
     const ipAddress = getRequestIp(request);
     const userAgent = request.headers.get("user-agent");
     await logAuditEvent("logout", actorRole, actorIdentifier, ipAddress, userAgent);
 
-    // Clear both session cookies
+    // Clear all session cookies
     cookieStore.delete("magma_admin_session");
     cookieStore.delete("staff-session");
+    cookieStore.delete("admin-session");
 
     return NextResponse.json({
       success: true,
-      message: "Logged out successfully",
+      message: "Logged out successfully"
     });
   } catch (error: any) {
     console.error("[Logout] Error:", error);

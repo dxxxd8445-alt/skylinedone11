@@ -24,24 +24,27 @@ import {
   Megaphone,
   Bug,
   MessageSquare,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdminStore } from "@/lib/admin-store";
 
 const navItems: { href: string; label: string; icon: typeof LayoutDashboard; permission: string }[] = [
   { href: "/mgmt-x9k2m7", label: "Dashboard", icon: LayoutDashboard, permission: "dashboard" },
+  { href: "/mgmt-x9k2m7/store-viewers", label: "Store Viewers", icon: BarChart3, permission: "dashboard" },
   { href: "/mgmt-x9k2m7/status", label: "Product Status", icon: Activity, permission: "manage_products" },
   { href: "/mgmt-x9k2m7/categories", label: "Categories", icon: FolderOpen, permission: "manage_categories" },
   { href: "/mgmt-x9k2m7/orders", label: "Orders", icon: ShoppingCart, permission: "manage_orders" },
   { href: "/mgmt-x9k2m7/licenses", label: "License Keys", icon: Key, permission: "stock_keys" },
   { href: "/mgmt-x9k2m7/products", label: "Products", icon: Package, permission: "manage_products" },
   { href: "/mgmt-x9k2m7/coupons", label: "Coupons", icon: Tag, permission: "manage_coupons" },
+  { href: "/mgmt-x9k2m7/affiliates", label: "Affiliates", icon: Users, permission: "manage_affiliates" },
   { href: "/mgmt-x9k2m7/webhooks", label: "Webhooks", icon: Webhook, permission: "manage_webhooks" },
-  { href: "/mgmt-x9k2m7/team", label: "Team", icon: Users, permission: "manage_team" },
+  { href: "/mgmt-x9k2m7/team", label: "Team", icon: UserCog, permission: "manage_team" },
   { href: "/mgmt-x9k2m7/site-messages", label: "Site Messages", icon: MessageSquare, permission: "manage_settings" },
   { href: "/mgmt-x9k2m7/debug-announcements", label: "Debug Announcements", icon: Bug, permission: "manage_settings" },
   { href: "/mgmt-x9k2m7/logs", label: "Audit Logs", icon: FileText, permission: "manage_logins" },
-  { href: "/mgmt-x9k2m7/logins", label: "Manage Logins", icon: UserCog, permission: "manage_logins" },
+  { href: "/mgmt-x9k2m7/logins", label: "Customer Logs", icon: UserCog, permission: "manage_logins" },
 ];
 
 export function AdminSidebar() {

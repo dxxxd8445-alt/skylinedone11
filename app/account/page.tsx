@@ -55,12 +55,18 @@ import {
   Download,
   Copy,
   ExternalLink,
+  Users,
+  DollarSign,
+  MousePointer,
+  BarChart,
+  Link as LinkIcon,
+  RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-type TabType = "dashboard" | "orders" | "delivered" | "profile" | "security";
+type TabType = "dashboard" | "orders" | "delivered" | "affiliate" | "profile" | "security";
 
 interface Order {
   id: string;
@@ -84,6 +90,41 @@ interface License {
   order_id: string | null;
 }
 
+interface AffiliateData {
+  id: string;
+  affiliate_code: string;
+  commission_rate: number;
+  status: string;
+  payment_email: string;
+  payment_method: string;
+  crypto_type?: string;
+  cashapp_tag?: string;
+  total_earnings: number;
+  pending_earnings: number;
+  paid_earnings: number;
+  total_referrals: number;
+  total_sales: number;
+}
+
+interface AffiliateStats {
+  totalClicks: number;
+  totalReferrals: number;
+  conversionRate: number;
+  pendingEarnings: number;
+  approvedEarnings: number;
+  paidEarnings: number;
+  totalEarnings: number;
+}
+
+interface AffiliateReferral {
+  id: string;
+  referred_email: string;
+  commission_amount: number;
+  status: string;
+  created_at: string;
+  order_amount: number;
+}
+
 
 export default function AccountPage() {
   const { user, signOut, isLoading, updateProfile, changePassword } = useAuth();
@@ -100,6 +141,19 @@ export default function AccountPage() {
   const [ordersLicensesLoading, setOrdersLicensesLoading] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Affiliate state
+  const [affiliateData, setAffiliateData] = useState<AffiliateData | null>(null);
+  const [affiliateStats, setAffiliateStats] = useState<AffiliateStats | null>(null);
+  const [affiliateReferrals, setAffiliateReferrals] = useState<AffiliateReferral[]>([]);
+  const [affiliateLoading, setAffiliateLoading] = useState(false);
+  const [affiliateForm, setAffiliateForm] = useState({
+    payment_email: "",
+    payment_method: "paypal",
+    crypto_type: "",
+    cashapp_tag: ""
+  });
+  const [isRegistering, setIsRegistering] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -135,6 +189,98 @@ export default function AccountPage() {
       .catch(() => {})
       .finally(() => setOrdersLicensesLoading(false));
   }, [user]);
+
+  // Load affiliate data when affiliate tab is active
+  useEffect(() => {
+    if (activeTab === "affiliate" && user) {
+      loadAffiliateData();
+    }
+  }, [activeTab, user]);
+
+  const loadAffiliateData = async () => {
+    setAffiliateLoading(true);
+    try {
+      const response = await fetch("/api/affiliate/stats");
+      if (response.ok) {
+        const data = await response.json();
+        setAffiliateData(data.affiliate);
+        setAffiliateStats(data.stats);
+        setAffiliateReferrals(data.recentReferrals);
+      } else if (response.status === 404) {
+        // User doesn't have an affiliate account yet
+        setAffiliateData(null);
+      }
+    } catch (error) {
+      console.error("Failed to load affiliate data:", error);
+    } finally {
+      setAffiliateLoading(false);
+    }
+  };
+
+  const handleAffiliateRegister = async () => {
+    // Validate based on payment method
+    if (affiliateForm.payment_method === 'paypal' && !affiliateForm.payment_email) {
+      alert("Please enter your PayPal email");
+      return;
+    }
+    
+    if (affiliateForm.payment_method === 'cashapp' && !affiliateForm.cashapp_tag) {
+      alert("Please enter your Cash App tag (e.g., $YourTag)");
+      return;
+    }
+    
+    if (affiliateForm.payment_method === 'crypto') {
+      if (!affiliateForm.crypto_type) {
+        alert("Please select a cryptocurrency type");
+        return;
+      }
+      if (!affiliateForm.payment_email) {
+        alert("Please enter your crypto address");
+        return;
+      }
+    }
+
+    setIsRegistering(true);
+    try {
+      console.log('Sending registration data:', affiliateForm);
+      
+      const response = await fetch("/api/affiliate/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(affiliateForm)
+      });
+
+      const data = await response.json();
+      
+      console.log('Registration response:', { status: response.status, data });
+      
+      if (response.ok) {
+        await loadAffiliateData(); // Reload data
+        alert("Affiliate account created successfully!");
+        // Reset form
+        setAffiliateForm({
+          payment_email: "",
+          payment_method: "paypal",
+          crypto_type: "",
+          cashapp_tag: ""
+        });
+      } else {
+        alert(data.error || "Failed to create affiliate account");
+      }
+    } catch (error) {
+      console.error("Affiliate registration error:", error);
+      alert("Failed to create affiliate account: " + error.message);
+    } finally {
+      setIsRegistering(false);
+    }
+  };
+
+  const copyAffiliateLink = (code: string) => {
+    const link = `https://magmacheats.com?ref=${code}`;
+    navigator.clipboard.writeText(link);
+    setCopiedKey("affiliate-link");
+    setTimeout(() => setCopiedKey(null), 2000);
+  };
 
   // Profile form state
   const [profileForm, setProfileForm] = useState({
@@ -307,6 +453,7 @@ export default function AccountPage() {
     { id: "dashboard" as TabType, icon: LayoutDashboard, label: "Dashboard" },
     { id: "orders" as TabType, icon: ShoppingBag, label: "Orders" },
     { id: "delivered" as TabType, icon: Package, label: "Delivered" },
+    { id: "affiliate" as TabType, icon: Users, label: "Affiliate" },
     { id: "profile" as TabType, icon: User, label: "Profile" },
     { id: "security" as TabType, icon: Shield, label: "Security" },
   ];
@@ -664,6 +811,436 @@ export default function AccountPage() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+        );
+
+      case "affiliate":
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-[#dc2626]/10">
+                    <Users className="w-6 h-6 text-[#dc2626]" />
+                  </div>
+                  <div>
+                    <h1 className="text-3xl font-bold text-white">Affiliate Program</h1>
+                    <p className="text-white/60 mt-1">Earn commissions by referring customers</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {affiliateLoading ? (
+              <div className="py-12 flex justify-center">
+                <div className="relative">
+                  <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
+                  <div className="w-12 h-12 border-t-4 border-[#dc2626] rounded-full animate-spin absolute top-0 left-0" />
+                </div>
+              </div>
+            ) : !affiliateData ? (
+              // Registration Form
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
+                  <CardHeader className="border-b border-[#1a1a1a]">
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <Award className="w-5 h-5 text-[#dc2626]" />
+                      Join Our Affiliate Program
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="text-center p-6 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a]">
+                          <div className="w-12 h-12 bg-[#dc2626]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <DollarSign className="w-6 h-6 text-[#dc2626]" />
+                          </div>
+                          <h3 className="font-bold text-white mb-2">5% Commission</h3>
+                          <p className="text-white/60 text-sm">Earn 5% on every sale you refer</p>
+                        </div>
+                        <div className="text-center p-6 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a]">
+                          <div className="w-12 h-12 bg-[#dc2626]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <BarChart className="w-6 h-6 text-[#dc2626]" />
+                          </div>
+                          <h3 className="font-bold text-white mb-2">Real-time Tracking</h3>
+                          <p className="text-white/60 text-sm">Monitor clicks and conversions</p>
+                        </div>
+                        <div className="text-center p-6 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a]">
+                          <div className="w-12 h-12 bg-[#dc2626]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <Zap className="w-6 h-6 text-[#dc2626]" />
+                          </div>
+                          <h3 className="font-bold text-white mb-2">Fast Payouts</h3>
+                          <p className="text-white/60 text-sm">Monthly payments via PayPal</p>
+                        </div>
+                      </div>
+
+                      <div className="max-w-md mx-auto space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="payment_method" className="text-white font-medium">
+                            Payment Method
+                          </Label>
+                          <select
+                            id="payment_method"
+                            value={affiliateForm.payment_method}
+                            onChange={(e) => setAffiliateForm({ ...affiliateForm, payment_method: e.target.value })}
+                            className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] text-white rounded-md focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20"
+                          >
+                            <option value="paypal">PayPal</option>
+                            <option value="cashapp">Cash App</option>
+                            <option value="crypto">Cryptocurrency</option>
+                          </select>
+                        </div>
+
+                        {affiliateForm.payment_method === 'paypal' && (
+                          <div className="space-y-2">
+                            <Label htmlFor="payment_email" className="text-white font-medium">
+                              PayPal Email
+                            </Label>
+                            <Input
+                              id="payment_email"
+                              type="email"
+                              value={affiliateForm.payment_email}
+                              onChange={(e) => setAffiliateForm({ ...affiliateForm, payment_email: e.target.value })}
+                              placeholder="your-paypal@email.com"
+                              className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20"
+                            />
+                          </div>
+                        )}
+
+                        {affiliateForm.payment_method === 'cashapp' && (
+                          <div className="space-y-2">
+                            <Label htmlFor="cashapp_tag" className="text-white font-medium">
+                              Cash App Tag
+                            </Label>
+                            <Input
+                              id="cashapp_tag"
+                              type="text"
+                              value={affiliateForm.cashapp_tag}
+                              onChange={(e) => setAffiliateForm({ ...affiliateForm, cashapp_tag: e.target.value })}
+                              placeholder="$YourCashAppTag"
+                              className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20"
+                            />
+                          </div>
+                        )}
+
+                        {affiliateForm.payment_method === 'crypto' && (
+                          <>
+                            <div className="space-y-2">
+                              <Label htmlFor="crypto_type" className="text-white font-medium">
+                                Cryptocurrency Type
+                              </Label>
+                              <select
+                                id="crypto_type"
+                                value={affiliateForm.crypto_type}
+                                onChange={(e) => setAffiliateForm({ ...affiliateForm, crypto_type: e.target.value })}
+                                className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] text-white rounded-md focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20"
+                              >
+                                <option value="">Select Cryptocurrency</option>
+                                <option value="btc">Bitcoin (BTC)</option>
+                                <option value="eth">Ethereum (ETH)</option>
+                                <option value="ltc">Litecoin (LTC)</option>
+                                <option value="bch">Bitcoin Cash (BCH)</option>
+                                <option value="xrp">Ripple (XRP)</option>
+                                <option value="ada">Cardano (ADA)</option>
+                                <option value="dot">Polkadot (DOT)</option>
+                                <option value="matic">Polygon (MATIC)</option>
+                                <option value="sol">Solana (SOL)</option>
+                                <option value="usdt">Tether (USDT)</option>
+                                <option value="usdc">USD Coin (USDC)</option>
+                              </select>
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="crypto_address" className="text-white font-medium">
+                                {affiliateForm.crypto_type ? `${affiliateForm.crypto_type.toUpperCase()} Address` : 'Crypto Address'}
+                              </Label>
+                              <Input
+                                id="crypto_address"
+                                type="text"
+                                value={affiliateForm.payment_email}
+                                onChange={(e) => setAffiliateForm({ ...affiliateForm, payment_email: e.target.value })}
+                                placeholder={`Enter your ${affiliateForm.crypto_type?.toUpperCase() || 'crypto'} address`}
+                                className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20 font-mono text-sm"
+                              />
+                            </div>
+                          </>
+                        )}
+
+                        <Button
+                          onClick={handleAffiliateRegister}
+                          disabled={isRegistering}
+                          className="w-full py-6 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-bold text-lg shadow-lg shadow-[#dc2626]/30 hover:shadow-xl hover:shadow-[#dc2626]/50 transition-all"
+                        >
+                          {isRegistering ? (
+                            <>
+                              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                              Creating Account...
+                            </>
+                          ) : (
+                            <>
+                              <Award className="w-5 h-5 mr-2" />
+                              Join Affiliate Program
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ) : (
+              // Affiliate Dashboard
+              <div className="space-y-6">
+                {/* Stats Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                  {[
+                    { 
+                      icon: DollarSign, 
+                      label: "Total Earnings", 
+                      value: `$${affiliateStats?.totalEarnings.toFixed(2) || '0.00'}`, 
+                      gradient: "from-green-500/20 to-transparent",
+                      iconBg: "bg-green-500/10",
+                      iconColor: "text-green-500"
+                    },
+                    { 
+                      icon: MousePointer, 
+                      label: "Total Clicks", 
+                      value: affiliateStats?.totalClicks || 0,
+                      gradient: "from-blue-500/20 to-transparent",
+                      iconBg: "bg-blue-500/10",
+                      iconColor: "text-blue-500"
+                    },
+                    { 
+                      icon: Users, 
+                      label: "Referrals", 
+                      value: affiliateStats?.totalReferrals || 0,
+                      gradient: "from-purple-500/20 to-transparent",
+                      iconBg: "bg-purple-500/10",
+                      iconColor: "text-purple-500"
+                    },
+                    { 
+                      icon: TrendingUp, 
+                      label: "Conversion Rate", 
+                      value: `${affiliateStats?.conversionRate.toFixed(1) || '0.0'}%`,
+                      gradient: "from-[#dc2626]/20 to-transparent",
+                      iconBg: "bg-[#dc2626]/10",
+                      iconColor: "text-[#dc2626]"
+                    },
+                  ].map((stat, index) => (
+                    <div key={index} className="group relative" style={{ animationDelay: `${index * 100}ms` }}>
+                      <div className={`absolute -inset-0.5 bg-gradient-to-r ${stat.gradient} rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500`} />
+                      <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#dc2626]/30 transition-all">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className={`p-3 rounded-xl ${stat.iconBg} group-hover:scale-110 transition-transform`}>
+                            <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
+                          </div>
+                        </div>
+                        <p className="text-white/60 text-sm mb-1">{stat.label}</p>
+                        <p className="text-2xl font-bold text-white">{stat.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Affiliate Link */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                  <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
+                    <CardHeader className="border-b border-[#1a1a1a]">
+                      <CardTitle className="flex items-center gap-2 text-xl">
+                        <LinkIcon className="w-5 h-5 text-[#dc2626]" />
+                        Your Affiliate Link
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                          <code className="flex-1 font-mono text-white text-sm break-all">
+                            https://magmacheats.com?ref={affiliateData.affiliate_code}
+                          </code>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => copyAffiliateLink(affiliateData.affiliate_code)}
+                            className="hover:bg-[#dc2626]/10"
+                          >
+                            {copiedKey === "affiliate-link" ? (
+                              <CheckCircle2 className="w-5 h-5 text-green-400" />
+                            ) : (
+                              <Copy className="w-5 h-5 text-white/60" />
+                            )}
+                          </Button>
+                        </div>
+                        <div className="flex items-center gap-2 text-sm text-white/60">
+                          <span>Commission Rate:</span>
+                          <Badge className="bg-[#dc2626]/20 text-[#dc2626] border-0">
+                            {affiliateData.commission_rate}%
+                          </Badge>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Payment Method Info */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                  <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
+                    <CardHeader className="border-b border-[#1a1a1a]">
+                      <CardTitle className="flex items-center gap-2 text-xl">
+                        <CreditCard className="w-5 h-5 text-[#dc2626]" />
+                        Payment Method
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        <div className="p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                          <p className="text-white/60 text-sm mb-2">Method</p>
+                          <p className="text-white font-semibold capitalize">
+                            {affiliateData.payment_method === 'paypal' && '💳 PayPal'}
+                            {affiliateData.payment_method === 'cashapp' && '💰 Cash App'}
+                            {affiliateData.payment_method === 'crypto' && '₿ Cryptocurrency'}
+                          </p>
+                        </div>
+                        
+                        {affiliateData.payment_method === 'paypal' && (
+                          <div className="p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                            <p className="text-white/60 text-sm mb-2">PayPal Email</p>
+                            <div className="flex items-center gap-2">
+                              <p className="text-white font-mono text-sm break-all flex-1">{affiliateData.payment_email}</p>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => copyToClipboard(affiliateData.payment_email || '', 'paypal-email')}
+                                className="hover:bg-[#dc2626]/10"
+                              >
+                                {copiedKey === 'paypal-email' ? (
+                                  <CheckCircle2 className="w-4 h-4 text-green-400" />
+                                ) : (
+                                  <Copy className="w-4 h-4 text-white/60" />
+                                )}
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+
+                        {affiliateData.payment_method === 'cashapp' && (
+                          <div className="p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                            <p className="text-white/60 text-sm mb-2">Cash App Tag</p>
+                            <div className="flex items-center gap-2">
+                              <p className="text-white font-mono text-sm flex-1">{affiliateData.cashapp_tag}</p>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => copyToClipboard(affiliateData.cashapp_tag || '', 'cashapp-tag')}
+                                className="hover:bg-[#dc2626]/10"
+                              >
+                                {copiedKey === 'cashapp-tag' ? (
+                                  <CheckCircle2 className="w-4 h-4 text-green-400" />
+                                ) : (
+                                  <Copy className="w-4 h-4 text-white/60" />
+                                )}
+                              </Button>
+                            </div>
+                          </div>
+                        )}
+
+                        {affiliateData.payment_method === 'crypto' && (
+                          <>
+                            <div className="p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                              <p className="text-white/60 text-sm mb-2">Cryptocurrency Type</p>
+                              <p className="text-white font-semibold uppercase">{affiliateData.crypto_type}</p>
+                            </div>
+                            <div className="p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                              <p className="text-white/60 text-sm mb-2">Wallet Address</p>
+                              <div className="flex items-center gap-2">
+                                <p className="text-white font-mono text-xs break-all flex-1">{affiliateData.payment_email}</p>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => copyToClipboard(affiliateData.payment_email || '', 'crypto-address')}
+                                  className="hover:bg-[#dc2626]/10"
+                                >
+                                  {copiedKey === 'crypto-address' ? (
+                                    <CheckCircle2 className="w-4 h-4 text-green-400" />
+                                  ) : (
+                                    <Copy className="w-4 h-4 text-white/60" />
+                                  )}
+                                </Button>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Recent Referrals */}
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                  <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
+                    <CardHeader className="border-b border-[#1a1a1a]">
+                      <CardTitle className="flex items-center gap-2 text-xl">
+                        <BarChart className="w-5 h-5 text-[#dc2626]" />
+                        Recent Referrals
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                      {affiliateReferrals.length > 0 ? (
+                        <div className="overflow-x-auto">
+                          <Table>
+                            <TableHeader>
+                              <TableRow className="border-[#1a1a1a] hover:bg-transparent">
+                                <TableHead className="text-white/60 font-semibold">Customer</TableHead>
+                                <TableHead className="text-white/60 font-semibold">Order Amount</TableHead>
+                                <TableHead className="text-white/60 font-semibold">Commission</TableHead>
+                                <TableHead className="text-white/60 font-semibold">Status</TableHead>
+                                <TableHead className="text-white/60 font-semibold">Date</TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {affiliateReferrals.map((referral) => (
+                                <TableRow key={referral.id} className="border-[#1a1a1a] hover:bg-[#0a0a0a]/50 transition-colors">
+                                  <TableCell className="text-white/80">{referral.referred_email}</TableCell>
+                                  <TableCell className="font-semibold text-white">${referral.order_amount.toFixed(2)}</TableCell>
+                                  <TableCell className="font-bold text-green-400">${referral.commission_amount.toFixed(2)}</TableCell>
+                                  <TableCell>
+                                    <Badge className={
+                                      referral.status === 'paid' ? "bg-green-500/20 text-green-400 border-0" :
+                                      referral.status === 'approved' ? "bg-blue-500/20 text-blue-400 border-0" :
+                                      "bg-yellow-500/20 text-yellow-400 border-0"
+                                    }>
+                                      {referral.status}
+                                    </Badge>
+                                  </TableCell>
+                                  <TableCell className="text-white/70">
+                                    {new Date(referral.created_at).toLocaleDateString("en-US", {
+                                      year: "numeric",
+                                      month: "short",
+                                      day: "numeric",
+                                    })}
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </div>
+                      ) : (
+                        <div className="py-16 text-center">
+                          <div className="w-16 h-16 rounded-full bg-[#dc2626]/10 flex items-center justify-center mx-auto mb-4">
+                            <Users className="w-8 h-8 text-[#dc2626]" />
+                          </div>
+                          <p className="text-white/60">No referrals yet</p>
+                          <p className="text-white/40 text-sm mt-1">Share your affiliate link to start earning</p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            )}
           </div>
         );
 

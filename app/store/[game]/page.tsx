@@ -23,15 +23,24 @@ const gameConfig: Record<string, { name: string; gradient: string; accentColor: 
   "arc-raiders": { name: "ARC Raiders", gradient: "from-cyan-500/40 via-teal-400/30 to-cyan-700/40", accentColor: "#06b6d4" },
   "rainbow-six-siege": { name: "Rainbow Six Siege", gradient: "from-yellow-500/40 via-amber-500/30 to-yellow-700/40", accentColor: "#eab308" },
   "battlefield": { name: "Battlefield", gradient: "from-orange-600/40 via-red-500/30 to-orange-800/40", accentColor: "#ea580c" },
+  "battlefield-6": { name: "Battlefield 6", gradient: "from-orange-600/40 via-red-500/30 to-orange-800/40", accentColor: "#ea580c" },
   "call-of-duty-bo7": { name: "Call of Duty: BO7", gradient: "from-green-500/40 via-emerald-400/30 to-green-700/40", accentColor: "#22c55e" },
   "call-of-duty-bo6": { name: "Call of Duty: BO6", gradient: "from-orange-500/40 via-red-500/30 to-orange-700/40", accentColor: "#f97316" },
+  "black-ops-7-and-warzone": { name: "Black Ops 7 & Warzone", gradient: "from-green-500/40 via-emerald-400/30 to-green-700/40", accentColor: "#22c55e" },
   "rust": { name: "Rust", gradient: "from-orange-700/40 via-red-600/30 to-orange-900/40", accentColor: "#c2410c" },
   "escape-from-tarkov": { name: "Escape from Tarkov", gradient: "from-gray-700/40 via-gray-600/30 to-gray-900/40", accentColor: "#71717a" },
+  "valorant": { name: "Valorant", gradient: "from-red-500/40 via-pink-500/30 to-red-700/40", accentColor: "#ef4444" },
+  "hwid-spoofer": { name: "HWID Spoofer", gradient: "from-emerald-500/40 via-teal-500/30 to-emerald-700/40", accentColor: "#10b981" },
 };
 
 // Convert game name to slug
 function gameToSlug(game: string): string {
-  return game.toLowerCase().replace(/[:\s]+/g, "-").replace(/--+/g, "-");
+  return game.toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[:\s]+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 // Card gradient colors for variety

@@ -118,8 +118,8 @@ export default function ConfirmCheckoutPage() {
         customerEmail: user.email,
         couponCode: couponValid ? couponCode : undefined,
         couponDiscountAmount: discount,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.cc'}/payment/cancelled`,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/payment/cancelled`,
       });
 
       if (!result.success) {

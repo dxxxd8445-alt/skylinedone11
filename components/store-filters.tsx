@@ -23,7 +23,12 @@ interface Product {
 
 // Convert game name to slug
 function gameToSlug(game: string): string {
-  return game.toLowerCase().replace(/[:\s]+/g, "-").replace(/--+/g, "-");
+  return game.toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[:\s]+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 export function StoreFilters({ products }: { products: Product[] }) {

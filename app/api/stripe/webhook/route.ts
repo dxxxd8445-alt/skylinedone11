@@ -252,6 +252,81 @@ export async function POST(request: NextRequest) {
           console.error('⚠️ Discord webhook failed (order still processed):', webhookError);
           // Don't throw error - order was processed successfully
         }
+
+        // Send license delivery email
+        try {
+          // Get all licenses for this order
+          const { data: orderLicenses } = await supabase
+            .from('licenses')
+            .select('*')
+            .eq('order_id', order.id);
+
+          if (orderLicenses && orderLicenses.length > 0) {
+            // Import email functions
+            const { sendEmail } = await import('@/lib/email');
+            const { createLicenseDeliveryEmail } = await import('@/lib/email-templates');
+
+            // Send email with all license keys
+            const licenseKeys = orderLicenses
+              .filter(license => license.license_key && !license.license_key.startsWith('PENDING-'))
+              .map(license => `${license.product_name}: ${license.license_key}`)
+              .join('\n');
+
+            if (licenseKeys) {
+              const emailHtml = createLicenseDeliveryEmail({
+                username: order.customer_name || order.customer_email.split('@')[0],
+                orderNumber: order.order_number,
+                productName: orderLicenses.length > 1 ? 
+                  `${orderLicenses.length} Products` : 
+                  orderLicenses[0].product_name || 'Digital Product',
+                licenseKey: licenseKeys,
+                amount: formatAmountFromStripe(order.amount_cents || 0),
+                expiresAt: orderLicenses[0].expires_at,
+              });
+
+              await sendEmail({
+                to: order.customer_email,
+                subject: `🔥 Your Magma License Keys - Order ${order.order_number}`,
+                html: emailHtml,
+              });
+
+              console.log('✅ License delivery email sent to:', order.customer_email);
+            } else {
+              console.warn('⚠️ No valid license keys found for email delivery');
+            }
+          }
+        } catch (emailError) {
+          console.error('⚠️ Email delivery failed (order still processed):', emailError);
+          // Don't throw error - order was processed successfully
+        }
+
+        // Track purchase in analytics
+        try {
+          // Find the session for analytics tracking
+          const sessionId = session.metadata?.analytics_session_id;
+          if (sessionId) {
+            await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/analytics/track`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                sessionId,
+                page: '/payment/success',
+                activity: 'completed',
+                eventType: 'purchase',
+                eventData: {
+                  orderId: order.order_number,
+                  productName: order.product_name,
+                  amount: order.amount_cents / 100,
+                },
+                value: order.amount_cents / 100,
+              }),
+            });
+          }
+        } catch (analyticsError) {
+          console.error('⚠️ Analytics tracking failed (order still processed):', analyticsError);
+        }
         break;
       }
 

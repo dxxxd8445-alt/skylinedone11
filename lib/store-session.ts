@@ -1,4 +1,6 @@
 import { createHmac, timingSafeEqual } from "crypto";
+import { NextRequest } from "next/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 const COOKIE_NAME = "store_session";
 const MAX_AGE_SEC = 60 * 60 * 24 * 30; // 30 days
@@ -30,6 +32,33 @@ export function verifyStoreSession(token: string): { userId: string; email: stri
       return null;
     return { userId: j.sub, email: j.email };
   } catch {
+    return null;
+  }
+}
+
+export async function getStoreUserFromRequest(request: NextRequest): Promise<{ id: string; email: string; username: string } | null> {
+  try {
+    // Get session token from cookie
+    const sessionToken = request.cookies.get(COOKIE_NAME)?.value;
+    if (!sessionToken) return null;
+
+    // Verify the session
+    const session = verifyStoreSession(sessionToken);
+    if (!session) return null;
+
+    // Get user data from database
+    const supabase = createAdminClient();
+    const { data: user, error } = await supabase
+      .from('store_users')
+      .select('id, email, username')
+      .eq('id', session.userId)
+      .single();
+
+    if (error || !user) return null;
+
+    return user;
+  } catch (error) {
+    console.error('Error getting store user from request:', error);
     return null;
   }
 }

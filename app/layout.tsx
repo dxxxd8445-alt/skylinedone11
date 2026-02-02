@@ -11,6 +11,7 @@ import { I18nDocument } from "@/components/i18n-document";
 import { TawkToChat } from "@/components/tawk-to-chat";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { TermsPopup } from "@/components/terms-popup";
+import { AnalyticsProvider } from "@/components/analytics-provider";
 import "@/lib/ssr-polyfills";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
               <CartProvider>
                 <I18nDocument />
                 <AnnouncementBanner />
+                <AnalyticsProvider />
                 {children}
                 <Toaster />
                 <TawkToChat />
