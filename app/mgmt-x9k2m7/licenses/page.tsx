@@ -380,7 +380,7 @@ export default function LicensesPage() {
                         <option value="">Choose a duration...</option>
                         {variants.map(v => (
                           <option key={v.id} value={v.id}>
-                            {v.duration} - ${v.price}
+                            {v.duration} - ${(v.price / 100).toFixed(2)}
                           </option>
                         ))}
                       </select>
