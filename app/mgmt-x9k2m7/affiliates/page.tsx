@@ -27,16 +27,9 @@ import {
   TrendingUp,
   Search,
   Eye,
-  CheckCircle2,
-  XCircle,
   RefreshCw,
   Edit,
-  Trash2,
-  Plus,
   MousePointer,
-  BarChart,
-  Calendar,
-  Mail,
 } from "lucide-react";
 
 interface Affiliate {
@@ -123,25 +116,6 @@ export default function AffiliatesPage() {
     }
   };
 
-  const updateAffiliateStatus = async (id: string, status: string) => {
-    try {
-      const response = await fetch(`/api/admin/affiliates/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status })
-      });
-
-      if (response.ok) {
-        await loadAffiliates();
-      } else {
-        alert("Failed to update affiliate status");
-      }
-    } catch (error) {
-      console.error("Failed to update affiliate:", error);
-      alert("Failed to update affiliate status");
-    }
-  };
-
   const viewAffiliateDetails = async (affiliate: Affiliate) => {
     setSelectedAffiliate(affiliate);
     setDetailsLoading(true);
@@ -202,38 +176,6 @@ export default function AffiliatesPage() {
     } catch (error) {
       console.error("Failed to update affiliate:", error);
       alert("Failed to update affiliate");
-    }
-  };
-
-  const deleteAffiliate = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this affiliate? This action cannot be undone.")) {
-      return;
-    }
-    
-    try {
-      console.log(`[Delete] Attempting to delete affiliate: ${id}`);
-      
-      const response = await fetch(`/api/admin/affiliates/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-
-      const data = await response.json();
-      console.log(`[Delete] Response status: ${response.status}`, data);
-
-      if (response.ok) {
-        console.log(`[Delete] Success! Reloading affiliates...`);
-        await loadAffiliates();
-        alert("✅ Affiliate deleted successfully!");
-      } else {
-        console.error(`[Delete] Failed with status ${response.status}:`, data);
-        alert(`❌ Failed to delete affiliate: ${data.error || 'Unknown error'}`);
-      }
-    } catch (error) {
-      console.error("[Delete] Exception:", error);
-      alert(`❌ Error deleting affiliate: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   };
 
@@ -381,7 +323,7 @@ export default function AffiliatesPage() {
                               {affiliate.store_users?.username || 'Unknown'}
                             </p>
                             <p className="text-sm text-white/60">
-                              {affiliate.store_users?.email || 'No email'}
+                              {affiliate.store_users?.email || affiliate.payment_email || 'No email'}
                             </p>
                           </div>
                         </TableCell>
@@ -471,36 +413,6 @@ export default function AffiliatesPage() {
                               title="Edit Affiliate"
                             >
                               <Edit className="w-4 h-4" />
-                            </Button>
-                            {affiliate.status === 'active' ? (
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => updateAffiliateStatus(affiliate.id, 'suspended')}
-                                className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
-                                title="Suspend Affiliate"
-                              >
-                                <XCircle className="w-4 h-4" />
-                              </Button>
-                            ) : (
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => updateAffiliateStatus(affiliate.id, 'active')}
-                                className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
-                                title="Activate Affiliate"
-                              >
-                                <CheckCircle2 className="w-4 h-4" />
-                              </Button>
-                            )}
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => deleteAffiliate(affiliate.id)}
-                              className="text-red-500 hover:text-red-400 hover:bg-red-500/10"
-                              title="Delete Affiliate"
-                            >
-                              <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
                         </TableCell>

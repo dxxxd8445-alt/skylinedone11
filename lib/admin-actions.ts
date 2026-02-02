@@ -400,3 +400,43 @@ export async function deleteTeamMemberFromDB(id: string) {
     return { success: false, error: "Failed to delete team member" };
   }
 }
+
+// Affiliate Actions
+export async function deleteAffiliateFromDB(id: string) {
+  try {
+    if (!id || id === 'undefined' || id === null || id === '') {
+      console.error("[Admin] Invalid affiliate ID:", id);
+      return { success: false, error: "Invalid affiliate ID" };
+    }
+
+    const supabase = await createClient();
+    
+    // Delete referrals
+    await supabase
+      .from("affiliate_referrals")
+      .delete()
+      .eq("affiliate_id", id);
+    
+    // Delete clicks
+    await supabase
+      .from("affiliate_clicks")
+      .delete()
+      .eq("affiliate_id", id);
+    
+    // Delete affiliate
+    const { error } = await supabase
+      .from("affiliates")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      console.error("[Admin] Delete affiliate error:", error);
+      return { success: false, error: error.message };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("[Admin] Delete affiliate exception:", error);
+    return { success: false, error: "Failed to delete affiliate" };
+  }
+}

@@ -65,7 +65,7 @@ export default function CategoriesPage() {
     description: '',
     image_url: '',
     display_order: 0,
-    is_active: true
+    is_active: 'active'
   });
 
   useEffect(() => {
@@ -94,7 +94,10 @@ export default function CategoriesPage() {
       const response = await fetch("/api/admin/categories", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(categoryForm)
+        body: JSON.stringify({
+          ...categoryForm,
+          is_active: categoryForm.is_active === 'active'
+        })
       });
 
       if (response.ok) {
@@ -119,7 +122,10 @@ export default function CategoriesPage() {
       const response = await fetch(`/api/admin/categories/${selectedCategory.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(categoryForm)
+        body: JSON.stringify({
+          ...categoryForm,
+          is_active: categoryForm.is_active === 'active'
+        })
       });
 
       if (response.ok) {
@@ -213,7 +219,7 @@ export default function CategoriesPage() {
       description: category.description,
       image_url: category.image_url,
       display_order: category.display_order,
-      is_active: category.is_active
+      is_active: category.is_active ? 'active' : 'inactive'
     });
     setEditModalOpen(true);
   };
@@ -230,7 +236,7 @@ export default function CategoriesPage() {
       description: '',
       image_url: '',
       display_order: categories.length,
-      is_active: true
+      is_active: 'active'
     });
     setSelectedCategory(null);
   };
@@ -246,7 +252,7 @@ export default function CategoriesPage() {
   );
 
   return (
-    <AdminShell>
+    <AdminShell title="Categories Management" subtitle="Manage product categories and organization">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -377,7 +383,6 @@ export default function CategoriesPage() {
                       <TableHead className="text-white/60">Slug</TableHead>
                       <TableHead className="text-white/60">Description</TableHead>
                       <TableHead className="text-white/60">Order</TableHead>
-                      <TableHead className="text-white/60">Status</TableHead>
                       <TableHead className="text-white/60">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -434,23 +439,6 @@ export default function CategoriesPage() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => toggleCategoryStatus(category)}
-                            className={`p-2 ${category.is_active 
-                              ? 'text-green-400 hover:text-green-300 hover:bg-green-500/10' 
-                              : 'text-red-400 hover:text-red-300 hover:bg-red-500/10'
-                            }`}
-                          >
-                            {category.is_active ? (
-                              <ToggleRight className="w-5 h-5" />
-                            ) : (
-                              <ToggleLeft className="w-5 h-5" />
-                            )}
-                          </Button>
-                        </TableCell>
-                        <TableCell>
                           <div className="flex items-center gap-2">
                             <Button
                               size="sm"
@@ -482,7 +470,7 @@ export default function CategoriesPage() {
                     ))}
                     {filteredCategories.length === 0 && !loading && (
                       <TableRow>
-                        <TableCell colSpan={7} className="py-16 text-center">
+                        <TableCell colSpan={6} className="py-16 text-center">
                           <div className="w-16 h-16 rounded-full bg-[#dc2626]/10 flex items-center justify-center mx-auto mb-4">
                             <Folder className="w-8 h-8 text-[#dc2626]" />
                           </div>
@@ -652,8 +640,8 @@ export default function CategoriesPage() {
               <div>
                 <Label className="text-white font-medium">Status</Label>
                 <select
-                  value={categoryForm.is_active ? 'active' : 'inactive'}
-                  onChange={(e) => setCategoryForm({ ...categoryForm, is_active: e.target.value === 'active' })}
+                  value={categoryForm.is_active}
+                  onChange={(e) => setCategoryForm({ ...categoryForm, is_active: e.target.value as any })}
                   className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] text-white rounded-md"
                 >
                   <option value="active">Active</option>

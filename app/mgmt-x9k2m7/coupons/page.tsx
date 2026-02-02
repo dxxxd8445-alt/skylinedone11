@@ -67,14 +67,13 @@ export default function CouponsPage() {
 
   const loadCoupons = async () => {
     try {
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("coupons")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      setCoupons(data || []);
+      const response = await fetch("/api/admin/coupons");
+      if (response.ok) {
+        const data = await response.json();
+        setCoupons(data.coupons || []);
+      } else {
+        throw new Error("Failed to load coupons");
+      }
     } catch (error) {
       console.error("Failed to load coupons:", error);
       toast({
@@ -113,17 +112,21 @@ export default function CouponsPage() {
     }
 
     try {
-      const supabase = createClient();
-      const { error } = await supabase.from("coupons").insert({
-        code: formData.code.toUpperCase(),
-        discount_type: formData.discountType,
-        discount_value: formData.discountValue,
-        max_uses: formData.maxUses,
-        current_uses: 0,
-        status: "active",
+      const response = await fetch("/api/admin/coupons", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: formData.code,
+          discountType: formData.discountType,
+          discountValue: formData.discountValue,
+          maxUses: formData.maxUses,
+        }),
       });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Failed to create coupon");
+      }
 
       toast({
         title: "Success",
@@ -145,7 +148,7 @@ export default function CouponsPage() {
       console.error("Failed to create coupon:", error);
       toast({
         title: "Error",
-        description: "Failed to create coupon",
+        description: error instanceof Error ? error.message : "Failed to create coupon",
         variant: "destructive",
       });
     }
@@ -155,10 +158,15 @@ export default function CouponsPage() {
     if (!confirm("Are you sure you want to delete this coupon?")) return;
 
     try {
-      const supabase = createClient();
-      const { error } = await supabase.from("coupons").delete().eq("id", id);
+      const response = await fetch(`/api/admin/coupons/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Failed to delete coupon");
+      }
 
       toast({
         title: "Success",
@@ -169,7 +177,7 @@ export default function CouponsPage() {
       console.error("Failed to delete coupon:", error);
       toast({
         title: "Error",
-        description: "Failed to delete coupon",
+        description: error instanceof Error ? error.message : "Failed to delete coupon",
         variant: "destructive",
       });
     }
@@ -192,7 +200,7 @@ export default function CouponsPage() {
           </div>
           <Button
             onClick={() => setShowCreateModal(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
+            className="bg-red-600 hover:bg-red-700 text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
             Create Coupon
@@ -306,15 +314,6 @@ export default function CouponsPage() {
               <p className="text-xs text-white/40 mt-1">This is the code customers will enter to use coupon</p>
             </div>
 
-            {/* Disabled Payment Methods */}
-            <div>
-              <Label className="text-white font-medium mb-2 block">Disabled Payment Methods</Label>
-              <Button variant="outline" className="border-[#262626] text-white hover:bg-[#1a1a1a]">
-                Click to select more...
-              </Button>
-              <p className="text-xs text-white/40 mt-1">Payment methods that won't be allowed to use this coupon with</p>
-            </div>
-
             {/* Select Products */}
             <div>
               <Label className="text-white font-medium mb-2 block">Select Products</Label>
@@ -332,15 +331,6 @@ export default function CouponsPage() {
                 ))}
               </select>
               <p className="text-xs text-white/40 mt-1">Limit coupon use to certain select products</p>
-            </div>
-
-            {/* Select Bundles */}
-            <div>
-              <Label className="text-white font-medium mb-2 block">Select Bundles</Label>
-              <select className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-2 text-white">
-                <option>Select</option>
-              </select>
-              <p className="text-xs text-white/40 mt-1">Limit coupon use to certain select bundles</p>
             </div>
 
             {/* Start & End Date */}
@@ -412,7 +402,7 @@ export default function CouponsPage() {
             </Button>
             <Button
               onClick={handleCreateCoupon}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-red-600 hover:bg-red-700 text-white"
             >
               Create Coupon
             </Button>

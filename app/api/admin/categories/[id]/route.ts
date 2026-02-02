@@ -46,7 +46,7 @@ export async function PATCH(
 
     return NextResponse.json({ success: true, category });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Admin category update error:', error);
     return NextResponse.json({ 
       error: 'Internal server error', 
@@ -66,24 +66,7 @@ export async function DELETE(
 
     console.log('Deleting category:', categoryId);
 
-    // First check if category exists
-    const { data: existingCategory, error: checkError } = await supabase
-      .from('categories')
-      .select('id, name, slug')
-      .eq('id', categoryId)
-      .single();
-
-    if (checkError || !existingCategory) {
-      console.error('Category not found:', checkError);
-      return NextResponse.json({ 
-        error: 'Category not found', 
-        details: checkError?.message 
-      }, { status: 404 });
-    }
-
-    console.log('Found category to delete:', existingCategory);
-
-    // Delete category
+    // Delete category directly - admin client bypasses RLS
     const { error: deleteError } = await supabase
       .from('categories')
       .delete()
@@ -101,7 +84,7 @@ export async function DELETE(
 
     return NextResponse.json({ success: true, message: 'Category deleted successfully' });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Admin category delete error:', error);
     return NextResponse.json({ 
       error: 'Internal server error', 

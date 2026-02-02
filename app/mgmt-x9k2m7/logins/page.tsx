@@ -563,22 +563,7 @@ export default function ManageLoginsPage() {
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="py-16 text-center">
-                <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-400" />
-                </div>
-                <p className="text-white/60 text-lg font-medium">Could not load customer data</p>
-                <p className="text-white/40 text-sm mt-1">There was an error retrieving the customer information</p>
-                <Button 
-                  onClick={() => openView(viewModal)}
-                  className="mt-4 bg-[#dc2626] hover:bg-[#b91c1c] text-white"
-                >
-                  <RefreshCw className="w-4 h-4 mr-2" />
-                  Try Again
-                </Button>
-              </div>
-            )}
+            ) : null}
           </div>
         </div>
       )}

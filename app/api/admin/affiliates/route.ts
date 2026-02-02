@@ -5,14 +5,10 @@ export async function GET(request: NextRequest) {
   try {
     const supabase = createAdminClient();
     
-    console.log('Admin affiliates API called'); // Debug log
+    console.log('Admin affiliates API called');
     
-    // Get affiliates with user data - try multiple approaches
-    let affiliates = null;
-    let error = null;
-
-    // First try with store_users join using explicit foreign key
-    const { data: affiliatesWithUsers, error: joinError } = await supabase
+    // Get all affiliates
+    const { data: affiliates, error: affiliatesError } = await supabase
       .from('affiliates')
       .select(`
         id,
@@ -31,79 +27,80 @@ export async function GET(request: NextRequest) {
         cashapp_tag,
         minimum_payout,
         created_at,
-        updated_at,
-        store_users!store_user_id (
-          username,
-          email
-        )
+        updated_at
       `)
       .order('created_at', { ascending: false });
 
-    if (joinError) {
-      console.error('Error with store_users join:', joinError);
-      
-      // Fallback: try without join
-      const { data: affiliatesOnly, error: simpleError } = await supabase
-        .from('affiliates')
-        .select(`
-          id,
-          user_id,
-          affiliate_code,
-          commission_rate,
-          total_earnings,
-          pending_earnings,
-          paid_earnings,
-          total_referrals,
-          total_sales,
-          status,
-          payment_email,
-          payment_method,
-          crypto_type,
-          cashapp_tag,
-          minimum_payout,
-          created_at,
-          updated_at
-        `)
-        .order('created_at', { ascending: false });
-
-      if (simpleError) {
-        console.error('Error fetching affiliates (simple):', simpleError);
-        return NextResponse.json({ error: 'Failed to fetch affiliates', details: simpleError.message }, { status: 500 });
-      }
-
-      affiliates = affiliatesOnly;
-      console.log('Fetched affiliates without join:', affiliates?.length || 0);
-    } else {
-      affiliates = affiliatesWithUsers;
-      console.log('Fetched affiliates with join:', affiliates?.length || 0);
+    if (affiliatesError) {
+      console.error('Error fetching affiliates:', affiliatesError);
+      return NextResponse.json({ error: 'Failed to fetch affiliates', details: affiliatesError.message }, { status: 500 });
     }
 
-    // If we have affiliates but no store_users data, try to fetch user data separately
-    if (affiliates && affiliates.length > 0 && !affiliates[0].store_users) {
-      console.log('Attempting to fetch store_users data separately...');
-      
-      for (let affiliate of affiliates) {
-        if (affiliate.store_user_id) {
-          const { data: userData } = await supabase
-            .from('store_users')
-            .select('username, email')
-            .eq('id', affiliate.store_user_id)
-            .single();
-          
-          if (userData) {
-            affiliate.store_users = userData;
+    console.log(`Fetched ${affiliates?.length || 0} affiliates`);
+
+    // For each affiliate, fetch the store_user data
+    const affiliatesWithUsers = await Promise.all(
+      (affiliates || []).map(async (affiliate) => {
+        console.log(`Processing affiliate ${affiliate.id} with user_id: ${affiliate.user_id}`);
+        
+        if (affiliate.user_id) {
+          try {
+            const { data: userData, error: userError } = await supabase
+              .from('store_users')
+              .select('id, username, email')
+              .eq('id', affiliate.user_id)
+              .single();
+            
+            if (userError) {
+              console.warn(`Could not find user for affiliate ${affiliate.id}:`, userError.message);
+              // Use affiliate code as fallback username
+              return {
+                ...affiliate,
+                store_users: { 
+                  username: affiliate.affiliate_code || 'Affiliate', 
+                  email: affiliate.payment_email || 'No email' 
+                }
+              };
+            }
+
+            console.log(`Found user for affiliate ${affiliate.id}:`, userData);
+            
+            return {
+              ...affiliate,
+              store_users: userData || { 
+                username: affiliate.affiliate_code || 'Affiliate', 
+                email: affiliate.payment_email || 'No email' 
+              }
+            };
+          } catch (err) {
+            console.error(`Error fetching user for affiliate ${affiliate.id}:`, err);
+            return {
+              ...affiliate,
+              store_users: { 
+                username: affiliate.affiliate_code || 'Affiliate', 
+                email: affiliate.payment_email || 'No email' 
+              }
+            };
           }
         }
-      }
-    }
+        
+        return {
+          ...affiliate,
+          store_users: { 
+            username: affiliate.affiliate_code || 'Affiliate', 
+            email: affiliate.payment_email || 'No email' 
+          }
+        };
+      })
+    );
 
-    console.log('Final affiliates data:', JSON.stringify(affiliates, null, 2));
+    console.log('Fetched affiliates with user data:', affiliatesWithUsers?.length || 0);
 
     return NextResponse.json({ 
-      affiliates: affiliates || [],
+      affiliates: affiliatesWithUsers || [],
       debug: {
-        count: affiliates?.length || 0,
-        hasStoreUsers: affiliates?.[0]?.store_users ? true : false
+        count: affiliatesWithUsers?.length || 0,
+        hasStoreUsers: affiliatesWithUsers?.[0]?.store_users ? true : false
       }
     });
 

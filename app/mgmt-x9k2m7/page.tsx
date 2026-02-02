@@ -327,6 +327,22 @@ export default function AdminDashboard() {
             <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
             <span className="text-sm">Refresh</span>
           </button>
+
+          <button
+            onClick={() => {
+              if (confirm("Are you sure you want to reset revenue to $0? This action cannot be undone.")) {
+                setStats(prev => ({ ...prev, revenue: 0 }));
+                toast({
+                  title: "Revenue Reset",
+                  description: "Revenue has been reset to $0",
+                });
+              }
+            }}
+            className="flex items-center gap-2 px-4 py-2 bg-orange-600 hover:bg-orange-700 border border-orange-600 rounded-lg text-white transition-colors"
+          >
+            <DollarSign className="w-4 h-4" />
+            <span className="text-sm">Reset Revenue</span>
+          </button>
         </div>
       </div>
 
