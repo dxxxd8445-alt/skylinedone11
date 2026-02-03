@@ -145,7 +145,7 @@ async function testAllDiscordNotifications() {
       {
         name: '🛒 Checkout Started',
         embed: createCheckoutStartedEmbed({
-          customer_email: 'test@magmacheats.cc',
+          customer_email: 'test@magmacheats.com',
           session_id: 'cs_test_' + Date.now(),
           items: [{ name: 'Arc Raiders - 1 Week', quantity: 1, price: 27.99 }],
           subtotal: 27.99,
@@ -158,7 +158,7 @@ async function testAllDiscordNotifications() {
         name: '⏳ Order Pending',
         embed: createPendingOrderEmbed({
           order_number: 'TEST-PENDING-' + Date.now(),
-          customer_email: 'test@magmacheats.cc',
+          customer_email: 'test@magmacheats.com',
           amount: 27.99,
           currency: 'USD',
           payment_method: 'stripe',
@@ -169,7 +169,7 @@ async function testAllDiscordNotifications() {
         name: '🎉 Order Completed',
         embed: createCompletedOrderEmbed({
           order_number: 'TEST-COMPLETED-' + Date.now(),
-          customer_email: 'test@magmacheats.cc',
+          customer_email: 'test@magmacheats.com',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -180,7 +180,7 @@ async function testAllDiscordNotifications() {
         name: '❌ Payment Failed',
         embed: createFailedPaymentEmbed({
           order_number: 'TEST-FAILED-' + Date.now(),
-          customer_email: 'test@magmacheats.cc',
+          customer_email: 'test@magmacheats.com',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -191,7 +191,7 @@ async function testAllDiscordNotifications() {
         name: '💸 Order Refunded',
         embed: createRefundEmbed({
           order_number: 'TEST-REFUNDED-' + Date.now(),
-          customer_email: 'test@magmacheats.cc',
+          customer_email: 'test@magmacheats.com',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',

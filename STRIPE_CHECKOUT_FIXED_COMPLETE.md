@@ -72,7 +72,7 @@ const handleCheckout = async () => {
 ✅ Present environment variables:
    STRIPE_SECRET_KEY: sk_live_...
    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: pk_live_51Sf1VaRpmEa...
-   NEXT_PUBLIC_SITE_URL: https://magmacheats.cc
+   NEXT_PUBLIC_SITE_URL: https://magmacheats.com
 
 ✅ Stripe API connected successfully
    Account ID: acct_1Sf1VaRpmEagB4Dm

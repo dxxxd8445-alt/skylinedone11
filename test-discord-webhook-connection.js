@@ -35,7 +35,7 @@ async function testDiscordWebhook() {
         ],
         footer: {
           text: "Magma Cheats Admin Panel",
-          icon_url: "https://magmacheats.cc/icon.svg"
+          icon_url: "https://magmacheats.com/icon.svg"
         },
         timestamp: new Date().toISOString()
       }]
@@ -97,7 +97,7 @@ async function testDiscordWebhook() {
           ],
           footer: {
             text: "Magma Cheats Order System",
-            icon_url: "https://magmacheats.cc/icon.svg"
+            icon_url: "https://magmacheats.com/icon.svg"
           },
           timestamp: new Date().toISOString()
         }]

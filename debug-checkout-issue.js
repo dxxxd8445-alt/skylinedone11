@@ -22,7 +22,7 @@ async function debugCheckoutIssue() {
           quantity: 1
         }
       ],
-      customer_email: 'test@magmacheats.cc',
+      customer_email: 'test@magmacheats.com',
       success_url: 'http://localhost:3000/payment/success',
       cancel_url: 'http://localhost:3000/cart'
     };

@@ -102,7 +102,7 @@ async function testDiscordWebhook() {
     // 2. Create test order data
     const testOrderData = {
       order_number: 'TEST-' + Date.now(),
-      customer_email: 'test@magmacheats.cc',
+      customer_email: 'test@magmacheats.com',
       customer_name: 'Test Customer',
       amount: 27.99,
       currency: 'USD',

@@ -58,7 +58,7 @@ The orders system has been successfully fixed and is now working perfectly. All 
 3. **Dashboard**: Personal order statistics
 
 ### **Specific Customer Examples:**
-- **test@magmacheats.cc**: 3 orders, 3 licenses
+- **test@magmacheats.com**: 3 orders, 3 licenses
 - **heromaindc@gmai.com**: Multiple large orders
 - **rashib@gmail.com**: Orders showing correctly
 

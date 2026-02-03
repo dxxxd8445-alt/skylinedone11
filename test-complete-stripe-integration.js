@@ -10,7 +10,7 @@ const { URL } = require('url');
 
 // Test configuration
 const BASE_URL = 'http://localhost:3000';
-const TEST_EMAIL = 'test@magmacheats.cc';
+const TEST_EMAIL = 'test@magmacheats.com';
 
 // Colors for console output
 const colors = {

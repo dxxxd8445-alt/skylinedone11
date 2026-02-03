@@ -37,7 +37,7 @@ async function testStripeIntegration() {
 
     // Test 3: Test webhook endpoint
     console.log('3️⃣ Checking Webhook Configuration...');
-    console.log('✅ Webhook URL: https://magmacheats.cc/api/stripe/webhook');
+    console.log('✅ Webhook URL: https://magmacheats.com/api/stripe/webhook');
     console.log('✅ Webhook Secret configured');
     console.log('✅ Events: checkout.session.completed, checkout.session.expired, payment_intent.payment_failed\n');
 
@@ -56,9 +56,9 @@ async function testStripeIntegration() {
           quantity: 1
         }
       ],
-      customer_email: 'test@magmacheats.cc',
-      success_url: 'https://magmacheats.cc/payment/success',
-      cancel_url: 'https://magmacheats.cc/cart'
+      customer_email: 'test@magmacheats.com',
+      success_url: 'https://magmacheats.com/payment/success',
+      cancel_url: 'https://magmacheats.com/cart'
     };
 
     try {
