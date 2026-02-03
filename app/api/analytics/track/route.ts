@@ -47,28 +47,41 @@ function parseUserAgent(userAgent: string) {
   return { deviceType, browser, os };
 }
 
-// Helper function to get location from IP (you can integrate with a service like ipapi.co)
+// Helper function to get location from IP using ipapi.co (free service)
 async function getLocationFromIP(ip: string) {
   try {
     // Skip location lookup for localhost/private IPs
     if (ip === '127.0.0.1' || ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.')) {
-      return { country: 'Local', city: 'Localhost', region: 'Development' };
+      return { country: 'Local', city: 'Localhost', region: 'Development', latitude: 0, longitude: 0 };
     }
     
-    // You can integrate with a real IP geolocation service here
-    // For now, return mock data
-    const mockLocations = [
-      { country: 'United States', city: 'New York', region: 'NY' },
-      { country: 'United States', city: 'Los Angeles', region: 'CA' },
-      { country: 'Canada', city: 'Toronto', region: 'ON' },
-      { country: 'United Kingdom', city: 'London', region: 'England' },
-      { country: 'Germany', city: 'Berlin', region: 'Berlin' },
-      { country: 'Australia', city: 'Sydney', region: 'NSW' },
-    ];
+    // Use ipapi.co for free geolocation (no API key required)
+    const response = await fetch(`https://ipapi.co/${ip}/json/`, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'Mozilla/5.0'
+      }
+    });
     
-    return mockLocations[Math.floor(Math.random() * mockLocations.length)];
+    if (!response.ok) {
+      console.log(`Geolocation lookup failed for IP ${ip}: ${response.status}`);
+      return { country: 'Unknown', city: 'Unknown', region: 'Unknown', latitude: 0, longitude: 0 };
+    }
+    
+    const data = await response.json();
+    
+    return {
+      country: data.country_name || 'Unknown',
+      city: data.city || 'Unknown',
+      region: data.region || 'Unknown',
+      latitude: data.latitude || 0,
+      longitude: data.longitude || 0,
+      timezone: data.timezone || 'Unknown',
+      isp: data.org || 'Unknown'
+    };
   } catch (error) {
-    return { country: 'Unknown', city: 'Unknown', region: 'Unknown' };
+    console.error('Geolocation error:', error);
+    return { country: 'Unknown', city: 'Unknown', region: 'Unknown', latitude: 0, longitude: 0 };
   }
 }
 
@@ -141,6 +154,10 @@ export async function POST(request: NextRequest) {
           country: location.country,
           city: location.city,
           region: location.region,
+          latitude: location.latitude,
+          longitude: location.longitude,
+          timezone: location.timezone,
+          isp: location.isp,
           current_page: page,
           current_product: product,
           activity,
