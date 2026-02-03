@@ -24,13 +24,14 @@ import {
   Bug,
   MessageSquare,
   BarChart3,
+  Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdminStore } from "@/lib/admin-store";
 
 const navItems: { href: string; label: string; icon: typeof LayoutDashboard; permission: string }[] = [
   { href: "/mgmt-x9k2m7", label: "Dashboard", icon: LayoutDashboard, permission: "dashboard" },
-  { href: "/mgmt-x9k2m7/store-viewers", label: "Store Viewers", icon: BarChart3, permission: "dashboard" },
+  { href: "/mgmt-x9k2m7/live-visitors", label: "Live Visitors", icon: Globe, permission: "dashboard" },
   { href: "/mgmt-x9k2m7/status", label: "Product Status", icon: Activity, permission: "manage_products" },
   { href: "/mgmt-x9k2m7/orders", label: "Orders", icon: ShoppingCart, permission: "manage_orders" },
   { href: "/mgmt-x9k2m7/licenses", label: "License Keys", icon: Key, permission: "stock_keys" },

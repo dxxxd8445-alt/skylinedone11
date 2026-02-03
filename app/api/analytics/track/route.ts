@@ -47,12 +47,28 @@ function parseUserAgent(userAgent: string) {
   return { deviceType, browser, os };
 }
 
+// Mock geolocation data for localhost testing
+const MOCK_LOCATIONS = [
+  { country: 'United States', city: 'New York', region: 'NY', latitude: 40.7128, longitude: -74.0060, timezone: 'America/New_York', isp: 'Test ISP' },
+  { country: 'United Kingdom', city: 'London', region: 'England', latitude: 51.5074, longitude: -0.1278, timezone: 'Europe/London', isp: 'Test ISP' },
+  { country: 'Canada', city: 'Toronto', region: 'ON', latitude: 43.6532, longitude: -79.3832, timezone: 'America/Toronto', isp: 'Test ISP' },
+  { country: 'Australia', city: 'Sydney', region: 'NSW', latitude: -33.8688, longitude: 151.2093, timezone: 'Australia/Sydney', isp: 'Test ISP' },
+  { country: 'Germany', city: 'Berlin', region: 'Berlin', latitude: 52.5200, longitude: 13.4050, timezone: 'Europe/Berlin', isp: 'Test ISP' },
+  { country: 'France', city: 'Paris', region: 'Île-de-France', latitude: 48.8566, longitude: 2.3522, timezone: 'Europe/Paris', isp: 'Test ISP' },
+  { country: 'Japan', city: 'Tokyo', region: 'Tokyo', latitude: 35.6762, longitude: 139.6503, timezone: 'Asia/Tokyo', isp: 'Test ISP' },
+  { country: 'Brazil', city: 'São Paulo', region: 'SP', latitude: -23.5505, longitude: -46.6333, timezone: 'America/Sao_Paulo', isp: 'Test ISP' },
+  { country: 'India', city: 'Mumbai', region: 'Maharashtra', latitude: 19.0760, longitude: 72.8777, timezone: 'Asia/Kolkata', isp: 'Test ISP' },
+  { country: 'Singapore', city: 'Singapore', region: 'Singapore', latitude: 1.3521, longitude: 103.8198, timezone: 'Asia/Singapore', isp: 'Test ISP' },
+];
+
 // Helper function to get location from IP using ipapi.co (free service)
 async function getLocationFromIP(ip: string) {
   try {
-    // Skip location lookup for localhost/private IPs
+    // For localhost/private IPs, use mock geolocation data for testing
     if (ip === '127.0.0.1' || ip.startsWith('192.168.') || ip.startsWith('10.') || ip.startsWith('172.')) {
-      return { country: 'Local', city: 'Localhost', region: 'Development', latitude: 0, longitude: 0 };
+      // Return a random mock location for localhost testing
+      const mockLocation = MOCK_LOCATIONS[Math.floor(Math.random() * MOCK_LOCATIONS.length)];
+      return mockLocation;
     }
     
     // Use ipapi.co for free geolocation (no API key required)
@@ -65,7 +81,7 @@ async function getLocationFromIP(ip: string) {
     
     if (!response.ok) {
       console.log(`Geolocation lookup failed for IP ${ip}: ${response.status}`);
-      return { country: 'Unknown', city: 'Unknown', region: 'Unknown', latitude: 0, longitude: 0 };
+      return { country: 'Unknown', city: 'Unknown', region: 'Unknown', latitude: 0, longitude: 0, timezone: 'Unknown', isp: 'Unknown' };
     }
     
     const data = await response.json();
@@ -81,7 +97,7 @@ async function getLocationFromIP(ip: string) {
     };
   } catch (error) {
     console.error('Geolocation error:', error);
-    return { country: 'Unknown', city: 'Unknown', region: 'Unknown', latitude: 0, longitude: 0 };
+    return { country: 'Unknown', city: 'Unknown', region: 'Unknown', latitude: 0, longitude: 0, timezone: 'Unknown', isp: 'Unknown' };
   }
 }
 

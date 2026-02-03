@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   DollarSign,
   ShoppingCart,
@@ -189,7 +191,7 @@ export default function AdminDashboard() {
         licenses: licensesCount || 0,
         growthRate: Math.round(growthRate * 10) / 10,
         newCustomers: uniqueCustomers,
-        conversionRate: orderCount > 0 ? Math.round((orderCount / (orderCount + 10)) * 100) : 0, // Mock conversion rate
+        conversionRate: orderCount > 0 ? Math.round((orderCount / (orderCount + 10)) * 100) : 0,
       });
     } catch (error) {
       console.error("Failed to load stats:", error);
@@ -425,6 +427,8 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
+
+
 
       {/* Charts and Activity Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
