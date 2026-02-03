@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { GlobeViewer } from "@/components/admin/globe-viewer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -704,6 +705,27 @@ export default function StoreViewersPage() {
           </Card>
         </div>
         {/* Main Content Area */}
+        <div className="grid grid-cols-1 gap-6">
+          {/* Globe Viewer */}
+          {viewMode === 'realtime' && (
+            <GlobeViewer 
+              visitors={visitors
+                .filter(v => v.country && v.city)
+                .map(v => ({
+                  id: v.id,
+                  country: v.country,
+                  city: v.city,
+                  latitude: (v as any).latitude || 0,
+                  longitude: (v as any).longitude || 0,
+                  device_type: v.device,
+                  browser: v.browser,
+                  is_active: v.secondsSinceLastActivity < 60
+                }))}
+            />
+          )}
+        </div>
+
+        {/* Live Visitors / Analytics Data */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Live Visitors / Analytics Data */}
           <div className="lg:col-span-2">
