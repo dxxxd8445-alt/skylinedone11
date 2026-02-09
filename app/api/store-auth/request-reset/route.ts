@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     
     const sent = await sendEmail({
       to: user.email,
-      subject: "Reset your Magma password",
+      subject: "Reset your Skyline password",
       html: emailHtml,
     });
 
