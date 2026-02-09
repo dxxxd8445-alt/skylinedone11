@@ -14,6 +14,9 @@ import { redirectToStripeCheckout, validateCheckoutData } from "@/lib/stripe-che
 import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 
+import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
+import { useState } from "react";
+
 export default function CartPage() {
   const router = useRouter();
   const { items, removeFromCart, updateQuantity, getSubtotal, getDiscount, getTotal, clearCart, isHydrated, appliedCoupon, applyCoupon, removeCoupon } = useCart();
@@ -25,6 +28,7 @@ export default function CartPage() {
   const [couponLoading, setCouponLoading] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [showCryptoModal, setShowCryptoModal] = useState(false);
 
   const subtotal = getSubtotal();
   const discount = getDiscount();
