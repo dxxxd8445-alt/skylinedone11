@@ -1,93 +1,99 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
 import { useAuth } from "@/lib/auth-context";
-import { useRouter } from "next/navigation";
-import {
-  Loader2,
-  ArrowRight,
-  CreditCard,
-  Tag,
-  ArrowLeft,
-  ShieldCheck,
-  Lock,
-  Zap,
-  Gift,
-  CheckCircle2,
-  Sparkles,
-  Package,
+import { useCurrency } from "@/lib/currency-context";
+import { formatMoney } from "@/lib/money";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
+import { redirectToStripeCheckout } from "@/lib/stripe-checkout";
+import { 
+  ArrowLeft, 
+  Lock, 
+  Shield, 
+  Zap, 
+  Tag, 
+  Check,
   Mail,
+  Loader2
 } from "lucide-react";
 import Image from "next/image";
-import { redirectToStripeCheckout, validateCheckoutData } from "@/lib/stripe-checkout";
-import { validateCoupon } from "@/lib/purchase-actions";
-import { useCurrency } from "@/lib/currency-context";
-import { useI18n } from "@/lib/i18n-context";
-import { formatMoney } from "@/lib/money";
+import Link from "next/link";
 
-type TrustBadgeColor = "green" | "yellow" | "blue";
-
-const trustBadgeStyles: Record<TrustBadgeColor, { box: string; border: string; icon: string }> = {
-  green: { box: "bg-green-500/10", border: "border-green-500/20", icon: "text-green-400" },
-  yellow: { box: "bg-yellow-500/10", border: "border-yellow-500/20", icon: "text-yellow-400" },
-  blue: { box: "bg-blue-500/10", border: "border-blue-500/20", icon: "text-blue-400" },
-};
-
-export default function ConfirmCheckoutPage() {
+export default function CheckoutConfirmPage() {
   const router = useRouter();
-  const { items, getTotal, isHydrated } = useCart();
+  const { items, getSubtotal, getDiscount, getTotal, appliedCoupon, applyCoupon, removeCoupon } = useCart();
   const { user } = useAuth();
   const { currency } = useCurrency();
-  const { locale } = useI18n();
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  
+  const [guestEmail, setGuestEmail] = useState("");
+  const [emailConfirmed, setEmailConfirmed] = useState(false);
   const [couponCode, setCouponCode] = useState("");
-  const [couponDiscount, setCouponDiscount] = useState(0);
-  const [couponValid, setCouponValid] = useState<boolean | null>(null);
-  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [showCryptoModal, setShowCryptoModal] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
-  const subtotal = getTotal();
-  const discount = (subtotal * couponDiscount) / 100;
-  const total = subtotal - discount;
+  const subtotal = getSubtotal();
+  const discount = getDiscount();
+  const total = getTotal();
 
-  const handleValidateCoupon = async () => {
-    if (!couponCode.trim()) return;
-    setIsValidatingCoupon(true);
-    try {
-      const result = await validateCoupon(couponCode);
-      if (result.valid && result.discount) {
-        setCouponDiscount(result.discount);
-        setCouponValid(true);
-      } else {
-        setCouponDiscount(0);
-        setCouponValid(false);
-      }
-    } catch {
-      setCouponValid(false);
-    } finally {
-      setIsValidatingCoupon(false);
+  // If user is logged in, automatically confirm email
+  useEffect(() => {
+    if (user?.email) {
+      setGuestEmail(user.email);
+      setEmailConfirmed(true);
     }
+  }, [user]);
+
+  // Redirect if cart is empty
+  useEffect(() => {
+    if (items.length === 0) {
+      router.push('/cart');
+    }
+  }, [items, router]);
+
+  const handleEmailSubmit = () => {
+    if (!guestEmail || !guestEmail.includes('@')) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    setEmailConfirmed(true);
   };
 
-  const handleCheckout = async () => {
-    if (items.length === 0) {
-      setError("Your cart is empty");
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    
+    setCouponLoading(true);
+    setCouponError(null);
+    
+    const result = await applyCoupon(couponCode.trim());
+    
+    if (result.success) {
+      setCouponCode("");
+    } else {
+      setCouponError(result.error || "Invalid coupon code");
+    }
+    
+    setCouponLoading(false);
+  };
+
+  const handleCompletePayment = () => {
+    if (!emailConfirmed) {
+      alert('Please confirm your email first');
       return;
     }
+    setShowCryptoModal(true);
+  };
 
-    if (!user?.email) {
-      setError("Please sign in to complete your purchase");
-      return;
-    }
-
-    setIsProcessing(true);
-    setError(null);
+  const handleStripeCheckout = async () => {
+    setCheckoutLoading(true);
+    setShowCryptoModal(false);
 
     try {
-      // Prepare checkout items for Stripe
       const checkoutItems = items.map(item => ({
         id: item.id,
         productId: item.productId,
@@ -99,127 +105,72 @@ export default function ConfirmCheckoutPage() {
         variantId: item.variantId,
       }));
 
-      // Validate checkout data
-      const validationError = validateCheckoutData({
-        items: checkoutItems,
-        customerEmail: user.email,
-        couponCode: couponValid ? couponCode : undefined,
-        couponDiscountAmount: discount,
-      });
-
-      if (validationError) {
-        setError(validationError);
-        return;
-      }
-
-      // Redirect to Stripe Checkout
       const result = await redirectToStripeCheckout({
         items: checkoutItems,
-        customerEmail: user.email,
-        couponCode: couponValid ? couponCode : undefined,
+        customerEmail: guestEmail,
+        couponCode: appliedCoupon?.code,
         couponDiscountAmount: discount,
         successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/cancelled`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/checkout/confirm`,
       });
 
       if (!result.success) {
-        setError(result.error || 'Failed to redirect to checkout');
+        alert(result.error || 'Failed to redirect to checkout');
+        setCheckoutLoading(false);
       }
-      // Note: If successful, user will be redirected to Stripe, so no need to handle success here
-      
-    } catch (error) {
-      console.error("Checkout error:", error);
-      setError("An error occurred. Please try again.");
-    } finally {
-      setIsProcessing(false);
+    } catch (error: any) {
+      alert('Failed to proceed to checkout. Please try again.');
+      setCheckoutLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (!isHydrated) return;
-    if (items.length === 0) {
-      router.push("/cart");
-    }
-  }, [isHydrated, items.length, router]);
-
-  if (!isHydrated) {
-    return null;
-  }
 
   if (items.length === 0) {
     return null;
   }
 
-  const trustBadges: Array<{
-    icon: React.ComponentType<{ className?: string }>;
-    text: string;
-    color: TrustBadgeColor;
-  }> = [
-    { icon: ShieldCheck, text: "Secure Payment", color: "green" },
-    { icon: Zap, text: "Instant Delivery", color: "yellow" },
-    { icon: Lock, text: "SSL Encrypted", color: "blue" },
-  ];
-
   return (
-    <main className="min-h-screen bg-[#0a0a0a] relative overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#2563eb]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#3b82f6]/10 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-[#2563eb]/5 rounded-full blur-[100px]" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, #2563eb 1px, transparent 1px), linear-gradient(to bottom, #2563eb 1px, transparent 1px)",
-              backgroundSize: "50px 50px",
-            }}
-          />
-        </div>
-      </div>
-
+    <main className="min-h-screen bg-[#0a0a0a]">
       <Header />
 
       <div className="pt-24 pb-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <button
-              onClick={() => router.push("/cart")}
-              className="group inline-flex items-center gap-2 text-white/60 hover:text-white transition-all duration-300 hover:gap-3 mb-6"
-            >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              <span className="font-medium">Back to cart</span>
-            </button>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Back Button */}
+          <Link
+            href="/cart"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-6"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to cart</span>
+          </Link>
 
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center gap-3 mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2563eb] to-[#b91c1c] flex items-center justify-center shadow-xl shadow-blue-500/30">
-                  <Lock className="w-7 h-7 text-white" />
-                </div>
-                <h1 className="text-4xl sm:text-5xl font-bold text-transparent bg-gradient-to-r from-white via-white to-white/70 bg-clip-text">
-                  Confirm & Pay
-                </h1>
-              </div>
-              <p className="text-white/60 text-base sm:text-lg">Review your order and complete payment securely.</p>
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center">
+              <Lock className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-white">Confirm & Pay</h1>
+              <p className="text-white/60 text-sm">Review your order and complete payment securely.</p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Order Details */}
+            {/* Left Column - Order Items & Customer Info */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Cart Items */}
-              <div className="bg-[#111111] border border-[#1a1a1a] rounded-2xl p-5 sm:p-6 overflow-hidden">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-white">Order Items</h3>
-                  <div className="hidden sm:flex items-center gap-2 text-white/50 text-sm">
-                    <ShieldCheck className="w-4 h-4 text-green-400" />
-                    Instant delivery after payment
+              {/* Order Items */}
+              <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold text-white">Order Items</h2>
+                  <div className="flex items-center gap-2 text-green-400 text-sm">
+                    <Check className="w-4 h-4" />
+                    <span>Instant delivery after payment</span>
                   </div>
                 </div>
+
                 <div className="space-y-4">
                   {items.map((item) => (
-                    <div key={item.id} className="flex gap-4 p-4 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl">
-                      <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-[#1a1a1a] flex-shrink-0">
+                    <div key={item.id} className="flex items-center gap-4 p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-[#1a1a1a] flex-shrink-0">
                         <Image
                           src={item.image || "/placeholder.svg"}
                           alt={item.productName}
@@ -227,177 +178,218 @@ export default function ConfirmCheckoutPage() {
                           className="object-cover"
                         />
                       </div>
-                      <div className="flex-1">
-                        <h4 className="text-white font-bold mb-1">{item.productName}</h4>
-                        <p className="text-white/60 text-sm mb-1">{item.duration}</p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-white/50 text-sm">Qty: {item.quantity}</span>
-                          <span className="text-[#2563eb] font-bold">
-                            {formatMoney({ amountUsd: item.price * item.quantity, currency, locale })}
-                          </span>
-                        </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-white font-semibold text-lg mb-1">{item.productName}</h3>
+                        <p className="text-white/60 text-sm">{item.duration}</p>
+                        <p className="text-white/40 text-xs">Qty: {item.quantity}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[#2563eb] font-bold text-xl">
+                          {formatMoney({ amountUsd: item.price * item.quantity, currency, locale: 'en-US' })}
+                        </p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Customer Info */}
-              {user && (
-                <div className="bg-[#111111] border border-[#1a1a1a] rounded-2xl p-5 sm:p-6">
-                  <h3 className="text-xl font-bold text-white mb-4">Customer Information</h3>
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-white/60">Email</span>
-                      <span className="text-white">{user.email}</span>
+              {/* Customer Information */}
+              <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
+                <h2 className="text-xl font-bold text-white mb-6">Customer Information</h2>
+
+                {!emailConfirmed ? (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-white/80 text-sm mb-2">Email</label>
+                      <div className="flex gap-3">
+                        <div className="relative flex-1">
+                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
+                          <input
+                            type="email"
+                            value={guestEmail}
+                            onChange={(e) => setGuestEmail(e.target.value)}
+                            placeholder="your@email.com"
+                            className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                            onKeyPress={(e) => e.key === 'Enter' && handleEmailSubmit()}
+                          />
+                        </div>
+                        <button
+                          onClick={handleEmailSubmit}
+                          className="px-6 py-3 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-xl font-semibold transition-all"
+                        >
+                          Apply
+                        </button>
+                      </div>
+                      <p className="text-white/50 text-xs mt-2">Your license key will be sent to this email</p>
                     </div>
                   </div>
-                </div>
-              )}
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {trustBadges.map((badge, index) => {
-                  const Icon = badge.icon;
-                  const styles = trustBadgeStyles[badge.color];
-                  return (
-                    <div
-                      key={index}
-                      className="group/badge flex items-center gap-3 p-4 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl hover:border-[#2563eb]/30 transition-all duration-300"
-                    >
-                      <div className={`w-10 h-10 rounded-lg ${styles.box} border ${styles.border} flex items-center justify-center`}>
-                        <Icon className={`w-5 h-5 ${styles.icon}`} />
-                      </div>
-                      <span className="text-white/80 font-medium text-sm">{badge.text}</span>
+                ) : (
+                  <div className="flex items-center justify-between p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
+                    <div>
+                      <p className="text-white/60 text-sm mb-1">Email</p>
+                      <p className="text-white font-semibold">{guestEmail}</p>
                     </div>
-                  );
-                })}
+                    {!user && (
+                      <button
+                        onClick={() => setEmailConfirmed(false)}
+                        className="text-[#2563eb] hover:text-[#3b82f6] text-sm font-medium transition-colors"
+                      >
+                        Change
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Payment Summary */}
+            {/* Right Column - Payment Summary */}
             <div className="lg:col-span-1">
-              <div className="relative bg-gradient-to-br from-[#111111] via-[#0a0a0a] to-[#111111] border border-[#1a1a1a] rounded-2xl p-5 sm:p-6 sticky top-24 shadow-2xl">
-                <div className="absolute inset-0 rounded-2xl opacity-20 blur-xl bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb]" />
-
-                <div className="relative">
-                  <div className="flex items-center gap-3 mb-6 pb-5 border-b border-[#1a1a1a]">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#b91c1c] flex items-center justify-center shadow-lg shadow-blue-500/30">
-                      <CreditCard className="w-5 h-5 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-white to-white/70 bg-clip-text">
-                      Payment
-                    </h3>
+              <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 sticky top-24">
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center">
+                    <Tag className="w-5 h-5 text-[#2563eb]" />
                   </div>
+                  <h2 className="text-xl font-bold text-white">Payment</h2>
+                </div>
 
                 {/* Coupon Code */}
-                <div className="mb-6">
-                  <label className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-3">
-                    <Gift className="w-4 h-4 text-[#2563eb]" />
-                    Have a coupon code?
-                  </label>
-                  <div className="flex gap-2">
-                    <div className="relative flex-1">
-                      <Tag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                {!appliedCoupon && emailConfirmed && (
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Tag className="w-4 h-4 text-[#2563eb]" />
+                      <span className="text-white/80 text-sm font-medium">Have a coupon code?</span>
+                    </div>
+                    <div className="flex gap-2">
                       <input
                         type="text"
                         value={couponCode}
                         onChange={(e) => {
                           setCouponCode(e.target.value.toUpperCase());
-                          setCouponValid(null);
-                          setCouponDiscount(0);
+                          setCouponError(null);
                         }}
                         placeholder="SAVE10"
-                        className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 text-sm font-medium transition-all"
+                        className="flex-1 px-4 py-2.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none text-sm font-mono uppercase"
+                        onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
                       />
-                      {couponValid === true && (
-                        <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-400" />
-                      )}
+                      <button
+                        onClick={handleApplyCoupon}
+                        disabled={couponLoading || !couponCode.trim()}
+                        className="px-4 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all"
+                      >
+                        {couponLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Apply'}
+                      </button>
                     </div>
-                    <button
-                      onClick={handleValidateCoupon}
-                      disabled={isValidatingCoupon || !couponCode.trim()}
-                      className="px-5 py-3 bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a] hover:from-[#2563eb] hover:to-[#b91c1c] text-white rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-semibold border border-[#2a2a2a] hover:border-[#2563eb]"
-                    >
-                      {isValidatingCoupon ? <Loader2 className="w-4 h-4 animate-spin" /> : "Apply"}
-                    </button>
-                  </div>
-
-                  {couponValid === true && (
-                    <div className="mt-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                      <div className="flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-green-400" />
-                        <p className="text-green-400 text-sm font-medium">Coupon applied! Save {couponDiscount}%</p>
-                      </div>
-                    </div>
-                  )}
-                  {couponValid === false && (
-                    <div className="mt-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                      <p className="text-blue-400 text-sm font-medium">Invalid or expired coupon code</p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Totals */}
-                <div className="space-y-3 mb-6 pb-6 border-b border-[#1a1a1a]">
-                  <div className="flex justify-between text-white/60 text-sm">
-                    <span>Subtotal</span>
-                    <span>{formatMoney({ amountUsd: subtotal, currency, locale })}</span>
-                  </div>
-                  {couponDiscount > 0 && (
-                    <div className="flex justify-between text-green-400 text-sm">
-                      <span>Discount ({couponDiscount}%)</span>
-                      <span>-{formatMoney({ amountUsd: discount, currency, locale })}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between text-white font-bold text-xl pt-2">
-                    <span>Total</span>
-                    <span className="text-[#2563eb]">{formatMoney({ amountUsd: total, currency, locale })}</span>
-                  </div>
-                </div>
-
-                {/* Error Message */}
-                {error && (
-                  <div className="mb-4 p-3 bg-blue-500/20 border border-blue-500/50 rounded-lg text-blue-400 text-sm">
-                    {error}
+                    {couponError && (
+                      <p className="text-blue-400 text-xs mt-2">{couponError}</p>
+                    )}
                   </div>
                 )}
 
-                {/* Checkout Button */}
+                {appliedCoupon && (
+                  <div className="mb-6 p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/20">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-green-400" />
+                        <div>
+                          <p className="text-green-400 font-semibold text-sm">{appliedCoupon.code}</p>
+                          <p className="text-green-400/70 text-xs">
+                            {appliedCoupon.type === "percentage" ? `${appliedCoupon.discount}% off` : `$${appliedCoupon.discount} off`}
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => removeCoupon()}
+                        className="text-white/40 hover:text-blue-400 text-xs transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Price Summary */}
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center justify-between text-white/60">
+                    <span>Subtotal</span>
+                    <span className="text-white font-semibold">
+                      {formatMoney({ amountUsd: subtotal, currency, locale: 'en-US' })}
+                    </span>
+                  </div>
+
+                  {discount > 0 && (
+                    <div className="flex items-center justify-between text-green-400">
+                      <span>Discount</span>
+                      <span className="font-semibold">
+                        -{formatMoney({ amountUsd: discount, currency, locale: 'en-US' })}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="pt-3 border-t border-[#1a1a1a]">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white font-bold text-lg">Total</span>
+                      <span className="text-[#2563eb] font-bold text-2xl">
+                        {formatMoney({ amountUsd: total, currency, locale: 'en-US' })}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Complete Payment Button */}
                 <button
-                  onClick={handleCheckout}
-                  disabled={isProcessing}
-                  className="group/checkout relative w-full py-4 rounded-xl overflow-hidden font-bold text-white transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  onClick={handleCompletePayment}
+                  disabled={!emailConfirmed || checkoutLoading}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] disabled:from-[#2563eb]/50 disabled:to-[#3b82f6]/50 disabled:cursor-not-allowed text-white font-bold text-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb]" />
-                  {isProcessing ? (
+                  {checkoutLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
                       Processing...
                     </>
                   ) : (
                     <>
-                      <Lock className="w-5 h-5 relative" />
-                      <span className="relative">Complete Secure Payment</span>
-                      <ArrowRight className="w-5 h-5" />
+                      <Lock className="w-5 h-5" />
+                      Complete Secure Payment
                     </>
                   )}
                 </button>
 
-                <div className="flex items-center justify-center gap-2 text-white/40 text-xs mt-4">
-                  <ShieldCheck className="w-4 h-4 text-green-400" />
-                  <span>256-bit SSL encryption • PCI compliant</span>
+                {/* Security Badges */}
+                <div className="mt-6 space-y-3">
+                  <div className="flex items-center gap-2 text-white/40 text-xs">
+                    <Shield className="w-4 h-4 text-green-400" />
+                    <span>256-bit SSL encryption • PCI compliant</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-4">
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#0a0a0a] rounded-lg border border-[#1a1a1a]">
+                      <Shield className="w-4 h-4 text-green-400" />
+                      <span className="text-white/60 text-xs font-medium">Secure Payment</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-2 bg-[#0a0a0a] rounded-lg border border-[#1a1a1a]">
+                      <Zap className="w-4 h-4 text-yellow-400" />
+                      <span className="text-white/60 text-xs font-medium">Instant Delivery</span>
+                    </div>
+                  </div>
+                  <p className="text-center text-white/40 text-xs">
+                    Powered by <span className="text-[#2563eb]">Stripe</span>
+                  </p>
                 </div>
-
-                <p className="text-white/50 text-xs text-center mt-4">
-                  Powered by <span className="text-[#2563eb] font-semibold">Stripe</span>
-                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
+
       <Footer />
+
+      {/* Crypto Payment Modal */}
+      <CryptoPaymentModal
+        isOpen={showCryptoModal}
+        onClose={() => setShowCryptoModal(false)}
+        totalUsd={total}
+        productName={items.map(i => i.productName).join(", ")}
+        onStripeCheckout={handleStripeCheckout}
+      />
     </main>
   );
 }

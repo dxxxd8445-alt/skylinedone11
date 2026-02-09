@@ -33,9 +33,8 @@ export default function CartPage() {
   const total = getTotal();
 
   const handleCheckout = async () => {
-    // Open payment modal for both logged in and guest users
-    setShowCryptoModal(true);
-    setCheckoutLoading(false);
+    // Redirect to checkout/confirm page for both logged in and guest users
+    router.push('/checkout/confirm');
   };
 
   const handleStripeCheckout = async () => {
@@ -424,7 +423,7 @@ export default function CartPage() {
                             </>
                           ) : (
                             <>
-                              Purchase
+                              {user ? 'Purchase' : 'Continue as Guest'}
                               <ArrowLeft className="w-5 h-5 rotate-180 group-hover/checkout:translate-x-1 transition-transform" />
                             </>
                           )}
