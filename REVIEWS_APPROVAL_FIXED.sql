@@ -1,5 +1,5 @@
 -- ============================================
--- REVIEWS APPROVAL SYSTEM SETUP
+-- REVIEWS APPROVAL SYSTEM SETUP - FIXED
 -- ============================================
 -- Run this SQL in your Supabase SQL Editor
 
