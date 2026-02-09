@@ -13,9 +13,7 @@ import { Minus, Plus, ShoppingCart, ArrowLeft, X, Sparkles, Shield, Zap, Package
 import { redirectToStripeCheckout, validateCheckoutData } from "@/lib/stripe-checkout";
 import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
-
 import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
-import { useState } from "react";
 
 export default function CartPage() {
   const router = useRouter();
@@ -35,65 +33,66 @@ export default function CartPage() {
   const total = getTotal();
 
   const handleCheckout = async () => {
-    console.log('?? Starting checkout process...');
+    // Open payment modal for both logged in and guest users
+    setShowCryptoModal(true);
+    setCheckoutLoading(false);
+  };
+
+  const handleStripeCheckout = async () => {
+    console.log('Starting Stripe checkout process...');
     setCheckoutLoading(true);
+    setShowCryptoModal(false);
 
     try {
-      // If user is logged in, proceed directly to Stripe
-      if (user) {
-        // Prepare checkout items for Stripe
-        const checkoutItems = items.map(item => ({
-          id: item.id,
-          productId: item.productId,
-          productName: item.productName,
-          game: item.game || 'Unknown',
-          duration: item.duration,
-          price: item.price,
-          quantity: item.quantity,
-          variantId: item.variantId,
-        }));
+      // Prepare checkout items for Stripe
+      const checkoutItems = items.map(item => ({
+        id: item.id,
+        productId: item.productId,
+        productName: item.productName,
+        game: item.game || 'Unknown',
+        duration: item.duration,
+        price: item.price,
+        quantity: item.quantity,
+        variantId: item.variantId,
+      }));
 
-        console.log('?? Checkout items prepared:', checkoutItems);
+      console.log('Checkout items prepared:', checkoutItems);
 
-        // Validate checkout data
-        const validationError = validateCheckoutData({
-          items: checkoutItems,
-          customerEmail: user.email || '',
-          couponCode: appliedCoupon?.code,
-          couponDiscountAmount: discount,
-        });
+      // Validate checkout data
+      const validationError = validateCheckoutData({
+        items: checkoutItems,
+        customerEmail: user?.email || '',
+        couponCode: appliedCoupon?.code,
+        couponDiscountAmount: discount,
+      });
 
-        if (validationError) {
-          console.error('? Validation error:', validationError);
-          alert(validationError);
-          setCheckoutLoading(false);
-          return;
-        }
+      if (validationError) {
+        console.error('Validation error:', validationError);
+        alert(validationError);
+        setCheckoutLoading(false);
+        return;
+      }
 
-        console.log('? Validation passed');
+      console.log('Validation passed');
 
-        // Redirect to Stripe Checkout
-        console.log('?? Redirecting to Stripe checkout...');
-        const result = await redirectToStripeCheckout({
-          items: checkoutItems,
-          customerEmail: user.email || '',
-          couponCode: appliedCoupon?.code,
-          couponDiscountAmount: discount,
-          successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
-          cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/cart`,
-        });
+      // Redirect to Stripe Checkout
+      console.log('Redirecting to Stripe checkout...');
+      const result = await redirectToStripeCheckout({
+        items: checkoutItems,
+        customerEmail: user?.email || '',
+        couponCode: appliedCoupon?.code,
+        couponDiscountAmount: discount,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/cart`,
+      });
 
-        if (!result.success) {
-          console.error('? Checkout failed:', result.error);
-          alert(result.error || 'Failed to redirect to checkout');
-          setCheckoutLoading(false);
-        }
-      } else {
-        // User not logged in - redirect to checkout options
-        router.push("/checkout/guest");
+      if (!result.success) {
+        console.error('Checkout failed:', result.error);
+        alert(result.error || 'Failed to redirect to checkout');
+        setCheckoutLoading(false);
       }
     } catch (error: any) {
-      console.error('? Checkout error:', error);
+      console.error('Checkout error:', error);
       alert('Failed to proceed to checkout. Please try again.');
       setCheckoutLoading(false);
     }
@@ -425,7 +424,7 @@ export default function CartPage() {
                             </>
                           ) : (
                             <>
-                              {user ? 'Proceed to Stripe Checkout' : 'Continue as Guest'}
+                              Purchase
                               <ArrowLeft className="w-5 h-5 rotate-180 group-hover/checkout:translate-x-1 transition-transform" />
                             </>
                           )}
@@ -466,6 +465,15 @@ export default function CartPage() {
       </div>
 
       <Footer />
+
+      {/* Crypto Payment Modal */}
+      <CryptoPaymentModal
+        isOpen={showCryptoModal}
+        onClose={() => setShowCryptoModal(false)}
+        totalUsd={total}
+        productName={items.map(i => i.productName).join(", ")}
+        onStripeCheckout={handleStripeCheckout}
+      />
 
       <style jsx global>{`
         @keyframes gradient-x {
