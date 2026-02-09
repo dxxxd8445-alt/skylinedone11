@@ -2,7 +2,7 @@
 
 ## 🎉 SUCCESS: Live Chat Successfully Implemented
 
-The Tawk.to live chat widget has been successfully integrated into your Magma Cheats website!
+The Tawk.to live chat widget has been successfully integrated into your Skyline Cheats website!
 
 ## 📋 Implementation Details
 

@@ -5,7 +5,7 @@ import { AdminShell } from "@/components/admin/admin-shell";
 import { DataTable } from "@/components/admin/data-table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getOrders, getOrderDetail, updateOrderStatus, type OrderRow, type OrderDetail, type OrderStatus } from "@/app/actions/admin-orders";
+import { getOrders, getOrderDetail, updateOrderStatus, markAllOrdersCompleted, type OrderRow, type OrderDetail, type OrderStatus } from "@/app/actions/admin-orders";
 import { useToast } from "@/hooks/use-toast";
 import {
   CheckCircle,
@@ -27,6 +27,7 @@ import {
   DollarSign,
   ShoppingCart,
   BarChart3,
+  CheckCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -54,6 +55,7 @@ export default function OrdersPage() {
   const [filteredOrders, setFilteredOrders] = useState<OrderRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
+  const [bulkUpdating, setBulkUpdating] = useState(false);
   const [statusFilter, setStatusFilter] = useState<OrderStatus | "all">("completed");
   const [dateFilter, setDateFilter] = useState<string>("all");
   const [detailModal, setDetailModal] = useState<OrderDetail | null>(null);
@@ -200,6 +202,35 @@ export default function OrdersPage() {
     }
   }
 
+  async function handleMarkAllCompleted() {
+    if (!confirm("Are you sure you want to mark ALL pending/failed orders as completed? This will create licenses for all orders.")) {
+      return;
+    }
+    
+    try {
+      setBulkUpdating(true);
+      const res = await markAllOrdersCompleted();
+      if (!res.success) throw new Error(res.error);
+      
+      toast({
+        title: "Success",
+        description: `${res.count} order(s) marked as completed.`,
+        className: "border-green-500/20 bg-green-500/10",
+      });
+      
+      await loadOrders();
+    } catch (e: unknown) {
+      const err = e as Error;
+      toast({ 
+        title: "Error", 
+        description: err?.message ?? "Failed to update orders", 
+        variant: "destructive" 
+      });
+    } finally {
+      setBulkUpdating(false);
+    }
+  }
+
   async function handleUpdateStatus(orderId: string, newStatus: string) {
     try {
       setUpdating(orderId);
@@ -232,7 +263,7 @@ export default function OrdersPage() {
     pending: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
     paid: "bg-blue-500/10 text-blue-400 border-blue-500/20",
     completed: "bg-green-500/10 text-green-400 border-green-500/20",
-    failed: "bg-red-500/10 text-red-400 border-red-500/20",
+    failed: "bg-blue-500/10 text-blue-400 border-blue-500/20",
     refunded: "bg-gray-500/10 text-gray-400 border-gray-500/20",
   };
 
@@ -337,7 +368,7 @@ export default function OrdersPage() {
 
         <div className="bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -350,6 +381,22 @@ export default function OrdersPage() {
 
       {/* Filters */}
       <div className="mb-6 flex flex-wrap items-center gap-3">
+        {/* Mark All Completed Button */}
+        <Button
+          variant="default"
+          size="sm"
+          onClick={handleMarkAllCompleted}
+          disabled={bulkUpdating || loading}
+          className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#1e40af] hover:to-[#2563eb] text-white border-0"
+        >
+          {bulkUpdating ? (
+            <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+          ) : (
+            <CheckCheck className="w-4 h-4 mr-2" />
+          )}
+          Mark All Completed
+        </Button>
+
         {/* Date Filter */}
         <div className="relative" ref={dateFilterRef}>
           <Button
@@ -373,7 +420,7 @@ export default function OrdersPage() {
                   }}
                   className={cn(
                     "w-full px-3 py-2 text-left text-sm transition-colors",
-                    dateFilter === opt.value ? "bg-[#dc2626]/20 text-[#dc2626]" : "text-white/80 hover:bg-white/5"
+                    dateFilter === opt.value ? "bg-[#2563eb]/20 text-[#2563eb]" : "text-white/80 hover:bg-white/5"
                   )}
                 >
                   {opt.label}
@@ -406,7 +453,7 @@ export default function OrdersPage() {
                   }}
                   className={cn(
                     "w-full px-3 py-2 text-left text-sm transition-colors",
-                    statusFilter === opt.value ? "bg-[#dc2626]/20 text-[#dc2626]" : "text-white/80 hover:bg-white/5"
+                    statusFilter === opt.value ? "bg-[#2563eb]/20 text-[#2563eb]" : "text-white/80 hover:bg-white/5"
                   )}
                 >
                   {opt.label}
@@ -430,7 +477,7 @@ export default function OrdersPage() {
 
       {loading ? (
         <div className="flex justify-center h-64 items-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#dc2626]/30 border-t-[#dc2626] animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#2563eb]/30 border-t-[#2563eb] animate-spin" />
         </div>
       ) : (
         <DataTable
@@ -465,7 +512,7 @@ export default function OrdersPage() {
                   variant="ghost"
                   onClick={() => handleUpdateStatus(order.id, "refunded")}
                   disabled={updating === order.id}
-                  className="text-red-400 hover:bg-red-500/10 h-8 px-2"
+                  className="text-blue-400 hover:bg-blue-500/10 h-8 px-2"
                 >
                   {updating === order.id ? <RefreshCw className="w-4 h-4 animate-spin" /> : <XCircle className="w-4 h-4" />}
                 </Button>
@@ -488,14 +535,14 @@ export default function OrdersPage() {
 
       {detailLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="w-10 h-10 rounded-full border-2 border-[#dc2626]/30 border-t-[#dc2626] animate-spin" />
+          <div className="w-10 h-10 rounded-full border-2 border-[#2563eb]/30 border-t-[#2563eb] animate-spin" />
         </div>
       )}
 
       {detailModal && !detailLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
           <div className="w-full max-w-lg rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] shadow-xl overflow-hidden">
-            <div className="p-6 border-b border-[#262626] bg-gradient-to-r from-[#dc2626]/10 to-transparent">
+            <div className="p-6 border-b border-[#262626] bg-gradient-to-r from-[#2563eb]/10 to-transparent">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="text-lg font-semibold text-white">Order details</h3>
@@ -553,10 +600,10 @@ export default function OrdersPage() {
                 </div>
               </div>
               {detailModal.license && (
-                <div className="p-4 rounded-xl bg-gradient-to-r from-[#dc2626]/10 to-transparent border border-[#dc2626]/20">
+                <div className="p-4 rounded-xl bg-gradient-to-r from-[#2563eb]/10 to-transparent border border-[#2563eb]/20">
                   <div className="flex items-center gap-2 mb-2">
-                    <Key className="w-4 h-4 text-[#dc2626]" />
-                    <span className="text-xs uppercase tracking-wider text-[#dc2626]">License</span>
+                    <Key className="w-4 h-4 text-[#2563eb]" />
+                    <span className="text-xs uppercase tracking-wider text-[#2563eb]">License</span>
                     <Badge className="ml-auto text-xs">{detailModal.license.status}</Badge>
                   </div>
                   <div className="flex items-center gap-2">
@@ -597,7 +644,7 @@ export default function OrdersPage() {
                     variant="outline"
                     onClick={() => handleUpdateStatus(detailModal.id, "refunded")}
                     disabled={updating === detailModal.id}
-                    className="border-red-500/50 text-red-400 hover:bg-red-500/10"
+                    className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10"
                   >
                     {updating === detailModal.id ? <RefreshCw className="w-4 h-4 animate-spin" /> : <XCircle className="w-4 h-4 mr-1" />}
                     Refund

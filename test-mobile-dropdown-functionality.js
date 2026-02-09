@@ -104,7 +104,7 @@ function testTouchFriendlyInteractions() {
   
   // Check for proper button styling
   const hasButtonStyling = headerContent.includes('rounded-xl') &&
-                           headerContent.includes('hover:border-[#dc2626]/30') &&
+                           headerContent.includes('hover:border-[#2563eb]/30') &&
                            headerContent.includes('transition-all');
   
   // Check for accessibility features

@@ -44,7 +44,7 @@ export function AdminShell({ children, title, subtitle }: AdminShellProps) {
   if (!mounted) {
     return (
       <div className="min-h-screen bg-[#050505] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#dc2626]/30 border-t-[#dc2626] rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#2563eb]/30 border-t-[#2563eb] rounded-full animate-spin" />
       </div>
     );
   }
@@ -68,7 +68,7 @@ export function AdminShell({ children, title, subtitle }: AdminShellProps) {
             {/* Mobile Menu Button - ALWAYS VISIBLE ON MOBILE */}
             <button
               onClick={handleMobileMenuClick}
-              className="lg:hidden w-12 h-12 rounded-xl bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] flex items-center justify-center text-white transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg shadow-[#dc2626]/30 touch-manipulation"
+              className="lg:hidden w-12 h-12 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] flex items-center justify-center text-white transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg shadow-[#2563eb]/30 touch-manipulation"
               aria-label="Open navigation menu"
               type="button"
             >

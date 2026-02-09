@@ -16,9 +16,9 @@ interface Settings {
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<Settings>({
-    site_name: "Magma Cheats",
+    site_name: "Skyline Cheats",
     site_description: "Premium undetected cheats for all games",
-    support_email: "support@magma.local",
+    support_email: "support@skyline.local",
     maintenance_mode: false,
   });
   const [loading, setLoading] = useState(true);
@@ -83,7 +83,7 @@ export default function SettingsPage() {
     return (
       <AdminShell title="Settings" subtitle="Configure your admin panel">
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#dc2626]" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2563eb]" />
         </div>
       </AdminShell>
     );
@@ -103,7 +103,7 @@ export default function SettingsPage() {
                 type="text"
                 value={settings.site_name}
                 onChange={(e) => setSettings({ ...settings, site_name: e.target.value })}
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
               />
             </div>
             <div>
@@ -114,7 +114,7 @@ export default function SettingsPage() {
                 type="text"
                 value={settings.site_description}
                 onChange={(e) => setSettings({ ...settings, site_description: e.target.value })}
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
               />
             </div>
             <div>
@@ -125,7 +125,7 @@ export default function SettingsPage() {
                 type="email"
                 value={settings.support_email}
                 onChange={(e) => setSettings({ ...settings, support_email: e.target.value })}
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
               />
             </div>
             <div className="flex items-center justify-between p-4 bg-[#111111] border border-[#262626] rounded-lg">
@@ -137,7 +137,7 @@ export default function SettingsPage() {
                 type="button"
                 onClick={() => setSettings({ ...settings, maintenance_mode: !settings.maintenance_mode })}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  settings.maintenance_mode ? "bg-[#dc2626]" : "bg-[#262626]"
+                  settings.maintenance_mode ? "bg-[#2563eb]" : "bg-[#262626]"
                 }`}
               >
                 <span
@@ -204,7 +204,7 @@ export default function SettingsPage() {
           <Button 
             onClick={handleSave}
             disabled={saving}
-            className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             {saving ? (
               <>

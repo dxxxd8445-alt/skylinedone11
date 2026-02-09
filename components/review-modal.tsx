@@ -108,7 +108,7 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#dc2626] focus:ring-1 focus:ring-[#dc2626] transition-colors"
+                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-colors"
                   required
                 />
               </div>
@@ -160,7 +160,7 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Tell us about your experience..."
                   rows={4}
-                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#dc2626] focus:ring-1 focus:ring-[#dc2626] transition-colors resize-none"
+                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-colors resize-none"
                   required
                 />
                 <p className="text-white/40 text-xs">
@@ -182,7 +182,7 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
               <button
                 type="submit"
                 disabled={!username || !rating || text.length < 10 || isSubmitting}
-                className="w-full bg-[#dc2626] hover:bg-[#ef4444] disabled:bg-[#dc2626]/50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

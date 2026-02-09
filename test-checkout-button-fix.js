@@ -52,7 +52,7 @@ async function testCheckoutButtonFix() {
     ];
 
     const mockUser = {
-      email: 'test@magmacheats.com'
+      email: 'test@skylinecheats.org'
     };
 
     const mockCoupon = {
@@ -145,8 +145,8 @@ async function testCheckoutButtonFix() {
       payment_method_types: ['card'],
       mode: 'payment',
       line_items: lineItems,
-      success_url: 'https://magmacheats.com/payment/success',
-      cancel_url: 'https://magmacheats.com/cart',
+      success_url: 'https://skylinecheats.org/payment/success',
+      cancel_url: 'https://skylinecheats.org/cart',
       customer_email: mockUser.email,
       billing_address_collection: 'required',
       discounts: [{

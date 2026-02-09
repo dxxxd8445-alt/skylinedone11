@@ -25,7 +25,7 @@ async function runFinalVerification() {
     const { data: adminUser, error: adminError } = await supabase
       .from('team_members')
       .select('name, email, role, permissions')
-      .eq('email', 'admin@magma.local')
+      .eq('email', 'admin@skyline.local')
       .single();
     
     if (adminError || !adminUser) throw new Error('Admin user not found');

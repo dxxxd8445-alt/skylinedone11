@@ -286,7 +286,7 @@ export async function POST(request: NextRequest) {
 
               await sendEmail({
                 to: order.customer_email,
-                subject: `🔥 Your Magma License Keys - Order ${order.order_number}`,
+                subject: `🔥 Your Skyline License Keys - Order ${order.order_number}`,
                 html: emailHtml,
               });
 

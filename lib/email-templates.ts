@@ -1,5 +1,5 @@
 /**
- * Beautiful Email Templates for Magma Cheats
+ * Beautiful Email Templates for Skyline Cheats
  * 
  * Professional HTML email templates with consistent branding
  */
@@ -15,8 +15,8 @@ interface EmailTemplateData {
 }
 
 const BRAND_COLORS = {
-  primary: '#dc2626',
-  primaryDark: '#991b1b',
+  primary: '#2563eb',
+  primaryDark: '#1e40af',
   background: '#0a0a0a',
   surface: '#1a1a1a',
   text: '#ffffff',
@@ -102,19 +102,19 @@ const BASE_STYLES = `
       font-weight: 600;
       font-size: 16px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
       transition: all 0.3s ease;
       margin: 8px 0;
     }
     
     .button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
     }
     
     .info-box {
       background-color: ${BRAND_COLORS.background};
-      border: 1px solid rgba(220, 38, 38, 0.2);
+      border: 1px solid rgba(37, 99, 235, 0.2);
       border-radius: 12px;
       padding: 20px;
       margin: 24px 0;
@@ -196,20 +196,20 @@ export function createPasswordResetEmail(data: EmailTemplateData): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Reset Your Magma Password</title>
+      <title>Reset Your Skyline Password</title>
       ${BASE_STYLES}
     </head>
     <body style="background-color: ${BRAND_COLORS.background}; padding: 20px 0;">
       <div class="container">
         <div class="header">
-          <h1 class="logo">🔥 Magma Cheats</h1>
+          <h1 class="logo">🔥 Skyline Cheats</h1>
         </div>
         
         <div class="content">
           <h2 class="greeting">Hi ${username}!</h2>
           
           <p class="message">
-            You requested a password reset for your Magma account. No worries, it happens to the best of us!
+            You requested a password reset for your Skyline account. No worries, it happens to the best of us!
           </p>
           
           <p class="message">
@@ -240,11 +240,11 @@ export function createPasswordResetEmail(data: EmailTemplateData): string {
             Need help? Contact our support team anytime.
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/magmacheats" class="footer-link">Discord Support</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}" class="footer-link">Visit Store</a>
+            <a href="https://discord.gg/skylineggs" class="footer-link">Discord Support</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}" class="footer-link">Visit Store</a>
           </div>
           <p class="footer-text" style="margin-top: 16px;">
-            © 2025 Magma Cheats. All rights reserved.
+            © 2025 Skyline Cheats. All rights reserved.
           </p>
         </div>
       </div>
@@ -269,13 +269,13 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Your Magma License Key</title>
+      <title>Your Skyline License Key</title>
       ${BASE_STYLES}
     </head>
     <body style="background-color: ${BRAND_COLORS.background}; padding: 20px 0;">
       <div class="container">
         <div class="header">
-          <h1 class="logo">🔥 Magma Cheats</h1>
+          <h1 class="logo">🔥 Skyline Cheats</h1>
         </div>
         
         <div class="content">
@@ -313,7 +313,7 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
           ` : ''}
           
           <div style="text-align: center; margin: 32px 0;">
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/account" class="button">
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/account" class="button">
               View My Account
             </a>
           </div>
@@ -337,12 +337,12 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
             Need help getting started? Our community is here to help!
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/magmacheats" class="footer-link">Join Discord</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/guides" class="footer-link">Setup Guides</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/account" class="footer-link">My Account</a>
+            <a href="https://discord.gg/skylineggs" class="footer-link">Join Discord</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/guides" class="footer-link">Setup Guides</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/account" class="footer-link">My Account</a>
           </div>
           <p class="footer-text" style="margin-top: 16px;">
-            © 2025 Magma Cheats. All rights reserved.
+            © 2025 Skyline Cheats. All rights reserved.
           </p>
         </div>
       </div>
@@ -360,20 +360,20 @@ export function createWelcomeEmail(data: EmailTemplateData): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Welcome to Magma Cheats</title>
+      <title>Welcome to Skyline Cheats</title>
       ${BASE_STYLES}
     </head>
     <body style="background-color: ${BRAND_COLORS.background}; padding: 20px 0;">
       <div class="container">
         <div class="header">
-          <h1 class="logo">🔥 Magma Cheats</h1>
+          <h1 class="logo">🔥 Skyline Cheats</h1>
         </div>
         
         <div class="content">
-          <h2 class="greeting">Welcome to Magma, ${username}! 🎮</h2>
+          <h2 class="greeting">Welcome to Skyline, ${username}! 🎮</h2>
           
           <p class="message">
-            Thanks for joining the Magma community! You're now part of thousands of gamers who trust us for the best cheats and hacks.
+            Thanks for joining the Skyline community! You're now part of thousands of gamers who trust us for the best cheats and hacks.
           </p>
           
           <div class="info-box">
@@ -387,13 +387,13 @@ export function createWelcomeEmail(data: EmailTemplateData): string {
           </div>
           
           <div style="text-align: center; margin: 32px 0;">
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/store" class="button">
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/store" class="button">
               Browse Cheats
             </a>
           </div>
           
           <p class="message">
-            <strong>Why choose Magma?</strong>
+            <strong>Why choose Skyline?</strong>
           </p>
           <ul style="color: ${BRAND_COLORS.textMuted}; padding-left: 20px;">
             <li>🛡️ Undetected cheats with regular updates</li>
@@ -408,12 +408,12 @@ export function createWelcomeEmail(data: EmailTemplateData): string {
             Ready to dominate? Start browsing our cheats now!
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/magmacheats" class="footer-link">Discord</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/store" class="footer-link">Store</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/guides" class="footer-link">Guides</a>
+            <a href="https://discord.gg/skylineggs" class="footer-link">Discord</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/store" class="footer-link">Store</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/guides" class="footer-link">Guides</a>
           </div>
           <p class="footer-text" style="margin-top: 16px;">
-            © 2025 Magma Cheats. All rights reserved.
+            © 2025 Skyline Cheats. All rights reserved.
           </p>
         </div>
       </div>

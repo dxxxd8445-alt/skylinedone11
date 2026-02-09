@@ -23,9 +23,9 @@ try {
     const hasPasswordReset = content.includes('createPasswordResetEmail');
     const hasLicenseDelivery = content.includes('createLicenseDeliveryEmail');
     const hasWelcome = content.includes('createWelcomeEmail');
-    const hasBranding = content.includes('🔥 Magma Cheats');
+    const hasBranding = content.includes('🔥 Skyline Cheats');
     const hasResponsive = content.includes('@media (max-width: 600px)');
-    const hasTheme = content.includes('#dc2626');
+    const hasTheme = content.includes('#2563eb');
     
     console.log(hasPasswordReset ? '✅ Password reset template found' : '❌ Password reset template missing');
     console.log(hasLicenseDelivery ? '✅ License delivery template found' : '❌ License delivery template missing');
@@ -79,7 +79,7 @@ try {
     
     const hasForm = content.includes('handleSubmit');
     const hasValidation = content.includes('email.trim()');
-    const hasTheme = content.includes('#dc2626') || content.includes('bg-[#dc2626]');
+    const hasTheme = content.includes('#2563eb') || content.includes('bg-[#2563eb]');
     const hasResponsive = content.includes('max-w-md');
     
     console.log(hasForm ? '✅ Form handling implemented' : '❌ Form handling missing');

@@ -22,7 +22,7 @@ async function testFinalCheckoutFix() {
           quantity: 1
         }
       ],
-      customer_email: 'test@magmacheats.com',
+      customer_email: 'test@skylinecheats.org',
       success_url: 'http://localhost:3000/payment/success',
       cancel_url: 'http://localhost:3000/cart'
     };

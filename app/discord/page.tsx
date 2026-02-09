@@ -49,7 +49,7 @@ export default function DiscordPage() {
       icon: Shield,
       title: "Exclusive Access",
       description: "Get access to beta features and exclusive content for members",
-      color: "from-orange-500 to-red-500"
+      color: "from-orange-500 to-blue-500"
     }
   ];
 
@@ -69,38 +69,38 @@ export default function DiscordPage() {
       <main className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] pt-20">
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#dc2626]/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#dc2626]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#dc2626]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-8 lg:py-16">
           {/* Header Section */}
           <div className="text-center mb-12 lg:mb-16">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-[#dc2626] to-[#ef4444] shadow-2xl shadow-[#dc2626]/30">
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] shadow-2xl shadow-[#2563eb]/30">
                 <MessageCircle className="w-12 h-12 text-white" />
               </div>
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
               Join Our{" "}
-              <span className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] bg-clip-text text-transparent">
                 Discord
               </span>
             </h1>
             
             <p className="text-xl md:text-2xl text-white/70 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Connect with our community, get instant support, and stay updated with the latest from Magma Cheats
+              Connect with our community, get instant support, and stay updated with the latest from Skyline Cheats
             </p>
 
             {/* Main CTA Button */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <a
-                href="https://discord.gg/magmacheats"
+                href="https://discord.gg/skylineggs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-bold text-lg rounded-2xl transition-all duration-300 hover:scale-105 shadow-2xl shadow-[#dc2626]/30 hover:shadow-[#dc2626]/50 min-w-[280px] justify-center"
+                className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-bold text-lg rounded-2xl transition-all duration-300 hover:scale-105 shadow-2xl shadow-[#2563eb]/30 hover:shadow-[#2563eb]/50 min-w-[280px] justify-center"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 rounded-2xl" />
                 <MessageCircle className="w-6 h-6 relative z-10" />
@@ -124,7 +124,7 @@ export default function DiscordPage() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className={`absolute -inset-0.5 bg-gradient-to-r ${feature.color} rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500`} />
-                <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#dc2626]/30 transition-all h-full">
+                <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all h-full">
                   <div className={`p-3 rounded-xl bg-gradient-to-r ${feature.color} mb-4 w-fit group-hover:scale-110 transition-transform`}>
                     <feature.icon className="w-6 h-6 text-white" />
                   </div>
@@ -137,10 +137,10 @@ export default function DiscordPage() {
 
           {/* Benefits Section */}
           <div className="relative group mb-16">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-[#dc2626]/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-[#2563eb]/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
             <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-3xl p-8 lg:p-12">
               <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#dc2626]/10 rounded-full text-[#dc2626] text-sm font-semibold mb-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 rounded-full text-[#2563eb] text-sm font-semibold mb-4">
                   <Sparkles className="w-4 h-4" />
                   Member Benefits
                 </div>
@@ -156,7 +156,7 @@ export default function DiscordPage() {
                 {benefits.map((benefit, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-4 rounded-xl bg-[#0a0a0a]/50 border border-[#1a1a1a] hover:border-[#dc2626]/30 transition-all group/item"
+                    className="flex items-center gap-3 p-4 rounded-xl bg-[#0a0a0a]/50 border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-all group/item"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="p-2 rounded-lg bg-green-500/10 group-hover/item:bg-green-500/20 transition-colors">

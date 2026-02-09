@@ -95,7 +95,7 @@ After registration, you should see:
 ## 🔗 AFFILIATE LINK FORMAT
 
 ```
-https://magmacheats.com?ref=YOUR_AFFILIATE_CODE
+https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 **Commission**: 5% per sale

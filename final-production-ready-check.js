@@ -205,7 +205,7 @@ console.log('-'.repeat(40));
 
 // Check Discord page theme
 const discordContent = readFile('app/discord/page.tsx');
-if (discordContent.includes('from-[#dc2626]') && !discordContent.includes('from-[#5865f2]')) {
+if (discordContent.includes('from-[#2563eb]') && !discordContent.includes('from-[#5865f2]')) {
   console.log('   ✅ Discord page uses site red theme');
   successes.push('Discord page theme is consistent');
 } else {

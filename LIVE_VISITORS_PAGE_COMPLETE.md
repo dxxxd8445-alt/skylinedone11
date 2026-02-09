@@ -85,7 +85,7 @@ The Live Visitors page is now accessible from:
 
 ### Styling
 - Dark theme matching admin dashboard
-- Red accent color (#dc2626) for consistency
+- Red accent color (#2563eb) for consistency
 - Gradient backgrounds and glow effects
 - Responsive grid layout
 

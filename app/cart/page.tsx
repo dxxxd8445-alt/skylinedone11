@@ -31,7 +31,7 @@ export default function CartPage() {
   const total = getTotal();
 
   const handleCheckout = async () => {
-    console.log('🛒 Starting checkout process...');
+    console.log('?? Starting checkout process...');
     setCheckoutLoading(true);
 
     try {
@@ -49,7 +49,7 @@ export default function CartPage() {
           variantId: item.variantId,
         }));
 
-        console.log('📦 Checkout items prepared:', checkoutItems);
+        console.log('?? Checkout items prepared:', checkoutItems);
 
         // Validate checkout data
         const validationError = validateCheckoutData({
@@ -60,27 +60,27 @@ export default function CartPage() {
         });
 
         if (validationError) {
-          console.error('❌ Validation error:', validationError);
+          console.error('? Validation error:', validationError);
           alert(validationError);
           setCheckoutLoading(false);
           return;
         }
 
-        console.log('✅ Validation passed');
+        console.log('? Validation passed');
 
         // Redirect to Stripe Checkout
-        console.log('🔄 Redirecting to Stripe checkout...');
+        console.log('?? Redirecting to Stripe checkout...');
         const result = await redirectToStripeCheckout({
           items: checkoutItems,
           customerEmail: user.email || '',
           couponCode: appliedCoupon?.code,
           couponDiscountAmount: discount,
-          successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/payment/success`,
-          cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/cart`,
+          successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
+          cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/cart`,
         });
 
         if (!result.success) {
-          console.error('❌ Checkout failed:', result.error);
+          console.error('? Checkout failed:', result.error);
           alert(result.error || 'Failed to redirect to checkout');
           setCheckoutLoading(false);
         }
@@ -89,7 +89,7 @@ export default function CartPage() {
         router.push("/checkout/guest");
       }
     } catch (error: any) {
-      console.error('❌ Checkout error:', error);
+      console.error('? Checkout error:', error);
       alert('Failed to proceed to checkout. Please try again.');
       setCheckoutLoading(false);
     }
@@ -131,8 +131,8 @@ export default function CartPage() {
     <main className="min-h-screen bg-[#0a0a0a] relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#dc2626]/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#ef4444]/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#3b82f6]/5 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
       <Header />
@@ -152,7 +152,7 @@ export default function CartPage() {
             <div className="mt-6 flex items-end justify-between gap-4">
               <div>
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#dc2626] to-[#b91c1c] flex items-center justify-center shadow-lg shadow-red-500/30">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#b91c1c] flex items-center justify-center shadow-lg shadow-blue-500/30">
                     <ShoppingCart className="w-6 h-6 text-white" />
                   </div>
                   <h1 className="text-4xl sm:text-5xl font-bold text-transparent bg-gradient-to-r from-white via-white to-white/70 bg-clip-text">
@@ -164,8 +164,8 @@ export default function CartPage() {
 
               {items.length > 0 && (
                 <div className="hidden sm:flex flex-col items-end gap-2">
-                  <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-[#dc2626]/20 to-[#ef4444]/20 rounded-xl border border-[#dc2626]/30">
-                    <Package className="w-4 h-4 text-[#dc2626]" />
+                  <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-[#2563eb]/20 to-[#3b82f6]/20 rounded-xl border border-[#2563eb]/30">
+                    <Package className="w-4 h-4 text-[#2563eb]" />
                     <span className="text-white/60 text-sm">Items:</span>
                     <span className="text-white font-bold text-lg">{items.reduce((n, i) => n + i.quantity, 0)}</span>
                   </div>
@@ -177,21 +177,21 @@ export default function CartPage() {
           {items.length === 0 ? (
             <div className="relative overflow-hidden bg-gradient-to-br from-[#111111] via-[#0a0a0a] to-[#111111] border border-[#1a1a1a] rounded-3xl p-12 sm:p-20 text-center animate-in fade-in duration-500">
               <div className="absolute inset-0 rounded-3xl opacity-30">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient-rotate blur-xl" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-gradient-rotate blur-xl" />
               </div>
               <div className="absolute inset-0 opacity-5">
                 <div
                   className="absolute inset-0"
                   style={{
-                    backgroundImage: "radial-gradient(circle, #dc2626 1px, transparent 1px)",
+                    backgroundImage: "radial-gradient(circle, #2563eb 1px, transparent 1px)",
                     backgroundSize: "30px 30px",
                   }}
                 />
               </div>
 
               <div className="relative">
-                <div className="mx-auto w-24 h-24 rounded-3xl bg-gradient-to-br from-[#dc2626]/20 to-[#b91c1c]/20 border border-[#dc2626]/30 flex items-center justify-center mb-6 animate-bounce-slow">
-                  <ShoppingCart className="w-12 h-12 text-[#dc2626]" />
+                <div className="mx-auto w-24 h-24 rounded-3xl bg-gradient-to-br from-[#2563eb]/20 to-[#b91c1c]/20 border border-[#2563eb]/30 flex items-center justify-center mb-6 animate-bounce-slow">
+                  <ShoppingCart className="w-12 h-12 text-[#2563eb]" />
                   <Sparkles className="w-4 h-4 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">Your cart is empty</h2>
@@ -202,13 +202,13 @@ export default function CartPage() {
                   href="/store"
                   className="group relative inline-flex items-center justify-center px-8 py-4 rounded-xl overflow-hidden font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient-x" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-gradient-x" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                   <span className="relative flex items-center gap-2">
                     Browse Products
                     <ArrowLeft className="w-5 h-5 rotate-180 group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#dc2626] to-[#ef4444] opacity-50 group-hover:opacity-75 transition-opacity" />
+                  <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] opacity-50 group-hover:opacity-75 transition-opacity" />
                 </Link>
               </div>
             </div>
@@ -221,24 +221,24 @@ export default function CartPage() {
                     className={
                       `
                       group relative bg-gradient-to-br from-[#111111] via-[#0a0a0a] to-[#111111] border border-[#1a1a1a] rounded-2xl p-5 sm:p-7 
-                      hover:border-[#dc2626]/50 transition-all duration-500 hover:shadow-xl hover:shadow-[#dc2626]/10
+                      hover:border-[#2563eb]/50 transition-all duration-500 hover:shadow-xl hover:shadow-[#2563eb]/10
                       ${removingItem === item.id ? "animate-out fade-out slide-out-to-right-full duration-400" : "animate-in fade-in slide-in-from-left duration-400"}
                     `
                     }
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#dc2626]/0 via-[#dc2626]/5 to-[#dc2626]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#2563eb]/0 via-[#2563eb]/5 to-[#2563eb]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     <div className="relative flex flex-col sm:flex-row gap-5 sm:gap-6">
-                      <div className="relative w-full sm:w-36 h-44 sm:h-36 rounded-xl overflow-hidden bg-[#1a1a1a] flex-shrink-0 shadow-lg group-hover:shadow-[#dc2626]/20 transition-all duration-500">
+                      <div className="relative w-full sm:w-36 h-44 sm:h-36 rounded-xl overflow-hidden bg-[#1a1a1a] flex-shrink-0 shadow-lg group-hover:shadow-[#2563eb]/20 transition-all duration-500">
                         <Image
                           src={item.image || "/placeholder.svg"}
                           alt={item.productName}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-2"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#dc2626]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="absolute top-2 right-2 px-2.5 py-1 bg-black/80 backdrop-blur-sm rounded-lg border border-[#dc2626]/30">
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#2563eb]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="absolute top-2 right-2 px-2.5 py-1 bg-black/80 backdrop-blur-sm rounded-lg border border-[#2563eb]/30">
                           <span className="text-white text-xs font-bold">x{item.quantity}</span>
                         </div>
                       </div>
@@ -246,18 +246,18 @@ export default function CartPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-4 mb-4">
                           <div className="min-w-0 flex-1">
-                            <p className="text-white font-bold text-xl sm:text-2xl mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#dc2626] group-hover:bg-clip-text transition-all">
+                            <p className="text-white font-bold text-xl sm:text-2xl mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#2563eb] group-hover:bg-clip-text transition-all">
                               {item.productName}
                             </p>
                             <div className="flex items-center gap-2 text-white/60 text-sm">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#dc2626] animate-pulse" />
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#2563eb] animate-pulse" />
                               <span>{item.duration}</span>
                             </div>
                           </div>
 
                           <div className="text-right flex-shrink-0">
                             <p className="text-white/40 text-xs uppercase font-semibold tracking-wider mb-1">Total</p>
-                            <p className="text-transparent bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] bg-clip-text font-bold text-2xl sm:text-3xl animate-gradient-x">
+                            <p className="text-transparent bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] bg-clip-text font-bold text-2xl sm:text-3xl animate-gradient-x">
                               {formatMoney({ amountUsd: item.price * item.quantity, currency, locale })}
                             </p>
                           </div>
@@ -267,19 +267,19 @@ export default function CartPage() {
                           <div className="flex items-center gap-3 bg-[#0a0a0a] rounded-xl p-1.5 border border-[#1a1a1a] w-fit shadow-inner">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="group/btn w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:from-[#dc2626] hover:to-[#b91c1c] text-white transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
+                              className="group/btn w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:from-[#2563eb] hover:to-[#b91c1c] text-white transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
                               aria-label="Decrease quantity"
                             >
                               <Minus className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
                             </button>
 
-                            <div className="px-3 py-1 bg-[#dc2626]/10 rounded-lg border border-[#dc2626]/20">
+                            <div className="px-3 py-1 bg-[#2563eb]/10 rounded-lg border border-[#2563eb]/20">
                               <span className="text-white font-bold text-lg min-w-[2ch] inline-block text-center">{item.quantity}</span>
                             </div>
 
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="group/btn w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:from-[#dc2626] hover:to-[#b91c1c] text-white transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
+                              className="group/btn w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:from-[#2563eb] hover:to-[#b91c1c] text-white transition-all duration-300 flex items-center justify-center hover:scale-110 active:scale-95 shadow-lg"
                               aria-label="Increase quantity"
                             >
                               <Plus className="w-4 h-4 group-hover/btn:scale-110 transition-transform" />
@@ -288,7 +288,7 @@ export default function CartPage() {
 
                           <button
                             onClick={() => handleRemove(item.id)}
-                            className="group/remove inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/40 text-red-400 hover:text-red-300 transition-all duration-300 text-sm font-semibold hover:scale-105 active:scale-95"
+                            className="group/remove inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-400 hover:text-blue-300 transition-all duration-300 text-sm font-semibold hover:scale-105 active:scale-95"
                           >
                             <Trash2 className="w-4 h-4 group-hover/remove:animate-pulse" />
                             <span>Remove</span>
@@ -302,15 +302,15 @@ export default function CartPage() {
 
               <div className="lg:col-span-1">
                 <div className="relative bg-gradient-to-br from-[#111111] via-[#0a0a0a] to-[#111111] border border-[#1a1a1a] rounded-2xl p-6 sm:p-7 sticky top-24 shadow-2xl">
-                  <div className="absolute inset-0 rounded-2xl opacity-20 blur-xl bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient-rotate" />
+                  <div className="absolute inset-0 rounded-2xl opacity-20 blur-xl bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-gradient-rotate" />
 
                   <div className="relative">
                     <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#1a1a1a]">
                       <h2 className="text-white font-bold text-2xl flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-[#dc2626]" />
+                        <Sparkles className="w-5 h-5 text-[#2563eb]" />
                         Summary
                       </h2>
-                      <span className="px-3 py-1 bg-[#dc2626]/10 text-[#dc2626] text-sm font-bold rounded-lg border border-[#dc2626]/30">
+                      <span className="px-3 py-1 bg-[#2563eb]/10 text-[#2563eb] text-sm font-bold rounded-lg border border-[#2563eb]/30">
                         {items.length} item{items.length !== 1 ? "s" : ""}
                       </span>
                     </div>
@@ -335,14 +335,14 @@ export default function CartPage() {
                                 value={couponCode}
                                 onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                                 placeholder="Enter coupon code"
-                                className="w-full pl-10 pr-4 py-2.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none text-sm font-mono uppercase"
+                                className="w-full pl-10 pr-4 py-2.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none text-sm font-mono uppercase"
                                 onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
                               />
                             </div>
                             <button
                               onClick={handleApplyCoupon}
                               disabled={couponLoading || !couponCode.trim()}
-                              className="px-4 py-2.5 bg-[#dc2626] hover:bg-[#ef4444] disabled:bg-[#dc2626]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all flex items-center gap-2"
+                              className="px-4 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all flex items-center gap-2"
                             >
                               {couponLoading ? (
                                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -353,7 +353,7 @@ export default function CartPage() {
                             </button>
                           </div>
                           {couponError && (
-                            <p className="text-red-400 text-xs flex items-center gap-1">
+                            <p className="text-blue-400 text-xs flex items-center gap-1">
                               <X className="w-3 h-3" />
                               {couponError}
                             </p>
@@ -374,7 +374,7 @@ export default function CartPage() {
                           </div>
                           <button
                             onClick={handleRemoveCoupon}
-                            className="text-white/40 hover:text-red-400 p-1 rounded transition-colors"
+                            className="text-white/40 hover:text-blue-400 p-1 rounded transition-colors"
                           >
                             <X className="w-4 h-4" />
                           </button>
@@ -397,9 +397,9 @@ export default function CartPage() {
                         <span className="text-green-400 text-xs font-medium">Instant digital delivery</span>
                       </div>
 
-                      <div className="flex items-center justify-between p-4 bg-[#0a0a0a] rounded-xl border border-[#dc2626]/20">
+                      <div className="flex items-center justify-between p-4 bg-[#0a0a0a] rounded-xl border border-[#2563eb]/20">
                         <span className="text-white font-bold text-lg">Total</span>
-                        <span className="text-transparent bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] bg-clip-text font-bold text-3xl animate-pulse">
+                        <span className="text-transparent bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] bg-clip-text font-bold text-3xl animate-pulse">
                           {formatMoney({ amountUsd: total, currency, locale })}
                         </span>
                       </div>
@@ -411,7 +411,7 @@ export default function CartPage() {
                         disabled={checkoutLoading}
                         className="group/checkout relative w-full py-4 rounded-xl overflow-hidden font-bold text-white transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient-x" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-gradient-x" />
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/checkout:translate-x-full transition-transform duration-1000" />
                         <span className="relative flex items-center justify-center gap-2 text-base">
                           {checkoutLoading ? (
@@ -426,14 +426,14 @@ export default function CartPage() {
                             </>
                           )}
                         </span>
-                        <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#dc2626] to-[#ef4444] opacity-50 group-hover/checkout:opacity-75 transition-opacity" />
+                        <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] opacity-50 group-hover/checkout:opacity-75 transition-opacity" />
                       </button>
 
                       {/* Sign In Option for Guest Users */}
                       {!user && (
                         <button
                           onClick={() => router.push("/checkout/login")}
-                          className="group/signin w-full py-3 rounded-xl bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 text-white/80 hover:text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
+                          className="group/signin w-full py-3 rounded-xl bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 text-white/80 hover:text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
                         >
                           <span>Sign In Instead</span>
                           <ArrowLeft className="w-4 h-4 rotate-180 group-hover/signin:translate-x-1 transition-transform" />
@@ -442,7 +442,7 @@ export default function CartPage() {
 
                       <button
                         onClick={clearCart}
-                        className="group/clear w-full py-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/40 text-red-400 hover:text-red-300 font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
+                        className="group/clear w-full py-3 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 text-blue-400 hover:text-blue-300 font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
                       >
                         <X className="w-5 h-5 group-hover/clear:rotate-90 transition-transform" />
                         Empty cart

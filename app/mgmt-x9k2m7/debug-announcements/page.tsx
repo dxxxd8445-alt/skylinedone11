@@ -36,8 +36,8 @@ export default function DebugAnnouncementsPage() {
         )}
         
         {error && (
-          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-4">
-            <h3 className="text-red-400 font-semibold mb-2">Error:</h3>
+          <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mb-4">
+            <h3 className="text-blue-400 font-semibold mb-2">Error:</h3>
             <p className="text-white/80">{error}</p>
           </div>
         )}
@@ -47,10 +47,10 @@ export default function DebugAnnouncementsPage() {
             <div className={`p-4 rounded-lg border ${
               result.success 
                 ? 'bg-green-500/10 border-green-500/30' 
-                : 'bg-red-500/10 border-red-500/30'
+                : 'bg-blue-500/10 border-blue-500/30'
             }`}>
               <h3 className={`font-semibold mb-2 ${
-                result.success ? 'text-green-400' : 'text-red-400'
+                result.success ? 'text-green-400' : 'text-blue-400'
               }`}>
                 {result.success ? 'Success!' : 'Failed'}
               </h3>
@@ -67,7 +67,7 @@ export default function DebugAnnouncementsPage() {
                           ann.type === 'info' ? 'bg-blue-500/20 text-blue-400' :
                           ann.type === 'success' ? 'bg-green-500/20 text-green-400' :
                           ann.type === 'warning' ? 'bg-amber-500/20 text-amber-400' :
-                          'bg-red-500/20 text-red-400'
+                          'bg-blue-500/20 text-blue-400'
                         }`}>
                           {ann.type}
                         </span>

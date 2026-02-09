@@ -37,8 +37,8 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
               Customer Reviews
             </h2>
             <div className="py-16">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#dc2626]/10 mb-4 animate-pulse">
-                <Star className="w-8 h-8 text-[#dc2626]" />
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#2563eb]/10 mb-4 animate-pulse">
+                <Star className="w-8 h-8 text-[#2563eb]" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">No Reviews Yet</h3>
               <p className="text-white/50 max-w-md mx-auto">
@@ -92,7 +92,7 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
   return (
     <section ref={sectionRef} className="py-20 bg-[#0a0a0a] relative overflow-hidden">
       {/* Background accents */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#dc2626]/5 blur-[120px] rounded-full" />
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#2563eb]/5 blur-[120px] rounded-full" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
@@ -107,12 +107,12 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
             >
               Reviews that
               <br />
-              <span className="text-[#dc2626] relative inline-block group">
+              <span className="text-[#2563eb] relative inline-block group">
                 prove performance
                 {/* Animated underline */}
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-transparent rounded-full" />
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-transparent rounded-full" />
                 {/* Glow */}
-                <span className="absolute -bottom-2 left-0 w-3/4 h-1 bg-gradient-to-r from-[#dc2626] to-transparent rounded-full blur-md opacity-60" />
+                <span className="absolute -bottom-2 left-0 w-3/4 h-1 bg-gradient-to-r from-[#2563eb] to-transparent rounded-full blur-md opacity-60" />
               </span>
             </h2>
             <p className="text-white/50 mt-4 max-w-md">
@@ -125,18 +125,18 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
             <button
               onClick={prevSlide}
               disabled={isTransitioning}
-              className="group relative w-12 h-12 rounded-full bg-[#dc2626]/10 hover:bg-[#dc2626]/20 border border-[#dc2626]/20 hover:border-[#dc2626]/40 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group relative w-12 h-12 rounded-full bg-[#2563eb]/10 hover:bg-[#2563eb]/20 border border-[#2563eb]/20 hover:border-[#2563eb]/40 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <div className="absolute inset-0 rounded-full bg-[#dc2626]/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <ChevronLeft className="relative z-10 w-6 h-6 text-[#dc2626] transition-transform duration-300 group-hover:-translate-x-0.5" />
+              <div className="absolute inset-0 rounded-full bg-[#2563eb]/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <ChevronLeft className="relative z-10 w-6 h-6 text-[#2563eb] transition-transform duration-300 group-hover:-translate-x-0.5" />
             </button>
             <button
               onClick={nextSlide}
               disabled={isTransitioning}
-              className="group relative w-12 h-12 rounded-full bg-[#dc2626] hover:bg-[#ef4444] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+              className="group relative w-12 h-12 rounded-full bg-[#2563eb] hover:bg-[#3b82f6] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-              <div className="absolute -inset-1 bg-[#dc2626] blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
+              <div className="absolute -inset-1 bg-[#2563eb] blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
               <ChevronRight className="relative z-10 w-6 h-6 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
             </button>
           </div>
@@ -156,7 +156,7 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
                     : "opacity-0 translate-y-10"
                 } ${
                   isHovered 
-                    ? "border-[#dc2626]/70 -translate-y-2 shadow-xl shadow-[#dc2626]/20" 
+                    ? "border-[#2563eb]/70 -translate-y-2 shadow-xl shadow-[#2563eb]/20" 
                     : "border-[#262626]"
                 }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
@@ -165,8 +165,8 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
               >
                 {/* Top accent line */}
                 <div
-                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626]/50 rounded-t-2xl transition-all duration-500 ${
-                    isHovered ? "opacity-100 shadow-[0_0_10px_rgba(220,38,38,0.5)]" : "opacity-0"
+                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb]/50 rounded-t-2xl transition-all duration-500 ${
+                    isHovered ? "opacity-100 shadow-[0_0_10px_rgba(37,99,235,0.5)]" : "opacity-0"
                   }`}
                 />
 
@@ -174,7 +174,7 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
                 <div className={`mb-4 transition-all duration-500 ${
                   isHovered ? "scale-110 rotate-6" : "scale-100 rotate-0"
                 }`}>
-                  <Quote className="w-10 h-10 text-[#dc2626]/40" />
+                  <Quote className="w-10 h-10 text-[#2563eb]/40" />
                 </div>
 
                 {/* Review text */}
@@ -183,18 +183,18 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
                 </p>
 
                 {/* Divider */}
-                <div className={`h-px bg-gradient-to-r from-transparent via-[#dc2626]/30 to-transparent mb-4 transition-all duration-500 ${
-                  isHovered ? "via-[#dc2626]/60" : ""
+                <div className={`h-px bg-gradient-to-r from-transparent via-[#2563eb]/30 to-transparent mb-4 transition-all duration-500 ${
+                  isHovered ? "via-[#2563eb]/60" : ""
                 }`} />
 
                 {/* Author info */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={`relative w-10 h-10 rounded-full bg-[#dc2626] flex items-center justify-center text-white font-bold transition-all duration-500 overflow-hidden ${
-                      isHovered ? "scale-110 shadow-lg shadow-[#dc2626]/40" : ""
+                    <div className={`relative w-10 h-10 rounded-full bg-[#2563eb] flex items-center justify-center text-white font-bold transition-all duration-500 overflow-hidden ${
+                      isHovered ? "scale-110 shadow-lg shadow-[#2563eb]/40" : ""
                     }`}>
                       {/* Ring effect */}
-                      <div className={`absolute inset-0 rounded-full border-2 border-[#dc2626] transition-all duration-500 ${
+                      <div className={`absolute inset-0 rounded-full border-2 border-[#2563eb] transition-all duration-500 ${
                         isHovered ? "scale-150 opacity-0" : "scale-100 opacity-100"
                       }`} />
                       
@@ -212,7 +212,7 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
                     </div>
                     <div>
                       <p className={`text-white font-medium transition-all duration-300 ${
-                        isHovered ? "text-[#dc2626]" : ""
+                        isHovered ? "text-[#2563eb]" : ""
                       }`}>
                         {review.username}
                       </p>
@@ -223,7 +223,7 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
                   {/* Rating with enhanced animation */}
                   <div className="flex items-center gap-1.5">
                     <span className={`text-white font-bold transition-all duration-300 ${
-                      isHovered ? "scale-110 text-[#dc2626]" : ""
+                      isHovered ? "scale-110 text-[#2563eb]" : ""
                     }`}>
                       {review.rating}
                     </span>
@@ -243,7 +243,7 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
                 </div>
 
                 {/* Corner glow */}
-                <div className={`absolute -bottom-10 -right-10 w-32 h-32 bg-[#dc2626]/20 blur-3xl rounded-full transition-opacity duration-500 ${
+                <div className={`absolute -bottom-10 -right-10 w-32 h-32 bg-[#2563eb]/20 blur-3xl rounded-full transition-opacity duration-500 ${
                   isHovered ? "opacity-100" : "opacity-0"
                 }`} />
 
@@ -270,7 +270,7 @@ export function Reviews({ reviews: initialReviews }: ReviewsProps) {
               }}
               className={`h-1.5 rounded-full transition-all duration-500 ${
                 i === currentIndex 
-                  ? "w-8 bg-[#dc2626] shadow-lg shadow-[#dc2626]/50" 
+                  ? "w-8 bg-[#2563eb] shadow-lg shadow-[#2563eb]/50" 
                   : "w-1.5 bg-white/20 hover:bg-white/40"
               }`}
             />

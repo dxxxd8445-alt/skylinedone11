@@ -226,7 +226,7 @@ export default function ProductsPage() {
       toast({
         title: "Success",
         description: "Product deleted successfully",
-        className: "border-red-500/20 bg-red-500/10",
+        className: "border-blue-500/20 bg-blue-500/10",
       });
       setShowDeleteModal(false);
       setSelectedProduct(null);
@@ -374,7 +374,7 @@ export default function ProductsPage() {
       setProcessing("variant-delete");
       const res = await deleteVariant(v.id);
       if (!res.success) throw new Error(res.error);
-      toast({ title: "Variant removed", className: "border-red-500/20 bg-red-500/10" });
+      toast({ title: "Variant removed", className: "border-blue-500/20 bg-blue-500/10" });
       setVariants((prev) => prev.filter((x) => x.id !== v.id));
       setEditingVariant(null);
     } catch (e: any) {
@@ -391,15 +391,15 @@ export default function ProductsPage() {
       sortable: true,
       render: (product: Product) => (
         <div className="flex items-center gap-3 group">
-          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gradient-to-br from-[#dc2626]/20 to-[#dc2626]/5 border border-[#dc2626]/10 flex items-center justify-center transition-all group-hover:border-[#dc2626]/30">
+          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gradient-to-br from-[#2563eb]/20 to-[#2563eb]/5 border border-[#2563eb]/10 flex items-center justify-center transition-all group-hover:border-[#2563eb]/30">
             {product.image ? (
               <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
             ) : (
-              <Package className="w-5 h-5 text-[#dc2626]/50" />
+              <Package className="w-5 h-5 text-[#2563eb]/50" />
             )}
           </div>
           <div>
-            <p className="text-white font-semibold tracking-tight group-hover:text-[#dc2626] transition-colors">
+            <p className="text-white font-semibold tracking-tight group-hover:text-[#2563eb] transition-colors">
               {product.name}
             </p>
             <div className="flex items-center gap-1.5 mt-0.5">
@@ -491,8 +491,8 @@ export default function ProductsPage() {
       <AdminShell title="Products" subtitle="Manage your product catalog">
         <div className="flex flex-col items-center justify-center h-64 gap-4">
           <div className="relative">
-            <div className="w-12 h-12 rounded-full border-2 border-[#dc2626]/20 border-t-[#dc2626] animate-spin" />
-            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#dc2626]/5 blur-xl animate-pulse" />
+            <div className="w-12 h-12 rounded-full border-2 border-[#2563eb]/20 border-t-[#2563eb] animate-spin" />
+            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#2563eb]/5 blur-xl animate-pulse" />
           </div>
           <p className="text-white/40 text-sm font-medium">Loading products...</p>
         </div>
@@ -504,14 +504,14 @@ export default function ProductsPage() {
     <AdminShell title="Products" subtitle="Manage your product catalog">
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#dc2626]/30 transition-all">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#2563eb]/30 transition-all">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Total Products</p>
               <p className="text-2xl font-bold text-white mt-1">{products.length}</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center">
-              <Package className="w-6 h-6 text-[#dc2626]" />
+            <div className="w-12 h-12 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
+              <Package className="w-6 h-6 text-[#2563eb]" />
             </div>
           </div>
         </div>
@@ -553,7 +553,7 @@ export default function ProductsPage() {
             variant="outline"
             size="sm"
             disabled={loading}
-            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#dc2626]/30 transition-all"
+            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#2563eb]/30 transition-all"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -562,7 +562,7 @@ export default function ProductsPage() {
         <Button
           onClick={() => setShowAddModal(true)}
           size="sm"
-          className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/20 transition-all"
+          className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 transition-all"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Product
@@ -590,7 +590,7 @@ export default function ProductsPage() {
               onClick={() => openDeleteModal(product)}
               size="sm"
               variant="ghost"
-              className="text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all"
+              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-all"
               title="Delete Product"
             >
               <Trash2 className="w-4 h-4" />
@@ -604,8 +604,8 @@ export default function ProductsPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center">
-                <Plus className="w-4 h-4 text-[#dc2626]" />
+              <div className="w-8 h-8 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
+                <Plus className="w-4 h-4 text-[#2563eb]" />
               </div>
               Add New Product
             </DialogTitle>
@@ -624,24 +624,24 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Product Name <span className="text-red-400">*</span>
+                    Product Name <span className="text-blue-400">*</span>
                   </label>
                   <Input
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g., Apex Legends Cheat"
-                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#dc2626]/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Slug <span className="text-red-400">*</span>
+                    Slug <span className="text-blue-400">*</span>
                   </label>
                   <Input
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
                     placeholder="e.g., apex-legends"
-                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#dc2626]/50 font-mono transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 font-mono transition-colors"
                   />
                 </div>
               </div>
@@ -649,13 +649,13 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Game <span className="text-red-400">*</span>
+                    Game <span className="text-blue-400">*</span>
                   </label>
                   <Input
                     value={formData.game}
                     onChange={(e) => setFormData({ ...formData, game: e.target.value })}
                     placeholder="e.g., Apex Legends"
-                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#dc2626]/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
@@ -663,7 +663,7 @@ export default function ProductsPage() {
                   <Input
                     value={formData.provider}
                     onChange={(e) => setFormData({ ...formData, provider: e.target.value })}
-                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-[#dc2626]/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-[#2563eb]/50 transition-colors"
                   />
                 </div>
               </div>
@@ -681,7 +681,7 @@ export default function ProductsPage() {
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 transition-colors"
+                    className="w-full px-4 py-2.5 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb]/50 transition-colors"
                   >
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -726,7 +726,7 @@ export default function ProductsPage() {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe your product..."
                   rows={3}
-                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#dc2626]/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 resize-none transition-colors"
                 />
               </div>
               
@@ -739,7 +739,7 @@ export default function ProductsPage() {
                   onChange={(e) => setFormData({ ...formData, features: e.target.value })}
                   placeholder="Aimbot, ESP, No Recoil, Radar"
                   rows={2}
-                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#dc2626]/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 resize-none transition-colors"
                 />
               </div>
               
@@ -752,7 +752,7 @@ export default function ProductsPage() {
                   onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                   placeholder="Windows 10, Intel CPU, 8GB RAM"
                   rows={2}
-                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#dc2626]/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 resize-none transition-colors"
                 />
               </div>
             </div>
@@ -761,87 +761,96 @@ export default function ProductsPage() {
             <div className="space-y-4 pt-4 border-t border-[#1a1a1a]">
               <h3 className="text-sm font-semibold text-white/70 uppercase tracking-wider flex items-center gap-2">
                 <DollarSign className="w-4 h-4" />
-                Variants & pricing
+                VARIANTS & PRICING
               </h3>
-              <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-4">
-                <p className="text-white/60 text-sm mb-4">
-                  Add pricing variants for different durations (e.g., 1 Day, 7 Days, 30 Days). You can add more variants after creating the product.
-                </p>
+              <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg p-6">
+                {addModalVariants.length > 0 && (
+                  <div className="space-y-2 mb-4">
+                    {addModalVariants.map((variant, index) => (
+                      <div key={index} className="flex items-center justify-between p-4 bg-[#1a1a1a] rounded-lg border border-[#262626] hover:border-[#333] transition-colors">
+                        <div className="flex items-center gap-4">
+                          <span className="text-white font-medium">{variant.duration || "Duration"}</span>
+                          <span className="text-emerald-400 font-semibold">${variant.price.toFixed(2)}</span>
+                          <span className="text-white/40 text-sm">stock 10</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-blue-400 hover:bg-blue-500/10 hover:text-blue-300"
+                            onClick={() => {
+                              const duration = prompt("Edit duration:", variant.duration);
+                              const price = prompt("Edit price:", variant.price.toString());
+                              if (duration !== null && price !== null) {
+                                const newVariants = [...addModalVariants];
+                                newVariants[index] = { duration, price: parseFloat(price) || 0 };
+                                newVariants.sort((a, b) => a.price - b.price);
+                                setAddModalVariants(newVariants);
+                              }
+                            }}
+                          >
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-blue-400 hover:bg-blue-500/10 hover:text-blue-300"
+                            onClick={() => {
+                              const newVariants = addModalVariants.filter((_, i) => i !== index);
+                              setAddModalVariants(newVariants);
+                            }}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
                 
-                <div className="space-y-3">
-                  {addModalVariants.map((variant, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-[#0a0a0a] rounded-lg border border-[#262626]">
-                      <Input
-                        placeholder="e.g., 1 Day"
-                        value={variant.duration}
-                        onChange={(e) => {
-                          const newVariants = [...addModalVariants];
-                          newVariants[index].duration = e.target.value;
-                          setAddModalVariants(newVariants);
-                        }}
-                        className="w-32 bg-[#1a1a1a] border-[#262626] text-white text-sm"
-                      />
-                      <Input
-                        type="number"
-                        step="0.01"
-                        placeholder="9.99"
-                        value={variant.price}
-                        onChange={(e) => {
-                          const newVariants = [...addModalVariants];
-                          newVariants[index].price = parseFloat(e.target.value) || 0;
-                          // Sort variants by price (lowest first) after updating
-                          newVariants.sort((a, b) => a.price - b.price);
-                          setAddModalVariants(newVariants);
-                        }}
-                        className="w-24 bg-[#1a1a1a] border-[#262626] text-white text-sm"
-                      />
-                      <span className="text-white/40 text-sm">USD</span>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="text-red-400 hover:bg-red-500/10"
-                        onClick={() => {
-                          const newVariants = addModalVariants.filter((_, i) => i !== index);
-                          setAddModalVariants(newVariants);
-                        }}
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  ))}
-                  
+                <div className="flex items-center gap-3">
+                  <Input
+                    placeholder="e.g. 1 Day, 7 Days, 30 Days"
+                    value={variantForm.duration}
+                    onChange={(e) => setVariantForm({ ...variantForm, duration: e.target.value })}
+                    className="flex-1 bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50"
+                  />
+                  <Input
+                    placeholder="Price"
+                    type="number"
+                    step="0.01"
+                    value={variantForm.price}
+                    onChange={(e) => setVariantForm({ ...variantForm, price: e.target.value })}
+                    className="w-32 bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50"
+                  />
                   <Button
                     size="sm"
-                    variant="outline"
-                    className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]"
+                    className="bg-[#2563eb] hover:bg-[#3b82f6] text-white px-6"
                     onClick={() => {
-                      const newVariants = [...addModalVariants, { duration: "", price: 0 }];
-                      // Sort variants by price (lowest first)
-                      newVariants.sort((a, b) => a.price - b.price);
-                      setAddModalVariants(newVariants);
+                      if (variantForm.duration && variantForm.price) {
+                        const newVariants = [...addModalVariants, { 
+                          duration: variantForm.duration, 
+                          price: parseFloat(variantForm.price) || 0 
+                        }];
+                        newVariants.sort((a, b) => a.price - b.price);
+                        setAddModalVariants(newVariants);
+                        setVariantForm({ duration: "", price: "" });
+                      } else {
+                        toast({
+                          title: "Missing Information",
+                          description: "Please enter both duration and price",
+                          variant: "destructive",
+                        });
+                      }
                     }}
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Variant
+                    Add variant
                   </Button>
                 </div>
                 
                 {addModalVariants.length === 0 && (
-                  <div className="text-center py-6">
-                    <p className="text-white/40 text-sm mb-3">No variants added yet</p>
-                    <Button
-                      size="sm"
-                      className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
-                      onClick={() => {
-                        const newVariants = [{ duration: "1 Day", price: 9.99 }];
-                        // Already sorted since it's just one item
-                        setAddModalVariants(newVariants);
-                      }}
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add First Variant
-                    </Button>
-                  </div>
+                  <p className="text-white/40 text-sm mt-3">Stock is auto-calculated from license keys</p>
                 )}
               </div>
             </div>
@@ -858,7 +867,7 @@ export default function ProductsPage() {
             <Button
               onClick={handleAddProduct}
               disabled={processing === "add" || !formData.name || !formData.slug || !formData.game}
-              className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "add" ? (
                 <>
@@ -901,7 +910,7 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Product Name <span className="text-red-400">*</span>
+                    Product Name <span className="text-blue-400">*</span>
                   </label>
                   <Input
                     value={formData.name}
@@ -911,7 +920,7 @@ export default function ProductsPage() {
                 </div>
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Slug <span className="text-red-400">*</span>
+                    Slug <span className="text-blue-400">*</span>
                   </label>
                   <Input
                     value={formData.slug}
@@ -924,7 +933,7 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Game <span className="text-red-400">*</span>
+                    Game <span className="text-blue-400">*</span>
                   </label>
                   <Input
                     value={formData.game}
@@ -1048,7 +1057,7 @@ export default function ProductsPage() {
                                 <Button size="sm" variant="ghost" className="text-blue-400 hover:bg-blue-500/10" onClick={() => setEditingVariant(v)}>
                                   <Edit className="w-3 h-3" />
                                 </Button>
-                                <Button size="sm" variant="ghost" className="text-red-400 hover:bg-red-500/10" onClick={() => handleDeleteVariant(v)} disabled={processing === "variant-delete"}>
+                                <Button size="sm" variant="ghost" className="text-blue-400 hover:bg-blue-500/10" onClick={() => handleDeleteVariant(v)} disabled={processing === "variant-delete"}>
                                   <Trash2 className="w-3 h-3" />
                                 </Button>
                               </div>
@@ -1159,8 +1168,8 @@ export default function ProductsPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                <AlertCircle className="w-4 h-4 text-red-400" />
+              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                <AlertCircle className="w-4 h-4 text-blue-400" />
               </div>
               Delete Product
             </DialogTitle>
@@ -1170,7 +1179,7 @@ export default function ProductsPage() {
           </DialogHeader>
           
           <div className="py-4 space-y-4">
-            <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4">
+            <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
               <p className="text-white/70">
                 Delete <span className="font-semibold text-white">{selectedProduct?.name}</span>? Product will be removed. Linked orders and licenses will be unlinked (not deleted).
               </p>
@@ -1227,7 +1236,7 @@ export default function ProductsPage() {
             <Button
               onClick={() => handleDeleteProduct(true)}
               disabled={processing === "delete"}
-              className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-600 text-white shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "delete" ? (
                 <>

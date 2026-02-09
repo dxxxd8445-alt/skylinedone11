@@ -60,7 +60,7 @@ export default function TestCheckoutPage() {
           <Button 
             onClick={handleTestCheckout}
             disabled={loading}
-            className="w-full bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             {loading ? (
               <>

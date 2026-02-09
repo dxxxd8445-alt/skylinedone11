@@ -80,9 +80,9 @@ async function testCompleteStripeCheckout() {
         price: testVariant.price / 100, // Convert to dollars
         quantity: 1,
       }],
-      customer_email: 'test@magmacheats.com',
-      success_url: 'https://magmacheats.com/payment/success',
-      cancel_url: 'https://magmacheats.com/payment/cancelled',
+      customer_email: 'test@skylinecheats.org',
+      success_url: 'https://skylinecheats.org/payment/success',
+      cancel_url: 'https://skylinecheats.org/payment/cancelled',
     };
     
     console.log('✅ Checkout data prepared:');

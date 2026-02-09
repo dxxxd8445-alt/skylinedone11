@@ -143,7 +143,7 @@ File: AFFILIATE_SYSTEM_FINAL_WORKING.sql
 ## 🔗 AFFILIATE LINK FORMAT
 
 ```
-https://magmacheats.com?ref=YOUR_AFFILIATE_CODE
+https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 Commission Rate: **5%** on each sale

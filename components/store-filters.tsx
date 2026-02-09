@@ -84,7 +84,7 @@ export function StoreFilters({ products }: { products: Product[] }) {
             {canScrollLeft && (
               <button
                 onClick={() => scroll('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-gradient-to-r from-[#dc2626] to-[#ef4444] rounded-full flex items-center justify-center shadow-lg shadow-[#dc2626]/50 hover:scale-110 transition-transform duration-200 opacity-0 group-hover:opacity-100"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-full flex items-center justify-center shadow-lg shadow-[#2563eb]/50 hover:scale-110 transition-transform duration-200 opacity-0 group-hover:opacity-100"
                 aria-label="Scroll left"
               >
                 <ChevronLeft className="w-6 h-6 text-white" />
@@ -100,10 +100,10 @@ export function StoreFilters({ products }: { products: Product[] }) {
                 msOverflowStyle: 'none',
               }}
             >
-              {/* ALL → Store */}
+              {/* ALL ? Store */}
               <Link
                 href="/store"
-                className="relative flex-shrink-0 px-8 py-4 rounded-2xl text-sm font-bold transition-all duration-300 overflow-hidden group/btn bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white shadow-xl shadow-[#dc2626]/40 scale-105"
+                className="relative flex-shrink-0 px-8 py-4 rounded-2xl text-sm font-bold transition-all duration-300 overflow-hidden group/btn bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-xl shadow-[#2563eb]/40 scale-105"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
                 <div className="relative flex items-center gap-2">
@@ -113,12 +113,12 @@ export function StoreFilters({ products }: { products: Product[] }) {
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/50 rounded-full" />
               </Link>
 
-              {/* Game → Category pages */}
+              {/* Game ? Category pages */}
               {games.map((game) => (
                 <Link
                   key={game}
                   href={`/store/${gameToSlug(game)}`}
-                  className="relative flex-shrink-0 px-8 py-4 rounded-2xl text-sm font-bold transition-all duration-300 overflow-hidden group/btn bg-[#111111] text-white/70 hover:bg-[#1a1a1a] border-2 border-[#dc2626]/30 hover:border-[#dc2626]/60 hover:scale-105"
+                  className="relative flex-shrink-0 px-8 py-4 rounded-2xl text-sm font-bold transition-all duration-300 overflow-hidden group/btn bg-[#111111] text-white/70 hover:bg-[#1a1a1a] border-2 border-[#2563eb]/30 hover:border-[#2563eb]/60 hover:scale-105"
                 >
                   <span className="relative">{game === "Universal" ? "HWID SPOOFERS" : game.toUpperCase()}</span>
                 </Link>
@@ -129,7 +129,7 @@ export function StoreFilters({ products }: { products: Product[] }) {
             {canScrollRight && (
               <button
                 onClick={() => scroll('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-gradient-to-r from-[#dc2626] to-[#ef4444] rounded-full flex items-center justify-center shadow-lg shadow-[#dc2626]/50 hover:scale-110 transition-transform duration-200 opacity-0 group-hover:opacity-100"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-full flex items-center justify-center shadow-lg shadow-[#2563eb]/50 hover:scale-110 transition-transform duration-200 opacity-0 group-hover:opacity-100"
                 aria-label="Scroll right"
               >
                 <ChevronRight className="w-6 h-6 text-white" />
@@ -140,7 +140,7 @@ export function StoreFilters({ products }: { products: Product[] }) {
           {/* Product Count */}
           <div className="text-center mt-4">
             <p className="text-white/50 text-sm flex items-center justify-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#dc2626] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#2563eb] animate-pulse" />
               <span className="text-white font-semibold">{products.length}</span> {products.length === 1 ? t("product") : t("products")}
             </p>
           </div>
@@ -154,7 +154,7 @@ export function StoreFilters({ products }: { products: Product[] }) {
             <div className="flex gap-3 overflow-x-auto pb-4 px-2 scrollbar-hide scroll-smooth">
               <Link
                 href="/store"
-                className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white shadow-lg shadow-[#dc2626]/40"
+                className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-200 active:scale-95 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-lg shadow-[#2563eb]/40"
               >
                 ALL
               </Link>
@@ -173,9 +173,9 @@ export function StoreFilters({ products }: { products: Product[] }) {
           {/* Swipe Indicator */}
           <div className="flex items-center justify-center gap-2 mt-2">
             <div className="flex gap-1">
-              <div className="w-1 h-1 rounded-full bg-[#dc2626] animate-pulse" />
-              <div className="w-1 h-1 rounded-full bg-[#dc2626]/50 animate-pulse delay-75" />
-              <div className="w-1 h-1 rounded-full bg-[#dc2626]/30 animate-pulse delay-150" />
+              <div className="w-1 h-1 rounded-full bg-[#2563eb] animate-pulse" />
+              <div className="w-1 h-1 rounded-full bg-[#2563eb]/50 animate-pulse delay-75" />
+              <div className="w-1 h-1 rounded-full bg-[#2563eb]/30 animate-pulse delay-150" />
             </div>
             <p className="text-white/40 text-xs">{t("swipe_to_browse")}</p>
           </div>
@@ -189,10 +189,10 @@ export function StoreFilters({ products }: { products: Product[] }) {
             <Link
               key={product.id}
               href={`/store/${gameToSlug(product.game)}/${product.slug}`}
-              className="group relative aspect-[3/4] rounded-2xl overflow-hidden border-2 border-[#dc2626]/40 hover:border-[#dc2626] transition-all duration-300 hover:shadow-xl hover:shadow-[#dc2626]/30 active:scale-[0.98] sm:hover:-translate-y-1 bg-gradient-to-br from-[#1a0808] to-[#0a0a0a]"
+              className="group relative aspect-[3/4] rounded-2xl overflow-hidden border-2 border-[#2563eb]/40 hover:border-[#2563eb] transition-all duration-300 hover:shadow-xl hover:shadow-[#2563eb]/30 active:scale-[0.98] sm:hover:-translate-y-1 bg-gradient-to-br from-[#1a0808] to-[#0a0a0a]"
             >
               {/* Red gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#dc2626]/20 via-[#0a0a0a] to-[#0a0a0a]" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/20 via-[#0a0a0a] to-[#0a0a0a]" />
               
               {/* Product Image */}
               <Image
@@ -204,15 +204,15 @@ export function StoreFilters({ products }: { products: Product[] }) {
               
               {/* Red overlay effect */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0505] via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-br from-[#dc2626]/10 via-transparent to-[#dc2626]/5" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/10 via-transparent to-[#2563eb]/5" />
               
               {/* Bottom glow bar */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#dc2626] to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#2563eb] to-transparent" />
               
               {/* Game Logo/Name at bottom */}
               <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/80 to-transparent">
-                <h3 className="text-[#dc2626] font-bold text-xs sm:text-lg text-center tracking-wider uppercase drop-shadow-lg"
-                    style={{ textShadow: "0 0 20px rgba(220,38,38,0.5)" }}>
+                <h3 className="text-[#2563eb] font-bold text-xs sm:text-lg text-center tracking-wider uppercase drop-shadow-lg"
+                    style={{ textShadow: "0 0 20px rgba(37,99,235,0.5)" }}>
                   {product.game === "Universal" ? "HWID SPOOFER" : product.game.toUpperCase()}
                 </h3>
                 <p className="text-white/90 text-xs text-center mt-1 sm:hidden font-semibold">
@@ -230,7 +230,7 @@ export function StoreFilters({ products }: { products: Product[] }) {
                     ? "bg-green-500 shadow-lg shadow-green-500/50" 
                     : product.status === "maintenance"
                     ? "bg-yellow-400 shadow-lg shadow-yellow-400/50"
-                    : "bg-red-400 shadow-lg shadow-red-400/50"
+                    : "bg-blue-400 shadow-lg shadow-blue-400/50"
                 }`} />
               </div>
 
@@ -238,8 +238,8 @@ export function StoreFilters({ products }: { products: Product[] }) {
               <div className="absolute inset-0 bg-[#0a0a0a]/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden sm:flex flex-col items-center justify-center p-4">
                 <h4 className="text-white font-bold text-lg mb-1">{product.name}</h4>
                 <p className="text-white/60 text-sm mb-1">{product.game}</p>
-                <p className="text-[#dc2626] text-xl font-bold mb-4">{t("from")} {formatMoney({ amountUsd: product.pricing[0]?.price || 0, currency, locale })}</p>
-                <span className="px-5 py-2.5 bg-[#dc2626] hover:bg-[#ef4444] text-white rounded-lg text-sm font-semibold flex items-center gap-2 transition-colors">
+                <p className="text-[#2563eb] text-xl font-bold mb-4">{t("from")} {formatMoney({ amountUsd: product.pricing[0]?.price || 0, currency, locale })}</p>
+                <span className="px-5 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg text-sm font-semibold flex items-center gap-2 transition-colors">
                   {t("view_details")}
                   <ExternalLink className="w-4 h-4" />
                 </span>
@@ -252,8 +252,8 @@ export function StoreFilters({ products }: { products: Product[] }) {
           <Gamepad2 className="w-16 h-16 text-white/20 mx-auto mb-4" />
             <p className="text-white/50 text-lg mb-2">{t("no_products_yet")}</p>
             <p className="text-white/30 text-sm">{t("add_products_admin")}</p>
-            <Link href="/store" className="inline-block mt-4 text-[#dc2626] hover:text-[#ef4444] text-sm font-medium">
-              ← {t("back_to_store")}
+            <Link href="/store" className="inline-block mt-4 text-[#2563eb] hover:text-[#3b82f6] text-sm font-medium">
+              ? {t("back_to_store")}
             </Link>
         </div>
       )}

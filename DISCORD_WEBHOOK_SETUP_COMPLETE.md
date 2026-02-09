@@ -103,7 +103,7 @@
 - 🔢 **Order number** for tracking
 - 🛒 **Items purchased** with quantities and prices
 - ⏰ **Timestamp** of the order
-- 🏷️ **Magma Cheats branding**
+- 🏷️ **Skyline Cheats branding**
 
 ### Failed Payment Notifications:
 - ❌ **Payment Failed** with red embed

@@ -60,7 +60,7 @@ The affiliate registration was failing because of **TWO ISSUES**:
 
 After successful registration, you should see:
 - ✅ Your affiliate code
-- ✅ Your affiliate link (https://magmacheats.com?ref=YOUR_CODE)
+- ✅ Your affiliate link (https://skylinecheats.org?ref=YOUR_CODE)
 - ✅ Commission rate (5%)
 - ✅ Stats dashboard with clicks, referrals, earnings
 

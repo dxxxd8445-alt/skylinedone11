@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -97,7 +97,7 @@ export default function CategoryProductsPage() {
       case "active":
         return "bg-green-500/20 text-green-400 border-green-500/30";
       case "inactive":
-        return "bg-red-500/20 text-red-400 border-red-500/30";
+        return "bg-blue-500/20 text-blue-400 border-blue-500/30";
       case "maintenance":
         return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
       default:
@@ -195,7 +195,7 @@ export default function CategoryProductsPage() {
           </Button>
 
           {category && (
-            <div className="bg-gradient-to-r from-[#dc2626]/10 to-transparent border border-[#dc2626]/20 rounded-xl p-6">
+            <div className="bg-gradient-to-r from-[#2563eb]/10 to-transparent border border-[#2563eb]/20 rounded-xl p-6">
               <div className="flex items-start gap-6">
                 <div className="w-20 h-20 rounded-xl bg-[#1a1a1a] overflow-hidden relative flex-shrink-0 border border-[#262626]">
                   {category.image ? (
@@ -251,7 +251,7 @@ export default function CategoryProductsPage() {
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <Package className="w-5 h-5 text-[#dc2626]" />
+              <Package className="w-5 h-5 text-[#2563eb]" />
               Products in this Category
             </h2>
             <Link href="/mgmt-x9k2m7/products">
@@ -297,7 +297,7 @@ export default function CategoryProductsPage() {
               This category doesn't have any products assigned to it yet.
             </p>
             <Link href="/mgmt-x9k2m7/products">
-              <Button className="bg-[#dc2626] hover:bg-[#ef4444] text-white">
+              <Button className="bg-[#2563eb] hover:bg-[#3b82f6] text-white">
                 <Package className="w-4 h-4 mr-2" />
                 Go to Products
               </Button>

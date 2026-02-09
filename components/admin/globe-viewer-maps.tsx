@@ -217,7 +217,7 @@ export function GlobeViewerMaps({ visitors }: { visitors: Visitor[] }) {
         ctx.fillRect(x - 20, y - 20, 40, 40);
 
         // Draw marker dot
-        ctx.fillStyle = visitor.is_active ? '#22c55e' : '#ef4444';
+        ctx.fillStyle = visitor.is_active ? '#22c55e' : '#3b82f6';
         ctx.beginPath();
         ctx.arc(x, y, 6, 0, Math.PI * 2);
         ctx.fill();
@@ -258,7 +258,7 @@ export function GlobeViewerMaps({ visitors }: { visitors: Visitor[] }) {
       // Draw stats panel
       ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
       ctx.fillRect(10, 10, 280, 80);
-      ctx.strokeStyle = '#dc2626';
+      ctx.strokeStyle = '#2563eb';
       ctx.lineWidth = 1;
       ctx.strokeRect(10, 10, 280, 80);
 
@@ -332,23 +332,23 @@ export function GlobeViewerMaps({ visitors }: { visitors: Visitor[] }) {
           onMouseLeave={handleMouseUp}
         />
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#dc2626]/20 hover:border-[#dc2626]/50 transition-all">
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#2563eb]/20 hover:border-[#2563eb]/50 transition-all">
             <p className="text-white/60 text-sm">🟢 Active Now</p>
             <p className="text-3xl font-bold text-green-500 mt-1">
               {visitors.filter(v => v.is_active).length}
             </p>
           </div>
-          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#dc2626]/20 hover:border-[#dc2626]/50 transition-all">
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#2563eb]/20 hover:border-[#2563eb]/50 transition-all">
             <p className="text-white/60 text-sm">👥 Total Visitors</p>
             <p className="text-3xl font-bold text-white mt-1">{visitors.length}</p>
           </div>
-          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#dc2626]/20 hover:border-[#dc2626]/50 transition-all">
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#2563eb]/20 hover:border-[#2563eb]/50 transition-all">
             <p className="text-white/60 text-sm">🌐 Countries</p>
             <p className="text-3xl font-bold text-blue-500 mt-1">
               {new Set(visitors.map(v => v.country)).size}
             </p>
           </div>
-          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#dc2626]/20 hover:border-[#dc2626]/50 transition-all">
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] p-4 rounded border border-[#2563eb]/20 hover:border-[#2563eb]/50 transition-all">
             <p className="text-white/60 text-sm">🏙️ Cities</p>
             <p className="text-3xl font-bold text-purple-500 mt-1">
               {new Set(visitors.map(v => v.city)).size}

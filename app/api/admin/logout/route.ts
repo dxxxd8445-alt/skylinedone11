@@ -40,20 +40,36 @@ export async function POST(request: NextRequest) {
     const staffSession = cookieStore.get("staff-session");
     
     let actorRole: "admin" | "staff" = "admin";
-    let actorIdentifier = "unknown";
+    let actorIdentifier = "admin";
     
     if (staffSession) {
       actorRole = "staff";
-      actorIdentifier = staffSession.value;
-    } else if (adminSession) {
-      actorRole = "admin";
-      actorIdentifier = adminSession.value;
+      // Get staff member email from database
+      try {
+        const supabase = createAdminClient();
+        const { data: teamMember } = await supabase
+          .from("team_members")
+          .select("email")
+          .eq("id", staffSession.value)
+          .single();
+        
+        if (teamMember) {
+          actorIdentifier = teamMember.email;
+        } else {
+          actorIdentifier = staffSession.value;
+        }
+      } catch (err) {
+        console.error("Failed to get staff email for logout:", err);
+        actorIdentifier = staffSession.value;
+      }
     }
 
     // Log the logout event
     const ipAddress = getRequestIp(request);
     const userAgent = request.headers.get("user-agent");
     await logAuditEvent("logout", actorRole, actorIdentifier, ipAddress, userAgent);
+
+    console.log(`✅ ${actorRole} logout: ${actorIdentifier} - Audit log created`);
 
     // Clear all session cookies
     cookieStore.delete("magma_admin_session");

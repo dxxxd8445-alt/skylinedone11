@@ -120,7 +120,7 @@ async function testAnnouncementsSystem() {
     
     const sampleAnnouncements = [
       {
-        title: 'Welcome to Magma Cheats!',
+        title: 'Welcome to Skyline Cheats!',
         message: 'We are excited to have you here. Check out our latest products and enjoy gaming!',
         type: 'info',
         priority: 1

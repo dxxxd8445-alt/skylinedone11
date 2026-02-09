@@ -17,8 +17,6 @@ const stats = {
 
 export const dynamic = "force-dynamic";
 export const revalidate = 60;
-
-// Ensure this page is not statically generated to avoid SSR issues
 export const runtime = 'nodejs';
 
 export default async function Home() {

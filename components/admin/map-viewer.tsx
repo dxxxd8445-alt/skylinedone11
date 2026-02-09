@@ -58,7 +58,7 @@ export default function MapViewer({ visitors }: MapViewerProps) {
         }
         .leaflet-control-zoom a {
           background-color: #1a1a1a !important;
-          color: #dc2626 !important;
+          color: #2563eb !important;
           border-bottom: 1px solid #1a1a1a !important;
         }
         .leaflet-control-zoom a:hover {
@@ -83,7 +83,7 @@ export default function MapViewer({ visitors }: MapViewerProps) {
               width: ${iconSize}px;
               height: ${iconSize}px;
               background: radial-gradient(circle, rgba(220, 38, 38, 0.8) 0%, rgba(220, 38, 38, 0.4) 70%, rgba(220, 38, 38, 0) 100%);
-              border: 2px solid #dc2626;
+              border: 2px solid #2563eb;
               border-radius: 50%;
               display: flex;
               align-items: center;

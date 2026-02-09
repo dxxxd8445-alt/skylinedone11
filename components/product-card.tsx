@@ -79,13 +79,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         className="group block relative"
       >
         {/* Glow effect on hover */}
-        <div className={`absolute -inset-1 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] rounded-2xl blur-xl opacity-0 group-hover:opacity-60 transition-all duration-700 ${
+        <div className={`absolute -inset-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] rounded-2xl blur-xl opacity-0 group-hover:opacity-60 transition-all duration-700 ${
           isHovered ? "animate-pulse" : ""
         }`} />
 
         {/* Main Card */}
         <div 
-          className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] group-hover:border-[#dc2626]/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-[#dc2626]/30"
+          className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] group-hover:border-[#2563eb]/50 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-[#2563eb]/30"
           style={{
             transform: isHovered 
               ? `perspective(1000px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg) scale(1.02)`
@@ -94,14 +94,14 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           }}
         >
           {/* Animated background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#dc2626]/10 via-transparent to-[#dc2626]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/10 via-transparent to-[#2563eb]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           {/* Animated mesh pattern */}
           <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
             <div className="absolute inset-0" style={{
               backgroundImage: `
-                linear-gradient(to right, #dc2626 1px, transparent 1px),
-                linear-gradient(to bottom, #dc2626 1px, transparent 1px)
+                linear-gradient(to right, #2563eb 1px, transparent 1px),
+                linear-gradient(to bottom, #2563eb 1px, transparent 1px)
               `,
               backgroundSize: "20px 20px"
             }} />
@@ -110,9 +110,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           {/* Floating particles effect */}
           {isHovered && (
             <>
-              <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#dc2626] rounded-full animate-float opacity-60" style={{ animationDelay: "0s" }} />
-              <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-[#ef4444] rounded-full animate-float opacity-60" style={{ animationDelay: "0.5s" }} />
-              <div className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-[#dc2626] rounded-full animate-float opacity-60" style={{ animationDelay: "1s" }} />
+              <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#2563eb] rounded-full animate-float opacity-60" style={{ animationDelay: "0s" }} />
+              <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-float opacity-60" style={{ animationDelay: "0.5s" }} />
+              <div className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-[#2563eb] rounded-full animate-float opacity-60" style={{ animationDelay: "1s" }} />
             </>
           )}
 
@@ -156,7 +156,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             </div>
 
             {/* Featured badge */}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#dc2626]/20 text-[#dc2626] border border-[#dc2626]/30 backdrop-blur-md group-hover:bg-[#dc2626]/30 transition-all duration-300">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#2563eb]/20 text-[#2563eb] border border-[#2563eb]/30 backdrop-blur-md group-hover:bg-[#2563eb]/30 transition-all duration-300">
               <Sparkles className="w-3.5 h-3.5" />
               Featured
             </div>
@@ -184,9 +184,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             </div>
 
             {/* Game title */}
-            <h3 className="text-2xl md:text-3xl font-black text-white mb-2 text-center transition-all duration-300 group-hover:text-[#dc2626] uppercase tracking-tight"
+            <h3 className="text-2xl md:text-3xl font-black text-white mb-2 text-center transition-all duration-300 group-hover:text-[#2563eb] uppercase tracking-tight"
               style={{
-                textShadow: "0 0 20px rgba(220,38,38,0.3), 2px 2px 8px rgba(0,0,0,0.8)"
+                textShadow: "0 0 20px rgba(37,99,235,0.3), 2px 2px 8px rgba(0,0,0,0.8)"
               }}
             >
               {product.game}
@@ -201,7 +201,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             {lowestPrice > 0 && (
               <div className="flex items-center justify-center gap-2 mb-4">
                 <span className="text-white/50 text-sm">Starting at</span>
-                <span className="text-[#dc2626] text-xl font-bold">
+                <span className="text-[#2563eb] text-xl font-bold">
                   {formatMoney({ amountUsd: lowestPrice, currency, locale })}
                 </span>
               </div>
@@ -209,8 +209,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
             {/* CTA Button */}
             <div className="relative overflow-hidden rounded-xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] to-[#ef4444] opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#ef4444] to-[#dc2626] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#3b82f6] to-[#2563eb] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               <button className="relative w-full py-3.5 text-white font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 group-hover:gap-3">
                 <Zap className="w-5 h-5 group-hover:animate-pulse" />
@@ -231,13 +231,13 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </div>
 
           {/* Corner accents */}
-          <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-[#dc2626]/50 rounded-tl-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
-          <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-[#dc2626]/50 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" style={{ transitionDelay: "100ms" }} />
-          <div className="absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-[#dc2626]/50 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" style={{ transitionDelay: "200ms" }} />
-          <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-[#dc2626]/50 rounded-br-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" style={{ transitionDelay: "300ms" }} />
+          <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-[#2563eb]/50 rounded-tl-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+          <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-[#2563eb]/50 rounded-tr-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" style={{ transitionDelay: "100ms" }} />
+          <div className="absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-[#2563eb]/50 rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" style={{ transitionDelay: "200ms" }} />
+          <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-[#2563eb]/50 rounded-br-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" style={{ transitionDelay: "300ms" }} />
 
           {/* Bottom accent line */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#dc2626] to-transparent transition-all duration-500 group-hover:h-1.5 group-hover:shadow-[0_0_15px_rgba(220,38,38,0.8)]" />
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#2563eb] to-transparent transition-all duration-500 group-hover:h-1.5 group-hover:shadow-[0_0_15px_rgba(37,99,235,0.8)]" />
         </div>
       </Link>
     </div>

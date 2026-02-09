@@ -29,7 +29,7 @@ export function MobileAuth() {
       <LogIn className="w-4 h-4" />
       <span>Sign In</span>
     </Link>
-    <Link href="/account" className="bg-gradient-to-r from-[#dc2626] to-[#ef4444]">
+    <Link href="/account" className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6]">
       <UserPlus className="w-4 h-4" />
       <span>Sign Up</span>
     </Link>

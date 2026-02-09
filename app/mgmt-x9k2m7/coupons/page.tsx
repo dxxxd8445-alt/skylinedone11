@@ -200,7 +200,7 @@ export default function CouponsPage() {
           </div>
           <Button
             onClick={() => setShowCreateModal(true)}
-            className="bg-red-600 hover:bg-red-700 text-white"
+            className="bg-blue-600 hover:bg-blue-700 text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
             Create Coupon
@@ -217,7 +217,7 @@ export default function CouponsPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#dc2626] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (
@@ -249,7 +249,7 @@ export default function CouponsPage() {
                           <Badge className={
                             coupon.status === "active"
                               ? "bg-emerald-500/20 text-emerald-400 border-0"
-                              : "bg-red-500/20 text-red-400 border-0"
+                              : "bg-blue-500/20 text-blue-400 border-0"
                           }>
                             {coupon.status}
                           </Badge>
@@ -271,7 +271,7 @@ export default function CouponsPage() {
                               size="sm"
                               variant="ghost"
                               onClick={() => handleDeleteCoupon(coupon.id)}
-                              className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
@@ -402,7 +402,7 @@ export default function CouponsPage() {
             </Button>
             <Button
               onClick={handleCreateCoupon}
-              className="bg-red-600 hover:bg-red-700 text-white"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
             >
               Create Coupon
             </Button>

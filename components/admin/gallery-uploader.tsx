@@ -70,7 +70,7 @@ export function GalleryUploader({
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               placeholder="Paste image URL (e.g., https://i.imgur.com/image.jpg)"
-              className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#dc2626]/50 pl-10"
+              className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 pl-10"
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
@@ -84,14 +84,14 @@ export function GalleryUploader({
             type="button"
             onClick={handleAddUrl}
             disabled={!urlInput.trim() || images.length >= maxImages}
-            className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             <Plus className="w-4 h-4" />
           </Button>
         </div>
 
         {error && (
-          <p className="text-sm text-red-400 flex items-center gap-2">
+          <p className="text-sm text-blue-400 flex items-center gap-2">
             <X className="w-4 h-4" />
             {error}
           </p>
@@ -107,7 +107,7 @@ export function GalleryUploader({
         <div className="grid grid-cols-3 gap-3">
           {images.map((url, idx) => (
             <div key={idx} className="relative group">
-              <div className="relative aspect-video bg-[#0a0a0a] border-2 border-[#262626] rounded-lg overflow-hidden hover:border-[#dc2626]/50 transition-colors">
+              <div className="relative aspect-video bg-[#0a0a0a] border-2 border-[#262626] rounded-lg overflow-hidden hover:border-[#2563eb]/50 transition-colors">
                 <img
                   src={url}
                   alt={`Gallery ${idx + 1}`}
@@ -123,7 +123,7 @@ export function GalleryUploader({
                 <button
                   type="button"
                   onClick={() => handleRemove(idx)}
-                  className="absolute top-2 right-2 p-1.5 bg-red-500/90 hover:bg-red-500 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute top-2 right-2 p-1.5 bg-blue-500/90 hover:bg-blue-500 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <X className="w-4 h-4" />
                 </button>

@@ -68,7 +68,7 @@ export function GlobeViewer({ visitors }: { visitors: Visitor[] }) {
       ctx.fill();
 
       // Draw globe border
-      ctx.strokeStyle = '#dc2626';
+      ctx.strokeStyle = '#2563eb';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(0, 0, radius, 0, Math.PI * 2);
@@ -119,7 +119,7 @@ export function GlobeViewer({ visitors }: { visitors: Visitor[] }) {
         ctx.fillRect(x - 15, y - 15, 30, 30);
 
         // Draw marker dot
-        ctx.fillStyle = visitor.is_active ? '#22c55e' : '#ef4444';
+        ctx.fillStyle = visitor.is_active ? '#22c55e' : '#3b82f6';
         ctx.beginPath();
         ctx.arc(x, y, 5, 0, Math.PI * 2);
         ctx.fill();

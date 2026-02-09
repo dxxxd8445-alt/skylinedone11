@@ -99,7 +99,7 @@ async function testPasswordResetSystem() {
     const response = await fetch(`${BASE_URL}/api/store-auth/request-reset`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: 'test@magmacheats.com' })
+      body: JSON.stringify({ email: 'test@skylinecheats.org' })
     });
     
     console.log(`✅ Password Reset API: ${response.status} ${response.statusText}`);

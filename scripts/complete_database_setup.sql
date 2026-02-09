@@ -239,9 +239,9 @@ CREATE INDEX IF NOT EXISTS idx_categories_slug ON categories(slug);
 -- INSERT DEFAULT SETTINGS
 -- ============================================================================
 INSERT INTO settings (key, value) VALUES
-('site_name', 'Magma Cheats'),
+('site_name', 'Skyline Cheats'),
 ('site_description', 'Premium gaming enhancements'),
-('support_email', 'support@magmacheats.com'),
+('support_email', 'support@skylinecheats.org'),
 ('maintenance_mode', 'false')
 ON CONFLICT (key) DO NOTHING;
 

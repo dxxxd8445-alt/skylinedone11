@@ -267,8 +267,8 @@ export default function AdminDashboard() {
       <AdminShell title="Dashboard" subtitle="Welcome back, Admin">
         <div className="flex flex-col items-center justify-center h-64 gap-6">
           <div className="relative">
-            <div className="w-16 h-16 rounded-full border-4 border-[#dc2626]/20 border-t-[#dc2626] animate-spin" />
-            <div className="absolute inset-2 w-12 h-12 rounded-full bg-gradient-to-r from-[#dc2626] to-[#ef4444] blur-xl animate-pulse" />
+            <div className="w-16 h-16 rounded-full border-4 border-[#2563eb]/20 border-t-[#2563eb] animate-spin" />
+            <div className="absolute inset-2 w-12 h-12 rounded-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] blur-xl animate-pulse" />
           </div>
           <div className="text-center">
             <p className="text-white font-semibold text-lg mb-1">Loading Dashboard</p>
@@ -311,7 +311,7 @@ export default function AdminDashboard() {
                     }}
                     className={cn(
                       "w-full px-3 py-2 text-left text-sm transition-colors",
-                      dateRange === range.value ? "bg-[#dc2626]/20 text-[#dc2626]" : "text-white/80 hover:bg-white/5"
+                      dateRange === range.value ? "bg-[#2563eb]/20 text-[#2563eb]" : "text-white/80 hover:bg-white/5"
                     )}
                   >
                     {range.label}
@@ -324,7 +324,7 @@ export default function AdminDashboard() {
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="flex items-center gap-2 px-4 py-2 bg-[#dc2626] hover:bg-[#b91c1c] border border-[#dc2626] rounded-lg text-white transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 bg-[#2563eb] hover:bg-[#b91c1c] border border-[#2563eb] rounded-lg text-white transition-colors disabled:opacity-50"
           >
             <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
             <span className="text-sm">Refresh</span>
@@ -361,7 +361,7 @@ export default function AdminDashboard() {
               {stats.growthRate !== 0 && (
                 <div className={cn(
                   "flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold",
-                  stats.growthRate > 0 ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"
+                  stats.growthRate > 0 ? "bg-emerald-500/10 text-emerald-400" : "bg-blue-500/10 text-blue-400"
                 )}>
                   <TrendingUp className={cn("w-3 h-3", stats.growthRate < 0 && "rotate-180")} />
                   {Math.abs(stats.growthRate)}%
@@ -412,11 +412,11 @@ export default function AdminDashboard() {
 
         {/* New Customers */}
         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-[#dc2626]/10 rounded-full blur-xl" />
+          <div className="absolute top-0 right-0 w-20 h-20 bg-[#2563eb]/10 rounded-full blur-xl" />
           <div className="relative">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-lg bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center">
-                <Users className="w-6 h-6 text-[#dc2626]" />
+              <div className="w-12 h-12 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
+                <Users className="w-6 h-6 text-[#2563eb]" />
               </div>
             </div>
             <div>
@@ -441,7 +441,7 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center gap-4 text-xs">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#dc2626]" />
+                <div className="w-3 h-3 rounded-full bg-[#2563eb]" />
                 <span className="text-white/60">Revenue</span>
               </div>
               <div className="flex items-center gap-2">
@@ -468,7 +468,7 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-semibold text-white">Recent Activity</h3>
               <p className="text-sm text-white/50">Latest transactions</p>
             </div>
-            <Activity className="w-5 h-5 text-[#dc2626]" />
+            <Activity className="w-5 h-5 text-[#2563eb]" />
           </div>
 
           <div className="space-y-4">
@@ -505,18 +505,18 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-semibold text-white">Top 5 Customers</h3>
               <p className="text-sm text-white/50">Highest spending customers</p>
             </div>
-            <Target className="w-5 h-5 text-[#dc2626]" />
+            <Target className="w-5 h-5 text-[#2563eb]" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {topCustomers.map((customer: any, index) => (
               <div key={customer.email} className="p-4 rounded-lg bg-[#0a0a0a]/50 border border-[#262626]/50">
                 <div className="text-center">
-                  <div className="w-10 h-10 rounded-full bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center mx-auto mb-2">
-                    <span className="text-[#dc2626] font-semibold text-sm">#{index + 1}</span>
+                  <div className="w-10 h-10 rounded-full bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center mx-auto mb-2">
+                    <span className="text-[#2563eb] font-semibold text-sm">#{index + 1}</span>
                   </div>
                   <p className="text-white text-sm font-medium truncate">{customer.email}</p>
-                  <p className="text-[#dc2626] text-lg font-bold">${customer.spent.toFixed(2)}</p>
+                  <p className="text-[#2563eb] text-lg font-bold">${customer.spent.toFixed(2)}</p>
                   <p className="text-white/40 text-xs">{customer.orders} orders</p>
                 </div>
               </div>

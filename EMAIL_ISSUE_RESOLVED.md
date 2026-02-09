@@ -13,12 +13,12 @@ Changed from unverified domain to Resend's verified default domain:
 
 **Before:**
 ```env
-RESEND_FROM_EMAIL=Magma <noreply@magmacheats.com>  # ❌ Unverified domain
+RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>  # ❌ Unverified domain
 ```
 
 **After:**
 ```env
-RESEND_FROM_EMAIL=Magma <onboarding@resend.dev>    # ✅ Verified domain
+RESEND_FROM_EMAIL=Skyline <onboarding@resend.dev>    # ✅ Verified domain
 ```
 
 ### 2. **Improved Error Handling**
@@ -53,7 +53,7 @@ The system now provides clear feedback:
 1. **Login to Admin Panel**
    ```
    http://localhost:3000/mgmt-x9k2m7/login
-   Email: admin@magma.local
+   Email: admin@skyline.local
    Password: admin123
    ```
 
@@ -89,12 +89,12 @@ If you want to use your own domain for emails:
 
 1. **Verify Domain with Resend**
    - Go to [Resend Dashboard](https://resend.com/domains)
-   - Add `magmacheats.com`
+   - Add `skylinecheats.org`
    - Complete DNS verification
 
 2. **Update Configuration**
    ```env
-   RESEND_FROM_EMAIL=Magma <noreply@magmacheats.com>
+   RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>
    ```
 
 But the current setup works perfectly for all functionality!

@@ -88,11 +88,11 @@ export function AnnouncementBanner() {
   const getTypeConfig = (type: string) => {
     const configs = {
       info: {
-        bg: "bg-gradient-to-r from-[#dc2626] to-[#ef4444]",
-        border: "border-red-500/30",
+        bg: "bg-gradient-to-r from-[#2563eb] to-[#3b82f6]",
+        border: "border-blue-500/30",
         icon: Info,
-        iconBg: "bg-red-500/20",
-        shadow: "shadow-red-500/20",
+        iconBg: "bg-blue-500/20",
+        shadow: "shadow-blue-500/20",
       },
       warning: {
         bg: "bg-gradient-to-r from-amber-600 to-amber-700",
@@ -109,11 +109,11 @@ export function AnnouncementBanner() {
         shadow: "shadow-emerald-500/20",
       },
       error: {
-        bg: "bg-gradient-to-r from-red-600 to-red-700",
-        border: "border-red-500/30",
+        bg: "bg-gradient-to-r from-blue-600 to-blue-700",
+        border: "border-blue-500/30",
         icon: XCircle,
-        iconBg: "bg-red-500/20",
-        shadow: "shadow-red-500/20",
+        iconBg: "bg-blue-500/20",
+        shadow: "shadow-blue-500/20",
       },
     };
     return configs[type as keyof typeof configs] || configs.info;

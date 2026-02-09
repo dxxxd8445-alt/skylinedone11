@@ -1,5 +1,5 @@
 # ============================================
-# MAGMA STORE - NEW SUPABASE CONFIGURATION
+# Skyline Store - NEW SUPABASE CONFIGURATION
 # Copy this to your .env.local file and fill in your values
 # ============================================
 
@@ -9,7 +9,7 @@ MONEYMOTION_WEBHOOK_SECRET=201390195d17ee7f46c1dbb0b35e94de08582fa2b54662f295fd4
 
 # Resend Email Configuration
 RESEND_API_KEY=re_Rx5NegU6_9a5aHZXFUUJakWFYT8kMM2Cy
-RESEND_FROM_EMAIL=Magma <noreply@yourdomain.com>
+RESEND_FROM_EMAIL=Skyline <noreply@yourdomain.com>
 
 # Application Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -23,7 +23,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_public_key_here
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_secret_key_here
 
 # Discord Configuration
-NEXT_PUBLIC_DISCORD_URL=https://discord.gg/magmacheats
+NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylineeggs
 
 # ============================================
 # INSTRUCTIONS:

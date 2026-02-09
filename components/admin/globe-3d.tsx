@@ -108,12 +108,27 @@ export default function Globe3D({ visitors }: Globe3DProps) {
     const pointColors: number[] = [];
 
     visitors.forEach((location) => {
+      // Validate coordinates
+      if (
+        typeof location.latitude !== 'number' || 
+        typeof location.longitude !== 'number' ||
+        isNaN(location.latitude) || 
+        isNaN(location.longitude)
+      ) {
+        return; // Skip invalid coordinates
+      }
+
       const lat = (location.latitude * Math.PI) / 180;
       const lon = (location.longitude * Math.PI) / 180;
 
       const x = Math.cos(lat) * Math.cos(lon);
       const y = Math.sin(lat);
       const z = Math.cos(lat) * Math.sin(lon);
+
+      // Validate calculated positions
+      if (isNaN(x) || isNaN(y) || isNaN(z)) {
+        return; // Skip if calculations resulted in NaN
+      }
 
       pointPositions.push(x * 1.01, y * 1.01, z * 1.01);
 

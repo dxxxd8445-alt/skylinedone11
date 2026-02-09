@@ -14,7 +14,7 @@ Your email system is now configured to work with Resend, but with some limitatio
 
 ```env
 RESEND_API_KEY=re_Rx5NegU6_9a5aHZXFUUJakWFYT8kMM2Cy
-RESEND_FROM_EMAIL=Magma <onboarding@resend.dev>
+RESEND_FROM_EMAIL=Skyline <onboarding@resend.dev>
 ```
 
 ## 🚀 How It Works Now
@@ -51,19 +51,19 @@ To get full email functionality with your own domain:
 
 ### Option 1: Verify Your Domain with Resend
 1. Go to [Resend Dashboard](https://resend.com/domains)
-2. Add your domain `magmacheats.com`
+2. Add your domain `skylinecheats.org`
 3. Follow DNS verification steps
 4. Update `.env.local`:
    ```env
-   RESEND_FROM_EMAIL=Magma <noreply@magmacheats.com>
+   RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>
    ```
 
 ### Option 2: Use a Subdomain
-1. Create a subdomain like `mail.magmacheats.com`
+1. Create a subdomain like `mail.skylinecheats.org`
 2. Verify it with Resend
 3. Update configuration:
    ```env
-   RESEND_FROM_EMAIL=Magma <noreply@mail.magmacheats.com>
+   RESEND_FROM_EMAIL=Skyline <noreply@mail.skylinecheats.org>
    ```
 
 ### Option 3: Keep Current Setup

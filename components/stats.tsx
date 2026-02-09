@@ -19,14 +19,14 @@ function StatCard({ icon: Icon, value, label, suffix = "", index }: StatCardProp
   return (
     <div
       ref={ref}
-      className="group bg-[#111111] border border-[#262626] rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-500 hover:border-[#dc2626]/50 hover:bg-[#111111]/80 hover:shadow-lg hover:shadow-[#dc2626]/10 hover:-translate-y-1"
+      className="group bg-[#111111] border border-[#262626] rounded-xl p-6 flex flex-col items-center justify-center text-center transition-all duration-500 hover:border-[#2563eb]/50 hover:bg-[#111111]/80 hover:shadow-lg hover:shadow-[#2563eb]/10 hover:-translate-y-1"
       style={{ animationDelay: `${index * 100}ms` }}
     >
       <div className="relative mb-4">
-        <Icon className="w-10 h-10 text-[#dc2626] transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(220,38,38,0.5)]" />
-        <div className="absolute inset-0 bg-[#dc2626]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <Icon className="w-10 h-10 text-[#2563eb] transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(37,99,235,0.5)]" />
+        <div className="absolute inset-0 bg-[#2563eb]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
-      <span className="text-4xl md:text-5xl font-bold text-white mb-2 tabular-nums transition-all duration-300 group-hover:text-[#dc2626]">
+      <span className="text-4xl md:text-5xl font-bold text-white mb-2 tabular-nums transition-all duration-300 group-hover:text-[#2563eb]">
         {count.toLocaleString()}{suffix}
       </span>
       <span className="text-white/50 text-sm tracking-wider transition-colors duration-300 group-hover:text-white/70">
@@ -96,9 +96,9 @@ export function Stats() {
             Track game-changing
             <br />
             stats that{" "}
-            <span className="text-[#dc2626] relative inline-block">
+            <span className="text-[#2563eb] relative inline-block">
               drive performance
-              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#dc2626] to-transparent rounded-full" />
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#2563eb] to-transparent rounded-full" />
             </span>
           </h2>
           <p className="text-white/60 max-w-md text-base leading-relaxed">

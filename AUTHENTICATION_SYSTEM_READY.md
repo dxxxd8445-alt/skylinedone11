@@ -53,7 +53,7 @@ Now you need to test the actual website forms:
 ### 2. Test Admin System
 1. Go to `http://localhost:3000/mgmt-x9k2m7/login`
 2. Sign in with admin credentials:
-   - Email: `admin@magma.local`
+   - Email: `admin@skyline.local`
    - Password: `admin123`
 3. Verify you can access the admin dashboard
 4. Check the **Logs** tab to see authentication events

@@ -114,7 +114,7 @@ async function testCompleteOrderTrackingSystem() {
         event: 'checkout.started',
         title: '🛒 Checkout Started Test',
         data: {
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           session_id: 'cs_test_' + Date.now(),
           items: [
             { name: 'Arc Raiders - 1 Week', quantity: 1, price: 27.99 }
@@ -130,7 +130,7 @@ async function testCompleteOrderTrackingSystem() {
         title: '⏳ Pending Order Test',
         data: {
           order_number: 'TEST-PENDING-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           amount: 27.99,
           currency: 'USD',
           payment_method: 'stripe',
@@ -144,7 +144,7 @@ async function testCompleteOrderTrackingSystem() {
         title: '🎉 Completed Order Test',
         data: {
           order_number: 'TEST-COMPLETED-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -158,7 +158,7 @@ async function testCompleteOrderTrackingSystem() {
         title: '❌ Failed Payment Test',
         data: {
           order_number: 'TEST-FAILED-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -170,7 +170,7 @@ async function testCompleteOrderTrackingSystem() {
         title: '💸 Refunded Order Test',
         data: {
           order_number: 'TEST-REFUNDED-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -214,7 +214,7 @@ async function testCompleteOrderTrackingSystem() {
 
         const payload = {
           embeds: [embed],
-          username: 'Magma Cheats',
+          username: 'Skyline Cheats',
           content: `🧪 **TEST NOTIFICATION** - ${scenario.event.toUpperCase()}`,
         };
 

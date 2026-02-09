@@ -6,7 +6,7 @@
 import { Resend } from "resend";
 
 const apiKey = process.env.RESEND_API_KEY;
-const fromEmail = process.env.RESEND_FROM_EMAIL || "Magma <onboarding@resend.dev>";
+const fromEmail = process.env.RESEND_FROM_EMAIL || "Skyline <onboarding@resend.dev>";
 
 let resend: Resend | null = null;
 

@@ -18,7 +18,7 @@ Both issues have been fixed and verified. The code is ready for testing.
   <Button
     size="sm"
     onClick={handleLogout}
-    className="bg-red-600 hover:bg-red-700 text-white"
+    className="bg-blue-600 hover:bg-blue-700 text-white"
   >
     <Power className="h-4 w-4 mr-1" />
     Logout
@@ -31,7 +31,7 @@ Both issues have been fixed and verified. The code is ready for testing.
 <Button
   size="sm"
   onClick={handleLogout}
-  className="bg-red-600 hover:bg-red-700 text-white"
+  className="bg-blue-600 hover:bg-blue-700 text-white"
 >
   <Power className="h-4 w-4 mr-1" />
   Logout

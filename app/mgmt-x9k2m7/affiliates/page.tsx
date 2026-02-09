@@ -205,7 +205,7 @@ export default function AffiliatesPage() {
           <Button
             onClick={loadAffiliates}
             disabled={loading}
-            className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -221,8 +221,8 @@ export default function AffiliatesPage() {
                   <p className="text-white/60 text-sm">Total Affiliates</p>
                   <p className="text-2xl font-bold text-white">{totalStats.totalAffiliates}</p>
                 </div>
-                <div className="p-3 rounded-xl bg-[#dc2626]/10">
-                  <Users className="w-6 h-6 text-[#dc2626]" />
+                <div className="p-3 rounded-xl bg-[#2563eb]/10">
+                  <Users className="w-6 h-6 text-[#2563eb]" />
                 </div>
               </div>
             </CardContent>
@@ -296,7 +296,7 @@ export default function AffiliatesPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#dc2626] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (
@@ -351,7 +351,7 @@ export default function AffiliatesPage() {
                         <TableCell>
                           <Badge className={
                             affiliate.status === 'active' ? "bg-green-500/20 text-green-400 border-0" :
-                            affiliate.status === 'suspended' ? "bg-red-500/20 text-red-400 border-0" :
+                            affiliate.status === 'suspended' ? "bg-blue-500/20 text-blue-400 border-0" :
                             "bg-yellow-500/20 text-yellow-400 border-0"
                           }>
                             {affiliate.status}
@@ -421,8 +421,8 @@ export default function AffiliatesPage() {
                     {filteredAffiliates.length === 0 && !loading && (
                       <TableRow>
                         <TableCell colSpan={8} className="py-16 text-center">
-                          <div className="w-16 h-16 rounded-full bg-[#dc2626]/10 flex items-center justify-center mx-auto mb-4">
-                            <Users className="w-8 h-8 text-[#dc2626]" />
+                          <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
+                            <Users className="w-8 h-8 text-[#2563eb]" />
                           </div>
                           <p className="text-white/60">No affiliates found</p>
                         </TableCell>
@@ -443,7 +443,7 @@ export default function AffiliatesPage() {
             <>
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-white flex items-center gap-3">
-                  <Users className="w-6 h-6 text-[#dc2626]" />
+                  <Users className="w-6 h-6 text-[#2563eb]" />
                   Affiliate Details - {selectedAffiliate.store_users?.username || 'Unknown'}
                 </DialogTitle>
               </DialogHeader>
@@ -466,7 +466,7 @@ export default function AffiliatesPage() {
                       </div>
                       <div>
                         <Label className="text-white/60">Affiliate Code</Label>
-                        <code className="font-mono text-sm bg-[#1a1a1a] px-2 py-1 rounded text-[#dc2626]">
+                        <code className="font-mono text-sm bg-[#1a1a1a] px-2 py-1 rounded text-[#2563eb]">
                           {selectedAffiliate.affiliate_code}
                         </code>
                       </div>
@@ -474,7 +474,7 @@ export default function AffiliatesPage() {
                         <Label className="text-white/60">Status</Label>
                         <Badge className={
                           selectedAffiliate.status === 'active' ? "bg-green-500/20 text-green-400 border-0" :
-                          selectedAffiliate.status === 'suspended' ? "bg-red-500/20 text-red-400 border-0" :
+                          selectedAffiliate.status === 'suspended' ? "bg-blue-500/20 text-blue-400 border-0" :
                           "bg-yellow-500/20 text-yellow-400 border-0"
                         }>
                           {selectedAffiliate.status}
@@ -584,7 +584,7 @@ export default function AffiliatesPage() {
                   <CardContent>
                     {detailsLoading ? (
                       <div className="py-8 flex justify-center">
-                        <div className="w-8 h-8 border-4 border-[#1a1a1a] border-t-[#dc2626] rounded-full animate-spin" />
+                        <div className="w-8 h-8 border-4 border-[#1a1a1a] border-t-[#2563eb] rounded-full animate-spin" />
                       </div>
                     ) : affiliateReferrals.length > 0 ? (
                       <div className="overflow-x-auto">
@@ -639,7 +639,7 @@ export default function AffiliatesPage() {
             <>
               <DialogHeader>
                 <DialogTitle className="text-xl font-bold text-white flex items-center gap-3">
-                  <Edit className="w-5 h-5 text-[#dc2626]" />
+                  <Edit className="w-5 h-5 text-[#2563eb]" />
                   Edit Affiliate
                 </DialogTitle>
               </DialogHeader>
@@ -763,7 +763,7 @@ export default function AffiliatesPage() {
                 <div className="flex gap-3 pt-4">
                   <Button
                     onClick={saveAffiliateChanges}
-                    className="flex-1 bg-[#dc2626] hover:bg-[#ef4444] text-white"
+                    className="flex-1 bg-[#2563eb] hover:bg-[#3b82f6] text-white"
                   >
                     Save Changes
                   </Button>

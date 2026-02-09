@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       .from('affiliates')
       .select(`
         id,
-        user_id,
+        store_user_id,
         affiliate_code,
         commission_rate,
         total_earnings,
@@ -41,14 +41,14 @@ export async function GET(request: NextRequest) {
     // For each affiliate, fetch the store_user data
     const affiliatesWithUsers = await Promise.all(
       (affiliates || []).map(async (affiliate) => {
-        console.log(`Processing affiliate ${affiliate.id} with user_id: ${affiliate.user_id}`);
+        console.log(`Processing affiliate ${affiliate.id} with store_user_id: ${affiliate.store_user_id}`);
         
-        if (affiliate.user_id) {
+        if (affiliate.store_user_id) {
           try {
             const { data: userData, error: userError } = await supabase
               .from('store_users')
               .select('id, username, email')
-              .eq('id', affiliate.user_id)
+              .eq('id', affiliate.store_user_id)
               .single();
             
             if (userError) {

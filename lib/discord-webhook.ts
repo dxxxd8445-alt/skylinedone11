@@ -64,60 +64,65 @@ export function createCheckoutStartedEmbed(checkoutData: {
 }): DiscordEmbed {
   const fields = [
     {
-      name: '👤 Customer',
-      value: checkoutData.customer_name || checkoutData.customer_email,
+      name: '👤 Customer Name',
+      value: `\`${checkoutData.customer_name || 'Guest'}\``,
       inline: true,
     },
     {
-      name: '📧 Email',
-      value: checkoutData.customer_email,
+      name: '📧 Email Address',
+      value: `\`${checkoutData.customer_email}\``,
       inline: true,
     },
     {
-      name: '💰 Total',
-      value: `$${checkoutData.total.toFixed(2)} ${checkoutData.currency}`,
+      name: '💰 Total Amount',
+      value: `**$${checkoutData.total.toFixed(2)} ${checkoutData.currency.toUpperCase()}**`,
       inline: true,
-    },
-    {
-      name: '🔢 Session ID',
-      value: checkoutData.session_id.substring(0, 20) + '...',
-      inline: false,
     },
   ];
 
   if (checkoutData.items && checkoutData.items.length > 0) {
     const itemsText = checkoutData.items
-      .map(item => `• ${item.name} (x${item.quantity}) - $${item.price.toFixed(2)}`)
-      .join('\n');
+      .map(item => `🎮 **${item.name}**\n   └ Qty: ${item.quantity} × $${item.price.toFixed(2)} = $${(item.quantity * item.price).toFixed(2)}`)
+      .join('\n\n');
     
     fields.push({
-      name: '🛒 Items',
+      name: '🛒 Cart Items',
       value: itemsText.length > 1024 ? itemsText.substring(0, 1021) + '...' : itemsText,
       inline: false,
     });
   }
 
-  if (checkoutData.discount && checkoutData.discount > 0) {
+  if (checkoutData.subtotal) {
     fields.push({
-      name: '🎫 Discount',
-      value: `-$${checkoutData.discount.toFixed(2)}`,
+      name: '📊 Subtotal',
+      value: `$${checkoutData.subtotal.toFixed(2)}`,
       inline: true,
     });
   }
 
+  if (checkoutData.discount && checkoutData.discount > 0) {
+    fields.push({
+      name: '🎟️ Discount Applied',
+      value: `**-$${checkoutData.discount.toFixed(2)}**`,
+      inline: true,
+    });
+  }
+
+  fields.push({
+    name: '🔑 Session ID',
+    value: `\`${checkoutData.session_id.substring(0, 30)}...\``,
+    inline: false,
+  });
+
   return {
-    title: '🛒 Customer Started Checkout',
-    description: `A customer has initiated the checkout process.`,
-    color: 0xffa500, // Orange color
+    title: '🛒 New Checkout Started!',
+    description: `🎯 A customer has initiated checkout and is reviewing their order.`,
+    color: 0x3b82f6, // Skyline Blue
     fields,
     footer: {
-      text: 'Magma Cheats • Checkout System',
-      icon_url: 'https://your-domain.com/icon.png',
+      text: 'Skyline Cheats • Checkout System',
     },
     timestamp: new Date().toISOString(),
-    thumbnail: {
-      url: 'https://your-domain.com/magma-logo.png',
-    },
   };
 }
 
@@ -135,52 +140,54 @@ export function createNewOrderEmbed(orderData: {
 }): DiscordEmbed {
   const fields = [
     {
-      name: '💰 Amount',
-      value: `$${orderData.amount.toFixed(2)} ${orderData.currency}`,
+      name: '🎉 Order Number',
+      value: `\`${orderData.order_number}\``,
+      inline: false,
+    },
+    {
+      name: '💵 Payment Amount',
+      value: `**$${orderData.amount.toFixed(2)} ${orderData.currency.toUpperCase()}**`,
       inline: true,
     },
     {
       name: '👤 Customer',
-      value: orderData.customer_name || 'Unknown',
+      value: `\`${orderData.customer_name || 'Guest'}\``,
       inline: true,
     },
     {
       name: '📧 Email',
-      value: orderData.customer_email,
+      value: `\`${orderData.customer_email}\``,
       inline: true,
-    },
-    {
-      name: '🔢 Order ID',
-      value: orderData.order_number,
-      inline: false,
     },
   ];
 
   if (orderData.items && orderData.items.length > 0) {
     const itemsText = orderData.items
-      .map(item => `• ${item.name} (x${item.quantity}) - $${item.price.toFixed(2)}`)
-      .join('\n');
+      .map(item => `✅ **${item.name}**\n   └ Qty: ${item.quantity} × $${item.price.toFixed(2)} = $${(item.quantity * item.price).toFixed(2)}`)
+      .join('\n\n');
     
     fields.push({
-      name: '🛒 Items',
+      name: '📦 Purchased Items',
       value: itemsText.length > 1024 ? itemsText.substring(0, 1021) + '...' : itemsText,
       inline: false,
     });
   }
 
+  fields.push({
+    name: '✨ Status',
+    value: '**COMPLETED** - Payment processed successfully!',
+    inline: false,
+  });
+
   return {
-    title: '🎉 New Order Completed!',
-    description: `A new order has been successfully processed and completed.`,
-    color: 0x00ff00, // Green color
+    title: '✅ Order Completed Successfully!',
+    description: `🎊 **Ka-ching!** A new order has been successfully processed and payment confirmed.`,
+    color: 0x10b981, // Green for success
     fields,
     footer: {
-      text: 'Magma Cheats • Order System',
-      icon_url: 'https://your-domain.com/icon.png',
+      text: 'Skyline Cheats • Order System',
     },
     timestamp: new Date().toISOString(),
-    thumbnail: {
-      url: 'https://your-domain.com/magma-logo.png',
-    },
   };
 }
 
@@ -199,52 +206,59 @@ export function createPendingOrderEmbed(orderData: {
 }): DiscordEmbed {
   const fields = [
     {
-      name: '💰 Amount',
-      value: `$${orderData.amount.toFixed(2)} ${orderData.currency}`,
+      name: '🔖 Order Number',
+      value: `\`${orderData.order_number}\``,
+      inline: false,
+    },
+    {
+      name: '💳 Payment Amount',
+      value: `**$${orderData.amount.toFixed(2)} ${orderData.currency.toUpperCase()}**`,
       inline: true,
     },
     {
       name: '👤 Customer',
-      value: orderData.customer_name || orderData.customer_email,
+      value: `\`${orderData.customer_name || orderData.customer_email}\``,
       inline: true,
     },
     {
-      name: '💳 Payment',
-      value: orderData.payment_method || 'Stripe',
+      name: '💰 Payment Method',
+      value: `${orderData.payment_method || 'Stripe'}`,
       inline: true,
     },
     {
-      name: '🔢 Order ID',
-      value: orderData.order_number,
+      name: '📧 Email',
+      value: `\`${orderData.customer_email}\``,
       inline: false,
     },
   ];
 
   if (orderData.items && orderData.items.length > 0) {
     const itemsText = orderData.items
-      .map(item => `• ${item.name} (x${item.quantity}) - $${item.price.toFixed(2)}`)
-      .join('\n');
+      .map(item => `⏳ **${item.name}**\n   └ Qty: ${item.quantity} × $${item.price.toFixed(2)} = $${(item.quantity * item.price).toFixed(2)}`)
+      .join('\n\n');
     
     fields.push({
-      name: '🛒 Items',
+      name: '📦 Order Items',
       value: itemsText.length > 1024 ? itemsText.substring(0, 1021) + '...' : itemsText,
       inline: false,
     });
   }
 
+  fields.push({
+    name: '⏰ Status',
+    value: '**PENDING** - Awaiting payment confirmation...',
+    inline: false,
+  });
+
   return {
     title: '⏳ Order Pending Payment',
-    description: `A new order is awaiting payment confirmation.`,
-    color: 0xffff00, // Yellow color
+    description: `💳 A new order has been created and is awaiting payment confirmation from Stripe.`,
+    color: 0xf59e0b, // Orange/Amber for pending
     fields,
     footer: {
-      text: 'Magma Cheats • Order System',
-      icon_url: 'https://your-domain.com/icon.png',
+      text: 'Skyline Cheats • Order System',
     },
     timestamp: new Date().toISOString(),
-    thumbnail: {
-      url: 'https://your-domain.com/magma-logo.png',
-    },
   };
 }
 
@@ -261,62 +275,67 @@ export function createPaymentFailedEmbed(paymentData: {
 
   if (paymentData.order_number) {
     fields.push({
-      name: '🔢 Order ID',
-      value: paymentData.order_number,
+      name: '🔖 Order Number',
+      value: `\`${paymentData.order_number}\``,
       inline: false,
     });
   }
 
   if (paymentData.payment_intent_id) {
     fields.push({
-      name: '🔢 Payment Intent',
-      value: paymentData.payment_intent_id,
+      name: '🔑 Payment Intent ID',
+      value: `\`${paymentData.payment_intent_id}\``,
       inline: false,
-    });
-  }
-
-  if (paymentData.customer_email) {
-    fields.push({
-      name: '📧 Customer Email',
-      value: paymentData.customer_email,
-      inline: true,
     });
   }
 
   if (paymentData.customer_name) {
     fields.push({
       name: '👤 Customer Name',
-      value: paymentData.customer_name,
+      value: `\`${paymentData.customer_name}\``,
+      inline: true,
+    });
+  }
+
+  if (paymentData.customer_email) {
+    fields.push({
+      name: '📧 Customer Email',
+      value: `\`${paymentData.customer_email}\``,
       inline: true,
     });
   }
 
   if (paymentData.amount && paymentData.currency) {
     fields.push({
-      name: '💰 Amount',
-      value: `$${paymentData.amount.toFixed(2)} ${paymentData.currency}`,
+      name: '💸 Failed Amount',
+      value: `**$${paymentData.amount.toFixed(2)} ${paymentData.currency.toUpperCase()}**`,
       inline: true,
     });
   }
 
   if (paymentData.error_message) {
     fields.push({
-      name: '❌ Error',
-      value: paymentData.error_message.length > 1024 
-        ? paymentData.error_message.substring(0, 1021) + '...' 
-        : paymentData.error_message,
+      name: '⚠️ Error Details',
+      value: `\`\`\`${paymentData.error_message.length > 1000 
+        ? paymentData.error_message.substring(0, 997) + '...' 
+        : paymentData.error_message}\`\`\``,
       inline: false,
     });
   }
 
+  fields.push({
+    name: '❌ Status',
+    value: '**FAILED** - Payment could not be processed',
+    inline: false,
+  });
+
   return {
     title: '❌ Payment Failed',
-    description: 'A payment attempt has failed.',
-    color: 0xff0000, // Red color
+    description: `⚠️ A payment attempt has failed. Customer may retry or contact support.`,
+    color: 0xef4444, // Red for failed
     fields,
     footer: {
-      text: 'Magma Cheats • Payment System',
-      icon_url: 'https://your-domain.com/icon.png',
+      text: 'Skyline Cheats • Payment System',
     },
     timestamp: new Date().toISOString(),
   };
@@ -332,48 +351,58 @@ export function createRefundEmbed(refundData: {
 }): DiscordEmbed {
   const fields = [
     {
-      name: '💰 Refund Amount',
-      value: `$${refundData.amount.toFixed(2)} ${refundData.currency}`,
+      name: '🔖 Order Number',
+      value: `\`${refundData.order_number}\``,
+      inline: false,
+    },
+    {
+      name: '💸 Refund Amount',
+      value: `**$${refundData.amount.toFixed(2)} ${refundData.currency.toUpperCase()}**`,
       inline: true,
     },
     {
       name: '👤 Customer',
-      value: refundData.customer_name || refundData.customer_email,
+      value: `\`${refundData.customer_name || 'Guest'}\``,
       inline: true,
     },
     {
       name: '📧 Email',
-      value: refundData.customer_email,
+      value: `\`${refundData.customer_email}\``,
       inline: true,
-    },
-    {
-      name: '🔢 Order ID',
-      value: refundData.order_number,
-      inline: false,
     },
   ];
 
   if (refundData.reason) {
     fields.push({
-      name: '📝 Reason',
-      value: refundData.reason,
+      name: '📝 Refund Reason',
+      value: refundData.reason.length > 1024 
+        ? refundData.reason.substring(0, 1021) + '...' 
+        : refundData.reason,
+      inline: false,
+    });
+  } else {
+    fields.push({
+      name: '📝 Refund Reason',
+      value: 'No reason provided',
       inline: false,
     });
   }
 
+  fields.push({
+    name: '🔄 Status',
+    value: '**REFUNDED** - Funds returned to customer',
+    inline: false,
+  });
+
   return {
-    title: '💸 Order Refunded',
-    description: `A refund has been processed for this order.`,
-    color: 0x808080, // Gray color
+    title: '🔄 Order Refunded',
+    description: `💰 A refund has been processed and funds are being returned to the customer.`,
+    color: 0x8b5cf6, // Purple for refund
     fields,
     footer: {
-      text: 'Magma Cheats • Refund System',
-      icon_url: 'https://your-domain.com/icon.png',
+      text: 'Skyline Cheats • Refund System',
     },
     timestamp: new Date().toISOString(),
-    thumbnail: {
-      url: 'https://your-domain.com/magma-logo.png',
-    },
   };
 }
 
@@ -428,8 +457,7 @@ export async function triggerWebhooks(eventType: string, eventData: any) {
               // Generic Discord message for other events
               payload = {
                 content: `**${eventType.toUpperCase()}**\n\`\`\`json\n${JSON.stringify(eventData, null, 2)}\`\`\``,
-                username: 'Magma Cheats',
-                avatar_url: 'https://your-domain.com/magma-logo.png',
+                username: 'Skyline Cheats',
               };
               break;
           }
@@ -437,8 +465,7 @@ export async function triggerWebhooks(eventType: string, eventData: any) {
           if (embed!) {
             payload = {
               embeds: [embed],
-              username: 'Magma Cheats',
-              avatar_url: 'https://your-domain.com/magma-logo.png',
+              username: 'Skyline Cheats',
             };
           }
         } else {
@@ -458,7 +485,7 @@ export async function triggerWebhooks(eventType: string, eventData: any) {
           console.error(`❌ Failed to send webhook to ${webhook.name} (${eventType})`);
         }
       } catch (error) {
-        console.error(`❌ Error sending webhook to ${webhook.name}:`, error);
+        console.error(`⚠️ Error sending webhook to ${webhook.name}:`, error);
       }
     }
   } catch (error) {

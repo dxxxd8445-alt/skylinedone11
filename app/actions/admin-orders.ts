@@ -159,6 +159,75 @@ function expiresAtFromDuration(duration: string): string {
   return new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString();
 }
 
+export async function markAllOrdersCompleted(): Promise<{
+  success: boolean;
+  error?: string;
+  count?: number;
+}> {
+  try {
+    await requirePermission("manage_orders");
+    const supabase = createAdminClient();
+    
+    // Get all non-completed orders
+    const { data: orders, error: fetchErr } = await supabase
+      .from("orders")
+      .select("*")
+      .neq("status", "completed")
+      .neq("status", "refunded");
+    
+    if (fetchErr) throw fetchErr;
+    if (!orders || orders.length === 0) {
+      return { success: true, count: 0 };
+    }
+
+    // Update all orders to completed
+    const { error: updateErr } = await supabase
+      .from("orders")
+      .update({ 
+        status: "completed", 
+        updated_at: new Date().toISOString() 
+      })
+      .neq("status", "completed")
+      .neq("status", "refunded");
+    
+    if (updateErr) throw updateErr;
+
+    // Create licenses for orders that don't have them
+    for (const order of orders) {
+      const existing = await supabase
+        .from("licenses")
+        .select("id")
+        .eq("order_id", order.id)
+        .maybeSingle();
+      
+      if (!existing.data) {
+        const licenseKey = generateLicenseKey(order.product_name, order.duration);
+        const expiresAt = expiresAtFromDuration(order.duration);
+        await supabase.from("licenses").insert({
+          license_key: licenseKey,
+          order_id: order.id,
+          product_id: order.product_id,
+          product_name: order.product_name,
+          customer_email: order.customer_email,
+          status: "active",
+          expires_at: expiresAt,
+          updated_at: new Date().toISOString(),
+        });
+      }
+    }
+
+    revalidatePath("/mgmt-x9k2m7/orders");
+    return { success: true, count: orders.length };
+  } catch (e: unknown) {
+    const err = e as { message?: string };
+    if (err?.message === "Unauthorized" || /Forbidden|insufficient permissions/i.test(err?.message ?? "")) {
+      return { success: false, error: "You don't have permission to do this." };
+    }
+    console.error("[Admin Orders] markAllOrdersCompleted error:", e);
+    return { success: false, error: err?.message ?? "Failed to mark orders as completed" };
+  }
+}
+
 export async function updateOrderStatus(
   orderId: string,
   newStatus: string

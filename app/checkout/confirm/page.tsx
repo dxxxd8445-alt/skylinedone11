@@ -118,8 +118,8 @@ export default function ConfirmCheckoutPage() {
         customerEmail: user.email,
         couponCode: couponValid ? couponCode : undefined,
         couponDiscountAmount: discount,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com'}/payment/cancelled`,
+        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
+        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/cancelled`,
       });
 
       if (!result.success) {
@@ -163,15 +163,15 @@ export default function ConfirmCheckoutPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a] relative overflow-hidden">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#dc2626]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#ef4444]/10 rounded-full blur-[120px]" />
-        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-[#dc2626]/5 rounded-full blur-[100px]" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#2563eb]/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#3b82f6]/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-[#2563eb]/5 rounded-full blur-[100px]" />
         <div className="absolute inset-0 opacity-[0.02]">
           <div
             className="absolute inset-0"
             style={{
               backgroundImage:
-                "linear-gradient(to right, #dc2626 1px, transparent 1px), linear-gradient(to bottom, #dc2626 1px, transparent 1px)",
+                "linear-gradient(to right, #2563eb 1px, transparent 1px), linear-gradient(to bottom, #2563eb 1px, transparent 1px)",
               backgroundSize: "50px 50px",
             }}
           />
@@ -193,7 +193,7 @@ export default function ConfirmCheckoutPage() {
 
             <div className="text-center">
               <div className="inline-flex items-center justify-center gap-3 mb-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#dc2626] to-[#b91c1c] flex items-center justify-center shadow-xl shadow-red-500/30">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2563eb] to-[#b91c1c] flex items-center justify-center shadow-xl shadow-blue-500/30">
                   <Lock className="w-7 h-7 text-white" />
                 </div>
                 <h1 className="text-4xl sm:text-5xl font-bold text-transparent bg-gradient-to-r from-white via-white to-white/70 bg-clip-text">
@@ -232,7 +232,7 @@ export default function ConfirmCheckoutPage() {
                         <p className="text-white/60 text-sm mb-1">{item.duration}</p>
                         <div className="flex items-center justify-between">
                           <span className="text-white/50 text-sm">Qty: {item.quantity}</span>
-                          <span className="text-[#dc2626] font-bold">
+                          <span className="text-[#2563eb] font-bold">
                             {formatMoney({ amountUsd: item.price * item.quantity, currency, locale })}
                           </span>
                         </div>
@@ -262,7 +262,7 @@ export default function ConfirmCheckoutPage() {
                   return (
                     <div
                       key={index}
-                      className="group/badge flex items-center gap-3 p-4 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl hover:border-[#dc2626]/30 transition-all duration-300"
+                      className="group/badge flex items-center gap-3 p-4 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl hover:border-[#2563eb]/30 transition-all duration-300"
                     >
                       <div className={`w-10 h-10 rounded-lg ${styles.box} border ${styles.border} flex items-center justify-center`}>
                         <Icon className={`w-5 h-5 ${styles.icon}`} />
@@ -277,11 +277,11 @@ export default function ConfirmCheckoutPage() {
             {/* Payment Summary */}
             <div className="lg:col-span-1">
               <div className="relative bg-gradient-to-br from-[#111111] via-[#0a0a0a] to-[#111111] border border-[#1a1a1a] rounded-2xl p-5 sm:p-6 sticky top-24 shadow-2xl">
-                <div className="absolute inset-0 rounded-2xl opacity-20 blur-xl bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626]" />
+                <div className="absolute inset-0 rounded-2xl opacity-20 blur-xl bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb]" />
 
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-6 pb-5 border-b border-[#1a1a1a]">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#dc2626] to-[#b91c1c] flex items-center justify-center shadow-lg shadow-red-500/30">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#b91c1c] flex items-center justify-center shadow-lg shadow-blue-500/30">
                       <CreditCard className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-white to-white/70 bg-clip-text">
@@ -292,7 +292,7 @@ export default function ConfirmCheckoutPage() {
                 {/* Coupon Code */}
                 <div className="mb-6">
                   <label className="flex items-center gap-2 text-white/80 text-sm font-semibold mb-3">
-                    <Gift className="w-4 h-4 text-[#dc2626]" />
+                    <Gift className="w-4 h-4 text-[#2563eb]" />
                     Have a coupon code?
                   </label>
                   <div className="flex gap-2">
@@ -307,7 +307,7 @@ export default function ConfirmCheckoutPage() {
                           setCouponDiscount(0);
                         }}
                         placeholder="SAVE10"
-                        className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 text-sm font-medium transition-all"
+                        className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 text-sm font-medium transition-all"
                       />
                       {couponValid === true && (
                         <CheckCircle2 className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-green-400" />
@@ -316,7 +316,7 @@ export default function ConfirmCheckoutPage() {
                     <button
                       onClick={handleValidateCoupon}
                       disabled={isValidatingCoupon || !couponCode.trim()}
-                      className="px-5 py-3 bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a] hover:from-[#dc2626] hover:to-[#b91c1c] text-white rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-semibold border border-[#2a2a2a] hover:border-[#dc2626]"
+                      className="px-5 py-3 bg-gradient-to-r from-[#1a1a1a] to-[#0a0a0a] hover:from-[#2563eb] hover:to-[#b91c1c] text-white rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm font-semibold border border-[#2a2a2a] hover:border-[#2563eb]"
                     >
                       {isValidatingCoupon ? <Loader2 className="w-4 h-4 animate-spin" /> : "Apply"}
                     </button>
@@ -331,8 +331,8 @@ export default function ConfirmCheckoutPage() {
                     </div>
                   )}
                   {couponValid === false && (
-                    <div className="mt-3 p-3 bg-red-500/10 border border-red-500/20 rounded-lg">
-                      <p className="text-red-400 text-sm font-medium">Invalid or expired coupon code</p>
+                    <div className="mt-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                      <p className="text-blue-400 text-sm font-medium">Invalid or expired coupon code</p>
                     </div>
                   )}
                 </div>
@@ -351,13 +351,13 @@ export default function ConfirmCheckoutPage() {
                   )}
                   <div className="flex justify-between text-white font-bold text-xl pt-2">
                     <span>Total</span>
-                    <span className="text-[#dc2626]">{formatMoney({ amountUsd: total, currency, locale })}</span>
+                    <span className="text-[#2563eb]">{formatMoney({ amountUsd: total, currency, locale })}</span>
                   </div>
                 </div>
 
                 {/* Error Message */}
                 {error && (
-                  <div className="mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm">
+                  <div className="mb-4 p-3 bg-blue-500/20 border border-blue-500/50 rounded-lg text-blue-400 text-sm">
                     {error}
                   </div>
                 )}
@@ -368,7 +368,7 @@ export default function ConfirmCheckoutPage() {
                   disabled={isProcessing}
                   className="group/checkout relative w-full py-4 rounded-xl overflow-hidden font-bold text-white transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626]" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb]" />
                   {isProcessing ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
@@ -389,7 +389,7 @@ export default function ConfirmCheckoutPage() {
                 </div>
 
                 <p className="text-white/50 text-xs text-center mt-4">
-                  Powered by <span className="text-[#dc2626] font-semibold">Stripe</span>
+                  Powered by <span className="text-[#2563eb] font-semibold">Stripe</span>
                 </p>
               </div>
             </div>

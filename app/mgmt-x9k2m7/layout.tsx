@@ -31,9 +31,12 @@ export default async function SecureAdminLayout({
   }
 
   if (ctx?.type === "staff" && !isLoginPage) {
-    const required = getRequiredPermissionForPath(pathname);
-    if (required && !ctx.permissions.includes(required)) {
-      redirect("/mgmt-x9k2m7?error=forbidden");
+    const isAccessDeniedPage = pathname.includes("/mgmt-x9k2m7/access-denied");
+    if (!isAccessDeniedPage) {
+      const required = getRequiredPermissionForPath(pathname);
+      if (required && !ctx.permissions.includes(required)) {
+        redirect("/mgmt-x9k2m7/access-denied");
+      }
     }
   }
 

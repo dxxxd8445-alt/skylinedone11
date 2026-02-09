@@ -119,16 +119,16 @@ export function ReviewsClient({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#dc2626]/10 border border-[#dc2626]/20 rounded-full mb-6">
-            <Sparkles className="w-4 h-4 text-[#dc2626] animate-pulse" />
-            <span className="text-[#dc2626] text-sm font-semibold">Verified Customer Reviews</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 border border-[#2563eb]/20 rounded-full mb-6">
+            <Sparkles className="w-4 h-4 text-[#2563eb] animate-pulse" />
+            <span className="text-[#2563eb] text-sm font-semibold">Verified Customer Reviews</span>
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
             <span className="block mb-2">What Our</span>
             <span className="relative inline-block">
-              <span className="text-[#dc2626]">Customers Say</span>
-              <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#dc2626] to-transparent" />
+              <span className="text-[#2563eb]">Customers Say</span>
+              <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#2563eb] to-transparent" />
             </span>
           </h1>
           
@@ -138,7 +138,7 @@ export function ReviewsClient({
 
           <button
             onClick={() => setIsReviewModalOpen(true)}
-            className="inline-flex items-center gap-2 bg-[#dc2626] hover:bg-[#ef4444] text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#dc2626]/30"
+            className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#3b82f6] text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#2563eb]/30"
           >
             <PenLine className="w-5 h-5" />
             Write a Review
@@ -193,12 +193,12 @@ export function ReviewsClient({
 
           {/* 5-Star Reviews */}
           <div className="group relative">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-            <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8 hover:border-[#dc2626]/30 transition-all text-center">
-              <div className="w-16 h-16 rounded-full bg-[#dc2626]/10 flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-[#dc2626]" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+            <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8 hover:border-[#2563eb]/30 transition-all text-center">
+              <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
+                <Award className="w-8 h-8 text-[#2563eb]" />
               </div>
-              <p className="text-6xl font-bold text-[#dc2626] mb-2">{ratingDistribution?.[5] || 0}</p>
+              <p className="text-6xl font-bold text-[#2563eb] mb-2">{ratingDistribution?.[5] || 0}</p>
               <p className="text-white/60 text-sm">5-Star Reviews</p>
             </div>
           </div>
@@ -208,7 +208,7 @@ export function ReviewsClient({
         {ratingDistribution && (
           <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8 mb-12">
             <h3 className="text-white font-bold text-xl mb-6 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-[#dc2626]" />
+              <TrendingUp className="w-5 h-5 text-[#2563eb]" />
               Rating Distribution
             </h3>
             <div className="space-y-4">
@@ -224,7 +224,7 @@ export function ReviewsClient({
                     </div>
                     <div className="flex-1 h-3 bg-[#0a0a0a] rounded-full overflow-hidden border border-[#1a1a1a]">
                       <div 
-                        className="h-full bg-gradient-to-r from-[#dc2626] to-[#ef4444] rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-full transition-all duration-500"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
@@ -252,7 +252,7 @@ export function ReviewsClient({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by username or review text..."
-                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                 />
                 {searchQuery && (
                   <button
@@ -276,8 +276,8 @@ export function ReviewsClient({
                   onClick={() => setFilterRating(null)}
                   className={`px-4 py-3 rounded-xl font-semibold transition-all ${
                     filterRating === null
-                      ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white"
-                      : "bg-[#0a0a0a] border border-[#1a1a1a] text-white/60 hover:text-white hover:border-[#dc2626]/30"
+                      ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white"
+                      : "bg-[#0a0a0a] border border-[#1a1a1a] text-white/60 hover:text-white hover:border-[#2563eb]/30"
                   }`}
                 >
                   All
@@ -288,8 +288,8 @@ export function ReviewsClient({
                     onClick={() => setFilterRating(rating)}
                     className={`px-4 py-3 rounded-xl font-semibold transition-all flex items-center gap-1 ${
                       filterRating === rating
-                        ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white"
-                        : "bg-[#0a0a0a] border border-[#1a1a1a] text-white/60 hover:text-white hover:border-[#dc2626]/30"
+                        ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white"
+                        : "bg-[#0a0a0a] border border-[#1a1a1a] text-white/60 hover:text-white hover:border-[#2563eb]/30"
                     }`}
                   >
                     {rating}
@@ -308,7 +308,7 @@ export function ReviewsClient({
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl text-white focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all cursor-pointer"
+                className="px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl text-white focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all cursor-pointer"
               >
                 <option value="newest">Newest First</option>
                 <option value="highest">Highest Rated</option>
@@ -323,19 +323,19 @@ export function ReviewsClient({
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-white/60 text-sm">Active filters:</span>
                 {filterRating !== null && (
-                  <span className="px-3 py-1 bg-[#dc2626]/20 border border-[#dc2626]/30 rounded-lg text-[#dc2626] text-sm font-medium">
+                  <span className="px-3 py-1 bg-[#2563eb]/20 border border-[#2563eb]/30 rounded-lg text-[#2563eb] text-sm font-medium">
                     {filterRating} stars
                   </span>
                 )}
                 {searchQuery && (
-                  <span className="px-3 py-1 bg-[#dc2626]/20 border border-[#dc2626]/30 rounded-lg text-[#dc2626] text-sm font-medium">
+                  <span className="px-3 py-1 bg-[#2563eb]/20 border border-[#2563eb]/30 rounded-lg text-[#2563eb] text-sm font-medium">
                     Search: "{searchQuery}"
                   </span>
                 )}
               </div>
               <button
                 onClick={clearFilters}
-                className="text-white/60 hover:text-[#dc2626] text-sm font-medium transition-colors"
+                className="text-white/60 hover:text-[#2563eb] text-sm font-medium transition-colors"
               >
                 Clear all
               </button>
@@ -359,11 +359,11 @@ export function ReviewsClient({
                 className="group relative animate-fade-in"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-                <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#dc2626]/30 transition-all h-full flex flex-col">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all h-full flex flex-col">
                   {/* Quote Icon */}
                   <div className="absolute top-6 right-6 opacity-10">
-                    <Quote className="w-12 h-12 text-[#dc2626]" />
+                    <Quote className="w-12 h-12 text-[#2563eb]" />
                   </div>
 
                   {/* Rating */}
@@ -398,7 +398,7 @@ export function ReviewsClient({
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-4 border-t border-[#1a1a1a] relative z-10">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center text-white text-sm font-bold ring-2 ring-[#dc2626]/20">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center text-white text-sm font-bold ring-2 ring-[#2563eb]/20">
                         {review.avatar || review.username[0].toUpperCase()}
                       </div>
                       <div>
@@ -419,10 +419,10 @@ export function ReviewsClient({
           </div>
         ) : (
           <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-2xl blur opacity-50" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-50" />
             <div className="relative text-center py-20 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl">
-              <div className="w-20 h-20 bg-[#dc2626]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search className="w-10 h-10 text-[#dc2626]" />
+              <div className="w-20 h-20 bg-[#2563eb]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-10 h-10 text-[#2563eb]" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">No Reviews Found</h3>
               <p className="text-white/50 max-w-md mx-auto mb-6">
@@ -430,7 +430,7 @@ export function ReviewsClient({
               </p>
               <button
                 onClick={clearFilters}
-                className="px-6 py-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-[#dc2626]/30"
+                className="px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-[#2563eb]/30"
               >
                 Clear Filters
               </button>
@@ -440,13 +440,13 @@ export function ReviewsClient({
 
         {/* Call to Action */}
         <div className="relative group mt-16">
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#dc2626]/30 via-[#dc2626]/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
-          <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#dc2626]/30 rounded-2xl p-10 overflow-hidden text-center">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#dc2626]/5 rounded-full blur-3xl" />
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/30 via-[#2563eb]/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+          <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#2563eb]/30 rounded-2xl p-10 overflow-hidden text-center">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#2563eb]/5 rounded-full blur-3xl" />
             <div className="relative">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#dc2626]/10 border border-[#dc2626]/30 rounded-full mb-6">
-                <Sparkles className="w-4 h-4 text-[#dc2626] animate-pulse" />
-                <span className="text-[#dc2626] text-sm font-semibold">Join Thousands of Happy Customers</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 border border-[#2563eb]/30 rounded-full mb-6">
+                <Sparkles className="w-4 h-4 text-[#2563eb] animate-pulse" />
+                <span className="text-[#2563eb] text-sm font-semibold">Join Thousands of Happy Customers</span>
               </div>
               
               <h3 className="text-white font-bold text-3xl mb-3">Ready to Experience Excellence?</h3>
@@ -456,7 +456,7 @@ export function ReviewsClient({
               
               <a
                 href="/store"
-                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#dc2626]/40"
+                className="inline-flex items-center gap-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#2563eb]/40"
               >
                 Browse Products
                 <Star className="w-5 h-5" />

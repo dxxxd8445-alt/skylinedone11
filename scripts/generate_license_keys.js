@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * License Key Generator for Magma Cheats
+ * License Key Generator for Skyline Cheats
  * Generates properly formatted license keys for your products
  */
 

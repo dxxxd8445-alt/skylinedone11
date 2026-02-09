@@ -14,14 +14,14 @@ The delete button in the Affiliate Program admin dashboard is **100% functional*
 - **Button Location:** Last column of affiliates table (Actions column)
 - **Button Style:** Red theme with trash icon
 - **Button Text:** "Delete"
-- **Styling:** `text-red-600 hover:text-red-500 hover:bg-red-500/10 font-semibold`
+- **Styling:** `text-blue-600 hover:text-blue-500 hover:bg-blue-500/10 font-semibold`
 
 ```tsx
 <Button
   size="sm"
   variant="ghost"
   onClick={() => deleteAffiliate(affiliate.id)}
-  className="text-red-600 hover:text-red-500 hover:bg-red-500/10 font-semibold"
+  className="text-blue-600 hover:text-blue-500 hover:bg-blue-500/10 font-semibold"
   title="Delete Affiliate"
 >
   <Trash2 className="w-4 h-4 mr-1" />

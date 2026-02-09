@@ -107,7 +107,7 @@ function AcceptInviteContent() {
     return (
       <main className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
         <div className="text-center">
-          <RefreshCw className="w-8 h-8 text-[#dc2626] animate-spin mx-auto mb-4" />
+          <RefreshCw className="w-8 h-8 text-[#2563eb] animate-spin mx-auto mb-4" />
           <p className="text-white/60">Verifying invitation...</p>
         </div>
       </main>
@@ -118,8 +118,8 @@ function AcceptInviteContent() {
     return (
       <main className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
         <div className="bg-[#111111] border border-[#262626] rounded-xl p-8 max-w-md w-full text-center">
-          <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">
-            <AlertCircle className="w-8 h-8 text-red-400" />
+          <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
+            <AlertCircle className="w-8 h-8 text-blue-400" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Invalid Invitation</h1>
           <p className="text-white/60 mb-6">
@@ -127,7 +127,7 @@ function AcceptInviteContent() {
           </p>
           <Button
             onClick={() => router.push("/")}
-            className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             Go to Homepage
           </Button>
@@ -140,7 +140,7 @@ function AcceptInviteContent() {
     <main className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
       <div className="bg-[#111111] border border-[#262626] rounded-xl p-8 max-w-md w-full">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
             <Flame className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">Welcome to Magma</h1>
@@ -190,7 +190,7 @@ function AcceptInviteContent() {
         <Button
           onClick={handleAccept}
           disabled={submitting || !password || !confirmPassword}
-          className="w-full bg-[#dc2626] hover:bg-[#ef4444] text-white h-12 text-base font-semibold"
+          className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white h-12 text-base font-semibold"
         >
           {submitting ? (
             <>
@@ -219,7 +219,7 @@ export default function AcceptInvitePage() {
       fallback={
         <main className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
           <div className="text-center">
-            <RefreshCw className="w-8 h-8 text-[#dc2626] animate-spin mx-auto mb-4" />
+            <RefreshCw className="w-8 h-8 text-[#2563eb] animate-spin mx-auto mb-4" />
             <p className="text-white/60">Loading...</p>
           </div>
         </main>

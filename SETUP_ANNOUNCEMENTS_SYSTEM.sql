@@ -55,7 +55,7 @@ CREATE INDEX IF NOT EXISTS idx_terms_accepted_ip_address ON terms_accepted(ip_ad
 -- 9. Insert sample announcement (optional)
 INSERT INTO announcements (title, message, type, priority, is_active) 
 VALUES (
-  'Welcome to Magma Cheats!', 
+  'Welcome to Skyline Cheats!', 
   'Check out our latest products and exclusive deals. Join our Discord for updates and support!',
   'info',
   5,

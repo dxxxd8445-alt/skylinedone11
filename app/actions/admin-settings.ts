@@ -16,15 +16,21 @@ export async function loadSettings() {
 
     const settingsMap: Record<string, any> = {};
     data?.forEach((item) => {
-      settingsMap[item.key] = typeof item.value === 'string' ? JSON.parse(item.value) : item.value;
+      try {
+        // Try to parse as JSON first
+        settingsMap[item.key] = typeof item.value === 'string' ? JSON.parse(item.value) : item.value;
+      } catch (e) {
+        // If parsing fails, use the raw value (it's already a plain string)
+        settingsMap[item.key] = item.value;
+      }
     });
 
     return { 
       success: true, 
       settings: {
-        site_name: settingsMap.site_name || "Magma Cheats",
+        site_name: settingsMap.site_name || "Skyline Cheats",
         site_description: settingsMap.site_description || "Premium undetected cheats for all games",
-        support_email: settingsMap.support_email || "support@magma.local",
+        support_email: settingsMap.support_email || "support@skyline.local",
         maintenance_mode: settingsMap.maintenance_mode || false,
       }
     };

@@ -45,7 +45,7 @@ async function testCreateProductVariantsFix() {
         description: 'Test product to verify pricing fix',
         image: null,
         status: 'active',
-        provider: 'Magma',
+        provider: 'Skyline',
         features: ['Test Feature'],
         requirements: ['Test Requirement'],
         gallery: []

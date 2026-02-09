@@ -42,7 +42,7 @@ function createCheckoutStartedEmbed(data) {
       { name: '🔢 Session ID', value: data.session_id.substring(0, 20) + '...', inline: false },
       { name: '🛒 Items', value: data.items.map(item => `• ${item.name} (x${item.quantity}) - $${item.price.toFixed(2)}`).join('\n'), inline: false },
     ],
-    footer: { text: 'Magma Cheats • Checkout System' },
+    footer: { text: 'Skyline Cheats • Checkout System' },
     timestamp: new Date().toISOString(),
   };
 }
@@ -59,7 +59,7 @@ function createPendingOrderEmbed(data) {
       { name: '🔢 Order ID', value: data.order_number, inline: false },
       { name: '🛒 Items', value: data.items.map(item => `• ${item.name} (x${item.quantity}) - $${item.price.toFixed(2)}`).join('\n'), inline: false },
     ],
-    footer: { text: 'Magma Cheats • Order System' },
+    footer: { text: 'Skyline Cheats • Order System' },
     timestamp: new Date().toISOString(),
   };
 }
@@ -76,7 +76,7 @@ function createCompletedOrderEmbed(data) {
       { name: '🔢 Order ID', value: data.order_number, inline: false },
       { name: '🛒 Items', value: data.items.map(item => `• ${item.name} (x${item.quantity}) - $${item.price.toFixed(2)}`).join('\n'), inline: false },
     ],
-    footer: { text: 'Magma Cheats • Order System' },
+    footer: { text: 'Skyline Cheats • Order System' },
     timestamp: new Date().toISOString(),
   };
 }
@@ -92,7 +92,7 @@ function createFailedPaymentEmbed(data) {
       { name: '💰 Amount', value: `$${data.amount.toFixed(2)} ${data.currency}`, inline: true },
       { name: '❌ Error', value: data.error_message || 'Payment failed', inline: false },
     ],
-    footer: { text: 'Magma Cheats • Payment System' },
+    footer: { text: 'Skyline Cheats • Payment System' },
     timestamp: new Date().toISOString(),
   };
 }
@@ -109,7 +109,7 @@ function createRefundEmbed(data) {
       { name: '🔢 Order ID', value: data.order_number, inline: false },
       { name: '📝 Reason', value: data.reason || 'No reason provided', inline: false },
     ],
-    footer: { text: 'Magma Cheats • Refund System' },
+    footer: { text: 'Skyline Cheats • Refund System' },
     timestamp: new Date().toISOString(),
   };
 }
@@ -145,7 +145,7 @@ async function testAllDiscordNotifications() {
       {
         name: '🛒 Checkout Started',
         embed: createCheckoutStartedEmbed({
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           session_id: 'cs_test_' + Date.now(),
           items: [{ name: 'Arc Raiders - 1 Week', quantity: 1, price: 27.99 }],
           subtotal: 27.99,
@@ -158,7 +158,7 @@ async function testAllDiscordNotifications() {
         name: '⏳ Order Pending',
         embed: createPendingOrderEmbed({
           order_number: 'TEST-PENDING-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           amount: 27.99,
           currency: 'USD',
           payment_method: 'stripe',
@@ -169,7 +169,7 @@ async function testAllDiscordNotifications() {
         name: '🎉 Order Completed',
         embed: createCompletedOrderEmbed({
           order_number: 'TEST-COMPLETED-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -180,7 +180,7 @@ async function testAllDiscordNotifications() {
         name: '❌ Payment Failed',
         embed: createFailedPaymentEmbed({
           order_number: 'TEST-FAILED-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -191,7 +191,7 @@ async function testAllDiscordNotifications() {
         name: '💸 Order Refunded',
         embed: createRefundEmbed({
           order_number: 'TEST-REFUNDED-' + Date.now(),
-          customer_email: 'test@magmacheats.com',
+          customer_email: 'test@skylinecheats.org',
           customer_name: 'Test Customer',
           amount: 27.99,
           currency: 'USD',
@@ -207,7 +207,7 @@ async function testAllDiscordNotifications() {
       
       const payload = {
         embeds: [scenario.embed],
-        username: 'Magma Cheats',
+        username: 'Skyline Cheats',
         content: `🧪 **TEST NOTIFICATION ${i + 1}/${testScenarios.length}** - ${scenario.name}`,
       };
 

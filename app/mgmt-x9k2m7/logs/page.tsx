@@ -73,13 +73,25 @@ interface LogStats {
   securityEvents: number;
 }
 
+interface ActiveSession {
+  id: string;
+  actor_role: "admin" | "staff";
+  actor_identifier: string;
+  ip_address: string | null;
+  user_agent: string | null;
+  login_time: string;
+  session_duration: number; // in minutes
+}
+
 export default function LogsPage() {
   const { toast } = useToast();
   const router = useRouter();
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [filteredLogs, setFilteredLogs] = useState<AuditLog[]>([]);
+  const [activeSessions, setActiveSessions] = useState<ActiveSession[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [sessionsLoading, setSessionsLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [eventFilter, setEventFilter] = useState("all");
   const [roleFilter, setRoleFilter] = useState("all");
@@ -138,6 +150,58 @@ export default function LogsPage() {
     }
   };
 
+  const loadActiveSessions = async () => {
+    setSessionsLoading(true);
+    try {
+      const response = await fetch("/api/admin/active-sessions");
+      const data = await response.json();
+
+      if (response.ok) {
+        setActiveSessions(data.sessions || []);
+      } else {
+        console.error("Failed to load active sessions:", data.error);
+      }
+    } catch (error) {
+      console.error("Failed to load active sessions:", error);
+    } finally {
+      setSessionsLoading(false);
+    }
+  };
+
+  const forceLogout = async (session: ActiveSession) => {
+    if (!confirm(`Are you sure you want to force logout ${session.actor_identifier}?`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/admin/active-sessions", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          actor_role: session.actor_role,
+          actor_identifier: session.actor_identifier,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Session Terminated",
+          description: `Successfully logged out ${session.actor_identifier}`,
+        });
+        await loadActiveSessions();
+        await loadLogs();
+      } else {
+        throw new Error("Failed to force logout");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to force logout session",
+        variant: "destructive",
+      });
+    }
+  };
+
   const calculateStats = (logsData: AuditLog[]) => {
     const today = new Date();
     const todayStart = startOfDay(today);
@@ -166,7 +230,7 @@ export default function LogsPage() {
     if (!confirmed) return;
 
     try {
-      console.log("🔓 Logout button clicked");
+      console.log("?? Logout button clicked");
       
       // Show loading state
       toast({
@@ -182,11 +246,11 @@ export default function LogsPage() {
         },
       });
 
-      console.log("🔓 Logout response status:", response.status);
+      console.log("?? Logout response status:", response.status);
 
       if (response.ok) {
         const data = await response.json();
-        console.log("🔓 Logout response data:", data);
+        console.log("?? Logout response data:", data);
         
         toast({
           title: "Successfully Logged Out",
@@ -217,7 +281,7 @@ export default function LogsPage() {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
     } catch (error) {
-      console.error("❌ Logout error:", error);
+      console.error("? Logout error:", error);
       
       toast({
         title: "Logout Error",
@@ -248,7 +312,7 @@ export default function LogsPage() {
 
   const handleRefresh = async () => {
     setRefreshing(true);
-    await loadLogs();
+    await Promise.all([loadLogs(), loadActiveSessions()]);
   };
 
   const handleClearLogs = async () => {
@@ -370,6 +434,7 @@ export default function LogsPage() {
 
   useEffect(() => {
     loadLogs();
+    loadActiveSessions();
   }, []);
 
   useEffect(() => {
@@ -383,7 +448,7 @@ export default function LogsPage() {
       case "logout":
         return <LogOut className="h-4 w-4 text-orange-500" />;
       case "security":
-        return <AlertTriangle className="h-4 w-4 text-red-500" />;
+        return <AlertTriangle className="h-4 w-4 text-blue-500" />;
       case "error":
         return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
       default:
@@ -394,7 +459,7 @@ export default function LogsPage() {
   const getRoleIcon = (role: string) => {
     switch (role) {
       case "admin":
-        return <Shield className="h-4 w-4 text-red-500" />;
+        return <Shield className="h-4 w-4 text-blue-500" />;
       case "staff":
         return <Users className="h-4 w-4 text-blue-500" />;
       default:
@@ -406,7 +471,7 @@ export default function LogsPage() {
     const getSeverityColor = (sev?: string) => {
       switch (sev) {
         case "critical":
-          return "text-red-700 border-red-200 bg-red-50";
+          return "text-blue-700 border-blue-200 bg-blue-50";
         case "high":
           return "text-orange-700 border-orange-200 bg-orange-50";
         case "medium":
@@ -433,7 +498,7 @@ export default function LogsPage() {
         );
       case "security":
         return (
-          <Badge variant="outline" className={`text-red-700 border-red-200 bg-red-50 ${getSeverityColor(severity)}`}>
+          <Badge variant="outline" className={`text-blue-700 border-blue-200 bg-blue-50 ${getSeverityColor(severity)}`}>
             Security
           </Badge>
         );
@@ -452,7 +517,7 @@ export default function LogsPage() {
     switch (role) {
       case "admin":
         return (
-          <Badge variant="outline" className="text-red-700 border-red-200 bg-red-50">
+          <Badge variant="outline" className="text-blue-700 border-blue-200 bg-blue-50">
             Admin
           </Badge>
         );
@@ -530,7 +595,7 @@ export default function LogsPage() {
               onClick={handleClearLogs}
               variant="outline"
               size="sm"
-              className="text-red-600 hover:text-red-700"
+              className="text-blue-600 hover:text-blue-700"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Clear Logs
@@ -541,12 +606,117 @@ export default function LogsPage() {
             onClick={handleLogout}
             variant="destructive"
             size="sm"
-            className="bg-red-600 hover:bg-red-700"
+            className="bg-blue-600 hover:bg-blue-700"
           >
             <Power className="h-4 w-4 mr-2" />
             Logout
           </Button>
         </div>
+
+        {/* Active Sessions Card */}
+        <Card className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border-[#262626]">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2 text-white">
+                  <Users className="h-5 w-5 text-[#2563eb]" />
+                  Active Sessions
+                  <Badge variant="outline" className="ml-2 bg-[#2563eb]/20 text-[#2563eb] border-[#2563eb]/30">
+                    {activeSessions.length} online
+                  </Badge>
+                </CardTitle>
+                <p className="text-white/60 text-sm mt-1">Currently logged in admin and staff members</p>
+              </div>
+              <Button
+                onClick={loadActiveSessions}
+                disabled={sessionsLoading}
+                variant="outline"
+                size="sm"
+                className="border-[#262626] text-white hover:bg-[#262626]"
+              >
+                <RefreshCw className={`h-4 w-4 ${sessionsLoading ? "animate-spin" : ""}`} />
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {sessionsLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <RefreshCw className="h-6 w-6 animate-spin text-[#2563eb]" />
+              </div>
+            ) : activeSessions.length === 0 ? (
+              <div className="text-center py-8">
+                <UserX className="h-12 w-12 text-white/20 mx-auto mb-3" />
+                <p className="text-white/60">No active sessions</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {activeSessions.map((session) => (
+                  <div
+                    key={session.id}
+                    className="flex items-center justify-between p-4 rounded-lg bg-[#0a0a0a] border border-[#262626] hover:border-[#2563eb]/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-4 flex-1">
+                      {/* Role Icon */}
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        session.actor_role === "admin" 
+                          ? "bg-[#2563eb]/20 border-2 border-[#2563eb]/30" 
+                          : "bg-blue-500/20 border-2 border-blue-500/30"
+                      }`}>
+                        {session.actor_role === "admin" ? (
+                          <Shield className="h-5 w-5 text-[#2563eb]" />
+                        ) : (
+                          <Users className="h-5 w-5 text-blue-400" />
+                        )}
+                      </div>
+
+                      {/* User Info */}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-semibold text-white">{session.actor_identifier}</span>
+                          <Badge 
+                            variant="outline" 
+                            className={
+                              session.actor_role === "admin"
+                                ? "bg-[#2563eb]/20 text-[#2563eb] border-[#2563eb]/30"
+                                : "bg-blue-500/20 text-blue-400 border-blue-500/30"
+                            }
+                          >
+                            {session.actor_role}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-4 text-sm text-white/60">
+                          <div className="flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />
+                            <span className="font-mono">{session.ip_address || "Unknown"}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            {getDeviceIcon(session.user_agent)}
+                            <span>{parseUserAgent(session.user_agent)}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            <span>{session.session_duration}m ago</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <Button
+                        onClick={() => forceLogout(session)}
+                        size="sm"
+                        variant="destructive"
+                        className="bg-red-600 hover:bg-red-700"
+                      >
+                        <Power className="h-4 w-4 mr-1" />
+                        Force Logout
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Enhanced Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4">
@@ -594,14 +764,14 @@ export default function LogsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200">
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-red-700">Admin</CardTitle>
-              <Shield className="h-4 w-4 text-red-600" />
+              <CardTitle className="text-sm font-medium text-blue-700">Admin</CardTitle>
+              <Shield className="h-4 w-4 text-blue-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-red-800">{stats.adminSessions}</div>
-              <p className="text-xs text-red-600 mt-1">Sessions</p>
+              <div className="text-2xl font-bold text-blue-800">{stats.adminSessions}</div>
+              <p className="text-xs text-blue-600 mt-1">Sessions</p>
             </CardContent>
           </Card>
 
@@ -763,7 +933,6 @@ export default function LogsPage() {
                       <TableHead className="font-semibold">Device</TableHead>
                       <TableHead className="font-semibold">Details</TableHead>
                       <TableHead className="font-semibold">Time</TableHead>
-                      <TableHead className="font-semibold">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -812,16 +981,6 @@ export default function LogsPage() {
                               {formatRelativeTime(log.created_at)}
                             </span>
                           </div>
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            size="sm"
-                            onClick={handleLogout}
-                            className="bg-red-600 hover:bg-red-700 text-white"
-                          >
-                            <Power className="h-4 w-4 mr-1" />
-                            Logout
-                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}

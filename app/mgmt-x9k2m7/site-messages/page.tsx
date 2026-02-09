@@ -138,7 +138,7 @@ export default function SiteMessagesPage() {
     switch (type) {
       case 'success': return 'bg-green-500/20 text-green-400 border-green-500/50';
       case 'warning': return 'bg-amber-500/20 text-amber-400 border-amber-500/50';
-      case 'error': return 'bg-red-500/20 text-red-400 border-red-500/50';
+      case 'error': return 'bg-blue-500/20 text-blue-400 border-blue-500/50';
       default: return 'bg-blue-500/20 text-blue-400 border-blue-500/50';
     }
   };
@@ -147,11 +147,11 @@ export default function SiteMessagesPage() {
     <AdminShell title="Site Messages" subtitle="Create and manage announcements for your website">
       {/* Error Display */}
       {error && (
-        <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
-          <p className="text-red-400">{error}</p>
+        <div className="mb-6 p-4 bg-blue-500/20 border border-blue-500/50 rounded-lg">
+          <p className="text-blue-400">{error}</p>
           <button 
             onClick={() => setError(null)}
-            className="mt-2 text-red-300 hover:text-red-200 text-sm underline"
+            className="mt-2 text-blue-300 hover:text-blue-200 text-sm underline"
           >
             Dismiss
           </button>
@@ -188,7 +188,7 @@ export default function SiteMessagesPage() {
       <div className="flex gap-4 mb-6">
         <button
           onClick={() => setShowForm(!showForm)}
-          className="px-6 py-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#dc2626]/30"
+          className="px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#2563eb]/30"
         >
           {showForm ? "Cancel" : "Create Message"}
         </button>
@@ -219,7 +219,7 @@ export default function SiteMessagesPage() {
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   required
-                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb]/50 focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                   placeholder="Enter message title"
                 />
               </div>
@@ -231,7 +231,7 @@ export default function SiteMessagesPage() {
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb]/50 focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                 >
                   <option value="info">Info</option>
                   <option value="success">Success</option>
@@ -250,7 +250,7 @@ export default function SiteMessagesPage() {
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 required
                 rows={4}
-                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all resize-none"
+                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb]/50 focus:ring-2 focus:ring-[#2563eb]/20 transition-all resize-none"
                 placeholder="Enter your message content"
               />
             </div>
@@ -265,14 +265,14 @@ export default function SiteMessagesPage() {
                 max="10"
                 value={formData.priority}
                 onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })}
-                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#dc2626]/50 focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb]/50 focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
               />
             </div>
             
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="px-6 py-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#dc2626]/30"
+                className="px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#2563eb]/30"
               >
                 {editingId ? "Update Message" : "Create Message"}
               </button>
@@ -295,7 +295,7 @@ export default function SiteMessagesPage() {
           
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-block w-8 h-8 border-2 border-[#dc2626]/20 border-t-[#dc2626] rounded-full animate-spin"></div>
+              <div className="inline-block w-8 h-8 border-2 border-[#2563eb]/20 border-t-[#2563eb] rounded-full animate-spin"></div>
               <p className="text-white/60 mt-4">Loading messages...</p>
             </div>
           ) : messages.length === 0 ? (
@@ -304,7 +304,7 @@ export default function SiteMessagesPage() {
               <p className="text-white/40 mb-6">Create your first site message to get started</p>
               <button
                 onClick={() => setShowForm(true)}
-                className="px-6 py-3 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#dc2626]/30"
+                className="px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white rounded-xl font-medium transition-all duration-300 hover:scale-105 shadow-lg shadow-[#2563eb]/30"
               >
                 Create First Message
               </button>
@@ -314,7 +314,7 @@ export default function SiteMessagesPage() {
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className="bg-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#dc2626]/30 transition-all"
+                  className="bg-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#2563eb]/30 transition-all"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
@@ -357,7 +357,7 @@ export default function SiteMessagesPage() {
                       </button>
                       <button
                         onClick={() => deleteMessage(message.id)}
-                        className="px-4 py-2 bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded-lg text-sm font-medium transition-colors"
+                        className="px-4 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-lg text-sm font-medium transition-colors"
                       >
                         Delete
                       </button>

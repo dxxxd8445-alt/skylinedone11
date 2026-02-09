@@ -1,5 +1,5 @@
 -- ============================================
--- MISSING DATABASE COMPONENTS FOR MAGMA STORE
+-- MISSING DATABASE COMPONENTS FOR Skyline Store
 -- Run this in your Supabase SQL Editor to add any missing tables/features
 -- ============================================
 
@@ -249,7 +249,7 @@ CREATE TRIGGER update_store_users_updated_at
 -- Insert sample announcement
 INSERT INTO announcements (title, message, type, priority, is_active) 
 VALUES (
-  'Welcome to Magma Cheats!', 
+  'Welcome to Skyline Cheats!', 
   'Check out our latest products and exclusive deals. Join our Discord for updates and support!',
   'info',
   5,

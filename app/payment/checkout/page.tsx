@@ -156,13 +156,13 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
         <div className="bg-[#111111] border border-[#262626] rounded-2xl p-8 max-w-md w-full text-center">
-          <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <XCircle className="w-16 h-16 text-blue-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">Invalid Payment Link</h1>
           <p className="text-white/60 mb-6">
             This payment link is invalid or has expired.
           </p>
           <Link href="/">
-            <Button className="bg-[#dc2626] hover:bg-[#ef4444] text-white">
+            <Button className="bg-[#2563eb] hover:bg-[#3b82f6] text-white">
               Return to Home
             </Button>
           </Link>
@@ -185,9 +185,9 @@ export default function CheckoutPage() {
 
         <div className="bg-[#111111] border border-[#262626] rounded-2xl overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#dc2626]/20 to-transparent p-6 border-b border-[#262626]">
+          <div className="bg-gradient-to-r from-[#2563eb]/20 to-transparent p-6 border-b border-[#262626]">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-[#dc2626] flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-[#2563eb] flex items-center justify-center">
                 <DollarSign className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -203,7 +203,7 @@ export default function CheckoutPage() {
             <div className="flex items-center justify-center mb-8">
               {status === "loading" && (
                 <div className="flex flex-col items-center gap-3">
-                  <Loader2 className="w-12 h-12 text-[#dc2626] animate-spin" />
+                  <Loader2 className="w-12 h-12 text-[#2563eb] animate-spin" />
                   <p className="text-white/60">Loading payment details...</p>
                 </div>
               )}
@@ -211,10 +211,10 @@ export default function CheckoutPage() {
               {status === "pending" && (
                 <div className="flex flex-col items-center gap-3">
                   <div className="relative">
-                    <div className="w-16 h-16 rounded-full border-4 border-[#dc2626]/20 flex items-center justify-center">
-                      <Clock className="w-8 h-8 text-[#dc2626]" />
+                    <div className="w-16 h-16 rounded-full border-4 border-[#2563eb]/20 flex items-center justify-center">
+                      <Clock className="w-8 h-8 text-[#2563eb]" />
                     </div>
-                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-[#dc2626] flex items-center justify-center animate-pulse">
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-[#2563eb] flex items-center justify-center animate-pulse">
                       <span className="text-white text-xs font-bold">{pollCount}</span>
                     </div>
                   </div>
@@ -227,7 +227,7 @@ export default function CheckoutPage() {
 
               {status === "processing" && (
                 <div className="flex flex-col items-center gap-3">
-                  <Loader2 className="w-12 h-12 text-[#dc2626] animate-spin" />
+                  <Loader2 className="w-12 h-12 text-[#2563eb] animate-spin" />
                   <p className="text-white font-medium">Processing Payment</p>
                   <p className="text-white/60 text-sm">Please wait...</p>
                 </div>
@@ -245,11 +245,11 @@ export default function CheckoutPage() {
 
               {status === "failed" && (
                 <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
-                    <XCircle className="w-10 h-10 text-red-500" />
+                  <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
+                    <XCircle className="w-10 h-10 text-blue-500" />
                   </div>
-                  <p className="text-red-500 font-medium">Payment Failed</p>
-                  <p className="text-white/60 text-sm">Please try again or <a href="https://discord.gg/magmacheats" target="_blank" rel="noopener noreferrer" className="text-[#dc2626] hover:underline">contact support</a></p>
+                  <p className="text-blue-500 font-medium">Payment Failed</p>
+                  <p className="text-white/60 text-sm">Please try again or <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-[#2563eb] hover:underline">contact support</a></p>
                 </div>
               )}
 
@@ -289,7 +289,7 @@ export default function CheckoutPage() {
                     // Redirect to cart for Stripe checkout
                     window.location.href = '/cart';
                   }}
-                  className="w-full bg-[#dc2626] hover:bg-[#ef4444] text-white py-6"
+                  className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white py-6"
                 >
                   <Wallet className="w-5 h-5 mr-2" />
                   Proceed to Stripe Checkout
@@ -307,7 +307,7 @@ export default function CheckoutPage() {
 
                 {/* Security note */}
                 <div className="flex items-center gap-2 mt-4 p-3 bg-[#0a0a0a] rounded-lg">
-                  <Shield className="w-5 h-5 text-[#dc2626]" />
+                  <Shield className="w-5 h-5 text-[#2563eb]" />
                   <p className="text-white/60 text-sm">
                     Secure payment powered by Stripe
                   </p>
@@ -319,7 +319,7 @@ export default function CheckoutPage() {
             {(status === "failed" || status === "expired") && (
               <div className="flex flex-col gap-3">
                 <Link href="/">
-                  <Button className="w-full bg-[#dc2626] hover:bg-[#ef4444] text-white">
+                  <Button className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white">
                     Create New Order
                   </Button>
                 </Link>

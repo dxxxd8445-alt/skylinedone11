@@ -63,12 +63,12 @@ async function testCompleteStripeFlow() {
         },
         quantity: 1,
       }],
-      success_url: 'https://magmacheats.com/payment/success',
-      cancel_url: 'https://magmacheats.com/cart',
-      customer_email: 'test@magmacheats.com',
+      success_url: 'https://skylinecheats.org/payment/success',
+      cancel_url: 'https://skylinecheats.org/cart',
+      customer_email: 'test@skylinecheats.org',
       metadata: {
         test: 'true',
-        customer_email: 'test@magmacheats.com',
+        customer_email: 'test@skylinecheats.org',
       },
     });
 
@@ -82,7 +82,7 @@ async function testCompleteStripeFlow() {
       .from('stripe_sessions')
       .insert({
         session_id: testSession.id,
-        customer_email: 'test@magmacheats.com',
+        customer_email: 'test@skylinecheats.org',
         items: JSON.stringify([{
           id: 'test-1',
           productId: 'arc-raiders',
@@ -115,7 +115,7 @@ async function testCompleteStripeFlow() {
     console.log('5️⃣ Testing Webhook Endpoint...');
     
     try {
-      const webhookResponse = await fetch('https://magmacheats.com/api/stripe/webhook', {
+      const webhookResponse = await fetch('https://skylinecheats.org/api/stripe/webhook', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

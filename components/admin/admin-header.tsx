@@ -52,7 +52,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
       case "alert":
         return "bg-yellow-500/20 text-yellow-400";
       default:
-        return "bg-[#dc2626]/20 text-[#dc2626]";
+        return "bg-[#2563eb]/20 text-[#2563eb]";
     }
   };
 
@@ -78,7 +78,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-64 pl-10 pr-4 py-2 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-[#dc2626] transition-colors"
+            className="w-64 pl-10 pr-4 py-2 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb] transition-colors"
           />
         </div>
 
@@ -88,7 +88,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
             <button type="button" className="relative w-10 h-10 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] flex items-center justify-center text-white/60 hover:text-white transition-colors">
               <Bell className="w-5 h-5" />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#dc2626] rounded-full text-white text-xs font-bold flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#2563eb] rounded-full text-white text-xs font-bold flex items-center justify-center">
                   {unreadCount}
                 </span>
               )}
@@ -101,7 +101,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
                 <button
                   type="button"
                   onClick={markAllNotificationsRead}
-                  className="text-xs text-[#dc2626] hover:text-[#ef4444] transition-colors"
+                  className="text-xs text-[#2563eb] hover:text-[#3b82f6] transition-colors"
                 >
                   Mark all read
                 </button>
@@ -114,7 +114,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
                   key={notification.id}
                   className={cn(
                     "flex items-start gap-3 p-3 cursor-pointer focus:bg-[#1a1a1a]",
-                    !notification.read && "bg-[#dc2626]/5"
+                    !notification.read && "bg-[#2563eb]/5"
                   )}
                   onClick={() => markNotificationRead(notification.id)}
                 >
@@ -151,7 +151,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button type="button" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#1a1a1a] transition-colors">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#dc2626] to-[#991b1b] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563eb] to-[#1e40af] flex items-center justify-center">
                 <User className="w-4 h-4 text-white" />
               </div>
               <div className="hidden md:block text-left">
@@ -180,7 +180,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
                   window.location.href = "/mgmt-x9k2m7/login";
                 }
               }}
-              className="text-red-400 focus:bg-[#1a1a1a] focus:text-red-400 cursor-pointer"
+              className="text-blue-400 focus:bg-[#1a1a1a] focus:text-blue-400 cursor-pointer"
             >
               Logout
             </DropdownMenuItem>

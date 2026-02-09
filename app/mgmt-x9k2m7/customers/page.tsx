@@ -19,8 +19,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
-import { Search, Trash2, RefreshCw, Users } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Search, Trash2, RefreshCw, Users, Power, KeyRound } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Customer {
@@ -35,8 +37,12 @@ export default function CustomersPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [forcingLogout, setForcingLogout] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -128,6 +134,86 @@ export default function CustomersPage() {
     }
   };
 
+  const forceLogout = async (customer: Customer) => {
+    if (!confirm(`Force logout ${customer.email}? This will end their current session.`)) {
+      return;
+    }
+
+    setForcingLogout(true);
+    try {
+      const response = await fetch(`/api/admin/customers/${customer.id}/force-logout`, {
+        method: "POST",
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: `Forced logout for ${customer.email}`,
+        });
+      } else {
+        throw new Error(data.error || "Failed to force logout");
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to force logout customer",
+        variant: "destructive",
+      });
+    } finally {
+      setForcingLogout(false);
+    }
+  };
+
+  const openResetPasswordModal = (customer: Customer) => {
+    setSelectedCustomer(customer);
+    setNewPassword("");
+    setResetPasswordModalOpen(true);
+  };
+
+  const confirmResetPassword = async () => {
+    if (!selectedCustomer) return;
+
+    if (!newPassword || newPassword.length < 6) {
+      toast({
+        title: "Error",
+        description: "Password must be at least 6 characters",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setResetting(true);
+    try {
+      const response = await fetch(`/api/admin/customers/${selectedCustomer.id}/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ newPassword }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setResetPasswordModalOpen(false);
+        toast({
+          title: "Success",
+          description: `Password reset for ${selectedCustomer.email}`,
+        });
+      } else {
+        throw new Error(data.error || "Failed to reset password");
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to reset password",
+        variant: "destructive",
+      });
+    } finally {
+      setResetting(false);
+    }
+  };
+
   const filteredCustomers = customers.filter(customer =>
     customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     customer.username.toLowerCase().includes(searchTerm.toLowerCase())
@@ -145,7 +231,7 @@ export default function CustomersPage() {
           <Button
             onClick={loadCustomers}
             disabled={loading}
-            className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -160,8 +246,8 @@ export default function CustomersPage() {
                 <p className="text-white/60 text-sm">Total Customers</p>
                 <p className="text-2xl font-bold text-white">{customers.length}</p>
               </div>
-              <div className="p-3 rounded-xl bg-[#dc2626]/10">
-                <Users className="w-6 h-6 text-[#dc2626]" />
+              <div className="p-3 rounded-xl bg-[#2563eb]/10">
+                <Users className="w-6 h-6 text-[#2563eb]" />
               </div>
             </div>
           </CardContent>
@@ -192,7 +278,7 @@ export default function CustomersPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#dc2626] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (
@@ -202,8 +288,10 @@ export default function CustomersPage() {
                     <TableRow className="border-[#1a1a1a] hover:bg-transparent">
                       <TableHead className="text-white/60">Email</TableHead>
                       <TableHead className="text-white/60">Username</TableHead>
+                      <TableHead className="text-white/60">Orders</TableHead>
+                      <TableHead className="text-white/60">Licenses</TableHead>
                       <TableHead className="text-white/60">Created</TableHead>
-                      <TableHead className="text-white/60 text-center">Delete</TableHead>
+                      <TableHead className="text-white/60 text-center">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -211,27 +299,51 @@ export default function CustomersPage() {
                       <TableRow key={customer.id} className="border-[#1a1a1a] hover:bg-[#0a0a0a]/50">
                         <TableCell className="text-white font-mono text-sm">{customer.email}</TableCell>
                         <TableCell className="text-white">{customer.username}</TableCell>
+                        <TableCell className="text-white/60 text-sm">0</TableCell>
+                        <TableCell className="text-white/60 text-sm">0</TableCell>
                         <TableCell className="text-white/60 text-sm">
                           {new Date(customer.created_at).toLocaleDateString()}
                         </TableCell>
-                        <TableCell className="text-center">
-                          <Button
-                            size="sm"
-                            onClick={() => deleteCustomer(customer.id, customer.email)}
-                            className="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1"
-                            title="Delete Customer"
-                          >
-                            <Trash2 className="w-4 h-4 mr-1" />
-                            Delete
-                          </Button>
+                        <TableCell>
+                          <div className="flex items-center justify-center gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => openResetPasswordModal(customer)}
+                              disabled={resetting}
+                              className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-3 py-1"
+                              title="Reset Password"
+                            >
+                              <KeyRound className="w-4 h-4 mr-1" />
+                              Reset
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => forceLogout(customer)}
+                              disabled={forcingLogout}
+                              className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-3 py-1"
+                              title="Force Logout"
+                            >
+                              <Power className="w-4 h-4 mr-1" />
+                              Logout
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => deleteCustomer(customer.id, customer.email)}
+                              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1"
+                              title="Delete Account"
+                            >
+                              <Trash2 className="w-4 h-4 mr-1" />
+                              Delete
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
                     {filteredCustomers.length === 0 && !loading && (
                       <TableRow>
-                        <TableCell colSpan={4} className="py-16 text-center">
-                          <div className="w-16 h-16 rounded-full bg-[#dc2626]/10 flex items-center justify-center mx-auto mb-4">
-                            <Users className="w-8 h-8 text-[#dc2626]" />
+                        <TableCell colSpan={6} className="py-16 text-center">
+                          <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
+                            <Users className="w-8 h-8 text-[#2563eb]" />
                           </div>
                           <p className="text-white/60">No customers found</p>
                         </TableCell>
@@ -275,6 +387,66 @@ export default function CustomersPage() {
               className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6"
             >
               {deleting ? "Deleting..." : "Delete"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reset Password Modal */}
+      <Dialog open={resetPasswordModalOpen} onOpenChange={setResetPasswordModalOpen}>
+        <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white sm:max-w-[450px]">
+          <DialogHeader>
+            <DialogTitle className="text-2xl flex items-center gap-2">
+              <KeyRound className="w-6 h-6 text-yellow-500" />
+              Reset Password
+            </DialogTitle>
+            <DialogDescription className="text-white/60">
+              Set a new password for this customer account
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="py-4 space-y-4">
+            <div>
+              <Label className="text-white/80 mb-2 block">Customer Email</Label>
+              <p className="text-white font-mono text-sm bg-[#1a1a1a] px-3 py-2 rounded border border-[#262626]">
+                {selectedCustomer?.email}
+              </p>
+            </div>
+
+            <div>
+              <Label htmlFor="newPassword" className="text-white/80 mb-2 block">
+                New Password
+              </Label>
+              <Input
+                id="newPassword"
+                type="text"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Enter new password (min 6 characters)"
+                className="bg-[#1a1a1a] border-[#262626] text-white"
+                disabled={resetting}
+              />
+              <p className="text-white/40 text-xs mt-1">
+                Minimum 6 characters required
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-3 flex justify-center">
+            <Button
+              onClick={() => setResetPasswordModalOpen(false)}
+              disabled={resetting}
+              variant="outline"
+              className="bg-transparent border-[#262626] text-white hover:bg-[#1a1a1a] px-6"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={confirmResetPassword}
+              disabled={resetting || !newPassword || newPassword.length < 6}
+              className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-6"
+            >
+              {resetting ? "Resetting..." : "Reset Password"}
             </Button>
           </DialogFooter>
         </DialogContent>

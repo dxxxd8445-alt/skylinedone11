@@ -40,12 +40,12 @@ try {
     test('Password reset template function', templatesContent.includes('createPasswordResetEmail'));
     test('License delivery template function', templatesContent.includes('createLicenseDeliveryEmail'));
     test('Welcome email template function', templatesContent.includes('createWelcomeEmail'));
-    test('Magma branding in templates', templatesContent.includes('🔥 Magma Cheats'));
-    test('Red theme colors (#dc2626)', templatesContent.includes('#dc2626'));
+    test('Magma branding in templates', templatesContent.includes('🔥 Skyline Cheats'));
+    test('Red theme colors (#2563eb)', templatesContent.includes('#2563eb'));
     test('Responsive design (@media)', templatesContent.includes('@media (max-width: 600px)'));
     test('Professional styling (Inter font)', templatesContent.includes('Inter'));
     test('Security warnings included', templatesContent.includes('This link expires'));
-    test('Discord support links', templatesContent.includes('discord.gg/magmacheats'));
+    test('Discord support links', templatesContent.includes('discord.gg/skylineggs'));
     test('Beautiful gradients', templatesContent.includes('linear-gradient'));
   }
 
@@ -79,7 +79,7 @@ try {
     test('Email validation on frontend', forgotPageContent.includes('email.trim()'));
     test('Loading states', forgotPageContent.includes('submitting'));
     test('Success feedback', forgotPageContent.includes('setSent(true)'));
-    test('Consistent Magma styling', forgotPageContent.includes('#dc2626') || forgotPageContent.includes('bg-[#dc2626]'));
+    test('Consistent Magma styling', forgotPageContent.includes('#2563eb') || forgotPageContent.includes('bg-[#2563eb]'));
     test('Mobile responsive design', forgotPageContent.includes('max-w-md'));
     test('Toast notifications', forgotPageContent.includes('useToast'));
   }
@@ -130,7 +130,7 @@ try {
     test('Invite email HTML function', teamInviteContent.includes('inviteEmailHTML'));
     test('Reminder email HTML function', teamInviteContent.includes('reminderEmailHTML'));
     test('Magma branding in invites', teamInviteContent.includes('🔥'));
-    test('Consistent styling', teamInviteContent.includes('#dc2626'));
+    test('Consistent styling', teamInviteContent.includes('#2563eb'));
     test('Permissions display', teamInviteContent.includes('getPermissionLabel'));
     test('Invite link generation', teamInviteContent.includes('inviteLink'));
   }
@@ -149,7 +149,7 @@ try {
     if (!content.includes('Magma') && !content.includes('magma')) {
       brandingConsistent = false;
     }
-    if (!content.includes('#dc2626') && !content.includes('bg-[#dc2626]') && !content.includes('red-600')) {
+    if (!content.includes('#2563eb') && !content.includes('bg-[#2563eb]') && !content.includes('blue-600')) {
       // Some files might not have colors, so this is less strict
     }
   });

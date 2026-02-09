@@ -108,7 +108,7 @@ export default function InvoicesPage() {
         return "bg-blue-500/20 text-blue-400 border-blue-500/20";
       case "failed":
       case "disputed":
-        return "bg-red-500/20 text-red-400 border-red-500/20";
+        return "bg-blue-500/20 text-blue-400 border-blue-500/20";
       default:
         return "bg-gray-500/20 text-gray-400 border-gray-500/20";
     }
@@ -126,7 +126,7 @@ export default function InvoicesPage() {
           <Button
             onClick={loadInvoices}
             disabled={loading}
-            className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -188,7 +188,7 @@ export default function InvoicesPage() {
           <Card className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-[#1a1a1a]">
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
-                <AlertCircle className="w-5 h-5 text-red-400" />
+                <AlertCircle className="w-5 h-5 text-blue-400" />
               </div>
               <p className="text-white/60 text-xs mb-1">Disrupted</p>
               <p className="text-xl font-bold text-white">{stats.disruptedInvoices}</p>
@@ -239,7 +239,7 @@ export default function InvoicesPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#dc2626] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (

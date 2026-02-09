@@ -53,7 +53,7 @@ async function processPendingSession(session) {
       items = JSON.parse(session.items || '[]');
     } catch (e) {
       items = [{
-        productName: 'Magma Cheat',
+        productName: 'Skyline Cheat',
         game: 'Unknown',
         duration: '24 Hours',
         price: session.total,
@@ -71,7 +71,7 @@ async function processPendingSession(session) {
       amount_cents: Math.round(session.total * 100), // REQUIRED field
       status: 'completed',
       payment_method: 'stripe',
-      product_name: firstItem.productName || 'Magma Cheat',
+      product_name: firstItem.productName || 'Skyline Cheat',
       duration: firstItem.duration || '24 Hours',
       created_at: session.created_at,
       updated_at: new Date().toISOString(),
@@ -125,7 +125,7 @@ async function processPendingSession(session) {
       const licenseData = {
         license_key: licenseKey,
         order_id: order.id,
-        product_name: item.productName || 'Magma Cheat',
+        product_name: item.productName || 'Skyline Cheat',
         customer_email: session.customer_email,
         status: 'active',
         expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),

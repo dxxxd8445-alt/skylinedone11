@@ -114,8 +114,8 @@ export default function ManageLoginsPage() {
       </div>
 
       {/* Info banner */}
-      <div className="mb-6 flex items-start gap-3 rounded-xl bg-[#dc2626]/10 border border-[#dc2626]/20 p-4">
-        <UserCog className="w-5 h-5 text-[#dc2626] flex-shrink-0 mt-0.5" />
+      <div className="mb-6 flex items-start gap-3 rounded-xl bg-[#2563eb]/10 border border-[#2563eb]/20 p-4">
+        <UserCog className="w-5 h-5 text-[#2563eb] flex-shrink-0 mt-0.5" />
         <div>
           <p className="text-white font-medium">Owner only</p>
           <p className="text-sm text-white/60 mt-0.5">
@@ -166,7 +166,7 @@ export default function ManageLoginsPage() {
 
         {loading ? (
           <div className="p-12 flex justify-center">
-            <div className="w-10 h-10 rounded-full border-2 border-[#dc2626]/30 border-t-[#dc2626] animate-spin" />
+            <div className="w-10 h-10 rounded-full border-2 border-[#2563eb]/30 border-t-[#2563eb] animate-spin" />
           </div>
         ) : (
           <>
@@ -198,7 +198,7 @@ export default function ManageLoginsPage() {
                             {u.avatar_url ? (
                               <AvatarImage src={u.avatar_url} alt={u.username} className="object-cover" />
                             ) : null}
-                            <AvatarFallback className="bg-[#dc2626]/20 text-[#dc2626] font-semibold text-sm">
+                            <AvatarFallback className="bg-[#2563eb]/20 text-[#2563eb] font-semibold text-sm">
                               {(u.username || u.email)[0].toUpperCase()}
                             </AvatarFallback>
                           </Avatar>
@@ -206,7 +206,7 @@ export default function ManageLoginsPage() {
                         <td className="py-4 px-5">
                           <div className="flex items-center gap-2">
                             <Mail className="w-4 h-4 text-white/40 flex-shrink-0" />
-                            <a href={`mailto:${u.email}`} className="text-white font-medium hover:text-[#dc2626] transition-colors truncate max-w-[180px]" title={u.email}>
+                            <a href={`mailto:${u.email}`} className="text-white font-medium hover:text-[#2563eb] transition-colors truncate max-w-[180px]" title={u.email}>
                               {u.email}
                             </a>
                           </div>
@@ -312,13 +312,13 @@ export default function ManageLoginsPage() {
               placeholder="New password (min 6 characters)"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-lg bg-[#0a0a0a] border border-[#262626] text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#dc2626]/50"
+              className="w-full px-4 py-2.5 rounded-lg bg-[#0a0a0a] border border-[#262626] text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#2563eb]/50"
             />
             <div className="flex gap-2 mt-4">
               <Button variant="outline" className="flex-1 border-[#262626] text-white/80" onClick={() => { setResetModal(null); setNewPassword(""); }}>
                 Cancel
               </Button>
-              <Button className="flex-1 bg-[#dc2626] hover:bg-[#b91c1c] text-white" onClick={handleReset} disabled={resetting}>
+              <Button className="flex-1 bg-[#2563eb] hover:bg-[#b91c1c] text-white" onClick={handleReset} disabled={resetting}>
                 {resetting ? "Saving…" : "Save"}
               </Button>
             </div>
@@ -332,11 +332,11 @@ export default function ManageLoginsPage() {
           <div className="w-full max-w-5xl rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] shadow-xl p-6 sm:p-8 my-8">
             <div className="flex items-start justify-between gap-4 mb-6">
               <div className="flex items-center gap-4 min-w-0">
-                <Avatar className="h-16 w-16 rounded-xl ring-2 ring-[#dc2626]/30 flex-shrink-0">
+                <Avatar className="h-16 w-16 rounded-xl ring-2 ring-[#2563eb]/30 flex-shrink-0">
                   {viewModal.avatar_url ? (
                     <AvatarImage src={viewModal.avatar_url} alt={viewModal.username} className="object-cover" />
                   ) : null}
-                  <AvatarFallback className="bg-[#dc2626]/20 text-[#dc2626] font-semibold text-xl rounded-xl">
+                  <AvatarFallback className="bg-[#2563eb]/20 text-[#2563eb] font-semibold text-xl rounded-xl">
                     {(viewModal.username || viewModal.email)[0].toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
@@ -425,7 +425,7 @@ export default function ManageLoginsPage() {
 
             {detailLoading ? (
               <div className="py-16 flex flex-col items-center justify-center gap-4">
-                <div className="w-12 h-12 rounded-full border-2 border-[#dc2626]/30 border-t-[#dc2626] animate-spin" />
+                <div className="w-12 h-12 rounded-full border-2 border-[#2563eb]/30 border-t-[#2563eb] animate-spin" />
                 <p className="text-white/50 text-sm">Loading customer data...</p>
               </div>
             ) : detail ? (
@@ -469,7 +469,7 @@ export default function ManageLoginsPage() {
                                       "text-xs",
                                       o.status === 'completed' && "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
                                       o.status === 'pending' && "bg-yellow-500/10 border-yellow-500/20 text-yellow-400",
-                                      o.status === 'failed' && "bg-red-500/10 border-red-500/20 text-red-400"
+                                      o.status === 'failed' && "bg-blue-500/10 border-blue-500/20 text-blue-400"
                                     )}
                                   >
                                     {o.status}
@@ -540,7 +540,7 @@ export default function ManageLoginsPage() {
                                       className={cn(
                                         "text-xs",
                                         l.status === 'active' && "bg-emerald-500/10 border-emerald-500/20 text-emerald-400",
-                                        l.status === 'expired' && "bg-red-500/10 border-red-500/20 text-red-400",
+                                        l.status === 'expired' && "bg-blue-500/10 border-blue-500/20 text-blue-400",
                                         l.status === 'used' && "bg-blue-500/10 border-blue-500/20 text-blue-400"
                                       )}
                                     >

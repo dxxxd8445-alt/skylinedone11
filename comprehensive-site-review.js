@@ -11,7 +11,7 @@ const fetch = require('node-fetch');
 // Configuration
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://magmacheats.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -63,7 +63,7 @@ async function checkDomainReferences() {
   console.log('🌐 Checking Domain References...');
   
   // This would need to be implemented to scan files for old domain references
-  console.log('✅ Domain updated to magmacheats.com');
+  console.log('✅ Domain updated to skylinecheats.org');
   console.log('');
 }
 
@@ -125,7 +125,7 @@ async function runComprehensiveReview() {
     console.log('');
     console.log('✅ All systems operational');
     console.log('✅ Affiliate program ready');
-    console.log('✅ Domain updated to magmacheats.com');
+    console.log('✅ Domain updated to skylinecheats.org');
     console.log('✅ Mobile experience optimized');
     console.log('✅ Site ready for launch!');
     

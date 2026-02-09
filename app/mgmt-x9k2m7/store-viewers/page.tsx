@@ -432,7 +432,7 @@ export default function StoreViewersPage() {
 
   const getConnectionStatus = () => {
     if (loading) return { icon: RefreshCw, color: "text-yellow-400", label: "Loading..." };
-    if (!isConnected || error) return { icon: WifiOff, color: "text-red-400", label: "Disconnected" };
+    if (!isConnected || error) return { icon: WifiOff, color: "text-blue-400", label: "Disconnected" };
     return { icon: Wifi, color: "text-green-400", label: viewMode === 'realtime' ? "Live" : "Connected" };
   };
 
@@ -452,8 +452,8 @@ export default function StoreViewersPage() {
               {connectionStatus.label} • Last updated {lastUpdate.toLocaleTimeString()}
             </span>
             {viewMode === 'realtime' && (
-              <Badge className="bg-red-500/10 border-red-500/20 text-red-400 animate-pulse">
-                <div className="w-2 h-2 bg-red-400 rounded-full mr-2" />
+              <Badge className="bg-blue-500/10 border-blue-500/20 text-blue-400 animate-pulse">
+                <div className="w-2 h-2 bg-blue-400 rounded-full mr-2" />
                 LIVE
               </Badge>
             )}
@@ -467,7 +467,7 @@ export default function StoreViewersPage() {
                 className={cn(
                   "px-3 py-1.5 rounded-md text-sm font-medium transition-all",
                   viewMode === 'realtime'
-                    ? "bg-[#dc2626] text-white"
+                    ? "bg-[#2563eb] text-white"
                     : "text-white/60 hover:text-white"
                 )}
               >
@@ -479,7 +479,7 @@ export default function StoreViewersPage() {
                 className={cn(
                   "px-3 py-1.5 rounded-md text-sm font-medium transition-all",
                   viewMode === 'analytics'
-                    ? "bg-[#dc2626] text-white"
+                    ? "bg-[#2563eb] text-white"
                     : "text-white/60 hover:text-white"
                 )}
               >
@@ -495,7 +495,7 @@ export default function StoreViewersPage() {
                   onClick={() => setShowDatePicker(!showDatePicker)}
                   variant="outline"
                   size="sm"
-                  className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#dc2626]/30"
+                  className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#2563eb]/30"
                 >
                   <Calendar className="w-4 h-4 mr-2" />
                   {selectedDateRange.label}
@@ -511,7 +511,7 @@ export default function StoreViewersPage() {
                           className={cn(
                             "w-full text-left px-3 py-2 rounded-lg text-sm transition-all",
                             selectedDateRange.value === range.value
-                              ? "bg-[#dc2626] text-white"
+                              ? "bg-[#2563eb] text-white"
                               : "text-white/70 hover:text-white hover:bg-[#1a1a1a]"
                           )}
                         >
@@ -538,7 +538,7 @@ export default function StoreViewersPage() {
                         <Button
                           onClick={handleCustomDateRange}
                           size="sm"
-                          className="w-full bg-[#dc2626] hover:bg-[#ef4444]"
+                          className="w-full bg-[#2563eb] hover:bg-[#3b82f6]"
                           disabled={!customStartDate || !customEndDate}
                         >
                           Apply Custom Range
@@ -558,10 +558,10 @@ export default function StoreViewersPage() {
                 size="sm"
                 className={cn(
                   "bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626]",
-                  autoRefresh && "border-[#dc2626]/30 bg-[#dc2626]/10"
+                  autoRefresh && "border-[#2563eb]/30 bg-[#2563eb]/10"
                 )}
               >
-                <Zap className={cn("w-4 h-4 mr-2", autoRefresh && "text-[#dc2626]")} />
+                <Zap className={cn("w-4 h-4 mr-2", autoRefresh && "text-[#2563eb]")} />
                 Auto Refresh
               </Button>
             )}
@@ -571,7 +571,7 @@ export default function StoreViewersPage() {
               onClick={exportData}
               variant="outline"
               size="sm"
-              className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#dc2626]/30"
+              className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#2563eb]/30"
             >
               <Download className="w-4 h-4 mr-2" />
               Export
@@ -583,7 +583,7 @@ export default function StoreViewersPage() {
               variant="outline"
               size="sm"
               disabled={loading}
-              className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#dc2626]/30"
+              className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#2563eb]/30"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
               Refresh
@@ -592,14 +592,14 @@ export default function StoreViewersPage() {
         </div>
         {/* Error State */}
         {error && (
-          <Card className="bg-gradient-to-br from-red-500/10 to-red-600/5 border-red-500/20">
+          <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
             <CardContent className="p-6">
               <div className="flex items-center gap-3">
-                <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0" />
+                <AlertCircle className="w-6 h-6 text-blue-400 flex-shrink-0" />
                 <div>
-                  <h3 className="text-red-400 font-semibold">Analytics Error</h3>
-                  <p className="text-red-300/80 text-sm mt-1">{error}</p>
-                  <p className="text-red-300/60 text-xs mt-2">
+                  <h3 className="text-blue-400 font-semibold">Analytics Error</h3>
+                  <p className="text-blue-300/80 text-sm mt-1">{error}</p>
+                  <p className="text-blue-300/60 text-xs mt-2">
                     Make sure you've run the database setup SQL and the analytics tracking is properly configured.
                   </p>
                 </div>
@@ -610,20 +610,20 @@ export default function StoreViewersPage() {
 
         {/* Enhanced Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
-          <Card className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border-[#262626] hover:border-[#dc2626]/30 transition-all">
+          <Card className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border-[#262626] hover:border-[#2563eb]/30 transition-all">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-white/70">
                 {viewMode === 'realtime' ? 'Active Visitors' : 'Total Visitors'}
               </CardTitle>
-              <Users className="h-4 w-4 text-[#dc2626]" />
+              <Users className="h-4 w-4 text-[#2563eb]" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-white">
                 {formatNumber(viewMode === 'realtime' ? stats.activeVisitors : stats.totalVisitors)}
               </div>
               <div className="flex items-center gap-1 mt-1">
-                <div className={cn("w-2 h-2 rounded-full", isConnected ? "bg-green-400 animate-pulse" : "bg-red-400")} />
-                <span className={cn("text-xs", isConnected ? "text-green-400" : "text-red-400")}>
+                <div className={cn("w-2 h-2 rounded-full", isConnected ? "bg-green-400 animate-pulse" : "bg-blue-400")} />
+                <span className={cn("text-xs", isConnected ? "text-green-400" : "text-blue-400")}>
                   {isConnected ? (viewMode === 'realtime' ? "Live" : "Connected") : "Offline"}
                 </span>
               </div>
@@ -733,13 +733,13 @@ export default function StoreViewersPage() {
               <Card className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border-[#262626]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-white">
-                    <Activity className="w-5 h-5 text-[#dc2626]" />
+                    <Activity className="w-5 h-5 text-[#2563eb]" />
                     Live Visitor Activity
                     <Badge className={cn(
                       "border ml-2",
                       isConnected 
                         ? "bg-green-500/10 border-green-500/20 text-green-400" 
-                        : "bg-red-500/10 border-red-500/20 text-red-400"
+                        : "bg-blue-500/10 border-blue-500/20 text-blue-400"
                     )}>
                       {visitors.length} active
                     </Badge>
@@ -748,14 +748,14 @@ export default function StoreViewersPage() {
                 <CardContent>
                   {loading ? (
                     <div className="flex items-center justify-center py-8">
-                      <RefreshCw className="h-6 w-6 animate-spin mr-2 text-[#dc2626]" />
+                      <RefreshCw className="h-6 w-6 animate-spin mr-2 text-[#2563eb]" />
                       <span className="text-white/60">Loading real-time data...</span>
                     </div>
                   ) : error ? (
                     <div className="text-center py-8">
-                      <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-3" />
-                      <p className="text-red-400 font-medium">Failed to load visitor data</p>
-                      <p className="text-red-300/60 text-sm mt-1">Check database setup and try again</p>
+                      <AlertCircle className="w-12 h-12 text-blue-400 mx-auto mb-3" />
+                      <p className="text-blue-400 font-medium">Failed to load visitor data</p>
+                      <p className="text-blue-300/60 text-sm mt-1">Check database setup and try again</p>
                     </div>
                   ) : visitors.length === 0 ? (
                     <div className="text-center py-8">
@@ -768,7 +768,7 @@ export default function StoreViewersPage() {
                       {visitors.map((visitor) => (
                         <div
                           key={visitor.id}
-                          className="flex items-center justify-between p-4 rounded-lg bg-[#0a0a0a]/50 border border-[#262626] hover:border-[#dc2626]/30 transition-all"
+                          className="flex items-center justify-between p-4 rounded-lg bg-[#0a0a0a]/50 border border-[#262626] hover:border-[#2563eb]/30 transition-all"
                         >
                           <div className="flex items-center gap-3 min-w-0 flex-1">
                             <div className="flex items-center gap-2">

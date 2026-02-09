@@ -116,7 +116,7 @@ export function Header() {
     {
       icon: Shield,
       label: t("nav_support"),
-      href: "https://discord.gg/magmacheats",
+      href: "https://discord.gg/skylineggs",
       external: true,
     },
   ];
@@ -171,17 +171,17 @@ export function Header() {
 
   const currencyMeta: Record<SupportedCurrency, { symbol: string; flagUrl: string }> = {
     USD: { symbol: "$", flagUrl: "https://flagcdn.com/us.svg" },
-    EUR: { symbol: "€", flagUrl: "https://flagcdn.com/eu.svg" },
-    GBP: { symbol: "£", flagUrl: "https://flagcdn.com/gb.svg" },
+    EUR: { symbol: "•", flagUrl: "https://flagcdn.com/eu.svg" },
+    GBP: { symbol: "•", flagUrl: "https://flagcdn.com/gb.svg" },
     CAD: { symbol: "C$", flagUrl: "https://flagcdn.com/ca.svg" },
     AUD: { symbol: "A$", flagUrl: "https://flagcdn.com/au.svg" },
     NZD: { symbol: "NZ$", flagUrl: "https://flagcdn.com/nz.svg" },
-    JPY: { symbol: "¥", flagUrl: "https://flagcdn.com/jp.svg" },
-    KRW: { symbol: "₩", flagUrl: "https://flagcdn.com/kr.svg" },
-    CNY: { symbol: "¥", flagUrl: "https://flagcdn.com/cn.svg" },
+    JPY: { symbol: "•", flagUrl: "https://flagcdn.com/jp.svg" },
+    KRW: { symbol: "?", flagUrl: "https://flagcdn.com/kr.svg" },
+    CNY: { symbol: "•", flagUrl: "https://flagcdn.com/cn.svg" },
     HKD: { symbol: "HK$", flagUrl: "https://flagcdn.com/hk.svg" },
     SGD: { symbol: "S$", flagUrl: "https://flagcdn.com/sg.svg" },
-    INR: { symbol: "₹", flagUrl: "https://flagcdn.com/in.svg" },
+    INR: { symbol: "?", flagUrl: "https://flagcdn.com/in.svg" },
     BRL: { symbol: "R$", flagUrl: "https://flagcdn.com/br.svg" },
     MXN: { symbol: "MX$", flagUrl: "https://flagcdn.com/mx.svg" },
     ZAR: { symbol: "R", flagUrl: "https://flagcdn.com/za.svg" },
@@ -189,32 +189,32 @@ export function Header() {
     NOK: { symbol: "kr", flagUrl: "https://flagcdn.com/no.svg" },
     DKK: { symbol: "kr", flagUrl: "https://flagcdn.com/dk.svg" },
     CHF: { symbol: "CHF", flagUrl: "https://flagcdn.com/ch.svg" },
-    PLN: { symbol: "zł", flagUrl: "https://flagcdn.com/pl.svg" },
-    CZK: { symbol: "Kč", flagUrl: "https://flagcdn.com/cz.svg" },
+    PLN: { symbol: "zl", flagUrl: "https://flagcdn.com/pl.svg" },
+    CZK: { symbol: "Kc", flagUrl: "https://flagcdn.com/cz.svg" },
     HUF: { symbol: "Ft", flagUrl: "https://flagcdn.com/hu.svg" },
     RON: { symbol: "lei", flagUrl: "https://flagcdn.com/ro.svg" },
-    TRY: { symbol: "₺", flagUrl: "https://flagcdn.com/tr.svg" },
-    ILS: { symbol: "₪", flagUrl: "https://flagcdn.com/il.svg" },
-    AED: { symbol: "د.إ", flagUrl: "https://flagcdn.com/ae.svg" },
-    SAR: { symbol: "﷼", flagUrl: "https://flagcdn.com/sa.svg" },
+    TRY: { symbol: "?", flagUrl: "https://flagcdn.com/tr.svg" },
+    ILS: { symbol: "?", flagUrl: "https://flagcdn.com/il.svg" },
+    AED: { symbol: "?.?", flagUrl: "https://flagcdn.com/ae.svg" },
+    SAR: { symbol: "?", flagUrl: "https://flagcdn.com/sa.svg" },
   };
 
   const languageMeta: Record<SupportedLanguage, { label: string; flagUrl: string }> = {
     en: { label: "English", flagUrl: "https://flagcdn.com/us.svg" },
-    es: { label: "Español", flagUrl: "https://flagcdn.com/es.svg" },
-    fr: { label: "Français", flagUrl: "https://flagcdn.com/fr.svg" },
+    es: { label: "Espa•ol", flagUrl: "https://flagcdn.com/es.svg" },
+    fr: { label: "Fran•ais", flagUrl: "https://flagcdn.com/fr.svg" },
     de: { label: "Deutsch", flagUrl: "https://flagcdn.com/de.svg" },
     it: { label: "Italiano", flagUrl: "https://flagcdn.com/it.svg" },
-    pt: { label: "Português", flagUrl: "https://flagcdn.com/pt.svg" },
+    pt: { label: "Portugu•s", flagUrl: "https://flagcdn.com/pt.svg" },
     nl: { label: "Nederlands", flagUrl: "https://flagcdn.com/nl.svg" },
     pl: { label: "Polski", flagUrl: "https://flagcdn.com/pl.svg" },
-    tr: { label: "Türkçe", flagUrl: "https://flagcdn.com/tr.svg" },
-    ru: { label: "Русский", flagUrl: "https://flagcdn.com/ru.svg" },
-    ar: { label: "العربية", flagUrl: "https://flagcdn.com/sa.svg" },
-    hi: { label: "हिन्दी", flagUrl: "https://flagcdn.com/in.svg" },
-    ja: { label: "日本語", flagUrl: "https://flagcdn.com/jp.svg" },
-    ko: { label: "한국어", flagUrl: "https://flagcdn.com/kr.svg" },
-    zh: { label: "中文", flagUrl: "https://flagcdn.com/cn.svg" },
+    tr: { label: "T•rk•e", flagUrl: "https://flagcdn.com/tr.svg" },
+    ru: { label: "???????", flagUrl: "https://flagcdn.com/ru.svg" },
+    ar: { label: "???????", flagUrl: "https://flagcdn.com/sa.svg" },
+    hi: { label: "??????", flagUrl: "https://flagcdn.com/in.svg" },
+    ja: { label: "???", flagUrl: "https://flagcdn.com/jp.svg" },
+    ko: { label: "???", flagUrl: "https://flagcdn.com/kr.svg" },
+    zh: { label: "??", flagUrl: "https://flagcdn.com/cn.svg" },
   };
 
   return (
@@ -226,10 +226,10 @@ export function Header() {
             <div className="relative transition-transform duration-300 group-hover:scale-110">
               <Image
                 src="/images/magma-logo.png"
-                alt="Magma Cheats"
+                alt="Skyline Cheats"
                 width={300}
                 height={80}
-                className="h-5 sm:h-6 md:h-7 lg:h-8 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_14px_rgba(220,38,38,0.6)]"
+                className="h-5 sm:h-6 md:h-7 lg:h-8 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_14px_rgba(37,99,235,0.6)]"
                 priority
               />
             </div>
@@ -237,7 +237,7 @@ export function Header() {
 
           {/* Mobile Search Bar - Always Visible */}
           <div ref={searchRef} className="relative flex-1 max-w-xs sm:max-w-sm lg:hidden">
-            <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#dc2626]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
+            <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#2563eb]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
               <Search className="w-4 h-4 text-white/50 transition-colors duration-300 flex-shrink-0" />
               <input
                 type="text"
@@ -317,21 +317,21 @@ export function Header() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-white/70 hover:text-[#dc2626] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-[#2563eb] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
                 >
                   {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
                   <span>{item.label}</span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#dc2626] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#2563eb] transition-all duration-300 group-hover:w-full" />
                 </a>
               ) : (
                 <Link
                   key={i}
                   href={item.href}
-                  className="flex items-center gap-1.5 text-white/70 hover:text-[#dc2626] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-[#2563eb] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
                 >
                   {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
                   <span>{item.label}</span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#dc2626] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#2563eb] transition-all duration-300 group-hover:w-full" />
                 </Link>
               )
             )}
@@ -359,7 +359,7 @@ export function Header() {
 
             {/* Desktop Search */}
             <div ref={searchRef} className="relative hidden lg:block">
-              <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#dc2626]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
+              <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#2563eb]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
                 <Search className="w-4 h-4 text-white/50 transition-colors duration-300" />
                 <input
                   type="text"
@@ -439,7 +439,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
+                        className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
                         aria-label="Currency"
                         type="button"
                         suppressHydrationWarning
@@ -482,7 +482,7 @@ export function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
-                      className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
+                      className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
                       aria-label="Language"
                       type="button"
                       suppressHydrationWarning
@@ -557,7 +557,7 @@ export function Header() {
               >
                 <Image
                   src="/images/magma-logo.png"
-                  alt="Magma Cheats"
+                  alt="Skyline Cheats"
                   width={200}
                   height={53}
                   className="h-6 w-auto"
@@ -594,7 +594,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#dc2626]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
+                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#2563eb]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
                         type="button"
                         aria-label="Currency"
                         suppressHydrationWarning
@@ -637,7 +637,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#dc2626]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
+                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#2563eb]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
                         type="button"
                         aria-label="Language"
                         suppressHydrationWarning
@@ -691,11 +691,11 @@ export function Header() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#dc2626]/20"
+                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#2563eb]/20"
                       >
                         {item.icon && (
-                          <div className="w-10 h-10 rounded-lg bg-[#dc2626]/10 flex items-center justify-center flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-[#dc2626]" />
+                          <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[#2563eb]" />
                           </div>
                         )}
                         <div className="flex-1">
@@ -708,11 +708,11 @@ export function Header() {
                       <Link
                         href={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#dc2626]/20"
+                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#2563eb]/20"
                       >
                         {item.icon && (
-                          <div className="w-10 h-10 rounded-lg bg-[#dc2626]/10 flex items-center justify-center flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-[#dc2626]" />
+                          <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[#2563eb]" />
                           </div>
                         )}
                         <div className="flex-1">
@@ -736,18 +736,18 @@ export function Header() {
             <div className="px-4 py-4 border-t border-[#1a1a1a] bg-[#0a0a0a]/90">
               <div className="text-center">
                 <p className="text-white/40 text-xs">
-                  © 2025 Magma Cheats. All rights reserved.
+                  • 2025 Skyline Cheats. All rights reserved.
                 </p>
                 <div className="flex items-center justify-center gap-4 mt-2">
-                  <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#dc2626] text-xs transition-colors">
+                  <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
                     Terms
                   </Link>
                   <span className="text-white/30">•</span>
-                  <Link href="/privacy" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#dc2626] text-xs transition-colors">
+                  <Link href="/privacy" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
                     Privacy
                   </Link>
                   <span className="text-white/30">•</span>
-                  <a href="https://discord.gg/magmacheats" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#dc2626] text-xs transition-colors">
+                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
                     Support
                   </a>
                 </div>

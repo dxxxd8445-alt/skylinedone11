@@ -1,5 +1,5 @@
 -- ============================================
--- COMPLETE MAGMA STORE DATABASE SETUP
+-- COMPLETE Skyline Store DATABASE SETUP
 -- Run this entire script in your new Supabase SQL Editor
 -- ============================================
 
@@ -60,14 +60,22 @@ CREATE TABLE IF NOT EXISTS orders (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   order_number TEXT UNIQUE NOT NULL,
   customer_email TEXT NOT NULL,
+  customer_name TEXT,
   product_id UUID REFERENCES products(id),
   variant_id UUID REFERENCES product_variants(id),
   product_name TEXT NOT NULL,
   duration TEXT NOT NULL,
   amount_cents INTEGER NOT NULL,
-  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'failed', 'refunded', 'paid')),
+  currency TEXT DEFAULT 'USD',
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'failed', 'refunded', 'paid', 'disputed')),
   payment_method TEXT DEFAULT 'moneymotion',
   payment_id TEXT,
+  payment_intent_id TEXT,
+  stripe_session_id TEXT,
+  billing_address JSONB,
+  coupon_code TEXT,
+  coupon_discount_amount DECIMAL(10,2),
+  metadata JSONB,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -83,9 +91,10 @@ CREATE TABLE IF NOT EXISTS licenses (
   variant_id UUID REFERENCES product_variants(id),
   product_name TEXT NOT NULL,
   customer_email TEXT NOT NULL,
-  status TEXT DEFAULT 'unused' CHECK (status IN ('unused', 'active', 'expired', 'revoked')),
+  status TEXT DEFAULT 'unused' CHECK (status IN ('unused', 'active', 'expired', 'revoked', 'pending')),
   expires_at TIMESTAMP WITH TIME ZONE,
   hwid TEXT,
+  assigned_at TIMESTAMP WITH TIME ZONE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -180,6 +189,24 @@ CREATE TABLE IF NOT EXISTS admin_audit_logs (
 );
 
 -- ============================================
+-- 12. STRIPE SESSIONS TABLE
+-- ============================================
+CREATE TABLE IF NOT EXISTS stripe_sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  session_id TEXT UNIQUE NOT NULL,
+  customer_email TEXT NOT NULL,
+  items JSONB NOT NULL,
+  coupon_code TEXT,
+  coupon_discount_amount DECIMAL(10,2) DEFAULT 0,
+  subtotal DECIMAL(10,2) NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'completed', 'expired', 'failed')),
+  stripe_payment_intent_id TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- ============================================
 -- INDEXES FOR PERFORMANCE
 -- ============================================
 
@@ -201,6 +228,10 @@ CREATE INDEX IF NOT EXISTS idx_orders_order_number ON orders(order_number);
 CREATE INDEX IF NOT EXISTS idx_orders_customer_email ON orders(customer_email);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
 CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_orders_payment_method ON orders(payment_method);
+CREATE INDEX IF NOT EXISTS idx_orders_payment_intent_id ON orders(payment_intent_id);
+CREATE INDEX IF NOT EXISTS idx_orders_stripe_session_id ON orders(stripe_session_id);
+CREATE INDEX IF NOT EXISTS idx_orders_coupon_code ON orders(coupon_code);
 
 -- Licenses
 CREATE INDEX IF NOT EXISTS idx_licenses_license_key ON licenses(license_key);
@@ -208,6 +239,7 @@ CREATE INDEX IF NOT EXISTS idx_licenses_order_id ON licenses(order_id);
 CREATE INDEX IF NOT EXISTS idx_licenses_customer_email ON licenses(customer_email);
 CREATE INDEX IF NOT EXISTS idx_licenses_status ON licenses(status);
 CREATE INDEX IF NOT EXISTS idx_licenses_product_id ON licenses(product_id);
+CREATE INDEX IF NOT EXISTS idx_licenses_assigned_at ON licenses(assigned_at);
 
 -- Coupons
 CREATE INDEX IF NOT EXISTS idx_coupons_code ON coupons(code);
@@ -228,6 +260,12 @@ CREATE INDEX IF NOT EXISTS idx_admin_audit_logs_created_at ON admin_audit_logs(c
 CREATE INDEX IF NOT EXISTS idx_admin_audit_logs_actor ON admin_audit_logs(actor_role, actor_identifier);
 CREATE INDEX IF NOT EXISTS idx_admin_audit_logs_event_type ON admin_audit_logs(event_type);
 
+-- Stripe Sessions
+CREATE INDEX IF NOT EXISTS idx_stripe_sessions_session_id ON stripe_sessions(session_id);
+CREATE INDEX IF NOT EXISTS idx_stripe_sessions_customer_email ON stripe_sessions(customer_email);
+CREATE INDEX IF NOT EXISTS idx_stripe_sessions_status ON stripe_sessions(status);
+CREATE INDEX IF NOT EXISTS idx_stripe_sessions_created_at ON stripe_sessions(created_at);
+
 -- ============================================
 -- ROW LEVEL SECURITY (RLS)
 -- ============================================
@@ -244,6 +282,7 @@ ALTER TABLE team_members ENABLE ROW LEVEL SECURITY;
 ALTER TABLE webhooks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE settings ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_audit_logs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE stripe_sessions ENABLE ROW LEVEL SECURITY;
 
 -- Create policies for service role access (admin operations)
 CREATE POLICY IF NOT EXISTS "Service role can manage categories" ON categories FOR ALL USING (auth.role() = 'service_role');
@@ -257,6 +296,7 @@ CREATE POLICY IF NOT EXISTS "Service role can manage team_members" ON team_membe
 CREATE POLICY IF NOT EXISTS "Service role can manage webhooks" ON webhooks FOR ALL USING (auth.role() = 'service_role');
 CREATE POLICY IF NOT EXISTS "Service role can manage settings" ON settings FOR ALL USING (auth.role() = 'service_role');
 CREATE POLICY IF NOT EXISTS "Service role can manage audit_logs" ON admin_audit_logs FOR ALL USING (auth.role() = 'service_role');
+CREATE POLICY IF NOT EXISTS "Service role can manage stripe_sessions" ON stripe_sessions FOR ALL USING (auth.role() = 'service_role');
 
 -- Public read access for store front
 CREATE POLICY IF NOT EXISTS "Public can read active products" ON products FOR SELECT USING (status = 'active');
@@ -317,13 +357,13 @@ ON CONFLICT DO NOTHING;
 
 -- Insert sample team member (admin user)
 INSERT INTO team_members (name, email, username, role, status, permissions) VALUES
-('Admin User', 'admin@magma.local', 'admin', 'Owner', 'active', 
+('Admin User', 'admin@skyline.local', 'admin', 'Owner', 'active', 
  '["dashboard", "manage_products", "manage_categories", "manage_orders", "stock_keys", "manage_coupons", "manage_webhooks", "manage_team", "manage_settings", "manage_logins"]'::jsonb)
 ON CONFLICT (email) DO NOTHING;
 
 -- Insert sample settings
 INSERT INTO settings (key, value, description) VALUES
-('site_name', '"Magma Store"', 'Website name'),
+('site_name', '"Skyline Store"', 'Website name'),
 ('site_description', '"Premium gaming software and cheats"', 'Website description'),
 ('maintenance_mode', 'false', 'Enable/disable maintenance mode'),
 ('max_licenses_per_order', '5', 'Maximum licenses per order'),
@@ -356,6 +396,7 @@ CREATE TRIGGER update_orders_updated_at BEFORE UPDATE ON orders FOR EACH ROW EXE
 CREATE TRIGGER update_licenses_updated_at BEFORE UPDATE ON licenses FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_team_members_updated_at BEFORE UPDATE ON team_members FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_settings_updated_at BEFORE UPDATE ON settings FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_stripe_sessions_updated_at BEFORE UPDATE ON stripe_sessions FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- ============================================
 -- VERIFICATION
@@ -369,7 +410,7 @@ FROM information_schema.tables
 WHERE table_schema = 'public' 
   AND table_name IN (
     'categories', 'products', 'product_variants', 'orders', 'licenses', 
-    'coupons', 'reviews', 'team_members', 'webhooks', 'settings', 'admin_audit_logs'
+    'coupons', 'reviews', 'team_members', 'webhooks', 'settings', 'admin_audit_logs', 'stripe_sessions'
   );
 
 -- Show sample data counts
@@ -402,6 +443,7 @@ COMMENT ON TABLE team_members IS 'Admin and staff users';
 COMMENT ON TABLE webhooks IS 'Webhook configurations';
 COMMENT ON TABLE settings IS 'Application configuration settings';
 COMMENT ON TABLE admin_audit_logs IS 'Admin and staff login/logout tracking';
+COMMENT ON TABLE stripe_sessions IS 'Stripe checkout session tracking';
 
 -- Success message
-SELECT '🎉 SETUP COMPLETE! Your Magma Store database is ready!' as message;
+SELECT '🎉 SETUP COMPLETE! Your Skyline Store database is ready!' as message;

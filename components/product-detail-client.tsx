@@ -358,8 +358,8 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
     <div className="pt-24 pb-16 relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#dc2626]/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#dc2626]/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -367,7 +367,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
         <div className="flex items-center justify-between mb-8">
           <Link
             href={gameSlug ? `/store/${gameSlug}` : "/store"}
-            className="group inline-flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] rounded-lg text-white/60 hover:text-[#dc2626] hover:border-[#dc2626]/30 transition-all"
+            className="group inline-flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] rounded-lg text-white/60 hover:text-[#2563eb] hover:border-[#2563eb]/30 transition-all"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             {gameSlug ? `Back to ${product.game} Cheats` : "Back to Store"}
@@ -376,8 +376,8 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
           {/* Live Viewing Indicator */}
           <div className="flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] rounded-lg">
             <div className="relative">
-              <Eye className="w-4 h-4 text-[#dc2626]" />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#dc2626] rounded-full animate-ping" />
+              <Eye className="w-4 h-4 text-[#2563eb]" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#2563eb] rounded-full animate-ping" />
             </div>
             <span className="text-white/80 text-sm font-medium">{viewingCount} viewing now</span>
           </div>
@@ -390,7 +390,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
           <div className="space-y-6">
             {/* Main Image with Zoom Effect */}
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#dc2626]/50 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/50 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
               <div className="relative w-full bg-[#111111] border-2 border-[#1a1a1a] rounded-2xl overflow-hidden" style={{ aspectRatio: "16/9" }}>
                 <Image
                   src={product.gallery && product.gallery.length > 0 && selectedImage < product.gallery.length
@@ -417,8 +417,8 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                     onClick={() => setSelectedImage(idx)}
                     className={`relative group/thumb w-28 h-20 rounded-xl overflow-hidden border-2 transition-all flex-shrink-0 ${
                       selectedImage === idx
-                        ? "border-[#dc2626] ring-2 ring-[#dc2626]/50 scale-105"
-                        : "border-[#1a1a1a] hover:border-[#dc2626]/50 hover:scale-105"
+                        ? "border-[#2563eb] ring-2 ring-[#2563eb]/50 scale-105"
+                        : "border-[#1a1a1a] hover:border-[#2563eb]/50 hover:scale-105"
                     }`}
                   >
                     <Image
@@ -428,7 +428,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                       className="object-cover transform group-hover/thumb:scale-110 transition-transform"
                     />
                     {selectedImage === idx && (
-                      <div className="absolute inset-0 bg-[#dc2626]/20 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-[#2563eb]/20 flex items-center justify-center">
                         <Check className="w-6 h-6 text-white" />
                       </div>
                     )}
@@ -446,8 +446,8 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               ]).map((card, idx) => {
                 const IconComponent = card.icon === "Shield" ? Shield : card.icon === "Zap" ? Zap : Users;
                 return (
-                  <div key={idx} className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4 text-center hover:border-[#dc2626]/30 transition-all group">
-                    <IconComponent className="w-8 h-8 text-[#dc2626] mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                  <div key={idx} className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4 text-center hover:border-[#2563eb]/30 transition-all group">
+                    <IconComponent className="w-8 h-8 text-[#2563eb] mx-auto mb-2 group-hover:scale-110 transition-transform" />
                     <p className="text-white text-sm font-semibold mb-1">{card.title}</p>
                     <p className="text-white/50 text-xs">{card.description}</p>
                   </div>
@@ -464,8 +464,8 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               
               {/* Enhanced Status Badges */}
               <div className="flex items-center gap-3 flex-wrap">
-                <span className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#1a1a1a] to-[#111111] text-white text-sm border border-[#262626] hover:border-[#dc2626]/30 transition-all">
-                  <Zap className="w-4 h-4 text-[#dc2626] group-hover:animate-pulse" />
+                <span className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#1a1a1a] to-[#111111] text-white text-sm border border-[#262626] hover:border-[#2563eb]/30 transition-all">
+                  <Zap className="w-4 h-4 text-[#2563eb] group-hover:animate-pulse" />
                   Instant Delivery
                 </span>
                 <span
@@ -479,7 +479,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                   {product.status === "active" ? "Undetected (Working)" : "Maintenance"}
                   <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#dc2626]/10 text-[#dc2626] text-sm border border-[#dc2626]/30 font-semibold">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2563eb]/10 text-[#2563eb] text-sm border border-[#2563eb]/30 font-semibold">
                   <TrendingUp className="w-4 h-4" />
                   Trending
                 </span>
@@ -487,8 +487,8 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
             </div>
 
             {/* Enhanced Price Display - Mobile Optimized */}
-            <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#dc2626]/30 rounded-2xl p-4 sm:p-6 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#2563eb]/30 rounded-2xl p-4 sm:p-6 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 {selectedTier ? (
                   <div className="space-y-4">
@@ -500,7 +500,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                           {selectedTier.duration}
                         </p>
                         <p className="text-4xl sm:text-5xl font-bold text-white flex items-baseline gap-2">
-                          <span className="text-[#dc2626]">
+                          <span className="text-[#2563eb]">
                             {formatMoney({ amountUsd: selectedTier.price, currency, locale })}
                           </span>
                         </p>
@@ -535,8 +535,8 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                       onClick={() => setSelectedPriceIndex(index)}
                       className={`relative w-full p-4 sm:p-5 rounded-xl border-2 transition-all text-left group overflow-hidden touch-manipulation ${
                         selectedPriceIndex === index
-                          ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] border-[#dc2626] text-white shadow-2xl shadow-[#dc2626]/40 scale-105"
-                          : "bg-[#111111] border-[#262626] text-white hover:border-[#dc2626]/50 hover:bg-[#1a1a1a] hover:scale-102"
+                          ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] border-[#2563eb] text-white shadow-2xl shadow-[#2563eb]/40 scale-105"
+                          : "bg-[#111111] border-[#262626] text-white hover:border-[#2563eb]/50 hover:bg-[#1a1a1a] hover:scale-102"
                       }`}
                     >
                       {selectedPriceIndex === index && (
@@ -570,7 +570,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
 
             {/* Checkout Error */}
             {checkoutError && (
-              <div className="p-4 bg-red-500/10 border-2 border-red-500/30 rounded-xl text-red-400 text-sm animate-shake flex items-start gap-3">
+              <div className="p-4 bg-blue-500/10 border-2 border-blue-500/30 rounded-xl text-blue-400 text-sm animate-shake flex items-start gap-3">
                 <X className="w-5 h-5 flex-shrink-0 mt-0.5" />
                 <span>{checkoutError}</span>
               </div>
@@ -590,7 +590,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               <button
                 onClick={handleBuyNow}
                 disabled={!selectedTier}
-                className="relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white hover:from-[#ef4444] hover:to-[#dc2626] hover:shadow-2xl hover:shadow-[#dc2626]/40 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none touch-manipulation"
+                className="relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white hover:from-[#3b82f6] hover:to-[#2563eb] hover:shadow-2xl hover:shadow-[#2563eb]/40 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none touch-manipulation"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <Zap className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
@@ -624,7 +624,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg font-semibold transition-all ${
                   activeTab === tab.id
-                    ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white shadow-lg shadow-[#dc2626]/30"
+                    ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-lg shadow-[#2563eb]/30"
                     : "text-white/60 hover:text-white hover:bg-[#1a1a1a]"
                 }`}
               >
@@ -641,10 +641,10 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                 {/* Information Section */}
                 <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8">
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-lg bg-[#dc2626]/10 flex items-center justify-center">
-                      <Shield className="w-5 h-5 text-[#dc2626]" />
+                    <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center">
+                      <Shield className="w-5 h-5 text-[#2563eb]" />
                     </div>
-                    <h2 className="text-[#dc2626] font-bold text-2xl tracking-wider">SYSTEM REQUIREMENTS</h2>
+                    <h2 className="text-[#2563eb] font-bold text-2xl tracking-wider">SYSTEM REQUIREMENTS</h2>
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     {[
@@ -653,9 +653,9 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                       { icon: Lock, label: "Type", value: product.requirements.cheatType },
                       { icon: Check, label: "Controller", value: product.requirements.controller ? "Supported" : "Not Supported" },
                     ].map((req, idx) => (
-                      <div key={idx} className="flex items-center gap-3 p-4 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a] hover:border-[#dc2626]/30 transition-all group">
-                        <div className="w-10 h-10 rounded-lg bg-[#dc2626]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <req.icon className="w-5 h-5 text-[#dc2626]" />
+                      <div key={idx} className="flex items-center gap-3 p-4 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-all group">
+                        <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <req.icon className="w-5 h-5 text-[#2563eb]" />
                         </div>
                         <div>
                           <p className="text-white/50 text-xs font-medium uppercase">{req.label}</p>
@@ -669,26 +669,46 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                 {/* Features Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {[
-                    { title: "AIMBOT", desc: "External Aim Assistance With Tuning", features: product.features.aimbot, gradient: "from-red-500/20 to-orange-500/20" },
-                    { title: "ESP", desc: "Enemy, Item, And Loot Awareness", features: product.features.esp, gradient: "from-purple-500/20 to-pink-500/20" },
-                    { title: "MISC", desc: "Customization And Utility Features", features: product.features.misc, gradient: "from-blue-500/20 to-cyan-500/20" },
+                    { 
+                      title: "AIMBOT", 
+                      desc: "External Aim Assistance With Tuning", 
+                      features: product.features.aimbot
+                    },
+                    { 
+                      title: "ESP", 
+                      desc: "Enemy, Item, And Loot Awareness", 
+                      features: product.features.esp
+                    },
+                    { 
+                      title: "MISC", 
+                      desc: "Customization And Utility Features", 
+                      features: product.features.misc
+                    },
                   ].map((category, idx) => (
-                    <div key={idx} className="group relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] rounded-2xl p-6 border border-[#1a1a1a] hover:border-[#dc2626]/30 transition-all overflow-hidden">
-                      <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                      <div className="absolute left-0 top-6 bottom-6 w-1 bg-gradient-to-b from-[#dc2626] to-transparent rounded-full" />
-                      <div className="relative pl-4">
-                        <h3 className="text-white font-bold text-xl mb-2">{category.title}</h3>
-                        <p className="text-white/50 text-sm mb-6">{category.desc}</p>
-                        <ul className="space-y-3">
+                    <div key={idx} className="relative bg-[#0a0a0a] rounded-xl border border-[#1a1a1a] overflow-hidden hover:border-[#2563eb]/30 transition-all">
+                      {/* Blue left border accent */}
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#2563eb]" />
+                      
+                      <div className="p-6 pl-8">
+                        {/* Header */}
+                        <div className="mb-6">
+                          <h3 className="text-white font-bold text-lg mb-1">{category.title}</h3>
+                          <p className="text-white/40 text-xs">{category.desc}</p>
+                        </div>
+
+                        {/* Features List */}
+                        <ul className="space-y-2.5">
                           {category.features && category.features.length > 0 ? (
                             category.features.map((feature, featureIdx) => (
-                              <li key={featureIdx} className="flex items-start gap-3 text-sm group/item">
-                                <CheckCircle className="w-4 h-4 text-[#dc2626] flex-shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform" />
+                              <li key={featureIdx} className="flex items-center gap-2.5 text-sm group/item">
+                                <div className="w-4 h-4 rounded-full bg-[#2563eb]/20 flex items-center justify-center flex-shrink-0">
+                                  <Check className="w-2.5 h-2.5 text-[#2563eb]" />
+                                </div>
                                 <span className="text-white/70 group-hover/item:text-white transition-colors">{feature}</span>
                               </li>
                             ))
                           ) : (
-                            <li className="text-white/40 text-sm italic">No {category.title.toLowerCase()} features</li>
+                            <li className="text-white/30 text-sm italic">No {category.title.toLowerCase()} features</li>
                           )}
                         </ul>
                       </div>
@@ -704,7 +724,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                 <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8">
                   <div className="grid md:grid-cols-4 gap-6 text-center">
                     <div className="space-y-2">
-                      <p className="text-5xl font-bold text-[#dc2626]">4.9</p>
+                      <p className="text-5xl font-bold text-[#2563eb]">4.9</p>
                       <div className="flex items-center justify-center gap-1">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
@@ -723,10 +743,10 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                     <div className="space-y-2">
                       <button 
                         onClick={() => setIsReviewModalOpen(true)}
-                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 bg-[#dc2626]/10 hover:bg-[#dc2626]/20 border border-[#dc2626]/20 rounded-xl transition-all group cursor-pointer"
+                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 bg-[#2563eb]/10 hover:bg-[#2563eb]/20 border border-[#2563eb]/20 rounded-xl transition-all group cursor-pointer"
                       >
-                        <PenLine className="w-8 h-8 text-[#dc2626] group-hover:scale-110 transition-transform" />
-                        <span className="text-[#dc2626] font-bold">Write a Review</span>
+                        <PenLine className="w-8 h-8 text-[#2563eb] group-hover:scale-110 transition-transform" />
+                        <span className="text-[#2563eb] font-bold">Write a Review</span>
                       </button>
                     </div>
                   </div>
@@ -739,9 +759,9 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                     .map((review, index) => (
                     <div 
                       key={review.id || index} 
-                      className="group relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#dc2626]/30 transition-all duration-300 overflow-hidden"
+                      className="group relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all duration-300 overflow-hidden"
                     >
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-[#dc2626]/5 rounded-full blur-2xl group-hover:bg-[#dc2626]/10 transition-colors" />
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-[#2563eb]/5 rounded-full blur-2xl group-hover:bg-[#2563eb]/10 transition-colors" />
                       <div className="relative">
                         <div className="flex items-center gap-1 mb-4">
                           {[...Array(5)].map((_, i) => (
@@ -753,7 +773,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                         </div>
                         <p className="text-white/80 text-sm mb-6 leading-relaxed line-clamp-4">{review.text}</p>
                         <div className="flex items-center gap-3 pt-4 border-t border-[#1a1a1a]">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center text-white text-sm font-bold ring-2 ring-[#dc2626]/20">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center text-white text-sm font-bold ring-2 ring-[#2563eb]/20">
                             {review.avatar || review.username[0].toUpperCase()}
                           </div>
                           <div>
@@ -771,7 +791,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                   <div className="flex justify-center mt-8">
                     <button
                       onClick={() => setShowAllReviews(true)}
-                      className="px-8 py-4 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-bold rounded-xl transition-all hover:scale-105 hover:shadow-2xl hover:shadow-[#dc2626]/40 flex items-center gap-2"
+                      className="px-8 py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-bold rounded-xl transition-all hover:scale-105 hover:shadow-2xl hover:shadow-[#2563eb]/40 flex items-center gap-2"
                     >
                       Show More Reviews
                       <ChevronRight className="w-5 h-5" />
@@ -785,7 +805,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               <div className="space-y-4">
                 {[
                   {
-                    question: "Are Magma Cheats undetectable?",
+                    question: "Are Skyline Cheats undetectable?",
                     answer: "Our cheats are built with the latest security measures to stay ahead of anti-cheat systems. We continuously update our software to minimize detection risks, giving you the safest experience possible."
                   },
                   {
@@ -803,14 +823,14 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                 ].map((faq, index) => (
                   <div 
                     key={index} 
-                    className="group bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#dc2626]/30 transition-all"
+                    className="group bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center text-white text-lg font-bold shadow-lg shadow-[#dc2626]/20">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center text-white text-lg font-bold shadow-lg shadow-[#2563eb]/20">
                         {index + 1}
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-white font-bold text-lg mb-3 flex items-center gap-2 group-hover:text-[#dc2626] transition-colors">
+                        <h3 className="text-white font-bold text-lg mb-3 flex items-center gap-2 group-hover:text-[#2563eb] transition-colors">
                           {faq.question}
                           <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </h3>
@@ -837,14 +857,14 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
           <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#1a1a1a] rounded-2xl max-w-md w-full p-8 relative shadow-2xl">
             <button
               onClick={() => setShowCheckoutModal(false)}
-              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-lg bg-[#1a1a1a] text-white/60 hover:text-white hover:bg-[#dc2626] transition-all"
+              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-lg bg-[#1a1a1a] text-white/60 hover:text-white hover:bg-[#2563eb] transition-all"
             >
               <X className="w-5 h-5" />
             </button>
             
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-[#dc2626]/10 flex items-center justify-center">
-                <ShoppingCart className="w-6 h-6 text-[#dc2626]" />
+              <div className="w-12 h-12 rounded-xl bg-[#2563eb]/10 flex items-center justify-center">
+                <ShoppingCart className="w-6 h-6 text-[#2563eb]" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Complete Purchase</h2>
@@ -858,13 +878,13 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
             <div className="mb-5 group/input">
               <label className="block text-white/80 text-sm mb-2 font-medium">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#dc2626] transition-colors" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
                 <input
                   type="email"
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="w-full pl-12 pr-4 py-3.5 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                  className="w-full pl-12 pr-4 py-3.5 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                 />
               </div>
               <p className="text-white/50 text-xs mt-2">Your license key will be sent to this email</p>
@@ -883,7 +903,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                     setCouponDiscount(0);
                   }}
                   placeholder="SAVE10"
-                  className="flex-1 px-4 py-3.5 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                  className="flex-1 px-4 py-3.5 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                 />
                 <button
                   onClick={handleValidateCoupon}
@@ -900,7 +920,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                 </p>
               )}
               {couponValid === false && (
-                <p className="text-red-400 text-sm mt-2 flex items-center gap-2">
+                <p className="text-blue-400 text-sm mt-2 flex items-center gap-2">
                   <X className="w-4 h-4" />
                   Invalid or expired coupon
                 </p>
@@ -921,14 +941,14 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               )}
               <div className="border-t-2 border-[#1a1a1a] pt-3 flex justify-between items-center">
                 <span className="text-white font-bold text-lg">Total</span>
-                <span className="text-[#dc2626] font-bold text-3xl">
+                <span className="text-[#2563eb] font-bold text-3xl">
                   {formatMoney({ amountUsd: product.pricing[selectedPriceIndex].price * (1 - couponDiscount / 100), currency, locale })}
                 </span>
               </div>
             </div>
             
             {checkoutError && (
-              <div className="mb-4 p-4 bg-red-500/10 border-2 border-red-500/30 rounded-xl text-red-400 text-sm flex items-start gap-3 animate-shake">
+              <div className="mb-4 p-4 bg-blue-500/10 border-2 border-blue-500/30 rounded-xl text-blue-400 text-sm flex items-start gap-3 animate-shake">
                 <X className="w-5 h-5 flex-shrink-0 mt-0.5" />
                 <span>{checkoutError}</span>
               </div>
@@ -939,7 +959,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               disabled={isProcessing || !customerEmail}
               className={`relative w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden ${
                 !isProcessing && customerEmail
-                  ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white hover:from-[#ef4444] hover:to-[#dc2626] hover:shadow-2xl hover:shadow-[#dc2626]/40 hover:-translate-y-1"
+                  ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white hover:from-[#3b82f6] hover:to-[#2563eb] hover:shadow-2xl hover:shadow-[#2563eb]/40 hover:-translate-y-1"
                   : "bg-[#1a1a1a] text-white/40 cursor-not-allowed"
               }`}
             >
@@ -972,7 +992,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
             <h2 className="text-3xl font-bold text-white mb-3">Purchase Complete!</h2>
             <p className="text-white/60 mb-8">
               Your license key has been sent to<br />
-              <span className="text-[#dc2626] font-semibold">{customerEmail}</span>
+              <span className="text-[#2563eb] font-semibold">{customerEmail}</span>
             </p>
             
             <div className="bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl p-5 mb-4">
@@ -980,15 +1000,15 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
               <p className="text-white font-mono font-bold text-lg">{orderDetails.orderNumber}</p>
             </div>
             
-            <div className="bg-gradient-to-br from-[#dc2626]/10 to-transparent border-2 border-[#dc2626]/30 rounded-xl p-5 mb-8">
+            <div className="bg-gradient-to-br from-[#2563eb]/10 to-transparent border-2 border-[#2563eb]/30 rounded-xl p-5 mb-8">
               <p className="text-white/60 text-sm mb-3">Your License Key</p>
               <div className="flex items-center justify-between gap-3 bg-[#0a0a0a] rounded-lg p-3">
-                <p className="text-[#dc2626] font-mono font-bold text-lg flex-1">{orderDetails.licenseKey}</p>
+                <p className="text-[#2563eb] font-mono font-bold text-lg flex-1">{orderDetails.licenseKey}</p>
                 <button
                   onClick={() => copyToClipboard(orderDetails.licenseKey)}
                   className="p-2 hover:bg-[#1a1a1a] rounded-lg transition-colors group"
                 >
-                  <Copy className="w-5 h-5 text-white/60 group-hover:text-[#dc2626]" />
+                  <Copy className="w-5 h-5 text-white/60 group-hover:text-[#2563eb]" />
                 </button>
               </div>
             </div>
@@ -1002,7 +1022,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                 setCouponCode("");
                 setCouponDiscount(0);
               }}
-              className="w-full py-4 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-bold rounded-xl transition-all hover:shadow-xl hover:shadow-[#dc2626]/30"
+              className="w-full py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-bold rounded-xl transition-all hover:shadow-xl hover:shadow-[#2563eb]/30"
             >
               Continue Shopping
             </button>

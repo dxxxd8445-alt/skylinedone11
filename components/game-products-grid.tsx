@@ -120,7 +120,7 @@ export function GameProductsGrid({
       <div className="mt-12 text-center">
         <Link
           href="/store"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a1a1a] border border-[#262626] text-white/80 hover:text-white hover:border-[#dc2626]/50 hover:bg-[#1f1f1f] transition-all"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1a1a1a] border border-[#262626] text-white/80 hover:text-white hover:border-[#2563eb]/50 hover:bg-[#1f1f1f] transition-all"
         >
           <span>&larr;</span>
           {t("back_to_all_games")}

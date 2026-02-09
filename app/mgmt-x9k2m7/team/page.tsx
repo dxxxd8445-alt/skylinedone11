@@ -102,7 +102,7 @@ export default function TeamPage() {
         }
         toast({
           title: "Invite created",
-          description: "Email couldn't be sent (Resend test mode: verify a domain to email others). Invite link copied to clipboard—share it with the invitee.",
+          description: "Email couldn't be sent (Resend test mode: verify a domain to email others). Invite link copied to clipboard-share it with the invitee.",
           className: "border-amber-500/20 bg-amber-500/10",
         });
       } else {
@@ -182,7 +182,7 @@ export default function TeamPage() {
       toast({
         title: "Success",
         description: "Team member removed successfully",
-        className: "border-red-500/20 bg-red-500/10",
+        className: "border-blue-500/20 bg-blue-500/10",
       });
       
       setShowDeleteModal(false);
@@ -276,7 +276,7 @@ export default function TeamPage() {
       sortable: true,
       render: (member: TeamMember) => {
         const roleConfig = {
-          Owner: { bg: "from-[#dc2626] to-[#991b1b]", ring: "ring-[#dc2626]/30" },
+          Owner: { bg: "from-[#2563eb] to-[#1e40af]", ring: "ring-[#2563eb]/30" },
           Admin: { bg: "from-orange-500 to-orange-600", ring: "ring-orange-500/30" },
           Moderator: { bg: "from-yellow-500 to-yellow-600", ring: "ring-yellow-500/30" },
           Support: { bg: "from-blue-500 to-blue-600", ring: "ring-blue-500/30" },
@@ -293,7 +293,7 @@ export default function TeamPage() {
               <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${config.bg} blur-md opacity-20 group-hover:opacity-40 transition-opacity`} />
             </div>
             <div>
-              <p className="text-white font-semibold tracking-tight group-hover:text-[#dc2626] transition-colors">
+              <p className="text-white font-semibold tracking-tight group-hover:text-[#2563eb] transition-colors">
                 {member.name}
               </p>
               <div className="flex items-center gap-1.5 mt-0.5">
@@ -317,7 +317,7 @@ export default function TeamPage() {
       render: (member: TeamMember) => {
         const perms = Array.isArray(member.permissions) ? member.permissions : [];
         if (perms.length === 0) {
-          return <span className="text-white/40 text-sm">—</span>;
+          return <span className="text-white/40 text-sm">-</span>;
         }
         return (
           <div className="flex flex-wrap gap-1">
@@ -330,7 +330,7 @@ export default function TeamPage() {
               </span>
             ))}
             {perms.length > 4 && (
-              <span className="px-2 py-0.5 rounded-md bg-[#dc2626]/10 border border-[#dc2626]/20 text-xs text-[#dc2626]">
+              <span className="px-2 py-0.5 rounded-md bg-[#2563eb]/10 border border-[#2563eb]/20 text-xs text-[#2563eb]">
                 +{perms.length - 4}
               </span>
             )}
@@ -345,9 +345,9 @@ export default function TeamPage() {
       render: (member: TeamMember) => {
         const roleConfig = {
           Owner: {
-            bg: "bg-[#dc2626]/10",
-            text: "text-[#dc2626]",
-            border: "border-[#dc2626]/30",
+            bg: "bg-[#2563eb]/10",
+            text: "text-[#2563eb]",
+            border: "border-[#2563eb]/30",
             icon: Crown,
           },
           Admin: {
@@ -465,8 +465,8 @@ export default function TeamPage() {
       <AdminShell title="Team" subtitle="Manage your team members and permissions">
         <div className="flex flex-col items-center justify-center h-64 gap-4">
           <div className="relative">
-            <div className="w-12 h-12 rounded-full border-2 border-[#dc2626]/20 border-t-[#dc2626] animate-spin" />
-            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#dc2626]/5 blur-xl animate-pulse" />
+            <div className="w-12 h-12 rounded-full border-2 border-[#2563eb]/20 border-t-[#2563eb] animate-spin" />
+            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#2563eb]/5 blur-xl animate-pulse" />
           </div>
           <p className="text-white/40 text-sm font-medium">Loading team...</p>
         </div>
@@ -478,14 +478,14 @@ export default function TeamPage() {
     <AdminShell title="Team" subtitle="Manage your team members and permissions">
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#dc2626]/30 transition-all">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#2563eb]/30 transition-all">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Total Team</p>
               <p className="text-2xl font-bold text-white mt-1">{team.length}</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center">
-              <Users className="w-6 h-6 text-[#dc2626]" />
+            <div className="w-12 h-12 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
+              <Users className="w-6 h-6 text-[#2563eb]" />
             </div>
           </div>
         </div>
@@ -547,7 +547,7 @@ export default function TeamPage() {
             variant="outline"
             size="sm"
             disabled={loading}
-            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#dc2626]/30 transition-all"
+            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#2563eb]/30 transition-all"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -556,7 +556,7 @@ export default function TeamPage() {
         <Button
           onClick={() => setShowAddModal(true)}
           size="sm"
-          className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/20 transition-all"
+          className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 transition-all"
         >
           <UserPlus className="w-4 h-4 mr-2" />
           Add Member
@@ -584,7 +584,7 @@ export default function TeamPage() {
               onClick={() => openDeleteModal(member)}
               size="sm"
               variant="ghost"
-              className="text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all"
+              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-all"
               title="Remove"
             >
               <Trash2 className="w-4 h-4" />
@@ -598,8 +598,8 @@ export default function TeamPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white max-w-xl max-h-[90vh] overflow-y-auto overflow-x-hidden">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center">
-                <UserPlus className="w-4 h-4 text-[#dc2626]" />
+              <div className="w-8 h-8 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
+                <UserPlus className="w-4 h-4 text-[#2563eb]" />
               </div>
               Invite Team Member
             </DialogTitle>
@@ -612,7 +612,7 @@ export default function TeamPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2 min-w-0">
                 <label className="block text-sm font-medium text-white/70">
-                  Email <span className="text-red-400">*</span>
+                  Email <span className="text-blue-400">*</span>
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -621,7 +621,7 @@ export default function TeamPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="john@example.com"
-                    className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#dc2626]/50 transition-colors w-full"
+                    className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#2563eb]/50 transition-colors w-full"
                   />
                 </div>
               </div>
@@ -633,7 +633,7 @@ export default function TeamPage() {
                     value={formData.username}
                     onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                     placeholder="johndoe (optional)"
-                    className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#dc2626]/50 transition-colors w-full"
+                    className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#2563eb]/50 transition-colors w-full"
                   />
                 </div>
                 <p className="text-xs text-white/40">Optional; else derived from name. Used for login.</p>
@@ -642,7 +642,7 @@ export default function TeamPage() {
 
             <div className="space-y-2 min-w-0">
               <label className="block text-sm font-medium text-white/70">
-                Full Name <span className="text-red-400">*</span>
+                Full Name <span className="text-blue-400">*</span>
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -650,7 +650,7 @@ export default function TeamPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="John Doe"
-                  className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#dc2626]/50 transition-colors w-full"
+                  className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#2563eb]/50 transition-colors w-full"
                 />
               </div>
             </div>
@@ -661,7 +661,7 @@ export default function TeamPage() {
                 <button
                   type="button"
                   onClick={() => setFullAccess(formData.permissions.length < PERMISSION_IDS.length)}
-                  className="text-xs font-medium text-[#dc2626] hover:text-[#ef4444] transition-colors"
+                  className="text-xs font-medium text-[#2563eb] hover:text-[#3b82f6] transition-colors"
                 >
                   {formData.permissions.length >= PERMISSION_IDS.length ? "Clear all" : "Full access"}
                 </button>
@@ -677,11 +677,11 @@ export default function TeamPage() {
                       onClick={() => togglePermission(p.id)}
                       className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border text-left transition-all w-full ${
                         checked
-                          ? "bg-[#dc2626]/10 border-[#dc2626]/40 text-white"
+                          ? "bg-[#2563eb]/10 border-[#2563eb]/40 text-white"
                           : "bg-[#0a0a0a] border-[#262626] text-white/60 hover:border-[#262626] hover:text-white/80"
                       }`}
                     >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${checked ? "bg-[#dc2626] border-[#dc2626]" : "border-white/30"}`}>
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${checked ? "bg-[#2563eb] border-[#2563eb]" : "border-white/30"}`}>
                         {checked && <Check className="w-3 h-3 text-white" />}
                       </div>
                       {Icon && <Icon className="w-4 h-4 flex-shrink-0 text-white/50" />}
@@ -704,7 +704,7 @@ export default function TeamPage() {
             <Button
               onClick={handleAddMember}
               disabled={processing === "add" || !formData.name || !formData.email}
-              className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "add" ? (
                 <>
@@ -740,7 +740,7 @@ export default function TeamPage() {
           <div className="space-y-5 py-4 min-w-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2 min-w-0">
-                <label className="block text-sm font-medium text-white/70">Email <span className="text-red-400">*</span></label>
+                <label className="block text-sm font-medium text-white/70">Email <span className="text-blue-400">*</span></label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
                   <Input
@@ -765,7 +765,7 @@ export default function TeamPage() {
               </div>
             </div>
             <div className="space-y-2 min-w-0">
-              <label className="block text-sm font-medium text-white/70">Full Name <span className="text-red-400">*</span></label>
+              <label className="block text-sm font-medium text-white/70">Full Name <span className="text-blue-400">*</span></label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
                 <Input
@@ -848,8 +848,8 @@ export default function TeamPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                <AlertCircle className="w-4 h-4 text-red-400" />
+              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                <AlertCircle className="w-4 h-4 text-blue-400" />
               </div>
               Remove Team Member
             </DialogTitle>
@@ -859,7 +859,7 @@ export default function TeamPage() {
           </DialogHeader>
           
           <div className="py-6">
-            <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-4">
+            <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
               <p className="text-white/70">
                 Are you sure you want to remove{" "}
                 <span className="font-semibold text-white">{selectedMember?.name}</span>{" "}
@@ -882,7 +882,7 @@ export default function TeamPage() {
             <Button
               onClick={handleDeleteMember}
               disabled={processing === "delete"}
-              className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-600 text-white shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "delete" ? (
                 <>

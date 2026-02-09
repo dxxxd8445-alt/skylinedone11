@@ -115,13 +115,13 @@ export function AddProductModal({
             onChange={(e) => setRequirements(e.target.value)}
             className="bg-[#1a1a1a] border-[#262626] text-white"
           />
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && <p className="text-blue-500 text-sm">{error}</p>}
         </div>
         <DialogFooter>
           <Button
             onClick={handleAddProduct}
             disabled={loading}
-            className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
           >
             {loading ? "Adding..." : "Add Product"}
           </Button>

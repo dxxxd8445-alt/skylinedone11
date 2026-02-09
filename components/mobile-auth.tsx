@@ -29,7 +29,7 @@ export function MobileAuth() {
         {/* User Profile */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center text-white text-sm font-bold overflow-hidden flex-shrink-0">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center text-white text-sm font-bold overflow-hidden flex-shrink-0">
               {user.avatarUrl ? (
                 <Image
                   src={user.avatarUrl || "/placeholder.svg"}
@@ -55,7 +55,7 @@ export function MobileAuth() {
                 description: "See you next time!",
               });
             }}
-            className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 transition-all min-h-[32px] min-w-[32px]"
+            className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 hover:text-blue-300 transition-all min-h-[32px] min-w-[32px]"
             title="Sign out"
           >
             <LogOut className="w-4 h-4" />
@@ -65,14 +65,14 @@ export function MobileAuth() {
         {/* My Account Button */}
         <Link
           href="/account"
-          className="flex items-center justify-between p-3 bg-[#dc2626]/10 hover:bg-[#dc2626]/20 border border-[#dc2626]/30 hover:border-[#dc2626]/50 rounded-lg transition-all"
+          className="flex items-center justify-between p-3 bg-[#2563eb]/10 hover:bg-[#2563eb]/20 border border-[#2563eb]/30 hover:border-[#2563eb]/50 rounded-lg transition-all"
         >
           <div className="flex items-center gap-2">
-            <User className="w-5 h-5 text-[#dc2626]" />
+            <User className="w-5 h-5 text-[#2563eb]" />
             <span className="text-white/90 text-sm font-medium">My Account</span>
           </div>
-          <div className="text-[#dc2626] text-xs font-medium">
-            Dashboard →
+          <div className="text-[#2563eb] text-xs font-medium">
+            Dashboard ?
           </div>
         </Link>
 
@@ -90,7 +90,7 @@ export function MobileAuth() {
               {items.length} {items.length === 1 ? 'item' : 'items'}
             </span>
             {items.length > 0 && (
-              <div className="w-2 h-2 bg-[#dc2626] rounded-full" />
+              <div className="w-2 h-2 bg-[#2563eb] rounded-full" />
             )}
           </div>
         </Link>
@@ -113,7 +113,7 @@ export function MobileAuth() {
           {items.length} {items.length === 1 ? 'item' : 'items'}
         </span>
         {items.length > 0 && (
-          <div className="w-2 h-2 bg-[#dc2626] rounded-full" />
+          <div className="w-2 h-2 bg-[#2563eb] rounded-full" />
         )}
       </div>
     </Link>

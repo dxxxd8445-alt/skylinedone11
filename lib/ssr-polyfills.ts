@@ -8,11 +8,11 @@ if (typeof window === 'undefined') {
   // @ts-ignore
   global.window = {
     location: {
-      href: 'https://magmacheats.com',
-      origin: 'https://magmacheats.com',
+      href: 'https://skylinecheats.org',
+      origin: 'https://skylinecheats.org',
       protocol: 'https:',
-      host: 'magmacheats.com',
-      hostname: 'magmacheats.com',
+      host: 'skylinecheats.org',
+      hostname: 'skylinecheats.org',
       port: '',
       pathname: '/',
       search: '',
@@ -20,7 +20,7 @@ if (typeof window === 'undefined') {
       assign: () => {},
       replace: () => {},
       reload: () => {},
-      toString: () => 'https://magmacheats.com',
+      toString: () => 'https://skylinecheats.org',
     },
     document: {
       documentElement: {

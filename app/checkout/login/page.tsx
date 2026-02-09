@@ -93,8 +93,8 @@ export default function CheckoutLoginPage() {
     <main className="min-h-screen bg-[#0a0a0a] relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#dc2626]/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#dc2626]/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
       <Header />
@@ -103,17 +103,17 @@ export default function CheckoutLoginPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section with Animation */}
           <div className="text-center mb-12 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#dc2626]/10 border border-[#dc2626]/20 rounded-full mb-6">
-              <Zap className="w-4 h-4 text-[#dc2626]" />
-              <span className="text-[#dc2626] text-sm font-semibold">Secure Checkout Process</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 border border-[#2563eb]/20 rounded-full mb-6">
+              <Zap className="w-4 h-4 text-[#2563eb]" />
+              <span className="text-[#2563eb] text-sm font-semibold">Secure Checkout Process</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
               A Powerful, Instant Way
             </h1>
             <h2 className="text-4xl md:text-6xl font-bold mb-2 tracking-tight">
-              to Shop <span className="text-[#dc2626] relative">
+              to Shop <span className="text-[#2563eb] relative">
                 Without Limits.
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#dc2626] to-transparent" />
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#2563eb] to-transparent" />
               </span>
             </h2>
             <p className="text-white/60 mt-6 text-lg max-w-2xl mx-auto">
@@ -125,8 +125,8 @@ export default function CheckoutLoginPage() {
           <div className="flex items-center justify-center gap-4 md:gap-8 mb-16">
             <div className="flex items-center gap-3 group">
               <div className="relative">
-                <div className="absolute inset-0 bg-[#dc2626] blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
-                <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-[#dc2626] to-[#ef4444] text-white flex items-center justify-center font-bold shadow-lg">
+                <div className="absolute inset-0 bg-[#2563eb] blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] text-white flex items-center justify-center font-bold shadow-lg">
                   1
                 </div>
               </div>
@@ -135,7 +135,7 @@ export default function CheckoutLoginPage() {
                 <p className="text-white/60 text-sm">Your Information</p>
               </div>
             </div>
-            <div className="w-12 md:w-24 h-0.5 bg-gradient-to-r from-[#dc2626]/50 to-[#1a1a1a]" />
+            <div className="w-12 md:w-24 h-0.5 bg-gradient-to-r from-[#2563eb]/50 to-[#1a1a1a]" />
             <div className="flex items-center gap-3 group opacity-50">
               <div className="w-12 h-12 rounded-full bg-[#1a1a1a] border-2 border-[#262626] text-white/40 flex items-center justify-center font-bold">
                 2
@@ -151,11 +151,11 @@ export default function CheckoutLoginPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
             {/* Returning Member - Sign In */}
             <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/20 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative bg-[#111111] border border-[#1a1a1a] rounded-xl p-8 hover:border-[#dc2626]/30 transition-all duration-300">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="relative bg-[#111111] border border-[#1a1a1a] rounded-xl p-8 hover:border-[#2563eb]/30 transition-all duration-300">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-lg bg-[#dc2626]/10 flex items-center justify-center">
-                    <ShieldCheck className="w-5 h-5 text-[#dc2626]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center">
+                    <ShieldCheck className="w-5 h-5 text-[#2563eb]" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">Returning Member</h3>
                 </div>
@@ -164,17 +164,17 @@ export default function CheckoutLoginPage() {
                   {/* Email */}
                   <div className="group/input">
                     <label className="block text-white/80 text-sm mb-2 font-medium">
-                      Email Address <span className="text-[#dc2626]">*</span>
+                      Email Address <span className="text-[#2563eb]">*</span>
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#dc2626] transition-colors" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
                       <input
                         type="email"
                         value={signInEmail}
                         onChange={(e) => setSignInEmail(e.target.value)}
                         placeholder="your@email.com"
                         required
-                        className="w-full pl-11 pr-4 py-3.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                       />
                     </div>
                   </div>
@@ -182,17 +182,17 @@ export default function CheckoutLoginPage() {
                   {/* Password */}
                   <div className="group/input">
                     <label className="block text-white/80 text-sm mb-2 font-medium">
-                      Password <span className="text-[#dc2626]">*</span>
+                      Password <span className="text-[#2563eb]">*</span>
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#dc2626] transition-colors" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
                       <input
                         type="password"
                         value={signInPassword}
                         onChange={(e) => setSignInPassword(e.target.value)}
                         placeholder="••••••••"
                         required
-                        className="w-full pl-11 pr-4 py-3.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                       />
                     </div>
                   </div>
@@ -205,7 +205,7 @@ export default function CheckoutLoginPage() {
                         id="remember"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="w-4 h-4 rounded border-[#1a1a1a] bg-[#1a1a1a] text-[#dc2626] focus:ring-[#dc2626] focus:ring-offset-0 cursor-pointer"
+                        className="w-4 h-4 rounded border-[#1a1a1a] bg-[#1a1a1a] text-[#2563eb] focus:ring-[#2563eb] focus:ring-offset-0 cursor-pointer"
                       />
                       <label htmlFor="remember" className="text-white/70 text-sm cursor-pointer">
                         Remember me
@@ -213,7 +213,7 @@ export default function CheckoutLoginPage() {
                     </div>
                     <Link
                       href="/forgot-password"
-                      className="text-[#dc2626] hover:text-[#ef4444] text-sm font-medium transition-colors"
+                      className="text-[#2563eb] hover:text-[#3b82f6] text-sm font-medium transition-colors"
                     >
                       Forgot password?
                     </Link>
@@ -221,7 +221,7 @@ export default function CheckoutLoginPage() {
 
                   {/* Error Message */}
                   {error && activeTab === "signin" && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm animate-shake">
+                    <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg text-blue-400 text-sm animate-shake">
                       {error}
                     </div>
                   )}
@@ -230,7 +230,7 @@ export default function CheckoutLoginPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="relative w-full py-3.5 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#dc2626]/20 hover:shadow-xl hover:shadow-[#dc2626]/30 hover:-translate-y-0.5 active:translate-y-0 group/btn overflow-hidden"
+                    className="relative w-full py-3.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#2563eb]/20 hover:shadow-xl hover:shadow-[#2563eb]/30 hover:-translate-y-0.5 active:translate-y-0 group/btn overflow-hidden"
                   >
                     <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
                     {isLoading ? (
@@ -251,11 +251,11 @@ export default function CheckoutLoginPage() {
 
             {/* New Members - Register */}
             <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-transparent to-[#dc2626]/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative bg-[#111111] border border-[#1a1a1a] rounded-xl p-8 hover:border-[#dc2626]/30 transition-all duration-300">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-transparent to-[#2563eb]/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="relative bg-[#111111] border border-[#1a1a1a] rounded-xl p-8 hover:border-[#2563eb]/30 transition-all duration-300">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-lg bg-[#dc2626]/10 flex items-center justify-center">
-                    <User className="w-5 h-5 text-[#dc2626]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center">
+                    <User className="w-5 h-5 text-[#2563eb]" />
                   </div>
                   <h3 className="text-2xl font-bold text-white">New Members</h3>
                 </div>
@@ -267,17 +267,17 @@ export default function CheckoutLoginPage() {
                   {/* Username */}
                   <div className="group/input">
                     <label className="block text-white/80 text-sm mb-2 font-medium">
-                      Username <span className="text-[#dc2626]">*</span>
+                      Username <span className="text-[#2563eb]">*</span>
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#dc2626] transition-colors" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
                       <input
                         type="text"
                         value={registerUsername}
                         onChange={(e) => setRegisterUsername(e.target.value)}
                         placeholder="Choose a username"
                         required
-                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                       />
                     </div>
                   </div>
@@ -285,17 +285,17 @@ export default function CheckoutLoginPage() {
                   {/* Email */}
                   <div className="group/input">
                     <label className="block text-white/80 text-sm mb-2 font-medium">
-                      Email Address <span className="text-[#dc2626]">*</span>
+                      Email Address <span className="text-[#2563eb]">*</span>
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#dc2626] transition-colors" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
                       <input
                         type="email"
                         value={registerEmail}
                         onChange={(e) => setRegisterEmail(e.target.value)}
                         placeholder="your@email.com"
                         required
-                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                       />
                     </div>
                   </div>
@@ -303,17 +303,17 @@ export default function CheckoutLoginPage() {
                   {/* Password */}
                   <div className="group/input">
                     <label className="block text-white/80 text-sm mb-2 font-medium">
-                      Password <span className="text-[#dc2626]">*</span>
+                      Password <span className="text-[#2563eb]">*</span>
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#dc2626] transition-colors" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
                       <input
                         type="password"
                         value={registerPassword}
                         onChange={(e) => setRegisterPassword(e.target.value)}
                         placeholder="••••••••"
                         required
-                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                       />
                     </div>
                   </div>
@@ -321,24 +321,24 @@ export default function CheckoutLoginPage() {
                   {/* Confirm Password */}
                   <div className="group/input">
                     <label className="block text-white/80 text-sm mb-2 font-medium">
-                      Confirm Password <span className="text-[#dc2626]">*</span>
+                      Confirm Password <span className="text-[#2563eb]">*</span>
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#dc2626] transition-colors" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
                       <input
                         type="password"
                         value={registerConfirmPassword}
                         onChange={(e) => setRegisterConfirmPassword(e.target.value)}
                         placeholder="••••••••"
                         required
-                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                        className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                       />
                     </div>
                   </div>
 
                   {/* Error Message */}
                   {error && activeTab === "register" && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm animate-shake">
+                    <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg text-blue-400 text-sm animate-shake">
                       {error}
                     </div>
                   )}
@@ -347,7 +347,7 @@ export default function CheckoutLoginPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="relative w-full py-3.5 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#dc2626]/20 hover:shadow-xl hover:shadow-[#dc2626]/30 hover:-translate-y-0.5 active:translate-y-0 group/btn overflow-hidden"
+                    className="relative w-full py-3.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-[#2563eb]/20 hover:shadow-xl hover:shadow-[#2563eb]/30 hover:-translate-y-0.5 active:translate-y-0 group/btn overflow-hidden"
                   >
                     <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
                     {isLoading ? (
@@ -370,10 +370,10 @@ export default function CheckoutLoginPage() {
           {/* Guest Checkout - Enhanced */}
           <div className="max-w-5xl mx-auto mb-12">
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#dc2626]/10 via-transparent to-[#dc2626]/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative bg-[#111111] border border-[#1a1a1a] rounded-xl p-8 text-center hover:border-[#dc2626]/20 transition-all">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#dc2626]/10 mb-4">
-                  <User className="w-8 h-8 text-[#dc2626]" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/10 via-transparent to-[#2563eb]/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="relative bg-[#111111] border border-[#1a1a1a] rounded-xl p-8 text-center hover:border-[#2563eb]/20 transition-all">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#2563eb]/10 mb-4">
+                  <User className="w-8 h-8 text-[#2563eb]" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Continue as Guest</h3>
                 <p className="text-white/60 mb-6 max-w-xl mx-auto">
@@ -381,7 +381,7 @@ export default function CheckoutLoginPage() {
                 </p>
                 <button
                   onClick={handleGuestCheckout}
-                  className="px-8 py-3.5 bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#dc2626]/30 text-white rounded-lg font-semibold transition-all inline-flex items-center gap-2 group/guest hover:-translate-y-0.5 active:translate-y-0"
+                  className="px-8 py-3.5 bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 text-white rounded-lg font-semibold transition-all inline-flex items-center gap-2 group/guest hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <User className="w-5 h-5" />
                   Continue as Guest
@@ -393,17 +393,17 @@ export default function CheckoutLoginPage() {
 
           {/* Payment Notice - Enhanced */}
           <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#dc2626]/20 rounded-xl p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#dc2626]/5 rounded-full blur-3xl" />
+            <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#2563eb]/20 rounded-xl p-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#2563eb]/5 rounded-full blur-3xl" />
               <div className="relative">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-[#dc2626]/10 flex items-center justify-center">
-                    <ShieldCheck className="w-5 h-5 text-[#dc2626]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center">
+                    <ShieldCheck className="w-5 h-5 text-[#2563eb]" />
                   </div>
                   <h4 className="text-white font-bold text-lg">Payment Review Notice (IMPORTANT)</h4>
                 </div>
                 <div className="grid md:grid-cols-3 gap-4">
-                  <div className="flex items-start gap-3 p-4 bg-[#0a0a0a]/50 rounded-lg border border-[#1a1a1a] hover:border-[#dc2626]/20 transition-colors">
+                  <div className="flex items-start gap-3 p-4 bg-[#0a0a0a]/50 rounded-lg border border-[#1a1a1a] hover:border-[#2563eb]/20 transition-colors">
                     <CheckCircle2 className="w-5 h-5 text-[#10b981] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-white/90 text-sm font-medium mb-1">Avoid Anonymous Tools</p>
@@ -412,7 +412,7 @@ export default function CheckoutLoginPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 p-4 bg-[#0a0a0a]/50 rounded-lg border border-[#1a1a1a] hover:border-[#dc2626]/20 transition-colors">
+                  <div className="flex items-start gap-3 p-4 bg-[#0a0a0a]/50 rounded-lg border border-[#1a1a1a] hover:border-[#2563eb]/20 transition-colors">
                     <CheckCircle2 className="w-5 h-5 text-[#10b981] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-white/90 text-sm font-medium mb-1">Accurate Information</p>
@@ -421,7 +421,7 @@ export default function CheckoutLoginPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 p-4 bg-[#0a0a0a]/50 rounded-lg border border-[#1a1a1a] hover:border-[#dc2626]/20 transition-colors">
+                  <div className="flex items-start gap-3 p-4 bg-[#0a0a0a]/50 rounded-lg border border-[#1a1a1a] hover:border-[#2563eb]/20 transition-colors">
                     <CheckCircle2 className="w-5 h-5 text-[#10b981] flex-shrink-0 mt-0.5" />
                     <div>
                       <p className="text-white/90 text-sm font-medium mb-1">Correct Name</p>

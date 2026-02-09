@@ -92,17 +92,17 @@ export default function StaffLoginPage() {
   return (
     <main className="min-h-screen bg-[#000000] flex items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#dc2626]/10 rounded-full blur-[120px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#ef4444]/8 rounded-full blur-[100px] animate-pulse-slow delay-1000" />
-        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-[#dc2626]/5 rounded-full blur-[80px] animate-float" />
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#2563eb]/10 rounded-full blur-[120px] animate-pulse-slow" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#3b82f6]/8 rounded-full blur-[100px] animate-pulse-slow delay-1000" />
+        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-[#2563eb]/5 rounded-full blur-[80px] animate-float" />
 
         <div className="absolute inset-0 opacity-[0.015]">
           <div
             className="absolute inset-0"
             style={{
               backgroundImage: `
-              linear-gradient(to right, #dc2626 1px, transparent 1px),
-              linear-gradient(to bottom, #dc2626 1px, transparent 1px)
+              linear-gradient(to right, #2563eb 1px, transparent 1px),
+              linear-gradient(to bottom, #2563eb 1px, transparent 1px)
             `,
               backgroundSize: "60px 60px",
               animation: "grid-move 20s linear infinite",
@@ -113,7 +113,7 @@ export default function StaffLoginPage() {
         {particles.map((p, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-[#dc2626] rounded-full opacity-20 animate-float-particle"
+            className="absolute w-1 h-1 bg-[#2563eb] rounded-full opacity-20 animate-float-particle"
             style={{
               left: p.left,
               top: p.top,
@@ -137,8 +137,8 @@ export default function StaffLoginPage() {
       <div className="relative w-full max-w-md z-10 animate-in fade-in slide-in-from-bottom duration-700">
         <div className="flex flex-col items-center justify-center mb-10">
           <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] to-[#ef4444] rounded-2xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500 animate-pulse-glow" />
-            <div className="relative p-5 bg-gradient-to-br from-[#dc2626] to-[#b91c1c] rounded-2xl shadow-2xl shadow-red-500/50 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-2xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500 animate-pulse-glow" />
+            <div className="relative p-5 bg-gradient-to-br from-[#2563eb] to-[#b91c1c] rounded-2xl shadow-2xl shadow-blue-500/50 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
               <Flame className="w-12 h-12 text-white animate-pulse" />
               <Sparkles className="w-4 h-4 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
             </div>
@@ -150,22 +150,22 @@ export default function StaffLoginPage() {
                 Staff Login
               </span>
             </h1>
-            <div className="flex items-center justify-center gap-2 px-4 py-1.5 bg-[#dc2626]/10 border border-[#dc2626]/30 rounded-full">
-              <Shield className="w-3.5 h-3.5 text-[#dc2626]" />
-              <span className="text-xs font-semibold text-[#dc2626] uppercase tracking-wider">Team Access Portal</span>
+            <div className="flex items-center justify-center gap-2 px-4 py-1.5 bg-[#2563eb]/10 border border-[#2563eb]/30 rounded-full">
+              <Shield className="w-3.5 h-3.5 text-[#2563eb]" />
+              <span className="text-xs font-semibold text-[#2563eb] uppercase tracking-wider">Team Access Portal</span>
             </div>
           </div>
         </div>
 
         <div className="relative bg-gradient-to-br from-[#0a0a0a] via-[#050505] to-[#0a0a0a] border border-[#1a1a1a] rounded-3xl p-8 shadow-2xl overflow-hidden backdrop-blur-xl">
-          <div className="absolute inset-0 rounded-3xl opacity-30 blur-xl bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient-rotate" />
+          <div className="absolute inset-0 rounded-3xl opacity-30 blur-xl bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-gradient-rotate" />
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-shine" />
 
           <div className="relative">
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#dc2626]/20 to-[#b91c1c]/20 border border-[#dc2626]/30 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-[#dc2626]" />
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb]/20 to-[#b91c1c]/20 border border-[#2563eb]/30 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-[#2563eb]" />
                 </div>
                 <h2 className="text-2xl font-bold text-white">Secure Team Access</h2>
               </div>
@@ -173,13 +173,13 @@ export default function StaffLoginPage() {
             </div>
 
             {error && (
-              <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 animate-in fade-in shake mb-6">
-                <div className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="flex items-start gap-3 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 animate-in fade-in shake mb-6">
+                <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <AlertCircle className="w-4 h-4" />
                 </div>
                 <div className="flex-1">
                   <p className="font-semibold text-sm mb-0.5">Login Failed</p>
-                  <p className="text-xs text-red-400/80">{error}</p>
+                  <p className="text-xs text-blue-400/80">{error}</p>
                 </div>
               </div>
             )}
@@ -187,17 +187,17 @@ export default function StaffLoginPage() {
             <div className="space-y-5">
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-white/80 uppercase tracking-wider">
-                  <Mail className="w-4 h-4 text-[#dc2626]" />
+                  <Mail className="w-4 h-4 text-[#2563eb]" />
                   Email Address
                 </label>
                 <div className="relative group">
                   <div
-                    className={`absolute inset-0 bg-gradient-to-r from-[#dc2626] to-[#ef4444] rounded-xl blur-xl opacity-0 transition-opacity duration-500 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-xl blur-xl opacity-0 transition-opacity duration-500 ${
                       emailFocused ? "opacity-30" : ""
                     }`}
                   />
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-hover:text-[#dc2626] transition-colors" />
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-hover:text-[#2563eb] transition-colors" />
                     <input
                       type="email"
                       value={email}
@@ -206,7 +206,7 @@ export default function StaffLoginPage() {
                       onBlur={() => setEmailFocused(false)}
                       onKeyDown={(e) => e.key === "Enter" && handleLogin()}
                       placeholder="your.email@example.com"
-                      className="w-full pl-12 pr-4 py-4 bg-[#111111] border border-[#1a1a1a] rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20 transition-all font-medium"
+                      className="w-full pl-12 pr-4 py-4 bg-[#111111] border border-[#1a1a1a] rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all font-medium"
                     />
                     {email.includes("@") && email.includes(".") && !loading && !error && (
                       <CheckCircle2 className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-emerald-400 animate-in zoom-in" />
@@ -217,17 +217,17 @@ export default function StaffLoginPage() {
 
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-white/80 uppercase tracking-wider">
-                  <Lock className="w-4 h-4 text-[#dc2626]" />
+                  <Lock className="w-4 h-4 text-[#2563eb]" />
                   Password
                 </label>
                 <div className="relative group">
                   <div
-                    className={`absolute inset-0 bg-gradient-to-r from-[#dc2626] to-[#ef4444] rounded-xl blur-xl opacity-0 transition-opacity duration-500 ${
+                    className={`absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-xl blur-xl opacity-0 transition-opacity duration-500 ${
                       passwordFocused ? "opacity-30" : ""
                     }`}
                   />
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-hover:text-[#dc2626] transition-colors" />
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-hover:text-[#2563eb] transition-colors" />
                     <input
                       type={showPassword ? "text" : "password"}
                       value={password}
@@ -236,12 +236,12 @@ export default function StaffLoginPage() {
                       onBlur={() => setPasswordFocused(false)}
                       onKeyDown={(e) => e.key === "Enter" && handleLogin()}
                       placeholder="••••••••"
-                      className="w-full pl-12 pr-14 py-4 bg-[#111111] border border-[#1a1a1a] rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#dc2626] focus:ring-2 focus:ring-[#dc2626]/20 transition-all font-medium"
+                      className="w-full pl-12 pr-14 py-4 bg-[#111111] border border-[#1a1a1a] rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all font-medium"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-[#dc2626] transition-all hover:scale-110 active:scale-95"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-[#2563eb] transition-all hover:scale-110 active:scale-95"
                     >
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
@@ -255,7 +255,7 @@ export default function StaffLoginPage() {
                 disabled={loading || !email || !password}
                 className="group/btn relative w-full py-4 rounded-xl overflow-hidden font-bold text-white transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626] animate-gradient-x" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-gradient-x" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000" />
                 <span className="relative flex items-center justify-center gap-3 text-base">
                   {loading ? (
@@ -271,7 +271,7 @@ export default function StaffLoginPage() {
                     </>
                   )}
                 </span>
-                <div className="absolute inset-0 -z-10 blur-2xl bg-gradient-to-r from-[#dc2626] to-[#ef4444] opacity-50 group-hover/btn:opacity-75 transition-opacity" />
+                <div className="absolute inset-0 -z-10 blur-2xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] opacity-50 group-hover/btn:opacity-75 transition-opacity" />
               </button>
 
               <div className="flex items-center gap-2 p-3 bg-blue-500/5 border border-blue-500/20 rounded-lg">
@@ -283,7 +283,7 @@ export default function StaffLoginPage() {
                 <p className="text-white/40 text-sm mb-3">Are you an administrator?</p>
                 <Link
                   href="/mgmt-x9k2m7/login"
-                  className="group inline-flex items-center gap-2 px-5 py-2.5 bg-[#111111] hover:bg-[#1a1a1a] border border-[#1a1a1a] hover:border-[#dc2626]/40 rounded-lg text-[#dc2626] hover:text-[#ef4444] text-sm font-semibold transition-all hover:scale-105"
+                  className="group inline-flex items-center gap-2 px-5 py-2.5 bg-[#111111] hover:bg-[#1a1a1a] border border-[#1a1a1a] hover:border-[#2563eb]/40 rounded-lg text-[#2563eb] hover:text-[#3b82f6] text-sm font-semibold transition-all hover:scale-105"
                 >
                   <Users className="w-4 h-4" />
                   <span>Admin Login</span>

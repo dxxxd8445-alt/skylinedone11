@@ -77,10 +77,12 @@ export async function POST(request: NextRequest) {
       path: "/",
     });
 
-    // Log the successful login
+    // Log the successful staff login with email as identifier
     const ipAddress = getRequestIp(request);
     const userAgent = request.headers.get("user-agent");
-    await logAuditEvent("login", "staff", teamMember.email, ipAddress, userAgent);
+    await logAuditEvent("login", "staff", email, ipAddress, userAgent);
+
+    console.log(`✅ Staff login successful: ${email} - Audit log created`);
 
     return NextResponse.json({
       success: true,

@@ -127,7 +127,7 @@ function PaymentSuccessContent() {
           {/* Loading State */}
           {isLoading && (
             <div className="p-12 flex flex-col items-center justify-center">
-              <Loader2 className="w-8 h-8 text-[#dc2626] animate-spin mb-4" />
+              <Loader2 className="w-8 h-8 text-[#2563eb] animate-spin mb-4" />
               <p className="text-white/60">Loading order details...</p>
             </div>
           )}
@@ -138,12 +138,12 @@ function PaymentSuccessContent() {
               {/* Order Summary */}
               <div className="bg-[#0a0a0a] rounded-xl p-4">
                 <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-[#dc2626]" />
+                  <Shield className="w-5 h-5 text-[#2563eb]" />
                   Order Summary
                 </h2>
                 <div className="flex items-center gap-4 p-3 bg-[#111111] rounded-lg">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-[#dc2626]/20 to-transparent flex items-center justify-center">
-                    <Shield className="w-8 h-8 text-[#dc2626]" />
+                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-[#2563eb]/20 to-transparent flex items-center justify-center">
+                    <Shield className="w-8 h-8 text-[#2563eb]" />
                   </div>
                   <div className="flex-1">
                     <p className="text-white font-medium">{orderData?.product_name || "Your Purchase"}</p>
@@ -154,13 +154,13 @@ function PaymentSuccessContent() {
               </div>
 
               {/* License Key */}
-              <div className="bg-gradient-to-r from-[#dc2626]/10 to-transparent rounded-xl p-4 border border-[#dc2626]/20">
+              <div className="bg-gradient-to-r from-[#2563eb]/10 to-transparent rounded-xl p-4 border border-[#2563eb]/20">
                 <h2 className="text-white font-semibold mb-3 flex items-center gap-2">
-                  <Key className="w-5 h-5 text-[#dc2626]" />
+                  <Key className="w-5 h-5 text-[#2563eb]" />
                   Your License Key
                 </h2>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 text-[#dc2626] text-lg font-mono bg-[#0a0a0a] rounded-lg p-4 tracking-wider">
+                  <code className="flex-1 text-[#2563eb] text-lg font-mono bg-[#0a0a0a] rounded-lg p-4 tracking-wider">
                     {licenseKey}
                   </code>
                   <Button
@@ -168,7 +168,7 @@ function PaymentSuccessContent() {
                     className={`flex-shrink-0 ${
                       copied
                         ? "bg-green-500 hover:bg-green-600"
-                        : "bg-[#dc2626] hover:bg-[#ef4444]"
+                        : "bg-[#2563eb] hover:bg-[#3b82f6]"
                     } text-white transition-colors`}
                   >
                     {copied ? (
@@ -193,8 +193,8 @@ function PaymentSuccessContent() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-[#0a0a0a] rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-lg bg-[#dc2626]/20 flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-[#dc2626]" />
+                    <div className="w-10 h-10 rounded-lg bg-[#2563eb]/20 flex items-center justify-center">
+                      <Mail className="w-5 h-5 text-[#2563eb]" />
                     </div>
                     <p className="text-white font-medium">Email Sent</p>
                   </div>
@@ -206,8 +206,8 @@ function PaymentSuccessContent() {
 
                 <div className="bg-[#0a0a0a] rounded-xl p-4">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-lg bg-[#dc2626]/20 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-[#dc2626]" />
+                    <div className="w-10 h-10 rounded-lg bg-[#2563eb]/20 flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-[#2563eb]" />
                     </div>
                     <p className="text-white font-medium">License Duration</p>
                   </div>
@@ -219,7 +219,7 @@ function PaymentSuccessContent() {
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <Button className="flex-1 bg-[#dc2626] hover:bg-[#ef4444] text-white py-6">
+                <Button className="flex-1 bg-[#2563eb] hover:bg-[#3b82f6] text-white py-6">
                   <Download className="w-5 h-5 mr-2" />
                   Download Loader
                 </Button>
@@ -238,11 +238,11 @@ function PaymentSuccessContent() {
               <div className="text-center pt-4 border-t border-[#262626]">
                 <p className="text-white/60 text-sm">
                   Need help?{" "}
-                  <a href="https://discord.gg/magmacheats" target="_blank" rel="noopener noreferrer" className="text-[#dc2626] hover:underline">
+                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-[#2563eb] hover:underline">
                     Contact our support team
                   </a>{" "}
                   or join our{" "}
-                  <a href="https://discord.gg/magmacheats" target="_blank" rel="noopener noreferrer" className="text-[#dc2626] hover:underline">
+                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-[#2563eb] hover:underline">
                     Discord server
                   </a>
                 </p>
@@ -264,7 +264,7 @@ export default function PaymentSuccessPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#dc2626] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#2563eb] animate-spin" />
       </div>
     }>
       <PaymentSuccessContent />

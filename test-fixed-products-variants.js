@@ -37,7 +37,7 @@ async function testProductsAndVariants() {
         description: 'A test product for variant testing',
         image: '/placeholder.jpg',
         status: 'active',
-        provider: 'Magma',
+        provider: 'Skyline',
         features: ['Aimbot', 'ESP'],
         requirements: ['Windows 10'],
       };

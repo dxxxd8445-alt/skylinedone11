@@ -80,7 +80,7 @@ export function TermsPopup() {
   return (
     <Dialog open={showTerms} onOpenChange={() => {}}>
       <DialogContent 
-        className="bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] border-2 border-[#dc2626]/30 text-white max-w-[90vw] sm:max-w-lg md:max-w-2xl max-h-[75vh] sm:max-h-[80vh] overflow-hidden !top-[50%] !translate-y-[-50%] !mt-0 !mb-0"
+        className="bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] border-2 border-[#2563eb]/30 text-white max-w-[90vw] sm:max-w-lg md:max-w-2xl max-h-[75vh] sm:max-h-[80vh] overflow-hidden !top-[50%] !translate-y-[-50%] !mt-0 !mb-0"
         style={{
           marginTop: 'max(1rem, env(safe-area-inset-top))',
           marginBottom: 'max(1rem, env(safe-area-inset-bottom))',
@@ -89,15 +89,15 @@ export function TermsPopup() {
         hideCloseButton
       >
         {/* Background effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#dc2626]/5 via-transparent to-[#dc2626]/5" />
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#dc2626] via-[#ef4444] to-[#dc2626]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/5 via-transparent to-[#2563eb]/5" />
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb]" />
         
         {/* Content Container with proper padding */}
         <div className="relative z-10 p-1 sm:p-2">
         
         <DialogHeader className="relative z-10 pb-4 pt-2">
           <DialogTitle className="text-lg sm:text-2xl font-bold flex flex-col sm:flex-row items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#dc2626] to-[#ef4444] flex items-center justify-center shadow-lg shadow-[#dc2626]/30">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center shadow-lg shadow-[#2563eb]/30">
               <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div className="text-center sm:text-left">
@@ -109,15 +109,15 @@ export function TermsPopup() {
         
         <div className="relative z-10 space-y-4 sm:space-y-5 px-1">
           {/* Warning Banner - Mobile Optimized */}
-          <div className="bg-gradient-to-r from-[#dc2626]/10 to-[#ef4444]/10 border border-[#dc2626]/30 rounded-xl p-3 sm:p-4">
+          <div className="bg-gradient-to-r from-[#2563eb]/10 to-[#3b82f6]/10 border border-[#2563eb]/30 rounded-xl p-3 sm:p-4">
             <div className="flex items-start gap-2 sm:gap-3">
-              <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-[#dc2626]/20 flex items-center justify-center flex-shrink-0">
-                <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4 text-[#dc2626]" />
+              <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-[#2563eb]/20 flex items-center justify-center flex-shrink-0">
+                <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4 text-[#2563eb]" />
               </div>
               <div>
                 <h3 className="text-white font-semibold text-sm mb-1">Important Notice</h3>
                 <p className="text-white/80 text-xs sm:text-sm leading-relaxed">
-                  By using Magma Cheats, you acknowledge that gaming cheats may violate game terms of service. 
+                  By using Skyline Cheats, you acknowledge that gaming cheats may violate game terms of service. 
                   Use at your own risk and responsibility.
                 </p>
               </div>
@@ -129,11 +129,11 @@ export function TermsPopup() {
             <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-white/80 leading-relaxed">
               <div>
                 <h4 className="text-white font-semibold mb-2 flex items-center gap-2 text-sm">
-                  <FileText className="w-3 h-3 sm:w-4 sm:h-4 text-[#dc2626]" />
+                  <FileText className="w-3 h-3 sm:w-4 sm:h-4 text-[#2563eb]" />
                   1. Acceptance of Terms
                 </h4>
                 <p>
-                  By accessing and using Magma Cheats ("the Service"), you accept and agree to be bound by the terms and provision of this agreement. 
+                  By accessing and using Skyline Cheats ("the Service"), you accept and agree to be bound by the terms and provision of this agreement. 
                   If you do not agree to abide by the above, please do not use this service.
                 </p>
               </div>
@@ -141,7 +141,7 @@ export function TermsPopup() {
               <div>
                 <h4 className="text-white font-semibold mb-2 text-sm">2. Use License</h4>
                 <p>
-                  Permission is granted to temporarily download one copy of Magma Cheats products for personal, non-commercial transitory viewing only. 
+                  Permission is granted to temporarily download one copy of Skyline Cheats products for personal, non-commercial transitory viewing only. 
                   This is the grant of a license, not a transfer of title, and under this license you may not:
                 </p>
                 <ul className="list-disc list-inside mt-2 space-y-1 text-white/70 ml-2">
@@ -155,7 +155,7 @@ export function TermsPopup() {
               <div>
                 <h4 className="text-white font-semibold mb-2 text-sm">3. Disclaimer</h4>
                 <p>
-                  The materials on Magma Cheats are provided on an 'as is' basis. Magma Cheats makes no warranties, expressed or implied, 
+                  The materials on Skyline Cheats are provided on an 'as is' basis. Skyline Cheats makes no warranties, expressed or implied, 
                   and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, 
                   fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
                 </p>
@@ -212,7 +212,7 @@ export function TermsPopup() {
         <DialogFooter className="relative z-10 pt-4 sm:pt-5 flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
           <Button
             onClick={handleAcceptTerms}
-            className="w-full sm:flex-1 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-semibold py-3 sm:py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#dc2626]/30 text-sm sm:text-base min-h-[44px]"
+            className="w-full sm:flex-1 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-semibold py-3 sm:py-4 px-6 rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#2563eb]/30 text-sm sm:text-base min-h-[44px]"
           >
             <Check className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
             I Agree to Terms of Service

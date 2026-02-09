@@ -4,6 +4,27 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 import { requirePermission } from "@/lib/admin-auth";
 
+export async function loadWebhooks() {
+  try {
+    await requirePermission("manage_webhooks");
+    const supabase = createAdminClient();
+    
+    const { data, error } = await supabase
+      .from("webhooks")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+
+    return { success: true, webhooks: data || [] };
+  } catch (error: any) {
+    if (error?.message === "Unauthorized" || /Forbidden|insufficient permissions/i.test(error?.message ?? ""))
+      return { success: false, error: "You don't have permission to do this.", webhooks: [] };
+    console.error("[Admin] Load webhooks error:", error);
+    return { success: false, error: error.message, webhooks: [] };
+  }
+}
+
 export async function createWebhook(data: {
   name: string;
   url: string;

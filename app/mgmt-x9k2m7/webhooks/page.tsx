@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { RefreshCw, Plus, Edit, Trash2, Webhook, Link2, Zap, Activity, Check, X, AlertCircle, Globe, CheckCircle2, Clock, DollarSign, Package, Key, ShoppingCart, TestTube } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { createWebhook, updateWebhook, deleteWebhook } from "@/app/actions/admin-webhooks";
+import { createWebhook, updateWebhook, deleteWebhook, loadWebhooks } from "@/app/actions/admin-webhooks";
 
 interface Webhook {
   id: string;
@@ -29,12 +29,13 @@ interface WebhookFormData {
 }
 
 const AVAILABLE_EVENTS = [
+  { id: "checkout.started", label: "Checkout Started", icon: ShoppingCart, color: "blue" },
+  { id: "order.pending", label: "Order Pending", icon: Clock, color: "orange" },
   { id: "payment.completed", label: "Payment Completed", icon: CheckCircle2, color: "emerald" },
   { id: "payment.failed", label: "Payment Failed", icon: AlertCircle, color: "red" },
-  { id: "order.created", label: "Order Created", icon: ShoppingCart, color: "blue" },
   { id: "order.completed", label: "Order Completed", icon: Package, color: "green" },
-  { id: "license.created", label: "License Created", icon: Key, color: "purple" },
-  { id: "license.revoked", label: "License Revoked", icon: X, color: "orange" },
+  { id: "order.refunded", label: "Order Refunded", icon: DollarSign, color: "purple" },
+  { id: "order.disputed", label: "Order Disputed", icon: AlertCircle, color: "orange" },
 ];
 
 export default function WebhooksPage() {
@@ -56,25 +57,25 @@ export default function WebhooksPage() {
   const { toast } = useToast();
 
   useEffect(() => {
-    loadWebhooks();
+    loadWebhooksData();
   }, []);
 
-  async function loadWebhooks() {
+  async function loadWebhooksData() {
     try {
       setLoading(true);
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("webhooks")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      setWebhooks(data || []);
-    } catch (error) {
+      
+      const result = await loadWebhooks();
+      
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+      
+      setWebhooks(result.webhooks || []);
+    } catch (error: any) {
       console.error("Failed to load webhooks:", error);
       toast({
         title: "Error",
-        description: "Failed to load webhooks. Please try again.",
+        description: error.message || "Failed to load webhooks. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -104,7 +105,7 @@ export default function WebhooksPage() {
       
       setShowAddModal(false);
       resetForm();
-      await loadWebhooks();
+      await loadWebhooksData();
     } catch (error: any) {
       console.error("Failed to add webhook:", error);
       toast({
@@ -143,7 +144,7 @@ export default function WebhooksPage() {
       setShowEditModal(false);
       setSelectedWebhook(null);
       resetForm();
-      await loadWebhooks();
+      await loadWebhooksData();
     } catch (error: any) {
       console.error("Failed to edit webhook:", error);
       toast({
@@ -210,12 +211,12 @@ export default function WebhooksPage() {
       toast({
         title: "Success",
         description: "Webhook deleted successfully",
-        className: "border-red-500/20 bg-red-500/10",
+        className: "border-blue-500/20 bg-blue-500/10",
       });
       
       setShowDeleteModal(false);
       setSelectedWebhook(null);
-      await loadWebhooks();
+      await loadWebhooksData();
     } catch (error: any) {
       console.error("Failed to delete webhook:", error);
       toast({
@@ -275,15 +276,15 @@ export default function WebhooksPage() {
       render: (webhook: Webhook) => (
         <div className="flex items-center gap-3 group">
           <div className="relative">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#dc2626]/20 to-[#dc2626]/5 border border-[#dc2626]/10 flex items-center justify-center group-hover:border-[#dc2626]/30 transition-all">
-              <Webhook className="w-5 h-5 text-[#dc2626]/70" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb]/20 to-[#2563eb]/5 border border-[#2563eb]/10 flex items-center justify-center group-hover:border-[#2563eb]/30 transition-all">
+              <Webhook className="w-5 h-5 text-[#2563eb]/70" />
             </div>
             <div className={`absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-[#0a0a0a] ${
               webhook.is_active ? "bg-emerald-500" : "bg-gray-500"
             }`} />
           </div>
           <div>
-            <p className="text-white font-semibold tracking-tight group-hover:text-[#dc2626] transition-colors">
+            <p className="text-white font-semibold tracking-tight group-hover:text-[#2563eb] transition-colors">
               {webhook.name}
             </p>
             <div className="flex items-center gap-1.5 mt-0.5">
@@ -319,7 +320,7 @@ export default function WebhooksPage() {
             const Icon = eventConfig?.icon || Zap;
             const colorClass = {
               emerald: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
-              red: "bg-red-500/10 text-red-400 border-red-500/30",
+              red: "bg-blue-500/10 text-blue-400 border-blue-500/30",
               blue: "bg-blue-500/10 text-blue-400 border-blue-500/30",
               green: "bg-green-500/10 text-green-400 border-green-500/30",
               purple: "bg-purple-500/10 text-purple-400 border-purple-500/30",
@@ -380,8 +381,8 @@ export default function WebhooksPage() {
       <AdminShell title="Webhooks" subtitle="Manage webhook integrations and event notifications">
         <div className="flex flex-col items-center justify-center h-64 gap-4">
           <div className="relative">
-            <div className="w-12 h-12 rounded-full border-2 border-[#dc2626]/20 border-t-[#dc2626] animate-spin" />
-            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#dc2626]/5 blur-xl animate-pulse" />
+            <div className="w-12 h-12 rounded-full border-2 border-[#2563eb]/20 border-t-[#2563eb] animate-spin" />
+            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#2563eb]/5 blur-xl animate-pulse" />
           </div>
           <p className="text-white/40 text-sm font-medium">Loading webhooks...</p>
         </div>
@@ -393,14 +394,14 @@ export default function WebhooksPage() {
     <AdminShell title="Webhooks" subtitle="Manage webhook integrations and event notifications">
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#dc2626]/30 transition-all">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#2563eb]/30 transition-all">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Total Webhooks</p>
               <p className="text-2xl font-bold text-white mt-1">{totalWebhooks}</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center">
-              <Webhook className="w-6 h-6 text-[#dc2626]" />
+            <div className="w-12 h-12 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
+              <Webhook className="w-6 h-6 text-[#2563eb]" />
             </div>
           </div>
         </div>
@@ -434,11 +435,11 @@ export default function WebhooksPage() {
       <div className="mb-6 flex items-center justify-between">
         <div className="flex gap-2">
           <Button
-            onClick={() => loadWebhooks()}
+            onClick={() => loadWebhooksData()}
             variant="outline"
             size="sm"
             disabled={loading}
-            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#dc2626]/30 transition-all"
+            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#2563eb]/30 transition-all"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -457,7 +458,7 @@ export default function WebhooksPage() {
         <Button
           onClick={() => setShowAddModal(true)}
           size="sm"
-          className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/20 transition-all"
+          className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 transition-all"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Webhook
@@ -485,7 +486,7 @@ export default function WebhooksPage() {
               onClick={() => openDeleteModal(webhook)}
               size="sm"
               variant="ghost"
-              className="text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all"
+              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-all"
               title="Delete Webhook"
             >
               <Trash2 className="w-4 h-4" />
@@ -499,8 +500,8 @@ export default function WebhooksPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#dc2626]/10 border border-[#dc2626]/20 flex items-center justify-center">
-                <Plus className="w-4 h-4 text-[#dc2626]" />
+              <div className="w-8 h-8 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
+                <Plus className="w-4 h-4 text-[#2563eb]" />
               </div>
               Add New Webhook
             </DialogTitle>
@@ -512,7 +513,7 @@ export default function WebhooksPage() {
           <div className="space-y-6 py-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-white/70">
-                Webhook Name <span className="text-red-400">*</span>
+                Webhook Name <span className="text-blue-400">*</span>
               </label>
               <div className="relative">
                 <Webhook className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -520,14 +521,14 @@ export default function WebhooksPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g., Discord Notifications"
-                  className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#dc2626]/50 transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#2563eb]/50 transition-colors"
                 />
               </div>
             </div>
             
             <div className="space-y-2">
               <label className="block text-sm font-medium text-white/70">
-                Webhook URL <span className="text-red-400">*</span>
+                Webhook URL <span className="text-blue-400">*</span>
               </label>
               <div className="relative">
                 <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -535,7 +536,7 @@ export default function WebhooksPage() {
                   value={formData.url}
                   onChange={(e) => setFormData({ ...formData, url: e.target.value })}
                   placeholder="https://your-webhook-url.com/endpoint"
-                  className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#dc2626]/50 font-mono text-sm transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white pl-10 focus:border-[#2563eb]/50 font-mono text-sm transition-colors"
                 />
               </div>
               <p className="text-xs text-white/40">POST requests will be sent to this URL</p>
@@ -543,7 +544,7 @@ export default function WebhooksPage() {
             
             <div className="space-y-3">
               <label className="block text-sm font-medium text-white/70">
-                Events to Listen <span className="text-red-400">*</span>
+                Events to Listen <span className="text-blue-400">*</span>
               </label>
               <div className="grid grid-cols-2 gap-3">
                 {AVAILABLE_EVENTS.map((event) => {
@@ -551,7 +552,7 @@ export default function WebhooksPage() {
                   const isSelected = formData.events.includes(event.id);
                   const colorClasses = {
                     emerald: "border-emerald-500/50 bg-emerald-500/5",
-                    red: "border-red-500/50 bg-red-500/5",
+                    red: "border-blue-500/50 bg-blue-500/5",
                     blue: "border-blue-500/50 bg-blue-500/5",
                     green: "border-green-500/50 bg-green-500/5",
                     purple: "border-purple-500/50 bg-purple-500/5",
@@ -564,14 +565,14 @@ export default function WebhooksPage() {
                       className={`flex items-center gap-3 p-3 bg-[#1a1a1a] border rounded-lg cursor-pointer transition-all ${
                         isSelected 
                           ? colorClasses 
-                          : "border-[#262626] hover:border-[#dc2626]/30"
+                          : "border-[#262626] hover:border-[#2563eb]/30"
                       }`}
                     >
                       <input
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => toggleEvent(event.id)}
-                        className="w-4 h-4 rounded accent-[#dc2626]"
+                        className="w-4 h-4 rounded accent-[#2563eb]"
                       />
                       <Icon className={`w-4 h-4 ${isSelected ? `text-${event.color}-400` : "text-white/40"}`} />
                       <div className="flex-1">
@@ -596,7 +597,7 @@ export default function WebhooksPage() {
             <Button
               onClick={handleAddWebhook}
               disabled={processing === "add" || !formData.name || !formData.url || formData.events.length === 0}
-              className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white shadow-lg shadow-[#dc2626]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "add" ? (
                 <>
@@ -632,7 +633,7 @@ export default function WebhooksPage() {
           <div className="space-y-6 py-4">
             <div className="space-y-2">
               <label className="block text-sm font-medium text-white/70">
-                Webhook Name <span className="text-red-400">*</span>
+                Webhook Name <span className="text-blue-400">*</span>
               </label>
               <div className="relative">
                 <Webhook className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -646,7 +647,7 @@ export default function WebhooksPage() {
             
             <div className="space-y-2">
               <label className="block text-sm font-medium text-white/70">
-                Webhook URL <span className="text-red-400">*</span>
+                Webhook URL <span className="text-blue-400">*</span>
               </label>
               <div className="relative">
                 <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
@@ -660,7 +661,7 @@ export default function WebhooksPage() {
             
             <div className="space-y-3">
               <label className="block text-sm font-medium text-white/70">
-                Events to Listen <span className="text-red-400">*</span>
+                Events to Listen <span className="text-blue-400">*</span>
               </label>
               <div className="grid grid-cols-2 gap-3">
                 {AVAILABLE_EVENTS.map((event) => {
@@ -668,7 +669,7 @@ export default function WebhooksPage() {
                   const isSelected = formData.events.includes(event.id);
                   const colorClasses = {
                     emerald: "border-emerald-500/50 bg-emerald-500/5",
-                    red: "border-red-500/50 bg-red-500/5",
+                    red: "border-blue-500/50 bg-blue-500/5",
                     blue: "border-blue-500/50 bg-blue-500/5",
                     green: "border-green-500/50 bg-green-500/5",
                     purple: "border-purple-500/50 bg-purple-500/5",
@@ -759,8 +760,8 @@ export default function WebhooksPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                <AlertCircle className="w-4 h-4 text-red-400" />
+              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                <AlertCircle className="w-4 h-4 text-blue-400" />
               </div>
               Delete Webhook
             </DialogTitle>
@@ -770,7 +771,7 @@ export default function WebhooksPage() {
           </DialogHeader>
           
           <div className="py-6">
-            <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-4">
+            <div className="bg-blue-500/5 border border-blue-500/20 rounded-lg p-4">
               <p className="text-white/70">
                 Are you sure you want to delete webhook{" "}
                 <span className="font-semibold text-white">{selectedWebhook?.name}</span>?
@@ -794,7 +795,7 @@ export default function WebhooksPage() {
             <Button
               onClick={handleDeleteWebhook}
               disabled={processing === "delete"}
-              className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-600 text-white shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "delete" ? (
                 <>

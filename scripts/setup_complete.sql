@@ -412,17 +412,17 @@ INSERT INTO licenses (license_key, order_id, product_id, product_name, customer_
 -- INSERT TEAM MEMBERS
 -- ============================================================================
 INSERT INTO team_members (name, email, role, is_active) VALUES
-('Admin User', 'admin@magma.local', 'Owner', true),
-('Support Team', 'support@magma.local', 'Support', true),
-('Developer', 'dev@magma.local', 'Developer', true);
+('Admin User', 'admin@skyline.local', 'Owner', true),
+('Support Team', 'support@skyline.local', 'Support', true),
+('Developer', 'dev@skyline.local', 'Developer', true);
 
 -- ============================================================================
 -- INSERT SETTINGS
 -- ============================================================================
 INSERT INTO settings (key, value) VALUES
-('site_name', '"Magma Cheats"'),
+('site_name', '"Skyline Cheats"'),
 ('site_description', '"Premium undetected cheats for all games"'),
-('support_email', '"support@magma.local"'),
+('support_email', '"support@skyline.local"'),
 ('maintenance_mode', 'false');
 
 -- ============================================================================

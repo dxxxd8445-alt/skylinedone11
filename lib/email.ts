@@ -26,7 +26,7 @@ export async function sendPurchaseEmail(params: SendPurchaseEmailParams) {
 
     const result = await sendEmail({
       to: params.customerEmail,
-      subject: `Your Magma License Key - Order ${params.orderNumber}`,
+      subject: `Your Skyline License Key - Order ${params.orderNumber}`,
       html: emailHtml,
     });
 
@@ -56,7 +56,7 @@ export async function sendPasswordResetEmail(params: SendPasswordResetEmailParam
 
     const result = await sendEmail({
       to: params.email,
-      subject: "Reset your Magma password",
+      subject: "Reset your Skyline password",
       html: emailHtml,
     });
 

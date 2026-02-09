@@ -1,0 +1,9 @@
+IMPORTANT: Save the motherboard image as "motherboard.png" in this folder.
+
+The image should be:
+- Named: motherboard.png
+- Location: /public/motherboard.png
+- Format: PNG with transparent or black background
+- Recommended size: 800x600px or similar aspect ratio
+
+The welcome popup component is already configured to display this image on the left side.

@@ -59,7 +59,7 @@ Add the Magma logo as a navigation item in the navbar that links to the homepage
 - **STATUS**: `/status` - Product status page
 - **GUIDES**: `/guides` - User guides
 - **REVIEWS**: `/reviews` - Customer reviews
-- **SUPPORT**: `https://discord.gg/magmacheats` - Discord support
+- **SUPPORT**: `https://discord.gg/skylineggs` - Discord support
 
 ## 🎊 FINAL RESULT
 

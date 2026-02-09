@@ -136,7 +136,7 @@ export default function LicensesPage() {
       console.log("[License Add] Result:", result);
 
       if (result.success) {
-        let message = `✅ Added ${result.added} keys`;
+        let message = `? Added ${result.added} keys`;
         if (result.skipped > 0) {
           message += ` (${result.skipped} skipped)`;
         }
@@ -260,7 +260,7 @@ export default function LicensesPage() {
                 setSelectedVariant("");
                 setKeysInput("");
               }}
-              className="bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white border-0 px-6 py-2 h-auto"
+              className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white border-0 px-6 py-2 h-auto"
             >
               <Plus className="w-5 h-5 mr-2" />
               Stock Keys
@@ -302,7 +302,7 @@ export default function LicensesPage() {
                 size="sm"
                 variant="ghost"
                 onClick={() => handleDelete(item.id)}
-                className="text-red-400 hover:text-red-300 hover:bg-red-500/10 h-8 w-8 p-0"
+                className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 h-8 w-8 p-0"
                 title="Delete from Stock"
               >
                 <Trash2 className="w-4 h-4" />
@@ -326,15 +326,15 @@ export default function LicensesPage() {
             <div className="py-6 space-y-6">
               {/* Progress Indicator */}
               <div className="flex items-center gap-2">
-                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "game" || step === "variant" || step === "keys" ? "bg-[#dc2626] text-white" : "bg-[#262626] text-white/40"}`}>
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "game" || step === "variant" || step === "keys" ? "bg-[#2563eb] text-white" : "bg-[#262626] text-white/40"}`}>
                   1
                 </div>
-                <div className={`flex-1 h-1 ${step === "variant" || step === "keys" ? "bg-[#dc2626]" : "bg-[#262626]"}`} />
-                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "variant" || step === "keys" ? "bg-[#dc2626] text-white" : "bg-[#262626] text-white/40"}`}>
+                <div className={`flex-1 h-1 ${step === "variant" || step === "keys" ? "bg-[#2563eb]" : "bg-[#262626]"}`} />
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "variant" || step === "keys" ? "bg-[#2563eb] text-white" : "bg-[#262626] text-white/40"}`}>
                   2
                 </div>
-                <div className={`flex-1 h-1 ${step === "keys" ? "bg-[#dc2626]" : "bg-[#262626]"}`} />
-                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "keys" ? "bg-[#dc2626] text-white" : "bg-[#262626] text-white/40"}`}>
+                <div className={`flex-1 h-1 ${step === "keys" ? "bg-[#2563eb]" : "bg-[#262626]"}`} />
+                <div className={`flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${step === "keys" ? "bg-[#2563eb] text-white" : "bg-[#262626] text-white/40"}`}>
                   3
                 </div>
               </div>
@@ -345,7 +345,7 @@ export default function LicensesPage() {
                   <div>
                     <label className="text-sm font-medium text-white/70 mb-3 block">Select Game</label>
                     <select
-                      className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-3 text-white focus:border-[#dc2626] focus:outline-none transition-colors"
+                      className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-3 text-white focus:border-[#2563eb] focus:outline-none transition-colors"
                       value={selectedProduct}
                       onChange={(e) => setSelectedProduct(e.target.value)}
                     >
@@ -373,7 +373,7 @@ export default function LicensesPage() {
                       <div className="text-center py-4 text-white/60">Loading variants...</div>
                     ) : variants.length > 0 ? (
                       <select
-                        className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-3 text-white focus:border-[#dc2626] focus:outline-none transition-colors"
+                        className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-3 text-white focus:border-[#2563eb] focus:outline-none transition-colors"
                         value={selectedVariant}
                         onChange={(e) => setSelectedVariant(e.target.value)}
                       >
@@ -404,7 +404,7 @@ export default function LicensesPage() {
                     <label className="text-sm font-medium text-white/70 mb-3 block">License Keys</label>
                     <Textarea
                       placeholder="Paste your license keys here&#10;One key per line&#10;Any format accepted"
-                      className="bg-[#1a1a1a] border-[#262626] text-white min-h-[200px] font-mono text-sm focus:border-[#dc2626] focus:outline-none transition-colors"
+                      className="bg-[#1a1a1a] border-[#262626] text-white min-h-[200px] font-mono text-sm focus:border-[#2563eb] focus:outline-none transition-colors"
                       value={keysInput}
                       onChange={(e) => setKeysInput(e.target.value)}
                     />
@@ -447,7 +447,7 @@ export default function LicensesPage() {
                     (step === "game" && !selectedProduct) ||
                     (step === "variant" && !selectedVariant && variants.length > 0)
                   }
-                  className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+                  className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
                 >
                   Next
                   <ChevronRight className="w-4 h-4 ml-1" />
@@ -457,7 +457,7 @@ export default function LicensesPage() {
                 <Button
                   onClick={handleAddStock}
                   disabled={processing || !keysInput.trim()}
-                  className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+                  className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
                 >
                   {processing ? "Adding..." : "Add to Stock"}
                 </Button>

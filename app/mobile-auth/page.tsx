@@ -80,8 +80,8 @@ function MobileAuthContent() {
       <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center p-4">
         {/* Background effects */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#dc2626]/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#ef4444]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#3b82f6]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
         </div>
 
         <div className="relative z-10 text-center max-w-md w-full">
@@ -103,7 +103,7 @@ function MobileAuthContent() {
           {/* Continue button */}
           <Link
             href="/store"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-[#dc2626]/30"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg shadow-[#2563eb]/30"
           >
             <ShoppingBag className="w-5 h-5" />
             Continue to Shop
@@ -131,8 +131,8 @@ function MobileAuthContent() {
         
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/images/magma-logo.png"
-            alt="Magma Cheats"
+            src="/images/Skyline_without_bg.png"
+            alt="Skyline Cheats"
             width={120}
             height={32}
             className="h-8 w-auto"
@@ -151,7 +151,7 @@ function MobileAuthContent() {
               onClick={() => setMode("signin")}
               className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all ${
                 mode === "signin"
-                  ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white shadow-lg"
+                  ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-lg"
                   : "text-white/60 hover:text-white/80"
               }`}
             >
@@ -161,7 +161,7 @@ function MobileAuthContent() {
               onClick={() => setMode("signup")}
               className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all ${
                 mode === "signup"
-                  ? "bg-gradient-to-r from-[#dc2626] to-[#ef4444] text-white shadow-lg"
+                  ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-lg"
                   : "text-white/60 hover:text-white/80"
               }`}
             >
@@ -177,13 +177,13 @@ function MobileAuthContent() {
             <p className="text-white/60">
               {mode === "signin" 
                 ? "Sign in to access your account and continue shopping" 
-                : "Join Magma Cheats and start your gaming journey"}
+                : "Join Skyline Cheats and start your gaming journey"}
             </p>
           </div>
 
           {/* Error message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-sm">
+            <div className="mb-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 text-sm">
               {error}
             </div>
           )}
@@ -204,7 +204,7 @@ function MobileAuthContent() {
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Choose a username"
                     required
-                    className="w-full pl-12 pr-4 py-4 bg-[#1a1a1a] border border-[#262626] rounded-xl text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                    className="w-full pl-12 pr-4 py-4 bg-[#1a1a1a] border border-[#262626] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                   />
                 </div>
               </div>
@@ -223,7 +223,7 @@ function MobileAuthContent() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   required
-                  className="w-full pl-12 pr-4 py-4 bg-[#1a1a1a] border border-[#262626] rounded-xl text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                  className="w-full pl-12 pr-4 py-4 bg-[#1a1a1a] border border-[#262626] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                 />
               </div>
             </div>
@@ -241,7 +241,7 @@ function MobileAuthContent() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full pl-12 pr-12 py-4 bg-[#1a1a1a] border border-[#262626] rounded-xl text-white placeholder:text-white/40 focus:border-[#dc2626] focus:outline-none focus:ring-2 focus:ring-[#dc2626]/20 transition-all"
+                  className="w-full pl-12 pr-12 py-4 bg-[#1a1a1a] border border-[#262626] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
                 />
                 <button
                   type="button"
@@ -260,7 +260,7 @@ function MobileAuthContent() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 bg-gradient-to-r from-[#dc2626] to-[#ef4444] hover:from-[#ef4444] hover:to-[#dc2626] text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-[#dc2626]/30"
+              className="w-full py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-[#2563eb]/30"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center gap-2">
@@ -278,7 +278,7 @@ function MobileAuthContent() {
             {mode === "signin" && (
               <Link
                 href="/forgot-password"
-                className="block text-[#dc2626] hover:text-[#ef4444] text-sm font-medium transition-colors"
+                className="block text-[#2563eb] hover:text-[#3b82f6] text-sm font-medium transition-colors"
               >
                 Forgot your password?
               </Link>
@@ -289,7 +289,7 @@ function MobileAuthContent() {
               <span>•</span>
               <Link href="/privacy" className="hover:text-white/60 transition-colors">Privacy</Link>
               <span>•</span>
-              <a href="https://discord.gg/magmacheats" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Support</a>
+              <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Support</a>
             </div>
           </div>
         </div>
@@ -301,7 +301,7 @@ function MobileAuthContent() {
 function LoadingFallback() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] flex items-center justify-center">
-      <div className="w-8 h-8 border-2 border-[#dc2626]/30 border-t-[#dc2626] rounded-full animate-spin" />
+      <div className="w-8 h-8 border-2 border-[#2563eb]/30 border-t-[#2563eb] rounded-full animate-spin" />
     </div>
   );
 }

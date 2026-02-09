@@ -272,7 +272,7 @@ export default function CategoriesPage() {
             </Button>
             <Button
               onClick={openCreateModal}
-              className="bg-[#dc2626] hover:bg-[#ef4444] text-white"
+              className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add Category
@@ -289,8 +289,8 @@ export default function CategoriesPage() {
                   <p className="text-white/60 text-sm">Total Categories</p>
                   <p className="text-2xl font-bold text-white">{categories.length}</p>
                 </div>
-                <div className="p-3 rounded-xl bg-[#dc2626]/10">
-                  <Folder className="w-6 h-6 text-[#dc2626]" />
+                <div className="p-3 rounded-xl bg-[#2563eb]/10">
+                  <Folder className="w-6 h-6 text-[#2563eb]" />
                 </div>
               </div>
             </CardContent>
@@ -321,8 +321,8 @@ export default function CategoriesPage() {
                     {categories.filter(c => !c.is_active).length}
                   </p>
                 </div>
-                <div className="p-3 rounded-xl bg-red-500/10">
-                  <ToggleLeft className="w-6 h-6 text-red-500" />
+                <div className="p-3 rounded-xl bg-blue-500/10">
+                  <ToggleLeft className="w-6 h-6 text-blue-500" />
                 </div>
               </div>
             </CardContent>
@@ -370,7 +370,7 @@ export default function CategoriesPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#dc2626] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (
@@ -460,7 +460,7 @@ export default function CategoriesPage() {
                               size="sm"
                               variant="ghost"
                               onClick={() => deleteCategory(category.id, category.name)}
-                              className="text-red-500 hover:text-red-400 hover:bg-red-500/10"
+                              className="text-blue-500 hover:text-blue-400 hover:bg-blue-500/10"
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
@@ -471,8 +471,8 @@ export default function CategoriesPage() {
                     {filteredCategories.length === 0 && !loading && (
                       <TableRow>
                         <TableCell colSpan={6} className="py-16 text-center">
-                          <div className="w-16 h-16 rounded-full bg-[#dc2626]/10 flex items-center justify-center mx-auto mb-4">
-                            <Folder className="w-8 h-8 text-[#dc2626]" />
+                          <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
+                            <Folder className="w-8 h-8 text-[#2563eb]" />
                           </div>
                           <p className="text-white/60">No categories found</p>
                         </TableCell>
@@ -493,7 +493,7 @@ export default function CategoriesPage() {
             <>
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-white flex items-center gap-3">
-                  <Folder className="w-6 h-6 text-[#dc2626]" />
+                  <Folder className="w-6 h-6 text-[#2563eb]" />
                   Category Details - {selectedCategory.name}
                 </DialogTitle>
               </DialogHeader>
@@ -506,7 +506,7 @@ export default function CategoriesPage() {
                   </div>
                   <div>
                     <Label className="text-white/60">Slug</Label>
-                    <code className="font-mono text-sm bg-[#1a1a1a] px-2 py-1 rounded text-[#dc2626]">
+                    <code className="font-mono text-sm bg-[#1a1a1a] px-2 py-1 rounded text-[#2563eb]">
                       {selectedCategory.slug}
                     </code>
                   </div>
@@ -518,7 +518,7 @@ export default function CategoriesPage() {
                     <Label className="text-white/60">Status</Label>
                     <Badge className={selectedCategory.is_active 
                       ? "bg-green-500/20 text-green-400 border-0" 
-                      : "bg-red-500/20 text-red-400 border-0"
+                      : "bg-blue-500/20 text-blue-400 border-0"
                     }>
                       {selectedCategory.is_active ? 'Active' : 'Inactive'}
                     </Badge>
@@ -572,7 +572,7 @@ export default function CategoriesPage() {
         <DialogContent className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#1a1a1a] max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold text-white flex items-center gap-3">
-              {createModalOpen ? <Plus className="w-5 h-5 text-[#dc2626]" /> : <Edit className="w-5 h-5 text-[#dc2626]" />}
+              {createModalOpen ? <Plus className="w-5 h-5 text-[#2563eb]" /> : <Edit className="w-5 h-5 text-[#2563eb]" />}
               {createModalOpen ? 'Create Category' : 'Edit Category'}
             </DialogTitle>
           </DialogHeader>
@@ -653,7 +653,7 @@ export default function CategoriesPage() {
             <div className="flex gap-3 pt-4">
               <Button
                 onClick={createModalOpen ? createCategory : updateCategory}
-                className="flex-1 bg-[#dc2626] hover:bg-[#ef4444] text-white"
+                className="flex-1 bg-[#2563eb] hover:bg-[#3b82f6] text-white"
               >
                 {createModalOpen ? 'Create Category' : 'Update Category'}
               </Button>
