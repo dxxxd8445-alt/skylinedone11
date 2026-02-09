@@ -143,7 +143,7 @@ function AcceptInviteContent() {
           <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center mx-auto mb-4">
             <Flame className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">Welcome to Magma</h1>
+          <h1 className="text-2xl font-bold text-white mb-2">Welcome to Skyline</h1>
           <p className="text-white/60 text-sm">Complete your account setup</p>
         </div>
 
