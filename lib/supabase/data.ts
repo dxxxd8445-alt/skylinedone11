@@ -391,6 +391,7 @@ export async function getReviews() {
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
+      .eq("is_approved", true) // Only get approved reviews for public display
       .order("created_at", { ascending: false });
     
     if (error) {
@@ -418,7 +419,11 @@ export async function createReview(review: {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("reviews")
-    .insert(review)
+    .insert({
+      ...review,
+      is_approved: false, // Reviews start as unapproved
+      created_at: new Date().toISOString(),
+    })
     .select()
     .single();
 
@@ -427,6 +432,53 @@ export async function createReview(review: {
     return null;
   }
   return data;
+}
+
+// Admin: Get all reviews (including unapproved)
+export async function getAllReviews() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("reviews")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching all reviews:", error);
+    return [];
+  }
+  return data || [];
+}
+
+// Admin: Approve review
+export async function approveReview(reviewId: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("reviews")
+    .update({ is_approved: true })
+    .eq("id", reviewId)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error approving review:", error);
+    return null;
+  }
+  return data;
+}
+
+// Admin: Delete review
+export async function deleteReview(reviewId: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("reviews")
+    .delete()
+    .eq("id", reviewId);
+
+  if (error) {
+    console.error("Error deleting review:", error);
+    return false;
+  }
+  return true;
 }
 
 // Team Members

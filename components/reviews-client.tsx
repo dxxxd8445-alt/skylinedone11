@@ -59,10 +59,10 @@ export function ReviewsClient({
       const savedReview = await createReview(newReview);
 
       if (savedReview) {
-        setReviews([savedReview, ...reviews]);
+        // Don't add to reviews list since it needs approval
         toast({
-          title: "Review Submitted",
-          description: "Thank you for your feedback!",
+          title: "Review Submitted Successfully!",
+          description: "Your review is pending approval and will be visible once approved by our team.",
         });
       } else {
         throw new Error("Failed to save review");
