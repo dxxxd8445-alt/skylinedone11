@@ -436,18 +436,28 @@ export async function createReview(review: {
 
 // Admin: Get all reviews (including unapproved)
 export async function getAllReviews() {
-  const { createAdminClient } = await import("./admin");
-  const supabase = createAdminClient();
-  const { data, error } = await supabase
-    .from("reviews")
-    .select("*")
-    .order("created_at", { ascending: false });
+  try {
+    const { createAdminClient } = await import("./admin");
+    const supabase = createAdminClient();
+    
+    console.log('[getAllReviews] Fetching all reviews with admin client...');
+    
+    const { data, error } = await supabase
+      .from("reviews")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-  if (error) {
-    console.error("Error fetching all reviews:", error);
+    if (error) {
+      console.error("[getAllReviews] Database error:", error);
+      return [];
+    }
+    
+    console.log(`[getAllReviews] Successfully fetched ${data?.length || 0} reviews`);
+    return data || [];
+  } catch (e) {
+    console.error("[getAllReviews] Exception:", e);
     return [];
   }
-  return data || [];
 }
 
 // Admin: Approve review

@@ -5,7 +5,14 @@ import { getAllReviews } from "@/lib/supabase/data";
 export const dynamic = "force-dynamic";
 
 export default async function AdminReviewsPage() {
-  const reviews = await getAllReviews();
+  let reviews = [];
+  
+  try {
+    reviews = await getAllReviews();
+    console.log('[Admin Reviews Page] Fetched reviews:', reviews.length);
+  } catch (error) {
+    console.error('[Admin Reviews Page] Error fetching reviews:', error);
+  }
 
   return (
     <AdminLayout title="Reviews Management" subtitle="Approve or deny customer reviews">
