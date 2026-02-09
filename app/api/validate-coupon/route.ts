@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       .from("coupons")
       .select("*")
       .eq("code", code.toUpperCase())
-      .eq("is_active", true)
+      .eq("status", "active")
       .single();
 
     if (error || !coupon) {
@@ -39,7 +39,15 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Check expiry (using expires_at column)
+    // Check start date
+    if (coupon.starts_at && new Date(coupon.starts_at) > new Date()) {
+      return NextResponse.json({
+        valid: false,
+        message: "Coupon is not yet active",
+      });
+    }
+
+    // Check expiry
     if (coupon.expires_at && new Date(coupon.expires_at) < new Date()) {
       return NextResponse.json({
         valid: false,
@@ -52,7 +60,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       valid: true,
       discount: coupon.discount_value,
-      type: coupon.discount_type === 'percent' ? "percentage" : "fixed",
+      type: coupon.discount_type === 'percentage' ? "percentage" : "fixed",
     });
 
   } catch (error) {
