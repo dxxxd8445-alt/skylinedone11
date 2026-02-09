@@ -436,7 +436,8 @@ export async function createReview(review: {
 
 // Admin: Get all reviews (including unapproved)
 export async function getAllReviews() {
-  const supabase = await createClient();
+  const { createAdminClient } = await import("./admin");
+  const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("reviews")
     .select("*")
@@ -451,7 +452,8 @@ export async function getAllReviews() {
 
 // Admin: Approve review
 export async function approveReview(reviewId: string) {
-  const supabase = await createClient();
+  const { createAdminClient } = await import("./admin");
+  const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("reviews")
     .update({ is_approved: true })
@@ -468,7 +470,8 @@ export async function approveReview(reviewId: string) {
 
 // Admin: Delete review
 export async function deleteReview(reviewId: string) {
-  const supabase = await createClient();
+  const { createAdminClient } = await import("./admin");
+  const supabase = createAdminClient();
   const { error } = await supabase
     .from("reviews")
     .delete()
@@ -478,6 +481,8 @@ export async function deleteReview(reviewId: string) {
     console.error("Error deleting review:", error);
     return false;
   }
+  return true;
+}
   return true;
 }
 
