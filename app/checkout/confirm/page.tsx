@@ -9,7 +9,6 @@ import { formatMoney } from "@/lib/money";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
-import { redirectToStripeCheckout } from "@/lib/stripe-checkout";
 import { 
   ArrowLeft, 
   Lock, 
@@ -87,41 +86,6 @@ export default function CheckoutConfirmPage() {
       return;
     }
     setShowCryptoModal(true);
-  };
-
-  const handleStripeCheckout = async () => {
-    setCheckoutLoading(true);
-    setShowCryptoModal(false);
-
-    try {
-      const checkoutItems = items.map(item => ({
-        id: item.id,
-        productId: item.productId,
-        productName: item.productName,
-        game: item.game || 'Unknown',
-        duration: item.duration,
-        price: item.price,
-        quantity: item.quantity,
-        variantId: item.variantId,
-      }));
-
-      const result = await redirectToStripeCheckout({
-        items: checkoutItems,
-        customerEmail: guestEmail,
-        couponCode: appliedCoupon?.code,
-        couponDiscountAmount: discount,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/checkout/confirm`,
-      });
-
-      if (!result.success) {
-        alert(result.error || 'Failed to redirect to checkout');
-        setCheckoutLoading(false);
-      }
-    } catch (error: any) {
-      alert('Failed to proceed to checkout. Please try again.');
-      setCheckoutLoading(false);
-    }
   };
 
   if (items.length === 0) {
@@ -388,12 +352,6 @@ export default function CheckoutConfirmPage() {
         onClose={() => setShowCryptoModal(false)}
         totalUsd={total}
         productName={items.map(i => i.productName).join(", ")}
-        onStripeCheckout={handleStripeCheckout}
-        customerEmail={guestEmail}
-        items={items}
-        subtotal={subtotal}
-        discount={discount}
-        couponCode={appliedCoupon?.code}
       />
     </main>
   );
