@@ -4,5 +4,6 @@
       "path": "/api/auto-reviews",
       "schedule": "0 0 * * *"
     }
-  ]
+  ],
+  "buildCommand": "npm run build"
 }
