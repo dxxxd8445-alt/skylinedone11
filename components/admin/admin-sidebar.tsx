@@ -141,7 +141,7 @@ export function AdminSidebar() {
           </div>
           {isOpen && (
             <div className="flex flex-col">
-              <span className="font-bold text-white text-lg tracking-tight">Magma</span>
+              <span className="font-bold text-white text-lg tracking-tight">Skyline</span>
               <span className="text-[10px] text-white/40 font-medium uppercase tracking-wider">Admin Panel</span>
             </div>
           )}

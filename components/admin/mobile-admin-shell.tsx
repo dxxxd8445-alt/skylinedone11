@@ -111,7 +111,7 @@ export function MobileAdminShell({ children, title, subtitle }: MobileAdminShell
               <Flame className="w-6 h-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-white text-lg">Magma</span>
+              <span className="font-bold text-white text-lg">Skyline</span>
               <span className="text-[10px] text-white/40 uppercase tracking-wider">Admin Panel</span>
             </div>
           </Link>

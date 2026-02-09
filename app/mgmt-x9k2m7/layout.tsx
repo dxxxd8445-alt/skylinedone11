@@ -6,7 +6,7 @@ import { getRequiredPermissionForPath } from "@/lib/admin-routes";
 import { headers } from "next/headers";
 
 export const metadata: Metadata = {
-  title: "Management Panel | Magma",
+  title: "Management Panel | Skyline",
   description: "Secure Management Dashboard",
   robots: "noindex, nofollow",
 };

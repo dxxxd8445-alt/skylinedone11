@@ -155,7 +155,7 @@ export function AdminHeader({ title, subtitle }: AdminHeaderProps) {
                 <User className="w-4 h-4 text-white" />
               </div>
               <div className="hidden md:block text-left">
-                <p className="text-sm font-medium text-white">MagmaAdmin</p>
+                <p className="text-sm font-medium text-white">SkylineAdmin</p>
                 <p className="text-xs text-white/50">Administrator</p>
               </div>
             </button>
