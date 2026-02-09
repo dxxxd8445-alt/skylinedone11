@@ -17,7 +17,7 @@ import {
   BarChart3,
   Target,
 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
@@ -99,7 +99,7 @@ export default function AdminDashboard() {
 
   const loadStats = async () => {
     try {
-      const supabase = createClient();
+      const supabase = createAdminClient();
       const range = getDateRange(dateRange);
       
       let ordersQuery = supabase
