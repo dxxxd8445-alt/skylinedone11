@@ -85,10 +85,6 @@ export default function CheckoutLoginPage() {
     }
   };
 
-  const handleGuestCheckout = () => {
-    router.push("/checkout/guest");
-  };
-
   return (
     <main className="min-h-screen bg-[#0a0a0a] relative overflow-hidden">
       {/* Animated Background Elements */}
@@ -363,30 +359,6 @@ export default function CheckoutLoginPage() {
                     )}
                   </button>
                 </form>
-              </div>
-            </div>
-          </div>
-
-          {/* Guest Checkout - Enhanced */}
-          <div className="max-w-5xl mx-auto mb-12">
-            <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/10 via-transparent to-[#2563eb]/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative bg-[#111111] border border-[#1a1a1a] rounded-xl p-8 text-center hover:border-[#2563eb]/20 transition-all">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#2563eb]/10 mb-4">
-                  <User className="w-8 h-8 text-[#2563eb]" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Continue as Guest</h3>
-                <p className="text-white/60 mb-6 max-w-xl mx-auto">
-                  Checkout without creating an account. You can still track your order via email.
-                </p>
-                <button
-                  onClick={handleGuestCheckout}
-                  className="px-8 py-3.5 bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 text-white rounded-lg font-semibold transition-all inline-flex items-center gap-2 group/guest hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  <User className="w-5 h-5" />
-                  Continue as Guest
-                  <ArrowRight className="w-5 h-5 group-hover/guest:translate-x-1 transition-transform" />
-                </button>
               </div>
             </div>
           </div>

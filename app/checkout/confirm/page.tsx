@@ -274,7 +274,7 @@ export default function CheckoutConfirmPage() {
                       <button
                         onClick={handleApplyCoupon}
                         disabled={couponLoading || !couponCode.trim()}
-                        className="px-4 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all"
+                        className="px-5 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all whitespace-nowrap flex items-center justify-center shrink-0"
                       >
                         {couponLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Apply'}
                       </button>
@@ -389,6 +389,11 @@ export default function CheckoutConfirmPage() {
         totalUsd={total}
         productName={items.map(i => i.productName).join(", ")}
         onStripeCheckout={handleStripeCheckout}
+        customerEmail={guestEmail}
+        items={items}
+        subtotal={subtotal}
+        discount={discount}
+        couponCode={appliedCoupon?.code}
       />
     </main>
   );

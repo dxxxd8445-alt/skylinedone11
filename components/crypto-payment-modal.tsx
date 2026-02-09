@@ -11,6 +11,11 @@ interface CryptoPaymentModalProps {
   totalUsd: number;
   productName: string;
   onStripeCheckout: () => void;
+  customerEmail: string;
+  items: any[];
+  subtotal: number;
+  discount: number;
+  couponCode?: string;
 }
 
 type PaymentMethod = "select" | "card" | "litecoin" | "bitcoin";
@@ -25,6 +30,11 @@ export function CryptoPaymentModal({
   totalUsd,
   productName,
   onStripeCheckout,
+  customerEmail,
+  items,
+  subtotal,
+  discount,
+  couponCode,
 }: CryptoPaymentModalProps) {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("select");
   const [copied, setCopied] = useState(false);
@@ -78,21 +88,67 @@ export function CryptoPaymentModal({
   };
 
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSliderPosition(parseInt(e.target.value));
+    const value = parseInt(e.target.value);
+    setSliderPosition(value);
+    
+    // Auto-confirm when reaching 85% (much easier threshold)
+    if (value >= 85 && !isConfirming && !orderComplete) {
+      confirmCryptoPayment();
+    }
   };
 
-  const handleSliderComplete = () => {
-    if (sliderPosition >= 95) {
-      setIsConfirming(true);
-      // Generate random order ID
-      const randomId = `PRI-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
-      setOrderId(randomId);
+  const confirmCryptoPayment = async () => {
+    setIsConfirming(true);
+    
+    // Generate random order ID
+    const randomId = `PRI-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+    setOrderId(randomId);
+    
+    // Get current crypto details
+    const cryptoAddress = paymentMethod === "litecoin" ? LITECOIN_ADDRESS : BITCOIN_ADDRESS;
+    const cryptoAmountValue = paymentMethod === "litecoin" ? cryptoAmount.ltc : cryptoAmount.btc;
+    
+    try {
+      // Create order in database with pending status
+      const response = await fetch('/api/crypto-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          orderId: randomId,
+          customerEmail: customerEmail,
+          items: items,
+          subtotal: subtotal,
+          discount: discount,
+          total: totalUsd,
+          couponCode: couponCode,
+          paymentMethod: paymentMethod, // "litecoin" or "bitcoin"
+          cryptoAmount: cryptoAmountValue,
+          cryptoAddress: cryptoAddress,
+        }),
+      });
+
+      const data = await response.json();
       
-      setTimeout(() => {
-        setIsConfirming(false);
-        setOrderComplete(true);
-      }, 1500);
-    } else {
+      if (!data.success) {
+        console.error('Failed to create order:', data.error);
+        // Still show success to user, but log error
+      }
+    } catch (error) {
+      console.error('Error creating crypto order:', error);
+      // Still show success to user, but log error
+    }
+    
+    setTimeout(() => {
+      setIsConfirming(false);
+      setOrderComplete(true);
+    }, 1500);
+  };
+
+  const handleSliderRelease = () => {
+    // Smooth reset if not confirmed
+    if (sliderPosition < 85 && !isConfirming) {
       setSliderPosition(0);
     }
   };
@@ -254,7 +310,7 @@ export function CryptoPaymentModal({
             <div className="relative">
               <div className="relative h-16 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-2xl overflow-hidden">
                 <div
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] transition-all duration-200"
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] transition-all duration-100 ease-out"
                   style={{ width: `${sliderPosition}%` }}
                 />
                 <input
@@ -263,63 +319,81 @@ export function CryptoPaymentModal({
                   max="100"
                   value={sliderPosition}
                   onChange={handleSliderChange}
-                  onMouseUp={handleSliderComplete}
-                  onTouchEnd={handleSliderComplete}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                  onMouseUp={handleSliderRelease}
+                  onTouchEnd={handleSliderRelease}
+                  disabled={isConfirming || orderComplete}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-grab active:cursor-grabbing z-10 disabled:cursor-not-allowed"
+                  style={{ touchAction: 'none' }}
                 />
                 <div
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-[#2563eb] rounded-xl flex items-center justify-center shadow-lg transition-all duration-200"
-                  style={{ left: `calc(${sliderPosition}% - 24px + ${sliderPosition * 0.24}px)` }}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-xl transition-all duration-100 ease-out"
+                  style={{ 
+                    left: `calc(${sliderPosition}% - 24px + ${sliderPosition * 0.24}px)`,
+                    boxShadow: '0 4px 20px rgba(37, 99, 235, 0.5)'
+                  }}
                 >
                   {isConfirming ? (
-                    <Loader2 className="w-6 h-6 text-white animate-spin" />
+                    <Loader2 className="w-6 h-6 text-[#2563eb] animate-spin" />
                   ) : (
-                    <ArrowLeft className="w-6 h-6 text-white rotate-180" />
+                    <ArrowLeft className="w-6 h-6 text-[#2563eb] rotate-180" />
                   )}
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <span className="text-white/60 font-semibold text-sm uppercase tracking-wider">
+                  <span 
+                    className="text-white/60 font-semibold text-sm uppercase tracking-wider transition-opacity duration-200"
+                    style={{ opacity: sliderPosition > 30 ? 0 : 1 }}
+                  >
                     {isConfirming ? "Confirming..." : "Slide to Confirm Sent"}
                   </span>
                 </div>
               </div>
+              <p className="text-white/40 text-xs text-center mt-3">
+                Slide to 85% to confirm payment sent
+              </p>
             </div>
           </div>
         )}
 
-        {/* Order Complete */}
+        {/* Order Pending */}
         {orderComplete && (
           <div className="p-8 text-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-full flex items-center justify-center mx-auto mb-6 relative">
-              <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping" />
-              <Check className="w-10 h-10 text-green-500 relative" />
+            <div className="w-20 h-20 bg-gradient-to-br from-yellow-500/20 to-orange-600/20 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+              <div className="absolute inset-0 bg-yellow-500/20 rounded-full animate-ping" />
+              <Loader2 className="w-10 h-10 text-yellow-500 relative animate-spin" />
             </div>
 
-            <h2 className="text-3xl font-bold text-white mb-3">Payment Received!</h2>
-            <p className="text-white/60 mb-6">Your order has been submitted</p>
+            <h2 className="text-3xl font-bold text-white mb-3">Order Pending</h2>
+            <p className="text-white/60 mb-6">Your order has been submitted and is awaiting verification</p>
 
             <div className="bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl p-5 mb-6">
               <p className="text-white/60 text-sm mb-2">Order ID</p>
               <p className="text-[#2563eb] font-mono font-bold text-xl">{orderId}</p>
             </div>
 
-            <div className="bg-gradient-to-br from-[#2563eb]/10 to-transparent border-2 border-[#2563eb]/30 rounded-xl p-6 mb-6">
-              <p className="text-white font-semibold mb-2">Next Steps</p>
-              <p className="text-white/60 text-sm">
-                Join our Discord server and create a ticket with your order ID to receive your license key.
-              </p>
+            <div className="bg-gradient-to-br from-yellow-500/10 to-transparent border-2 border-yellow-500/30 rounded-xl p-6 mb-6">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-yellow-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-yellow-500 text-lg">⚠️</span>
+                </div>
+                <div className="text-left">
+                  <p className="text-white font-semibold mb-2">Action Required</p>
+                  <p className="text-white/80 text-sm leading-relaxed">
+                    Please create a ticket in our Discord server with your <span className="text-yellow-500 font-semibold">Order ID</span> and <span className="text-yellow-500 font-semibold">proof of purchase</span> (transaction screenshot) to receive your license key.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <a
               href="https://discord.gg/skylineggs"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-bold transition-all hover:scale-105 active:scale-95 mb-4"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-bold transition-all hover:scale-105 active:scale-95 mb-4 w-full"
             >
               <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
               </svg>
-              Join Discord Server
+              Create Ticket on Discord
             </a>
 
             <button

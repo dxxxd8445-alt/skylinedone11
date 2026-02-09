@@ -32,9 +32,9 @@ import {
 import { cn } from "@/lib/utils";
 
 const STATUS_OPTIONS: { value: OrderStatus | "all"; label: string }[] = [
-  { value: "completed", label: "Completed" },
   { value: "all", label: "All" },
   { value: "pending", label: "Pending" },
+  { value: "completed", label: "Completed" },
   { value: "paid", label: "Paid" },
   { value: "failed", label: "Failed" },
   { value: "refunded", label: "Refunded" },
@@ -56,7 +56,7 @@ export default function OrdersPage() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
   const [bulkUpdating, setBulkUpdating] = useState(false);
-  const [statusFilter, setStatusFilter] = useState<OrderStatus | "all">("completed");
+  const [statusFilter, setStatusFilter] = useState<OrderStatus | "all">("all");
   const [dateFilter, setDateFilter] = useState<string>("all");
   const [detailModal, setDetailModal] = useState<OrderDetail | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);

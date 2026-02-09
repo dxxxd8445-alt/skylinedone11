@@ -33,6 +33,32 @@ export default function CartPage() {
   const total = getTotal();
 
   const handleCheckout = async () => {
+    // Trigger checkout webhook
+    try {
+      await fetch('/api/trigger-checkout-webhook', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customer_email: user?.email || 'guest@example.com',
+          customer_name: user?.email?.split('@')[0] || 'Guest',
+          items: items.map(item => ({
+            name: `${item.productName} - ${item.duration}`,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          subtotal: subtotal,
+          discount: discount,
+          total: total,
+          currency: 'USD',
+        }),
+      });
+    } catch (error) {
+      console.error('Failed to trigger checkout webhook:', error);
+      // Don't block checkout if webhook fails
+    }
+
     // Redirect to checkout/confirm page for both logged in and guest users
     router.push('/checkout/confirm');
   };
@@ -423,7 +449,7 @@ export default function CartPage() {
                             </>
                           ) : (
                             <>
-                              {user ? 'Purchase' : 'Continue as Guest'}
+                              {user ? 'Proceed to Purchase' : 'Continue as Guest'}
                               <ArrowLeft className="w-5 h-5 rotate-180 group-hover/checkout:translate-x-1 transition-transform" />
                             </>
                           )}
@@ -437,7 +463,7 @@ export default function CartPage() {
                           onClick={() => router.push("/checkout/login")}
                           className="group/signin w-full py-3 rounded-xl bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 text-white/80 hover:text-white font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95"
                         >
-                          <span>Sign In Instead</span>
+                          <span className="text-sm sm:text-base">Sign In (Recommended)</span>
                           <ArrowLeft className="w-4 h-4 rotate-180 group-hover/signin:translate-x-1 transition-transform" />
                         </button>
                       )}
