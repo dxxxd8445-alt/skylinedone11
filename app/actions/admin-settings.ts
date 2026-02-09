@@ -32,6 +32,7 @@ export async function loadSettings() {
         site_description: settingsMap.site_description || "Premium undetected cheats for all games",
         support_email: settingsMap.support_email || "support@skyline.local",
         maintenance_mode: settingsMap.maintenance_mode || false,
+        storrik_api_key: settingsMap.storrik_api_key || "",
       }
     };
   } catch (error: any) {
@@ -47,6 +48,7 @@ export async function saveSettings(settings: {
   site_description: string;
   support_email: string;
   maintenance_mode: boolean;
+  storrik_api_key: string;
 }) {
   try {
     await requirePermission("manage_settings");
@@ -57,6 +59,7 @@ export async function saveSettings(settings: {
       { key: "site_description", value: JSON.stringify(settings.site_description) },
       { key: "support_email", value: JSON.stringify(settings.support_email) },
       { key: "maintenance_mode", value: JSON.stringify(settings.maintenance_mode) },
+      { key: "storrik_api_key", value: JSON.stringify(settings.storrik_api_key) },
     ];
 
     for (const update of updates) {

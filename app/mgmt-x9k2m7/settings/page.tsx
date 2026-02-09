@@ -12,6 +12,7 @@ interface Settings {
   site_description: string;
   support_email: string;
   maintenance_mode: boolean;
+  storrik_api_key: string;
 }
 
 export default function SettingsPage() {
@@ -20,6 +21,7 @@ export default function SettingsPage() {
     site_description: "Premium undetected cheats for all games",
     support_email: "support@skyline.local",
     maintenance_mode: false,
+    storrik_api_key: "",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -153,38 +155,25 @@ export default function SettingsPage() {
         <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6">
           <h2 className="text-xl font-bold text-white mb-4">Payment Settings</h2>
           <div className="space-y-4">
-            <div className="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
-              <p className="text-sm text-yellow-400">
-                <strong>Note:</strong> API keys and webhook secrets should be managed through environment variables (.env file) for security. 
-                Contact your system administrator to update these values.
+            <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+              <p className="text-sm text-blue-400">
+                <strong>Storrik Payment Processor:</strong> Enter your Storrik Public API Key below to enable card payments. 
+                Get your API key from your Storrik dashboard.
               </p>
             </div>
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">
-                MoneyMotion API Key
+                Storrik Public API Key (PK_xxx)
               </label>
               <input
-                type="password"
-                value="mk_live_***********************************"
-                disabled
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white/50 cursor-not-allowed font-mono"
+                type="text"
+                value={settings.storrik_api_key}
+                onChange={(e) => setSettings({ ...settings, storrik_api_key: e.target.value })}
+                placeholder="PK_xxxxxxxxxxxxxxxxxxxxx"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors font-mono"
               />
               <p className="text-xs text-white/40 mt-1">
-                Configured via MONEYMOTION_API_KEY environment variable
-              </p>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">
-                Webhook Secret
-              </label>
-              <input
-                type="password"
-                value="********************************"
-                disabled
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white/50 cursor-not-allowed font-mono"
-              />
-              <p className="text-xs text-white/40 mt-1">
-                Configured via MONEYMOTION_WEBHOOK_SECRET environment variable
+                Your Storrik public key - safe to use in client-side code
               </p>
             </div>
           </div>

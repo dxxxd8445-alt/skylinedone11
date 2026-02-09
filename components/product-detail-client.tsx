@@ -767,15 +767,6 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
                       <p className="text-5xl font-bold text-green-400">98%</p>
                       <p className="text-white/60 text-sm">Satisfaction</p>
                     </div>
-                    <div className="space-y-2">
-                      <button 
-                        onClick={() => setIsReviewModalOpen(true)}
-                        className="w-full h-full min-h-[100px] flex flex-col items-center justify-center gap-2 bg-[#2563eb]/10 hover:bg-[#2563eb]/20 border border-[#2563eb]/20 rounded-xl transition-all group cursor-pointer"
-                      >
-                        <PenLine className="w-8 h-8 text-[#2563eb] group-hover:scale-110 transition-transform" />
-                        <span className="text-[#2563eb] font-bold">Write a Review</span>
-                      </button>
-                    </div>
                   </div>
                 </div>
 
