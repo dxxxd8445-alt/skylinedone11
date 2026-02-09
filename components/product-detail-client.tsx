@@ -256,6 +256,18 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
   };
 
   const handleBuyNow = () => {
+    // Check if product is offline or in maintenance
+    if (product.status !== "active") {
+      toast({
+        title: "Product Unavailable",
+        description: product.status === "maintenance" 
+          ? "This product is currently being updated. Please check back soon!"
+          : "This product is currently offline. Please check back later!",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     // Track checkout start
     if (selectedTier) {
       trackCheckoutStart(selectedTier.price);
@@ -580,22 +592,37 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
             <div className="space-y-3 sm:space-y-4">
               <button
                 onClick={handleAddToCart}
-                className="relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-white text-[#0a0a0a] hover:bg-white/90 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-1 touch-manipulation"
+                disabled={product.status !== "active"}
+                className={`relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group ${
+                  product.status === "active"
+                    ? "bg-white text-[#0a0a0a] hover:bg-white/90 hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-1"
+                    : "bg-white/20 text-white/40 cursor-not-allowed"
+                } touch-manipulation`}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform" />
-                Add To Cart
+                {product.status === "active" ? "Add To Cart" : "Unavailable"}
               </button>
               
               <button
                 onClick={handleBuyNow}
-                disabled={!selectedTier}
-                className="relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white hover:from-[#3b82f6] hover:to-[#2563eb] hover:shadow-2xl hover:shadow-[#2563eb]/40 hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none touch-manipulation"
+                disabled={!selectedTier || product.status !== "active"}
+                className={`relative w-full py-4 sm:py-5 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 flex items-center justify-center gap-3 overflow-hidden group ${
+                  product.status === "active" && selectedTier
+                    ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white hover:from-[#3b82f6] hover:to-[#2563eb] hover:shadow-2xl hover:shadow-[#2563eb]/40 hover:-translate-y-1"
+                    : product.status === "maintenance"
+                    ? "bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 text-yellow-400 border-2 border-yellow-500/40 cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-400 border-2 border-blue-500/40 cursor-not-allowed"
+                } disabled:hover:translate-y-0 disabled:hover:shadow-none touch-manipulation`}
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <Zap className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
                 <span className="text-center">
-                  {selectedTier 
+                  {product.status === "maintenance" 
+                    ? "🔧 Under Maintenance - Check Back Soon"
+                    : product.status === "inactive"
+                    ? "⚠️ Currently Offline"
+                    : selectedTier 
                     ? `Buy Now - ${formatMoney({ amountUsd: selectedTier.price, currency, locale })}` 
                     : 'No pricing available'}
                 </span>

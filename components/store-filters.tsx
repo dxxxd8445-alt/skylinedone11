@@ -221,17 +221,21 @@ export function StoreFilters({ products }: { products: Product[] }) {
               </div>
 
               {/* Status indicator */}
-              <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex items-center gap-1.5">
-                <span className="text-[10px] font-medium text-white/80 sm:hidden">
-                  {product.status === "active" ? "LIVE" : "UPDATE"}
-                </span>
-                <div className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${
-                  product.status === "active" 
-                    ? "bg-green-500 shadow-lg shadow-green-500/50" 
-                    : product.status === "maintenance"
-                    ? "bg-yellow-400 shadow-lg shadow-yellow-400/50"
-                    : "bg-blue-400 shadow-lg shadow-blue-400/50"
-                }`} />
+              <div className="absolute top-2 right-2 sm:top-3 sm:right-3">
+                {product.status === "active" ? (
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-medium text-white/80 sm:hidden">LIVE</span>
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500 shadow-lg shadow-green-500/50" />
+                  </div>
+                ) : product.status === "maintenance" ? (
+                  <div className="flex items-center gap-1.5 bg-yellow-500/20 backdrop-blur-sm px-2 py-1 rounded-lg border border-yellow-500/40">
+                    <span className="text-[10px] sm:text-xs font-bold text-yellow-400">🔧 UPDATING</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5 bg-blue-500/20 backdrop-blur-sm px-2 py-1 rounded-lg border border-blue-500/40">
+                    <span className="text-[10px] sm:text-xs font-bold text-blue-400">⚠️ OFFLINE</span>
+                  </div>
+                )}
               </div>
 
               {/* Hover overlay - Desktop only */}

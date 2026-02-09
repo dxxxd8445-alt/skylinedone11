@@ -51,14 +51,13 @@ export async function getProducts() {
   try {
     const supabase = await createClient();
     
-    // Fetch all products with their variants
+    // Fetch all products with their variants (no status filter - show all)
     const { data: products, error: productsError } = await supabase
       .from("products")
       .select(`
         *,
         product_variants (*)
       `)
-      .eq("status", "active")
       .order("display_order");
     
     if (productsError) {
