@@ -35,10 +35,43 @@ export default function CheckoutConfirmPage() {
   const [couponError, setCouponError] = useState<string | null>(null);
   const [showCryptoModal, setShowCryptoModal] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [storrikProductIds, setStorrikProductIds] = useState<Record<string, string>>({});
 
   const subtotal = getSubtotal();
   const discount = getDiscount();
   const total = getTotal();
+
+  // Fetch Storrik product IDs
+  useEffect(() => {
+    async function fetchStorrikIds() {
+      const productIds = items.map(item => item.productId).filter(Boolean);
+      if (productIds.length === 0) return;
+
+      try {
+        const { createClient } = await import("@/lib/supabase/client");
+        const supabase = createClient();
+        
+        const { data } = await supabase
+          .from("products")
+          .select("id, storrik_product_id")
+          .in("id", productIds);
+
+        if (data) {
+          const mapping: Record<string, string> = {};
+          data.forEach(product => {
+            if (product.storrik_product_id) {
+              mapping[product.id] = product.storrik_product_id;
+            }
+          });
+          setStorrikProductIds(mapping);
+        }
+      } catch (error) {
+        console.error("Failed to fetch Storrik IDs:", error);
+      }
+    }
+
+    fetchStorrikIds();
+  }, [items]);
 
   // If user is logged in, automatically confirm email
   useEffect(() => {
@@ -80,11 +113,35 @@ export default function CheckoutConfirmPage() {
     setCouponLoading(false);
   };
 
-  const handleCompletePayment = () => {
+  const handleCompletePayment = async () => {
     if (!emailConfirmed) {
       alert('Please confirm your email first');
       return;
     }
+
+    // Single product with Storrik ID - open Storrik checkout
+    if (items.length === 1) {
+      const item = items[0];
+      const storrikId = storrikProductIds[item.productId];
+      
+      if (storrikId && window.storrik) {
+        try {
+          setCheckoutLoading(true);
+          console.log("[Storrik] Opening checkout:", storrikId);
+          await window.storrik.pay(storrikId, undefined, {
+            style: "normal",
+            colors: { primary: "#2563eb", buttonText: "#ffffff" },
+          });
+          setCheckoutLoading(false);
+          return;
+        } catch (error) {
+          console.error("[Storrik] Error:", error);
+          setCheckoutLoading(false);
+        }
+      }
+    }
+    
+    // Fallback to crypto modal
     setShowCryptoModal(true);
   };
 
