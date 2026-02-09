@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { Star, Send, CheckCircle } from "lucide-react";
+import { Star, Send, CheckCircle, X } from "lucide-react";
 import { ImageUploader } from "@/components/admin/image-uploader";
 
 interface ReviewModalProps {
@@ -87,7 +87,17 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
           </div>
         ) : (
           <>
-            <DialogHeader>
+            <DialogHeader className="relative">
+              <button
+                onClick={() => {
+                  resetForm();
+                  onOpenChange(false);
+                }}
+                className="absolute -right-2 -top-2 p-1 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb]"
+                type="button"
+              >
+                <X className="w-5 h-5 text-white/60 hover:text-white transition-colors" />
+              </button>
               <DialogTitle className="text-xl font-bold text-white">
                 Leave a Review
               </DialogTitle>
