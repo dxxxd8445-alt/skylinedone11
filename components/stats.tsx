@@ -14,7 +14,13 @@ interface StatCardProps {
 }
 
 function StatCard({ icon: Icon, value, label, suffix = "", index }: StatCardProps) {
-  const { count, ref } = useCountUp({ end: value, duration: 2500 });
+  const [displayValue, setDisplayValue] = useState(value);
+  const { count, ref } = useCountUp({ end: displayValue, duration: 2500 });
+
+  // Smoothly update display value when value prop changes
+  useEffect(() => {
+    setDisplayValue(value);
+  }, [value]);
 
   return (
     <div
@@ -58,13 +64,53 @@ const statsData = [
     icon: Wifi,
     value: 79,
     label: "ONLINE NOW",
+    dynamic: true, // Mark this stat as dynamic
   },
 ];
 
 export function Stats() {
   const [isVisible, setIsVisible] = useState(false);
+  const [onlineCount, setOnlineCount] = useState(79);
   const sectionRef = useRef<HTMLElement>(null);
-  const stats = statsData; // Declare the stats variable
+
+  // Cycle online count between 50-100 with realistic variations
+  useEffect(() => {
+    const updateOnlineCount = () => {
+      // Generate a realistic number between 50-100
+      // Use weighted random to make it look more natural (favor middle range)
+      const min = 50;
+      const max = 100;
+      const range = max - min;
+      
+      // Generate two random numbers and average them for more natural distribution
+      const rand1 = Math.random();
+      const rand2 = Math.random();
+      const weightedRandom = (rand1 + rand2) / 2;
+      
+      const newCount = Math.floor(min + (weightedRandom * range));
+      setOnlineCount(newCount);
+    };
+
+    // Update every 3-5 seconds for realistic feel
+    const getRandomInterval = () => 3000 + Math.random() * 2000;
+    
+    let timeoutId: NodeJS.Timeout;
+    const scheduleNext = () => {
+      timeoutId = setTimeout(() => {
+        updateOnlineCount();
+        scheduleNext();
+      }, getRandomInterval());
+    };
+    
+    scheduleNext();
+    
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  // Update stats data with dynamic online count
+  const stats = statsData.map(stat => 
+    stat.dynamic ? { ...stat, value: onlineCount } : stat
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(

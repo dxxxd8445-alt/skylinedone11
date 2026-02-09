@@ -38,7 +38,6 @@ const navItems: { href: string; label: string; icon: typeof LayoutDashboard; per
   { href: "/mgmt-x9k2m7/licenses", label: "License Keys", icon: Key, permission: "stock_keys" },
   { href: "/mgmt-x9k2m7/products", label: "Products", icon: Package, permission: "manage_products" },
   { href: "/mgmt-x9k2m7/coupons", label: "Coupons", icon: Tag, permission: "manage_coupons" },
-  { href: "/mgmt-x9k2m7/reviews", label: "Reviews", icon: Star, permission: "manage_settings" },
   { href: "/mgmt-x9k2m7/affiliates", label: "Affiliates", icon: Users, permission: "manage_affiliates" },
   { href: "/mgmt-x9k2m7/webhooks", label: "Webhooks", icon: Webhook, permission: "manage_webhooks" },
   { href: "/mgmt-x9k2m7/team", label: "Team", icon: UserCog, permission: "manage_team" },

@@ -56,7 +56,9 @@ export function ReviewsClient({
         verified: true,
       };
 
+      console.log('[Review Submit] Attempting to save review:', newReview);
       const savedReview = await createReview(newReview);
+      console.log('[Review Submit] Save result:', savedReview);
 
       if (savedReview) {
         // Don't add to reviews list since it needs approval
@@ -65,9 +67,11 @@ export function ReviewsClient({
           description: "Your review is pending approval and will be visible once approved by our team.",
         });
       } else {
+        console.error('[Review Submit] createReview returned null');
         throw new Error("Failed to save review");
       }
     } catch (error) {
+      console.error("[Review Submit] Error:", error);
       console.error("Error submitting review:", error);
       toast({
         title: "Error",
@@ -135,14 +139,6 @@ export function ReviewsClient({
           <p className="text-white/60 text-lg max-w-2xl mx-auto mb-8">
             Real feedback from real customers. See why thousands trust our products.
           </p>
-
-          <button
-            onClick={() => setIsReviewModalOpen(true)}
-            className="inline-flex items-center gap-2 bg-[#2563eb] hover:bg-[#3b82f6] text-white px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 hover:shadow-lg hover:shadow-[#2563eb]/30"
-          >
-            <PenLine className="w-5 h-5" />
-            Write a Review
-          </button>
         </div>
 
         {/* Enhanced Statistics Dashboard */}

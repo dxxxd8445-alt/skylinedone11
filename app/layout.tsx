@@ -13,6 +13,7 @@ import { TawkToChat } from "@/components/tawk-to-chat";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { TermsPopup } from "@/components/terms-popup";
 import { WelcomePopup } from "@/components/welcome-popup";
+import { LiveSalesNotifications } from "@/components/live-sales-notifications";
 import { AnalyticsProvider } from "@/components/analytics-provider";
 import "@/lib/ssr-polyfills";
 import "./globals.css";
@@ -46,6 +47,7 @@ export default function RootLayout({
                 <TawkToChat />
                 <TermsPopup />
                 <WelcomePopup />
+                <LiveSalesNotifications />
               </CartProvider>
             </AuthProvider>
           </CurrencyProvider>

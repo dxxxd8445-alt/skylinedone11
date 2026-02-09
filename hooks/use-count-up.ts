@@ -38,6 +38,7 @@ export function useCountUp({ end, duration = 2000, startOnView = true }: UseCoun
   useEffect(() => {
     if (!hasStarted) return;
 
+    const startValue = count; // Start from current count
     let startTime: number;
     let animationFrame: number;
 
@@ -47,7 +48,7 @@ export function useCountUp({ end, duration = 2000, startOnView = true }: UseCoun
       
       // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(easeOutQuart * end);
+      const currentCount = Math.floor(startValue + (easeOutQuart * (end - startValue)));
       
       setCount(currentCount);
 

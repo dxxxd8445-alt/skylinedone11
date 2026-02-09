@@ -416,22 +416,38 @@ export async function createReview(review: {
   verified: boolean;
   image_url?: string;
 }) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("reviews")
-    .insert({
-      ...review,
-      is_approved: false, // Reviews start as unapproved
-      created_at: new Date().toISOString(),
-    })
-    .select()
-    .single();
+  try {
+    const supabase = await createClient();
+    
+    const reviewData = {
+      username: review.username,
+      rating: review.rating,
+      text: review.text,
+      image_url: review.image_url || null,
+      avatar: review.avatar,
+      verified: review.verified,
+      is_approved: false,
+    };
+    
+    console.log('[createReview] Inserting review:', reviewData);
+    
+    const { data, error } = await supabase
+      .from("reviews")
+      .insert(reviewData)
+      .select()
+      .single();
 
-  if (error) {
-    console.error("Error creating review:", error);
+    if (error) {
+      console.error("[createReview] Supabase error:", error);
+      return null;
+    }
+    
+    console.log('[createReview] Success!', data);
+    return data;
+  } catch (e) {
+    console.error("[createReview] Exception:", e);
     return null;
   }
-  return data;
 }
 
 // Admin: Get all reviews (including unapproved)
