@@ -14,7 +14,6 @@ import { AnnouncementBanner } from "@/components/announcement-banner";
 import { TermsPopup } from "@/components/terms-popup";
 import { WelcomePopup } from "@/components/welcome-popup";
 import { LiveSalesNotifications } from "@/components/live-sales-notifications";
-import { StorrikProvider } from "@/components/storrik-provider";
 import { AnalyticsProvider } from "@/components/analytics-provider";
 import "@/lib/ssr-polyfills";
 import "./globals.css";
@@ -43,7 +42,6 @@ export default function RootLayout({
                 <I18nDocument />
                 <AnnouncementBanner />
                 <AnalyticsProvider />
-                <StorrikProvider />
                 {children}
                 <Toaster />
                 <TawkToChat />
@@ -55,12 +53,6 @@ export default function RootLayout({
           </CurrencyProvider>
         </I18nProvider>
         <Analytics />
-        
-        {/* Storrik Embed Script */}
-        <Script
-          src="https://cdn.storrik.com/embed.js"
-          strategy="afterInteractive"
-        />
         
         {/* Clicky Web Analytics */}
         <Script

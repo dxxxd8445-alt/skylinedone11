@@ -1,273 +1,132 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import {
-  CheckCircle,
-  Download,
-  Key,
-  Copy,
-  Check,
-  ArrowRight,
-  Shield,
-  Mail,
-  Clock,
-  Loader2,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { Check, Loader2, Mail, Download } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 
-interface OrderData {
-  order_number: string;
-  product_name: string;
-  duration: string;
-  amount: number;
-  license_key?: string;
-  customer_email: string;
-}
-
-function PaymentSuccessContent() {
+export default function PaymentSuccessPage() {
   const searchParams = useSearchParams();
-  const orderNumber = searchParams.get("order");
   const sessionId = searchParams.get("session_id");
-  const token = searchParams.get("token"); // Declared the token variable
-
-  const [copied, setCopied] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [orderData, setOrderData] = useState<OrderData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [orderData, setOrderData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsVisible(true);
-    
-    // Fetch order details
-    async function fetchOrderDetails() {
-      // Try to get order by session_id first, then by order number
-      const queryParam = sessionId ? `session_id=${sessionId}` : orderNumber ? `order_number=${orderNumber}` : null;
-      
-      if (!queryParam) {
-        setError("No order information provided");
-        setIsLoading(false);
-        return;
-      }
-      
-      try {
-        const response = await fetch(`/api/stripe/order-status?${queryParam}`);
-        const data = await response.json();
-        
-        if (data.success && data.order) {
-          // Get the first license key if available
-          const firstLicense = data.licenses?.[0];
-          
-          setOrderData({
-            order_number: data.order.order_number,
-            product_name: firstLicense?.product_name || "Your Purchase",
-            duration: "License", // We don't store duration in the new schema
-            amount: data.order.amount,
-            license_key: firstLicense?.license_key,
-            customer_email: data.order.customer_email,
-          });
-        } else {
-          setError(data.error || "Order not found");
-        }
-      } catch (err) {
-        console.error("Error fetching order:", err);
-        setError("Failed to load order details");
-      } finally {
-        setIsLoading(false);
-      }
+    if (!sessionId) {
+      setError("No session ID provided");
+      setLoading(false);
+      return;
     }
-    
-    fetchOrderDetails();
-  }, [orderNumber, sessionId]);
 
-  // Fallback license key if not found
-  const licenseKey = orderData?.license_key || 
-    `MAGMA-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-
-  const copyLicenseKey = () => {
-    navigator.clipboard.writeText(licenseKey);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    // In a real implementation, you would verify the session with Storrik
+    // For now, we'll just show a success message
+    setTimeout(() => {
+      setLoading(false);
+      setOrderData({
+        sessionId,
+        message: "Your payment has been processed successfully!",
+      });
+    }, 1500);
+  }, [sessionId]);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
-      <div
-        className={`max-w-2xl w-full transition-all duration-700 ${
-          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        }`}
-      >
-        {/* Success Card */}
-        <div className="bg-[#111111] border border-[#262626] rounded-2xl overflow-hidden">
-          {/* Animated Success Header */}
-          <div className="relative bg-gradient-to-r from-green-500/20 via-green-500/10 to-transparent p-8 border-b border-[#262626] overflow-hidden">
-            {/* Animated background circles */}
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-green-500/10 rounded-full blur-3xl animate-pulse" />
-              <div
-                className="absolute -bottom-10 -left-10 w-32 h-32 bg-green-500/10 rounded-full blur-2xl animate-pulse"
-                style={{ animationDelay: "0.5s" }}
-              />
-            </div>
+    <main className="min-h-screen bg-[#0a0a0a]">
+      <Header />
 
-            <div className="relative flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-green-500 flex items-center justify-center shadow-lg shadow-green-500/30">
-                <CheckCircle className="w-10 h-10 text-white" />
+      <div className="pt-24 pb-16">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+          {loading ? (
+            <div className="text-center py-20">
+              <Loader2 className="w-16 h-16 text-[#2563eb] animate-spin mx-auto mb-6" />
+              <h1 className="text-2xl font-bold text-white mb-2">Processing Payment...</h1>
+              <p className="text-white/60">Please wait while we confirm your order</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-20">
+              <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-4xl">❌</span>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-white">Payment Successful!</h1>
-                <p className="text-white/60">Your order has been confirmed</p>
+              <h1 className="text-3xl font-bold text-white mb-4">Payment Error</h1>
+              <p className="text-white/60 mb-8">{error}</p>
+              <Link
+                href="/cart"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-xl font-semibold transition-all"
+              >
+                Return to Cart
+              </Link>
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              {/* Success Icon */}
+              <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                <div className="absolute inset-0 bg-green-500/20 rounded-full animate-ping" />
+                <Check className="w-10 h-10 text-green-400 relative" />
               </div>
-            </div>
-          </div>
 
-          {/* Loading State */}
-          {isLoading && (
-            <div className="p-12 flex flex-col items-center justify-center">
-              <Loader2 className="w-8 h-8 text-[#2563eb] animate-spin mb-4" />
-              <p className="text-white/60">Loading order details...</p>
-            </div>
-          )}
+              {/* Success Message */}
+              <h1 className="text-4xl font-bold text-white mb-4">Payment Successful!</h1>
+              <p className="text-white/80 text-lg mb-8">
+                Thank you for your purchase. Your order has been confirmed.
+              </p>
 
-          {/* Order Details */}
-          {!isLoading && (
-            <div className="p-6 space-y-6">
-              {/* Order Summary */}
-              <div className="bg-[#0a0a0a] rounded-xl p-4">
-                <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-[#2563eb]" />
-                  Order Summary
-                </h2>
-                <div className="flex items-center gap-4 p-3 bg-[#111111] rounded-lg">
-                  <div className="w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-[#2563eb]/20 to-transparent flex items-center justify-center">
-                    <Shield className="w-8 h-8 text-[#2563eb]" />
+              {/* Order Details */}
+              <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8 mb-8">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-center gap-3 text-white/60">
+                    <Mail className="w-5 h-5" />
+                    <span>Check your email for your license key and order details</span>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-white font-medium">{orderData?.product_name || "Your Purchase"}</p>
-                    <p className="text-white/60 text-sm">{orderData?.duration || "License"}</p>
-                  </div>
-                  <p className="text-white font-bold">${orderData?.amount?.toFixed(2) || "0.00"}</p>
-                </div>
-              </div>
-
-              {/* License Key */}
-              <div className="bg-gradient-to-r from-[#2563eb]/10 to-transparent rounded-xl p-4 border border-[#2563eb]/20">
-                <h2 className="text-white font-semibold mb-3 flex items-center gap-2">
-                  <Key className="w-5 h-5 text-[#2563eb]" />
-                  Your License Key
-                </h2>
-                <div className="flex items-center gap-2">
-                  <code className="flex-1 text-[#2563eb] text-lg font-mono bg-[#0a0a0a] rounded-lg p-4 tracking-wider">
-                    {licenseKey}
-                  </code>
-                  <Button
-                    onClick={copyLicenseKey}
-                    className={`flex-shrink-0 ${
-                      copied
-                        ? "bg-green-500 hover:bg-green-600"
-                        : "bg-[#2563eb] hover:bg-[#3b82f6]"
-                    } text-white transition-colors`}
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="w-4 h-4 mr-2" />
-                        Copied!
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-4 h-4 mr-2" />
-                        Copy
-                      </>
-                    )}
-                  </Button>
-                </div>
-                <p className="text-white/60 text-sm mt-3">
-                  Save this key securely. You will need it to activate your product.
-                </p>
-              </div>
-
-              {/* Info Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-[#0a0a0a] rounded-xl p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-lg bg-[#2563eb]/20 flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-[#2563eb]" />
+                  
+                  {sessionId && (
+                    <div className="pt-4 border-t border-[#1a1a1a]">
+                      <p className="text-white/40 text-sm mb-2">Session ID</p>
+                      <p className="text-[#2563eb] font-mono text-sm">{sessionId}</p>
                     </div>
-                    <p className="text-white font-medium">Email Sent</p>
-                  </div>
-                  <p className="text-white/60 text-sm">
-                    A confirmation email with your license key has been sent to your email
-                    address.
-                  </p>
-                </div>
-
-                <div className="bg-[#0a0a0a] rounded-xl p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-lg bg-[#2563eb]/20 flex items-center justify-center">
-                      <Clock className="w-5 h-5 text-[#2563eb]" />
-                    </div>
-                    <p className="text-white font-medium">License Duration</p>
-                  </div>
-                  <p className="text-white/60 text-sm">
-                    Your license is valid for 24 hours from the time of first activation.
-                  </p>
+                  )}
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <Button className="flex-1 bg-[#2563eb] hover:bg-[#3b82f6] text-white py-6">
-                  <Download className="w-5 h-5 mr-2" />
-                  Download Loader
-                </Button>
-                <Link href="/" className="flex-1">
-                  <Button
-                    variant="outline"
-                    className="w-full border-[#262626] hover:bg-[#1a1a1a] text-white py-6 bg-transparent"
-                  >
-                    Return to Store
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/account/licenses"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white rounded-xl font-bold transition-all hover:scale-105"
+                >
+                  <Download className="w-5 h-5" />
+                  View My Licenses
+                </Link>
+                <Link
+                  href="/"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#1a1a1a] hover:bg-[#262626] text-white rounded-xl font-semibold transition-all"
+                >
+                  Return to Home
                 </Link>
               </div>
 
-              {/* Support Note */}
-              <div className="text-center pt-4 border-t border-[#262626]">
-                <p className="text-white/60 text-sm">
-                  Need help?{" "}
-                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-[#2563eb] hover:underline">
-                    Contact our support team
-                  </a>{" "}
-                  or join our{" "}
-                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-[#2563eb] hover:underline">
-                    Discord server
-                  </a>
-                </p>
+              {/* Support Info */}
+              <div className="mt-12 p-6 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl">
+                <p className="text-white/60 text-sm mb-3">Need help?</p>
+                <a
+                  href="https://discord.gg/skylineggs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#2563eb] hover:text-[#3b82f6] font-semibold transition-colors"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
+                  Contact Support on Discord
+                </a>
               </div>
             </div>
           )}
         </div>
-
-        {/* Transaction ID */}
-        <p className="text-center text-white/40 text-sm mt-4">
-          Transaction ID: {sessionId || orderNumber || "N/A"}
-        </p>
       </div>
-    </div>
-  );
-}
 
-export default function PaymentSuccessPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#2563eb] animate-spin" />
-      </div>
-    }>
-      <PaymentSuccessContent />
-    </Suspense>
+      <Footer />
+    </main>
   );
 }

@@ -1,341 +1,290 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import {
-  Loader2,
-  CreditCard,
-  Shield,
-  Clock,
-  CheckCircle,
-  XCircle,
-  DollarSign,
-  Wallet,
-  ArrowLeft,
-  Copy,
-  Check,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { Lock, CreditCard, Loader2, Shield, Check } from "lucide-react";
+import Image from "next/image";
 
-type PaymentStatus = "loading" | "pending" | "processing" | "completed" | "failed" | "expired";
-
-export default function CheckoutPage() {
+export default function PaymentCheckoutPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const sessionId = searchParams.get("session");
-  const token = searchParams.get("token"); // Fallback for legacy BrickPay URLs
-
-  const [status, setStatus] = useState<PaymentStatus>("loading");
-  const [paymentData, setPaymentData] = useState<{
-    amount: number;
-    currency: string;
-    paid_at: string | null;
-    customer_email?: string;
-  } | null>(null);
-  const [copied, setCopied] = useState(false);
-  const [pollCount, setPollCount] = useState(0);
+  const orderId = searchParams.get("order_id");
+  
+  const [loading, setLoading] = useState(true);
+  const [orderData, setOrderData] = useState<any>(null);
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [cardName, setCardName] = useState("");
 
   useEffect(() => {
-    const currentSessionId = sessionId || token;
-    const mockSuccess = searchParams.get("mock_success");
-    
-    if (!currentSessionId) {
-      setStatus("failed");
+    if (!orderId) {
+      setError("No order ID provided");
+      setLoading(false);
       return;
     }
 
-    // Handle mock success from redirect
-    if (mockSuccess === "true") {
-      setStatus("completed");
-      setPaymentData({
-        amount: 7.90,
-        currency: "USD",
-        paid_at: new Date().toISOString(),
-      });
-      setTimeout(() => {
-        router.push(`/payment/success?session=${currentSessionId}`);
-      }, 2000);
-      return;
+    // Fetch order details
+    async function fetchOrder() {
+      try {
+        console.log("[Payment Checkout] Fetching order:", orderId);
+        const response = await fetch(`/api/orders/${orderId}`);
+        
+        console.log("[Payment Checkout] Response status:", response.status);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("[Payment Checkout] Order data:", data);
+          setOrderData(data);
+        } else {
+          const errorData = await response.json();
+          console.error("[Payment Checkout] Error fetching order:", errorData);
+          setError(`Order not found: ${errorData.error || 'Unknown error'}`);
+        }
+      } catch (error) {
+        console.error("[Payment Checkout] Failed to fetch order:", error);
+        setError("Failed to load order details");
+      } finally {
+        setLoading(false);
+      }
     }
 
-    // Initial status check
-    checkPaymentStatus();
+    // Add a small delay to ensure database commit
+    setTimeout(fetchOrder, 500);
+  }, [orderId, router]);
 
-    // Poll every 5 seconds for up to 10 minutes
-    const interval = setInterval(() => {
-      if (status === "pending" || status === "processing" || status === "loading") {
-        checkPaymentStatus();
-        setPollCount((prev) => prev + 1);
-      }
-    }, 5000);
-
-    // Stop polling after 10 minutes
-    const timeout = setTimeout(() => {
-      clearInterval(interval);
-      if (status === "pending" || status === "processing") {
-        setStatus("expired");
-      }
-    }, 600000);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
-    };
-  }, [sessionId, token, status, searchParams, router]);
-
-  const checkPaymentStatus = async () => {
-    const currentSessionId = sessionId || token;
-    if (!currentSessionId) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProcessing(true);
 
     try {
-      // Try MoneyMotion first, then fallback to BrickPay
-      let response;
-      if (sessionId) {
-        response = await fetch(`/api/payments/moneymotion/check-status?session=${currentSessionId}`);
-      } else {
-        response = await fetch(`/api/payments/check-status?token=${currentSessionId}`);
+      // Process payment
+      const response = await fetch("/api/payment/process", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderId,
+          cardNumber,
+          expiryDate,
+          cvv,
+          cardName,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Payment failed");
       }
-      
+
       const data = await response.json();
 
-      if (data.success) {
-        if (data.paid || data.status === "completed") {
-          setStatus("completed");
-          setPaymentData({
-            amount: data.amount || (data.amount_cents ? data.amount_cents / 100 : 0),
-            currency: data.currency,
-            paid_at: data.paid_at,
-            customer_email: data.customer_email,
-          });
-
-          // Redirect to success page after 2 seconds
-          setTimeout(() => {
-            router.push(`/payment/success?session=${currentSessionId}`);
-          }, 2000);
-        } else if (data.status === "expired") {
-          setStatus("expired");
-        } else if (data.status === "cancelled" || data.status === "failed") {
-          setStatus("failed");
-        } else {
-          setStatus("pending");
-        }
-      } else {
-        console.error("[v0] Status check failed:", data.error);
-      }
+      // Redirect to success page
+      router.push(`/payment/success?session_id=${data.sessionId || orderId}`);
     } catch (error) {
-      console.error("[v0] Error checking payment status:", error);
+      console.error("Payment error:", error);
+      alert("Payment failed. Please try again.");
+      setProcessing(false);
     }
   };
 
-  const copyAddress = () => {
-    navigator.clipboard.writeText(cryptoAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  // Simulate payment completion for demo
-  const simulatePayment = async () => {
-    const currentSessionId = sessionId || token;
-    setStatus("processing");
-    setTimeout(() => {
-      setStatus("completed");
-      setPaymentData({
-        amount: 7.90,
-        currency: "USD",
-        paid_at: new Date().toISOString(),
-      });
-      setTimeout(() => {
-        router.push(`/payment/success?session=${currentSessionId}`);
-      }, 2000);
-    }, 2000);
-  };
-
-  const currentSessionId = sessionId || token;
-  if (!currentSessionId) {
+  if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
-        <div className="bg-[#111111] border border-[#262626] rounded-2xl p-8 max-w-md w-full text-center">
-          <XCircle className="w-16 h-16 text-blue-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-white mb-2">Invalid Payment Link</h1>
-          <p className="text-white/60 mb-6">
-            This payment link is invalid or has expired.
-          </p>
-          <Link href="/">
-            <Button className="bg-[#2563eb] hover:bg-[#3b82f6] text-white">
-              Return to Home
-            </Button>
-          </Link>
+      <main className="min-h-screen bg-[#0a0a0a]">
+        <Header />
+        <div className="pt-24 pb-16">
+          <div className="max-w-2xl mx-auto px-4 text-center py-20">
+            <Loader2 className="w-16 h-16 text-[#2563eb] animate-spin mx-auto mb-6" />
+            <h1 className="text-2xl font-bold text-white mb-2">Loading...</h1>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-[#0a0a0a]">
+        <Header />
+        <div className="pt-24 pb-16">
+          <div className="max-w-2xl mx-auto px-4 text-center py-20">
+            <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-4xl">❌</span>
+            </div>
+            <h1 className="text-3xl font-bold text-white mb-4">Invalid Payment Link</h1>
+            <p className="text-white/60 mb-2">{error}</p>
+            <p className="text-white/40 text-sm mb-8">Order ID: {orderId}</p>
+            <Link
+              href="/cart"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-xl font-semibold transition-all"
+            >
+              Return to Cart
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </main>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
-      <div className="max-w-lg w-full">
-        {/* Back button */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-white/60 hover:text-white mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to store
-        </Link>
+    <main className="min-h-screen bg-[#0a0a0a]">
+      <Header />
 
-        <div className="bg-[#111111] border border-[#262626] rounded-2xl overflow-hidden">
+      <div className="pt-24 pb-16">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#2563eb]/20 to-transparent p-6 border-b border-[#262626]">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-[#2563eb] flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-white" />
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center">
+              <Lock className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-white">Secure Payment</h1>
+              <p className="text-white/60 text-sm">Complete your purchase securely</p>
+            </div>
+          </div>
+
+          {/* Order Summary */}
+          {orderData && (
+            <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 mb-8">
+              <h2 className="text-xl font-bold text-white mb-4">Order Summary</h2>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-white/60">
+                  <span>Order ID</span>
+                  <span className="text-[#2563eb] font-mono text-sm">{orderId}</span>
+                </div>
+                <div className="flex items-center justify-between text-white/60">
+                  <span>Product</span>
+                  <span className="text-white font-semibold">{orderData.product_name}</span>
+                </div>
+                <div className="pt-3 border-t border-[#1a1a1a]">
+                  <div className="flex items-center justify-between">
+                    <span className="text-white font-bold text-lg">Total</span>
+                    <span className="text-[#2563eb] font-bold text-2xl">
+                      ${(orderData.amount_cents / 100).toFixed(2)}
+                    </span>
+                  </div>
+                </div>
               </div>
+            </div>
+          )}
+
+          {/* Payment Form */}
+          <form onSubmit={handleSubmit} className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8">
+            <div className="flex items-center gap-2 mb-6">
+              <CreditCard className="w-6 h-6 text-[#2563eb]" />
+              <h2 className="text-xl font-bold text-white">Card Details</h2>
+            </div>
+
+            <div className="space-y-4">
+              {/* Card Number */}
               <div>
-                <h1 className="text-xl font-bold text-white">Secure Payment</h1>
-                <p className="text-white/60 text-sm">Powered by Stripe</p>
+                <label className="block text-white/80 text-sm mb-2">Card Number</label>
+                <input
+                  type="text"
+                  value={cardNumber}
+                  onChange={(e) => setCardNumber(e.target.value.replace(/\s/g, '').replace(/(.{4})/g, '$1 ').trim())}
+                  placeholder="1234 5678 9012 3456"
+                  maxLength={19}
+                  required
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                />
+              </div>
+
+              {/* Cardholder Name */}
+              <div>
+                <label className="block text-white/80 text-sm mb-2">Cardholder Name</label>
+                <input
+                  type="text"
+                  value={cardName}
+                  onChange={(e) => setCardName(e.target.value)}
+                  placeholder="John Doe"
+                  required
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                />
+              </div>
+
+              {/* Expiry and CVV */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-white/80 text-sm mb-2">Expiry Date</label>
+                  <input
+                    type="text"
+                    value={expiryDate}
+                    onChange={(e) => {
+                      let value = e.target.value.replace(/\D/g, '');
+                      if (value.length >= 2) {
+                        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                      }
+                      setExpiryDate(value);
+                    }}
+                    placeholder="MM/YY"
+                    maxLength={5}
+                    required
+                    className="w-full px-4 py-3 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 text-sm mb-2">CVV</label>
+                  <input
+                    type="text"
+                    value={cvv}
+                    onChange={(e) => setCvv(e.target.value.replace(/\D/g, ''))}
+                    placeholder="123"
+                    maxLength={4}
+                    required
+                    className="w-full px-4 py-3 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Content */}
-          <div className="p-6">
-            {/* Status indicator */}
-            <div className="flex items-center justify-center mb-8">
-              {status === "loading" && (
-                <div className="flex flex-col items-center gap-3">
-                  <Loader2 className="w-12 h-12 text-[#2563eb] animate-spin" />
-                  <p className="text-white/60">Loading payment details...</p>
-                </div>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={processing}
+              className="w-full mt-8 py-4 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] disabled:from-[#2563eb]/50 disabled:to-[#3b82f6]/50 disabled:cursor-not-allowed text-white font-bold text-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+            >
+              {processing ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                  Processing Payment...
+                </>
+              ) : (
+                <>
+                  <Lock className="w-5 h-5" />
+                  Pay ${orderData ? (orderData.amount_cents / 100).toFixed(2) : '0.00'}
+                </>
               )}
+            </button>
 
-              {status === "pending" && (
-                <div className="flex flex-col items-center gap-3">
-                  <div className="relative">
-                    <div className="w-16 h-16 rounded-full border-4 border-[#2563eb]/20 flex items-center justify-center">
-                      <Clock className="w-8 h-8 text-[#2563eb]" />
-                    </div>
-                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-[#2563eb] flex items-center justify-center animate-pulse">
-                      <span className="text-white text-xs font-bold">{pollCount}</span>
-                    </div>
-                  </div>
-                  <p className="text-white font-medium">Awaiting Payment</p>
-                  <p className="text-white/60 text-sm text-center">
-                    Send the exact amount to the address below
-                  </p>
-                </div>
-              )}
-
-              {status === "processing" && (
-                <div className="flex flex-col items-center gap-3">
-                  <Loader2 className="w-12 h-12 text-[#2563eb] animate-spin" />
-                  <p className="text-white font-medium">Processing Payment</p>
-                  <p className="text-white/60 text-sm">Please wait...</p>
-                </div>
-              )}
-
-              {status === "completed" && (
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
-                    <CheckCircle className="w-10 h-10 text-green-500" />
-                  </div>
-                  <p className="text-green-500 font-medium">Payment Successful!</p>
-                  <p className="text-white/60 text-sm">Redirecting to confirmation...</p>
-                </div>
-              )}
-
-              {status === "failed" && (
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center">
-                    <XCircle className="w-10 h-10 text-blue-500" />
-                  </div>
-                  <p className="text-blue-500 font-medium">Payment Failed</p>
-                  <p className="text-white/60 text-sm">Please try again or <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-[#2563eb] hover:underline">contact support</a></p>
-                </div>
-              )}
-
-              {status === "expired" && (
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                    <Clock className="w-10 h-10 text-yellow-500" />
-                  </div>
-                  <p className="text-yellow-500 font-medium">Payment Expired</p>
-                  <p className="text-white/60 text-sm">Please create a new order</p>
-                </div>
-              )}
-            </div>
-
-            {/* Payment details (show when pending) */}
-            {status === "pending" && (
-              <>
-                {/* Amount */}
-                <div className="bg-[#0a0a0a] rounded-xl p-4 mb-4">
-                  <p className="text-white/60 text-sm mb-1">Amount to pay</p>
-                  <p className="text-3xl font-bold text-white">${paymentData?.amount?.toFixed(2) || "7.90"} <span className="text-lg text-white/60">USD</span></p>
-                </div>
-
-                {/* Payment Instructions */}
-                <div className="bg-[#0a0a0a] rounded-xl p-4 mb-6">
-                  <p className="text-white/60 text-sm mb-2">Payment Instructions:</p>
-                  <ul className="text-white text-sm space-y-1 list-disc list-inside">
-                    <li>Click the button below to proceed to Stripe checkout</li>
-                    <li>Complete your payment securely</li>
-                    <li>You will be redirected back after payment</li>
-                  </ul>
-                </div>
-
-                {/* Proceed to Stripe */}
-                <Button
-                  onClick={() => {
-                    // Redirect to cart for Stripe checkout
-                    window.location.href = '/cart';
-                  }}
-                  className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white py-6"
-                >
-                  <Wallet className="w-5 h-5 mr-2" />
-                  Proceed to Stripe Checkout
-                </Button>
-
-                {/* Demo: Simulate payment button */}
-                <Button
-                  onClick={simulatePayment}
-                  variant="outline"
-                  className="w-full border-[#262626] hover:bg-[#1a1a1a] text-white bg-transparent mt-3"
-                >
-                  <CreditCard className="w-5 h-5 mr-2" />
-                  Simulate Payment (Demo Only)
-                </Button>
-
-                {/* Security note */}
-                <div className="flex items-center gap-2 mt-4 p-3 bg-[#0a0a0a] rounded-lg">
-                  <Shield className="w-5 h-5 text-[#2563eb]" />
-                  <p className="text-white/60 text-sm">
-                    Secure payment powered by Stripe
-                  </p>
-                </div>
-              </>
-            )}
-
-            {/* Actions for failed/expired */}
-            {(status === "failed" || status === "expired") && (
-              <div className="flex flex-col gap-3">
-                <Link href="/">
-                  <Button className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white">
-                    Create New Order
-                  </Button>
-                </Link>
-                <Link href="/">
-                  <Button
-                    variant="outline"
-                    className="w-full border-[#262626] hover:bg-[#1a1a1a] text-white bg-transparent"
-                  >
-                    Return to Store
-                  </Button>
-                </Link>
+            {/* Security Badges */}
+            <div className="mt-6 space-y-3">
+              <div className="flex items-center gap-2 text-white/40 text-xs justify-center">
+                <Shield className="w-4 h-4 text-green-400" />
+                <span>256-bit SSL encryption • PCI compliant</span>
               </div>
-            )}
-          </div>
+              <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center gap-2 px-3 py-2 bg-[#0a0a0a] rounded-lg border border-[#1a1a1a]">
+                  <Shield className="w-4 h-4 text-green-400" />
+                  <span className="text-white/60 text-xs font-medium">Secure Payment</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-2 bg-[#0a0a0a] rounded-lg border border-[#1a1a1a]">
+                  <Check className="w-4 h-4 text-green-400" />
+                  <span className="text-white/60 text-xs font-medium">Instant Delivery</span>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-    </div>
+
+      <Footer />
+    </main>
   );
 }

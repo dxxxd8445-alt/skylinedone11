@@ -10,6 +10,11 @@ interface CryptoPaymentModalProps {
   onClose: () => void;
   totalUsd: number;
   productName: string;
+  customerEmail?: string;
+  items?: any[];
+  subtotal?: number;
+  discount?: number;
+  couponCode?: string;
 }
 
 type PaymentMethod = "select" | "card" | "litecoin" | "bitcoin";
@@ -23,6 +28,11 @@ export function CryptoPaymentModal({
   onClose,
   totalUsd,
   productName,
+  customerEmail = "guest@example.com",
+  items = [],
+  subtotal = 0,
+  discount = 0,
+  couponCode,
 }: CryptoPaymentModalProps) {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("select");
   const [copied, setCopied] = useState(false);
@@ -172,22 +182,6 @@ export function CryptoPaymentModal({
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              {/* Card Payment */}
-              <button
-                onClick={onStripeCheckout}
-                className="group relative aspect-square rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0f1419] border-2 border-[#262626] hover:border-[#2563eb] transition-all duration-300 overflow-hidden hover:scale-105 active:scale-95"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/0 to-[#2563eb]/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative h-full flex flex-col items-center justify-center gap-4 p-6">
-                  <div className="w-16 h-16 rounded-2xl bg-[#2563eb]/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <CreditCard className="w-8 h-8 text-[#2563eb]" />
-                  </div>
-                  <span className="text-white/80 group-hover:text-white font-semibold text-lg transition-colors">
-                    Card
-                  </span>
-                </div>
-              </button>
-
               {/* Litecoin */}
               <button
                 onClick={() => setPaymentMethod("litecoin")}

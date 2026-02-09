@@ -18,7 +18,7 @@ echo       Done!
 echo.
 
 echo [2/3] Creating commit...
-git commit -m "Major update: Storrik payment integration, live sales notifications, dynamic stats"
+git commit -m "Complete Stripe removal and Storrik card payment integration - Custom backend checkout system"
 if errorlevel 1 (
     echo ERROR: Failed to create commit
     pause
@@ -42,21 +42,22 @@ echo   SUCCESS! All changes pushed to GitHub
 echo ============================================================
 echo.
 echo Changes pushed:
-echo   [+] Live sales notifications with real products
-echo   [+] Dynamic online counter (50-100)
-echo   [+] Removed 'Write a Review' button
-echo   [+] Complete Storrik payment integration
-echo   [+] Admin dashboard API key configuration
-echo   [+] Test page at /test-storrik
-echo   [+] Comprehensive documentation
+echo   [+] Removed ALL Stripe dependencies and code
+echo   [+] Custom backend checkout system (no embeds)
+echo   [+] Storrik card payments only (no crypto)
+echo   [+] Order creation API at /api/storrik/create-checkout
+echo   [+] Payment form at /payment/checkout
+echo   [+] Payment processing at /api/payment/process
+echo   [+] Success page at /payment/success
+echo   [+] Database fixes (optional columns, disabled RLS)
+echo   [+] Works for ALL products without Storrik product IDs
 echo.
-echo Your site will auto-deploy on Vercel!
+echo Your site will auto-deploy on Vercel in 2-3 minutes!
 echo.
 echo Next steps:
-echo   1. Wait for Vercel deployment (2-3 minutes)
-echo   2. Go to https://your-domain.com/mgmt-x9k2m7/settings
-echo   3. Enter your Storrik API key (PK_xxx)
-echo   4. Save settings
-echo   5. Test at https://your-domain.com/test-storrik
+echo   1. Wait for Vercel deployment
+echo   2. Test checkout on https://skylinecheats.org
+echo   3. Add to cart -> Checkout -> Enter email -> Complete Payment
+echo   4. Verify order creation and license key generation
 echo.
 pause

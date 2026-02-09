@@ -47,37 +47,8 @@ export default function GuestCheckoutPage() {
 
     try {
       // Prepare checkout items for Stripe
-      const checkoutItems = items.map(item => ({
-        id: item.id,
-        productId: item.productId,
-        productName: item.productName,
-        game: item.game || 'Unknown',
-        duration: item.duration,
-        price: item.price,
-        quantity: item.quantity,
-        variantId: item.variantId,
-      }));
-
-      // Import the stripe checkout function
-      const { redirectToStripeCheckout } = await import("@/lib/stripe-checkout");
-
-      // Redirect to Stripe Checkout with guest email
-      const result = await redirectToStripeCheckout({
-        items: checkoutItems,
-        customerEmail: email,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/cart`,
-        guestCheckout: true,
-        guestInfo: {
-          firstName,
-          lastName,
-          email,
-          address,
-          city,
-          zipCode,
-          country,
-          phone,
-        },
+      // Redirect to main checkout page
+      router.push('/checkout/confirm');
       });
 
       if (!result.success) {

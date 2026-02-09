@@ -8,7 +8,6 @@ import { useCurrency } from "@/lib/currency-context";
 import { formatMoney } from "@/lib/money";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
 import { 
   ArrowLeft, 
   Lock, 
@@ -33,45 +32,11 @@ export default function CheckoutConfirmPage() {
   const [couponCode, setCouponCode] = useState("");
   const [couponLoading, setCouponLoading] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
-  const [showCryptoModal, setShowCryptoModal] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [storrikProductIds, setStorrikProductIds] = useState<Record<string, string>>({});
 
   const subtotal = getSubtotal();
   const discount = getDiscount();
   const total = getTotal();
-
-  // Fetch Storrik product IDs
-  useEffect(() => {
-    async function fetchStorrikIds() {
-      const productIds = items.map(item => item.productId).filter(Boolean);
-      if (productIds.length === 0) return;
-
-      try {
-        const { createClient } = await import("@/lib/supabase/client");
-        const supabase = createClient();
-        
-        const { data } = await supabase
-          .from("products")
-          .select("id, storrik_product_id")
-          .in("id", productIds);
-
-        if (data) {
-          const mapping: Record<string, string> = {};
-          data.forEach(product => {
-            if (product.storrik_product_id) {
-              mapping[product.id] = product.storrik_product_id;
-            }
-          });
-          setStorrikProductIds(mapping);
-        }
-      } catch (error) {
-        console.error("Failed to fetch Storrik IDs:", error);
-      }
-    }
-
-    fetchStorrikIds();
-  }, [items]);
 
   // If user is logged in, automatically confirm email
   useEffect(() => {
@@ -119,35 +84,52 @@ export default function CheckoutConfirmPage() {
       return;
     }
 
-    // Single product with Storrik ID - open Storrik checkout
-    if (items.length === 1) {
-      const item = items[0];
-      const storrikId = storrikProductIds[item.productId];
+    try {
+      setCheckoutLoading(true);
+      console.log("[Checkout] Creating order with items:", items);
       
-      if (storrikId && window.storrik) {
-        try {
-          setCheckoutLoading(true);
-          console.log("[Storrik] Opening checkout:", storrikId);
-          await window.storrik.pay(storrikId, undefined, {
-            style: "normal",
-            colors: { primary: "#2563eb", buttonText: "#ffffff" },
-          });
-          setCheckoutLoading(false);
-          return;
-        } catch (error) {
-          console.error("[Storrik] Error:", error);
-          setCheckoutLoading(false);
-        }
-      }
-    }
-    
-    // Fallback to crypto modal
-    setShowCryptoModal(true);
-  };
+      // Create order via backend API
+      const response = await fetch('/api/storrik/create-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: items,
+          customerEmail: guestEmail,
+          customerName: guestEmail.split('@')[0],
+          couponCode: appliedCoupon?.code,
+          subtotal: subtotal,
+          discount: discount,
+          total: total,
+        }),
+      });
 
-  if (items.length === 0) {
-    return null;
-  }
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create order');
+      }
+
+      const data = await response.json();
+      
+      if (!data.checkoutUrl) {
+        throw new Error('No checkout URL returned');
+      }
+
+      console.log("[Checkout] Redirecting to payment:", data.checkoutUrl);
+      
+      // Redirect to custom payment page
+      window.location.href = data.checkoutUrl;
+      
+      // Keep loading state true since we're redirecting
+      return;
+    } catch (error) {
+      console.error("[Checkout] Error:", error);
+      setCheckoutLoading(false);
+      alert(error instanceof Error ? error.message : 'Payment system error. Please try again or contact support.');
+      return;
+    }
+  };
 
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
@@ -392,7 +374,7 @@ export default function CheckoutConfirmPage() {
                     </div>
                   </div>
                   <p className="text-center text-white/40 text-xs">
-                    Powered by <span className="text-[#2563eb]">Stripe</span>
+                    Powered by <span className="text-[#2563eb]">Storrik</span>
                   </p>
                 </div>
               </div>
@@ -402,14 +384,6 @@ export default function CheckoutConfirmPage() {
       </div>
 
       <Footer />
-
-      {/* Crypto Payment Modal */}
-      <CryptoPaymentModal
-        isOpen={showCryptoModal}
-        onClose={() => setShowCryptoModal(false)}
-        totalUsd={total}
-        productName={items.map(i => i.productName).join(", ")}
-      />
     </main>
   );
 }

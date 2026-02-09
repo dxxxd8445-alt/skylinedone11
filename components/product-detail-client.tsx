@@ -315,35 +315,26 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
         totalAmount = totalAmount * (1 - couponDiscount / 100);
       }
 
-      // Prepare checkout item for Stripe
+      // Prepare checkout item
       const checkoutItem = {
         id: `${product.id}-${selectedTier.duration}`,
         productId: product.id,
         productName: product.name,
+        productSlug: product.slug,
         game: product.game,
         duration: selectedTier.duration,
         price: selectedTier.price,
         quantity: 1,
+        image: product.image_url || product.image || "/placeholder.svg",
       };
 
-      console.log('🛒 Starting Stripe checkout for product:', checkoutItem);
+      console.log('🛒 Adding to cart and redirecting to checkout:', checkoutItem);
 
-      // Import and use Stripe checkout
-      const { redirectToStripeCheckout } = await import("@/lib/stripe-checkout");
-      
-      const result = await redirectToStripeCheckout({
-        items: [checkoutItem],
-        customerEmail: customerEmail,
-        couponCode: couponValid ? couponCode : undefined,
-        couponDiscountAmount: couponDiscount > 0 ? (selectedTier.price * couponDiscount / 100) : undefined,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/payment/cancelled`,
-      });
+      // Add to cart
+      addToCart(checkoutItem);
 
-      if (!result.success) {
-        setCheckoutError(result.error || "Failed to redirect to checkout. Please try again.");
-      }
-      // Note: If successful, user will be redirected to Stripe, so no need to handle success here
+      // Redirect to checkout
+      router.push('/checkout/confirm');
       
     } catch (error) {
       console.error("Checkout error:", error);
@@ -632,7 +623,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
             {/* Money Back Guarantee */}
             <div className="flex items-center justify-center gap-2 text-white/60 text-sm">
               <Shield className="w-4 h-4 text-green-400" />
-              <span>Secure checkout powered by Stripe</span>
+              <span>Secure checkout powered by Storrik</span>
             </div>
           </div>
         </div>
