@@ -10,7 +10,6 @@ import { formatMoney } from "@/lib/money";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingCart, ArrowLeft, X, Sparkles, Shield, Zap, Package, Trash2, Tag, Percent } from "lucide-react";
-import { redirectToStripeCheckout, validateCheckoutData } from "@/lib/stripe-checkout";
 import { useAuth } from "@/lib/auth-context";
 import { useState } from "react";
 import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
@@ -61,66 +60,6 @@ export default function CartPage() {
 
     // Redirect to checkout/confirm page for both logged in and guest users
     router.push('/checkout/confirm');
-  };
-
-  const handleStripeCheckout = async () => {
-    console.log('Starting Stripe checkout process...');
-    setCheckoutLoading(true);
-    setShowCryptoModal(false);
-
-    try {
-      // Prepare checkout items for Stripe
-      const checkoutItems = items.map(item => ({
-        id: item.id,
-        productId: item.productId,
-        productName: item.productName,
-        game: item.game || 'Unknown',
-        duration: item.duration,
-        price: item.price,
-        quantity: item.quantity,
-        variantId: item.variantId,
-      }));
-
-      console.log('Checkout items prepared:', checkoutItems);
-
-      // Validate checkout data
-      const validationError = validateCheckoutData({
-        items: checkoutItems,
-        customerEmail: user?.email || '',
-        couponCode: appliedCoupon?.code,
-        couponDiscountAmount: discount,
-      });
-
-      if (validationError) {
-        console.error('Validation error:', validationError);
-        alert(validationError);
-        setCheckoutLoading(false);
-        return;
-      }
-
-      console.log('Validation passed');
-
-      // Redirect to Stripe Checkout
-      console.log('Redirecting to Stripe checkout...');
-      const result = await redirectToStripeCheckout({
-        items: checkoutItems,
-        customerEmail: user?.email || '',
-        couponCode: appliedCoupon?.code,
-        couponDiscountAmount: discount,
-        successUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/payment/success`,
-        cancelUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/cart`,
-      });
-
-      if (!result.success) {
-        console.error('Checkout failed:', result.error);
-        alert(result.error || 'Failed to redirect to checkout');
-        setCheckoutLoading(false);
-      }
-    } catch (error: any) {
-      console.error('Checkout error:', error);
-      alert('Failed to proceed to checkout. Please try again.');
-      setCheckoutLoading(false);
-    }
   };
 
   const handleRemove = (id: string) => {
@@ -497,7 +436,6 @@ export default function CartPage() {
         onClose={() => setShowCryptoModal(false)}
         totalUsd={total}
         productName={items.map(i => i.productName).join(", ")}
-        onStripeCheckout={handleStripeCheckout}
       />
 
       <style jsx global>{`

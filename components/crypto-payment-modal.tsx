@@ -10,12 +10,6 @@ interface CryptoPaymentModalProps {
   onClose: () => void;
   totalUsd: number;
   productName: string;
-  onStripeCheckout: () => void;
-  customerEmail: string;
-  items: any[];
-  subtotal: number;
-  discount: number;
-  couponCode?: string;
 }
 
 type PaymentMethod = "select" | "card" | "litecoin" | "bitcoin";
@@ -29,12 +23,6 @@ export function CryptoPaymentModal({
   onClose,
   totalUsd,
   productName,
-  onStripeCheckout,
-  customerEmail,
-  items,
-  subtotal,
-  discount,
-  couponCode,
 }: CryptoPaymentModalProps) {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("select");
   const [copied, setCopied] = useState(false);
