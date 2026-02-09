@@ -483,8 +483,6 @@ export async function deleteReview(reviewId: string) {
   }
   return true;
 }
-  return true;
-}
 
 // Team Members
 export async function getTeamMembers() {
