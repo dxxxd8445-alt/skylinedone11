@@ -316,21 +316,76 @@ export default function CouponsPage() {
 
             {/* Select Products */}
             <div>
-              <Label className="text-white font-medium mb-2 block">Select Products</Label>
-              <select
-                multiple
-                value={formData.selectedProducts}
-                onChange={(e) => setFormData({
-                  ...formData,
-                  selectedProducts: Array.from(e.target.selectedOptions, option => option.value)
-                })}
-                className="w-full bg-[#1a1a1a] border border-[#262626] rounded-lg p-2 text-white"
-              >
-                {products.map(product => (
-                  <option key={product.id} value={product.id}>{product.name}</option>
-                ))}
-              </select>
-              <p className="text-xs text-white/40 mt-1">Limit coupon use to certain select products</p>
+              <div className="flex items-center justify-between mb-2">
+                <Label className="text-white font-medium">Select Products</Label>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setFormData({
+                      ...formData,
+                      selectedProducts: products.map(p => p.id)
+                    })}
+                    className="h-7 text-xs border-[#2563eb] text-[#2563eb] hover:bg-[#2563eb]/10"
+                  >
+                    Select All
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setFormData({
+                      ...formData,
+                      selectedProducts: []
+                    })}
+                    className="h-7 text-xs border-[#262626] text-white/60 hover:bg-[#1a1a1a]"
+                  >
+                    Clear All
+                  </Button>
+                </div>
+              </div>
+              <div className="bg-[#1a1a1a] border border-[#262626] rounded-lg p-3 max-h-48 overflow-y-auto">
+                <div className="space-y-2">
+                  {products.map(product => (
+                    <label
+                      key={product.id}
+                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#0a0a0a] cursor-pointer transition-colors group"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={formData.selectedProducts.includes(product.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData({
+                              ...formData,
+                              selectedProducts: [...formData.selectedProducts, product.id]
+                            });
+                          } else {
+                            setFormData({
+                              ...formData,
+                              selectedProducts: formData.selectedProducts.filter(id => id !== product.id)
+                            });
+                          }
+                        }}
+                        className="w-4 h-4 rounded border-[#262626] bg-[#0a0a0a] text-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 focus:ring-offset-0"
+                      />
+                      <span className="text-white text-sm group-hover:text-[#2563eb] transition-colors">
+                        {product.name}
+                      </span>
+                    </label>
+                  ))}
+                  {products.length === 0 && (
+                    <p className="text-white/40 text-sm text-center py-4">No products available</p>
+                  )}
+                </div>
+              </div>
+              <p className="text-xs text-white/40 mt-2">
+                {formData.selectedProducts.length === 0 
+                  ? "Select products to limit coupon usage, or leave empty for all products"
+                  : `${formData.selectedProducts.length} product${formData.selectedProducts.length !== 1 ? 's' : ''} selected`
+                }
+              </p>
             </div>
 
             {/* Start & End Date */}
