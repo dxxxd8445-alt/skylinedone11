@@ -228,6 +228,5 @@ function KomerzaCheckoutContent() {
     </main>
   );
 }
-}
 
 export default function KomerzaCheckoutPage() {

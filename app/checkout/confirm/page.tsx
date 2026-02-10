@@ -130,9 +130,6 @@ export default function CheckoutConfirmPage() {
       alert(error instanceof Error ? error.message : 'Payment system error. Please try again or contact support.');
     }
   };
-      return;
-    }
-  };
 
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
