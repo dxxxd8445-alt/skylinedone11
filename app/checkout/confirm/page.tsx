@@ -89,10 +89,10 @@ export default function CheckoutConfirmPage() {
 
     try {
       setCheckoutLoading(true);
-      console.log("[Checkout] Creating Storrik checkout with items:", items);
+      console.log("[Checkout] Creating Komerza checkout with items:", items);
       
-      // Create Storrik checkout session
-      const response = await fetch('/api/storrik/create-checkout', {
+      // Create Komerza checkout session
+      const response = await fetch('/api/komerza/create-checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,10 +119,10 @@ export default function CheckoutConfirmPage() {
         throw new Error('No checkout URL returned');
       }
 
-      console.log("[Checkout] Redirecting to Storrik checkout:", data.checkoutUrl);
+      console.log("[Checkout] Redirecting to Komerza checkout:", data.checkoutConfig);
       
-      // Redirect to Storrik hosted checkout
-      window.location.href = data.checkoutUrl;
+      // Redirect to Komerza checkout page
+    router.push('/checkout/komerza');
       
     } catch (error) {
       console.error("[Checkout] Error:", error);
