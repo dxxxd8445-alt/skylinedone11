@@ -13,26 +13,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "Replace MoneyMotion with Storrik payment processor
-
-- Add Storrik API library with payment intent creation
-- Create Storrik checkout API endpoint 
-- Update checkout flow to use Storrik instead of MoneyMotion
-- Add Storrik webhook handler for payment notifications
-- Update environment configuration for Storrik keys
-- Add test page for Storrik payment integration
-
-Features:
-- Complete Storrik payment processor implementation
-- Webhook signature verification
-- Order status management
-- Compatible with existing checkout flow
-- Test interface for validation
-
-API Keys:
-- Secret: sk_live_Ez0SrU3u2qOj6Vviv_ex0LhPp-VeEmum69F-llDi1DU
-- Public: pk_live_-C5YxyjzMiRNh0n0ECoIBP4rFZMr34Fcpb7mnW5dQ90
-- Webhook: whsec_NIiLZwWd69gg9m3cn2KadKi0O5LnFX4SOUeEi10Yv9Ef7d2d98c"
+git commit -m "Replace MoneyMotion with Storrik payment processor - Add Storrik API library with payment intent creation - Create Storrik checkout API endpoint - Update checkout flow to use Storrik instead of MoneyMotion - Add Storrik webhook handler for payment notifications - Update environment configuration for Storrik keys - Add test page for Storrik payment integration"
 
 echo.
 echo Pushing to GitHub...
