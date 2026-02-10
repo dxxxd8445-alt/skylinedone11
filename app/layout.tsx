@@ -15,6 +15,7 @@ import { TermsPopup } from "@/components/terms-popup";
 import { WelcomePopup } from "@/components/welcome-popup";
 import { LiveSalesNotifications } from "@/components/live-sales-notifications";
 import { AnalyticsProvider } from "@/components/analytics-provider";
+import { StorrikProvider } from "@/components/storrik-provider";
 import "@/lib/ssr-polyfills";
 import "./globals.css";
 
@@ -39,6 +40,7 @@ export default function RootLayout({
           <CurrencyProvider>
             <AuthProvider>
               <CartProvider>
+                <StorrikProvider />
                 <I18nDocument />
                 <AnnouncementBanner />
                 <AnalyticsProvider />
@@ -53,6 +55,12 @@ export default function RootLayout({
           </CurrencyProvider>
         </I18nProvider>
         <Analytics />
+        
+        {/* Storrik Payment Embed */}
+        <Script
+          src="https://cdn.storrik.com/embed.js"
+          strategy="afterInteractive"
+        />
         
         {/* Clicky Web Analytics */}
         <Script
