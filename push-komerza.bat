@@ -4,6 +4,31 @@ echo ========================================
 
 cd /d "c:\Users\op\Desktop\magma src (1)\magma src"
 
+echo Creating commit message file...
+echo Replace Storrik with Komerza payment processor> commit_msg.txt
+echo.>>commit_msg.txt.
+echo.
+echo - Add Komerza API library with product management>>commit_msg.txt
+echo - Create Komerza checkout API endpoint>>commit_msg.txt
+echo - Create Komerza webhook handler for payment notifications>>commit_msg.txt
+echo - Add Komerza settings API for API key management>>commit_msg.txt
+echo - Update checkout flow to use Komerza embed SDK>>commit_msg.txt
+echo - Create dedicated Komerza checkout page with embed integration>>commit_msg.txt
+echo - Remove Storrik dependencies and update payment methods>>commit_msg.txt
+echo.
+echo.>>commit_msg.txt
+echo Features:>>commit_msg.txt
+echo - Complete Komerza payment processor implementation>>commit_msg.txt
+echo - Embed SDK integration for seamless checkout>>commit_msg.txt
+echo - Webhook signature verification and order processing>>commit_msg.txt
+echo - Compatible with existing cart and order system>>commit_msg.txt
+echo - TypeScript support with proper type definitions>>commit_msg.txt
+echo - Error handling and fallback mechanisms>>commit_msg.txt
+echo.
+echo.>>commit_msg.txt
+echo API Key:>>commit_msg.txt
+echo - Komerza API key configured for embed integration>>commit_msg.txt
+
 echo Checking git status...
 git status
 
@@ -13,32 +38,16 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "Replace Storrik with Komerza payment processor
-
-- Add Komerza API library with product management
-- Create Komerza checkout API endpoint 
-- Create Komerza webhook handler for payment notifications
-- Add Komerza settings API for API key management
-- Update checkout flow to use Komerza embed SDK
-- Create dedicated Komerza checkout page with embed integration
-- Remove Storrik dependencies and update payment methods
-
-Features:
-- Complete Komerza payment processor implementation
-- Embed SDK integration for seamless checkout
-- Webhook signature verification and order processing
-- Compatible with existing cart and order system
-- TypeScript support with proper type definitions
-- Error handling and fallback mechanisms
-
-API Key:
-- Komerza API key configured for embed integration"
+git commit -F commit_msg.txt
 
 echo.
 echo Pushing to GitHub...
 git push origin main
 
 echo.
+echo Cleaning up...
+del commit_msg.txt
+
 echo ========================================
 if %ERRORLEVEL% EQU 0 (
     echo ✅ Komerza update pushed successfully!

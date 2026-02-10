@@ -1,0 +1,20 @@
+Replace Storrik with Komerza payment processor
+
+- Add Komerza API library with product management
+- Create Komerza checkout API endpoint
+- Create Komerza webhook handler for payment notifications
+- Add Komerza settings API for API key management
+- Update checkout flow to use Komerza embed SDK
+- Create dedicated Komerza checkout page with embed integration
+- Remove Storrik dependencies and update payment methods
+
+Features:
+- Complete Komerza payment processor implementation
+- Embed SDK integration for seamless checkout
+- Webhook signature verification and order processing
+- Compatible with existing cart and order system
+- TypeScript support with proper type definitions
+- Error handling and fallback mechanisms
+
+API Key:
+- Komerza API key configured for embed integration
