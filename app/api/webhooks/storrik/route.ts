@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/storrik";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendPurchaseEmail } from "@/lib/email";
-import { sendDiscordNotification } from "@/lib/discord-webhook";
+import { triggerWebhooks } from "@/lib/discord-webhook";
 
 export async function POST(request: NextRequest) {
   try {
@@ -125,12 +125,17 @@ export async function POST(request: NextRequest) {
 
         // Send Discord notification
         try {
-          await sendDiscordNotification({
-            type: "sale",
-            productName: order.product_name,
+          await triggerWebhooks('order.completed', {
+            order_number: order.order_number,
+            customer_email: customerEmail,
+            customer_name: customerEmail.split('@')[0],
             amount: order.amount_cents / 100,
-            customerEmail: customerEmail,
-            orderNumber: order.order_number,
+            currency: 'USD',
+            items: [{
+              name: order.product_name,
+              quantity: 1,
+              price: order.amount_cents / 100,
+            }],
           });
           console.log("[Storrik Webhook] Discord notification sent");
         } catch (discordError) {
