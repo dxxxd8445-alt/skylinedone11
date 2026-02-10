@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -22,7 +22,7 @@ declare global {
   }
 }
 
-export default function KomerzaCheckoutPage() {
+function KomerzaCheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { items, getSubtotal, getDiscount, getTotal, appliedCoupon } = useCart();
@@ -141,7 +141,7 @@ export default function KomerzaCheckoutPage() {
                         <div className="flex items-center justify-between">
                           <span className="text-white/60">Qty: {item.quantity}</span>
                           <span className="text-[#2563eb] font-bold text-xl">
-                            {formatMoney({ amountUsd: item.price * item.quantity, currency: 'USD', locale: 'en-US' })}
+                            {formatMoney({ amountUsd: item.price * item.quantity, currency, locale: 'en-US' })}
                           </span>
                         </div>
                       </div>
@@ -228,3 +228,5 @@ export default function KomerzaCheckoutPage() {
     </main>
   );
 }
+
+export default function KomerzaCheckoutPage() {
