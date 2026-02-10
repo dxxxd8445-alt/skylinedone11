@@ -62,12 +62,72 @@ export async function POST(request: NextRequest) {
 
     console.log("[Storrik Checkout] Order created:", order.id);
 
-    // Return order ID for Storrik embed to use
-    // The frontend will use Storrik embed to handle payment
+    // Create Storrik Payment Intent
+    const storrikSecretKey = process.env.STORRIK_SECRET_KEY;
+    if (!storrikSecretKey) {
+      console.error("[Storrik Checkout] STORRIK_SECRET_KEY not configured");
+      return NextResponse.json(
+        { error: "Payment system not configured" },
+        { status: 500 }
+      );
+    }
+
+    console.log("[Storrik Checkout] Creating Storrik payment intent...");
+
+    const storrikResponse = await fetch("https://api.storrik.com/v1/payments/intents", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${storrikSecretKey}`,
+      },
+      body: JSON.stringify({
+        type: "hosted", // Use hosted checkout (returns URL)
+        amount: Math.round(total * 100), // Amount in cents
+        currency: "USD",
+        email: customerEmail,
+        receipt_email: customerEmail,
+        description: `Order ${orderNumber} - ${items.map((item: any) => item.productName).join(", ")}`,
+        metadata: {
+          order_id: order.id,
+          order_number: orderNumber,
+          customer_email: customerEmail,
+          customer_name: customerName,
+        },
+        success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/success?order_id=${order.id}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cart`,
+      }),
+    });
+
+    if (!storrikResponse.ok) {
+      const errorData = await storrikResponse.text();
+      console.error("[Storrik Checkout] Storrik API error:", storrikResponse.status, errorData);
+      
+      // Delete the order since payment intent creation failed
+      await supabase.from("orders").delete().eq("id", order.id);
+      
+      return NextResponse.json(
+        { error: `Payment system error: ${errorData}` },
+        { status: 500 }
+      );
+    }
+
+    const storrikData = await storrikResponse.json();
+    console.log("[Storrik Checkout] Payment intent created:", storrikData);
+
+    // Update order with payment intent ID
+    await supabase
+      .from("orders")
+      .update({
+        payment_intent_id: storrikData.id,
+      })
+      .eq("id", order.id);
+
+    // Return the hosted checkout URL
     return NextResponse.json({
       success: true,
       orderId: order.id,
       orderNumber: orderNumber,
+      checkoutUrl: storrikData.url, // Storrik hosted checkout URL
       amount: total,
       customerEmail: customerEmail,
     });

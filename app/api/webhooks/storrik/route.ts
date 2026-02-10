@@ -11,42 +11,36 @@ export async function POST(request: NextRequest) {
     console.log("[Storrik Webhook] Received webhook:", JSON.stringify(body, null, 2));
 
     // Storrik webhook payload structure
-    // Based on the events we selected: Transaction Succeeded, Refunded, Disputes
     const { type, data } = body;
 
     // Handle transaction succeeded event (payment completed)
-    if (type === "transaction.succeeded" || type === "transaction.completed") {
+    if (type === "transaction.succeeded" || type === "transaction.completed" || type === "payment.succeeded") {
       const { 
         id: transactionId,
-        customer,
         metadata 
       } = data;
 
-      // Try to find order by customer email or metadata
-      const customerEmail = customer?.email || metadata?.customer_email;
+      // Get order ID from metadata
+      const orderId = metadata?.order_id;
       
-      if (!customerEmail) {
-        console.error("[Storrik Webhook] No customer email in webhook data");
-        return NextResponse.json({ error: "No customer email" }, { status: 400 });
+      if (!orderId) {
+        console.error("[Storrik Webhook] No order_id in metadata");
+        return NextResponse.json({ error: "No order_id in metadata" }, { status: 400 });
       }
 
       const supabase = createAdminClient();
 
-      // Find the most recent pending order for this customer
-      const { data: orders, error: orderError } = await supabase
+      // Find the order
+      const { data: order, error: orderError } = await supabase
         .from("orders")
         .select("*")
-        .eq("customer_email", customerEmail)
-        .eq("status", "pending")
-        .order("created_at", { ascending: false })
-        .limit(1);
+        .eq("id", orderId)
+        .single();
 
-      if (orderError || !orders || orders.length === 0) {
-        console.error("[Storrik Webhook] No pending order found for:", customerEmail);
-        return NextResponse.json({ error: "No pending order found" }, { status: 404 });
+      if (orderError || !order) {
+        console.error("[Storrik Webhook] Order not found:", orderId);
+        return NextResponse.json({ error: "Order not found" }, { status: 404 });
       }
-
-      const order = orders[0];
 
       // Check if already processed
       if (order.status === "completed") {

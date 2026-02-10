@@ -64,6 +64,9 @@ function StorrikPaymentContent() {
         if (response.ok) {
           const data = await response.json();
           console.log("[Storrik Payment] Order data:", data);
+          console.log("[Storrik Payment] Order product_name:", data.product_name);
+          console.log("[Storrik Payment] Order amount_cents:", data.amount_cents);
+          console.log("[Storrik Payment] Order status:", data.status);
           setOrderData(data);
         } else {
           const errorData = await response.json();
@@ -79,17 +82,19 @@ function StorrikPaymentContent() {
     }
 
     fetchOrder();
+  }, [orderId]);
 
-    // Timeout fallback - if Storrik doesn't load in 10 seconds, show error
+  // Separate timeout for Storrik loading
+  useEffect(() => {
     const timeout = setTimeout(() => {
       if (!storrikReady) {
-        console.error("[Storrik Payment] Timeout - Storrik script failed to load");
-        setError("Payment system failed to load. Please refresh the page or contact support.");
+        console.error("[Storrik Payment] Timeout - Storrik script failed to load after 15 seconds");
+        setError("Payment system is taking too long to load. Please refresh the page.");
       }
-    }, 10000);
+    }, 15000); // 15 seconds
 
     return () => clearTimeout(timeout);
-  }, [orderId, storrikReady]);
+  }, [storrikReady]);
 
   const handleStorrikLoad = () => {
     console.log("[Storrik Payment] Storrik script loaded");
