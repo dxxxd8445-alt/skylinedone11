@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { sendDiscordWebhook } from "@/lib/discord-webhook";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -11,56 +10,60 @@ export async function POST(request: NextRequest) {
     
     console.log("[Storrik Webhook] Received webhook:", JSON.stringify(body, null, 2));
 
-    // Storrik webhook payload structure (based on common payment webhook patterns)
-    const { event, data } = body;
+    // Storrik webhook payload structure
+    // Based on the events we selected: Transaction Succeeded, Refunded, Disputes
+    const { type, data } = body;
 
-    // Handle payment success event
-    if (event === "payment.succeeded" || event === "checkout.completed") {
+    // Handle transaction succeeded event (payment completed)
+    if (type === "transaction.succeeded" || type === "transaction.completed") {
       const { 
-        id: paymentIntentId,
-        amount,
-        currency,
-        email,
+        id: transactionId,
+        customer,
         metadata 
       } = data;
 
-      const orderId = metadata?.order_id;
+      // Try to find order by customer email or metadata
+      const customerEmail = customer?.email || metadata?.customer_email;
       
-      if (!orderId) {
-        console.error("[Storrik Webhook] No order_id in metadata");
-        return NextResponse.json({ error: "No order_id in metadata" }, { status: 400 });
+      if (!customerEmail) {
+        console.error("[Storrik Webhook] No customer email in webhook data");
+        return NextResponse.json({ error: "No customer email" }, { status: 400 });
       }
 
       const supabase = createAdminClient();
 
-      // Get order
-      const { data: order, error: orderError } = await supabase
+      // Find the most recent pending order for this customer
+      const { data: orders, error: orderError } = await supabase
         .from("orders")
         .select("*")
-        .eq("id", orderId)
-        .single();
+        .eq("customer_email", customerEmail)
+        .eq("status", "pending")
+        .order("created_at", { ascending: false })
+        .limit(1);
 
-      if (orderError || !order) {
-        console.error("[Storrik Webhook] Order not found:", orderId);
-        return NextResponse.json({ error: "Order not found" }, { status: 404 });
+      if (orderError || !orders || orders.length === 0) {
+        console.error("[Storrik Webhook] No pending order found for:", customerEmail);
+        return NextResponse.json({ error: "No pending order found" }, { status: 404 });
       }
+
+      const order = orders[0];
 
       // Check if already processed
       if (order.status === "completed") {
-        console.log("[Storrik Webhook] Order already completed:", orderId);
+        console.log("[Storrik Webhook] Order already completed:", order.id);
         return NextResponse.json({ success: true, message: "Already processed" });
       }
 
-      console.log("[Storrik Webhook] Processing payment for order:", orderId);
+      console.log("[Storrik Webhook] Processing payment for order:", order.id);
 
       // Update order status to completed
       const { error: updateError } = await supabase
         .from("orders")
         .update({
           status: "completed",
-          payment_intent_id: paymentIntentId,
+          payment_intent_id: transactionId,
         })
-        .eq("id", orderId);
+        .eq("id", order.id);
 
       if (updateError) {
         console.error("[Storrik Webhook] Failed to update order:", updateError);
@@ -85,7 +88,7 @@ export async function POST(request: NextRequest) {
             customer_email: order.customer_email,
             status: "active",
             expires_at: expiresAt.toISOString(),
-            order_id: orderId,
+            order_id: order.id,
           });
 
         if (!licenseError) {
@@ -116,7 +119,7 @@ export async function POST(request: NextRequest) {
               `).join('')}
               
               <p><strong>Product:</strong> ${order.product_name}</p>
-              <p><strong>Order ID:</strong> ${orderId}</p>
+              <p><strong>Order ID:</strong> ${order.id}</p>
               
               <p>You can manage your licenses and download your product from your account dashboard.</p>
               
@@ -135,17 +138,18 @@ export async function POST(request: NextRequest) {
 
       // Send Discord notification
       try {
-        await sendDiscordWebhook({
-          type: "purchase",
-          data: {
-            customerEmail: order.customer_email,
-            customerName: order.customer_name,
-            productName: order.product_name,
-            amount: (order.amount_cents / 100).toFixed(2),
-            currency: "USD",
-            orderId: orderId,
-            licenseKey: licenseKeys[0] || "N/A",
-          },
+        const { triggerWebhooks } = await import("@/lib/discord-webhook");
+        await triggerWebhooks("order.completed", {
+          order_number: order.order_number || order.id,
+          customer_email: order.customer_email,
+          customer_name: order.customer_name,
+          amount: order.amount_cents / 100,
+          currency: "USD",
+          items: items.map((item: any) => ({
+            name: item.productName,
+            quantity: item.quantity,
+            price: item.price,
+          })),
         });
         console.log("[Storrik Webhook] Discord notification sent");
       } catch (discordError) {
@@ -155,8 +159,22 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    // Handle refund events
+    if (type === "refunded.created" || type === "refunded.partial") {
+      console.log("[Storrik Webhook] Refund event received:", type);
+      // Handle refunds - deactivate licenses, update order status, etc.
+      return NextResponse.json({ success: true, message: "Refund event received" });
+    }
+
+    // Handle dispute events
+    if (type === "dispute.created" || type === "dispute.won" || type === "dispute.lost") {
+      console.log("[Storrik Webhook] Dispute event received:", type);
+      // Handle disputes - notify admin, update order status, etc.
+      return NextResponse.json({ success: true, message: "Dispute event received" });
+    }
+
     // Handle other events
-    console.log("[Storrik Webhook] Unhandled event type:", event);
+    console.log("[Storrik Webhook] Unhandled event type:", type);
     return NextResponse.json({ success: true, message: "Event received" });
 
   } catch (error) {

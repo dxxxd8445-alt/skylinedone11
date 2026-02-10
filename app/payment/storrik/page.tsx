@@ -14,14 +14,33 @@ declare global {
   interface Window {
     storrik?: {
       configure: (config: { pk: string }) => void;
-      pay: (productId: string, variantId?: string, options?: any) => Promise<void>;
+      pay: (
+        productId: string,
+        variantId?: string,
+        options?: {
+          style?: "compact" | "normal" | "expanded";
+          colors?: {
+            overlay?: string;
+            background?: string;
+            surface?: string;
+            surfaceElevated?: string;
+            border?: string;
+            text?: string;
+            muted?: string;
+            primary?: string;
+            buttonText?: string;
+            success?: string;
+            warning?: string;
+            danger?: string;
+          };
+        }
+      ) => Promise<void>;
     };
   }
 }
 
 function StorrikPaymentContent() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const orderId = searchParams.get("order_id");
   
   const [loading, setLoading] = useState(true);
@@ -79,21 +98,47 @@ function StorrikPaymentContent() {
     }
 
     try {
-      // For now, we'll show an alert since we need Storrik product IDs
-      // In production, you'd map your products to Storrik product IDs
-      alert("Storrik embed integration requires product IDs from your Storrik dashboard. Please contact support to complete setup.");
+      // Map product names to Storrik product IDs
+      const productMapping: Record<string, string> = {
+        "valorant": "prod_a2e53754827a304bb8cf2d53f9f096f1",
+        "fortnite": "prod_5b4f8e15dbe4669f5765070eea478d21",
+      };
+
+      // Get the product name from order and find matching Storrik product ID
+      const productName = orderData.product_name.toLowerCase();
+      let storrikProductId = null;
+
+      // Check if order contains Valorant or Fortnite
+      if (productName.includes("valorant")) {
+        storrikProductId = productMapping["valorant"];
+      } else if (productName.includes("fortnite")) {
+        storrikProductId = productMapping["fortnite"];
+      }
+
+      if (!storrikProductId) {
+        alert(`Payment not yet configured for ${orderData.product_name}. Please contact support.`);
+        return;
+      }
+
+      console.log("[Storrik Payment] Opening Storrik checkout for product:", storrikProductId);
+
+      // Open Storrik embed checkout
+      await window.storrik.pay(storrikProductId, undefined, {
+        style: "expanded",
+        colors: {
+          primary: "#2563eb",
+          buttonText: "#ffffff"
+        }
+      });
+
+      // After successful payment, Storrik will send webhook to our server
+      // The webhook will generate license keys and send email
+      // Then redirect to success page
+      console.log("[Storrik Payment] Storrik checkout opened successfully");
       
-      // Example of how it would work with product IDs:
-      // await window.storrik.pay("PRODUCT_ID", "VARIANT_ID", {
-      //   style: "expanded",
-      //   colors: {
-      //     primary: "#2563eb",
-      //     buttonText: "#ffffff"
-      //   }
-      // });
     } catch (error) {
       console.error("[Storrik Payment] Payment error:", error);
-      alert("Payment failed. Please try again.");
+      alert("Payment failed. Please try again or contact support.");
     }
   };
 
