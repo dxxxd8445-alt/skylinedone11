@@ -46,16 +46,8 @@ export default function GuestCheckoutPage() {
     }
 
     try {
-      // Prepare checkout items for Stripe
       // Redirect to main checkout page
       router.push('/checkout/confirm');
-      });
-
-      if (!result.success) {
-        setError(result.error || 'Failed to redirect to checkout');
-        setIsProcessing(false);
-      }
-      // If successful, user will be redirected to Stripe
     } catch (err: any) {
       console.error('Guest checkout error:', err);
       setError(err.message || "An error occurred. Please try again.");
