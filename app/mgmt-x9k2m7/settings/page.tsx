@@ -25,6 +25,12 @@ export default function SettingsPage() {
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [changingPassword, setChangingPassword] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -78,6 +84,94 @@ export default function SettingsPage() {
       });
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handlePasswordChange() {
+    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
+      toast({
+        title: "❌ Error",
+        description: "Please fill in all password fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      toast({
+        title: "❌ Error",
+        description: "New passwords do not match",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (passwordData.newPassword.length < 12) {
+      toast({
+        title: "❌ Error",
+        description: "Password must be at least 12 characters",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate password strength
+    const hasUppercase = /[A-Z]/.test(passwordData.newPassword);
+    const hasLowercase = /[a-z]/.test(passwordData.newPassword);
+    const hasNumber = /[0-9]/.test(passwordData.newPassword);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passwordData.newPassword);
+
+    if (!hasUppercase || !hasLowercase || !hasNumber || !hasSpecial) {
+      toast({
+        title: "❌ Error",
+        description: "Password must contain uppercase, lowercase, number, and special character",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      setChangingPassword(true);
+
+      const response = await fetch('/api/admin/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Failed to change password');
+      }
+
+      toast({
+        title: "✅ Success",
+        description: "Password verified! Update ADMIN_PASSWORD in Vercel environment variables.",
+      });
+
+      // Show instructions in a more prominent way
+      setTimeout(() => {
+        alert(`To complete password change:\n\n1. Go to Vercel Dashboard\n2. Select your project\n3. Go to Settings > Environment Variables\n4. Update ADMIN_PASSWORD to: ${passwordData.newPassword}\n5. Redeploy your site\n\nNew Password: ${passwordData.newPassword}`);
+      }, 500);
+
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    } catch (error: any) {
+      console.error("Failed to change password:", error);
+      toast({
+        title: "❌ Error",
+        description: error.message || "Failed to change password",
+        variant: "destructive",
+      });
+    } finally {
+      setChangingPassword(false);
     }
   }
 
@@ -176,6 +270,111 @@ export default function SettingsPage() {
                 Your Storrik public key - safe to use in client-side code
               </p>
             </div>
+          </div>
+        </div>
+
+        {/* Security Settings */}
+        <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6">
+          <h2 className="text-xl font-bold text-white mb-4">Security Settings</h2>
+          <div className="space-y-4">
+            <div className="p-4 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+              <p className="text-sm text-orange-400 mb-2">
+                <strong>Change Admin Password:</strong> Update your admin dashboard password.
+              </p>
+              <p className="text-xs text-orange-400/80">
+                Password must be at least 12 characters with uppercase, lowercase, numbers, and special characters.
+              </p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                Current Password
+              </label>
+              <input
+                type="password"
+                value={passwordData.currentPassword}
+                onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                placeholder="Enter current password"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                New Password
+              </label>
+              <input
+                type="password"
+                value={passwordData.newPassword}
+                onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                placeholder="Enter new password (min 12 characters)"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+              />
+              {passwordData.newPassword && (
+                <div className="mt-2 space-y-1">
+                  <div className="flex items-center gap-2 text-xs">
+                    <div className={`w-2 h-2 rounded-full ${passwordData.newPassword.length >= 12 ? 'bg-green-500' : 'bg-red-500'}`} />
+                    <span className={passwordData.newPassword.length >= 12 ? 'text-green-400' : 'text-red-400'}>
+                      At least 12 characters
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <div className={`w-2 h-2 rounded-full ${/[A-Z]/.test(passwordData.newPassword) ? 'bg-green-500' : 'bg-red-500'}`} />
+                    <span className={/[A-Z]/.test(passwordData.newPassword) ? 'text-green-400' : 'text-red-400'}>
+                      Uppercase letter
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <div className={`w-2 h-2 rounded-full ${/[a-z]/.test(passwordData.newPassword) ? 'bg-green-500' : 'bg-red-500'}`} />
+                    <span className={/[a-z]/.test(passwordData.newPassword) ? 'text-green-400' : 'text-red-400'}>
+                      Lowercase letter
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <div className={`w-2 h-2 rounded-full ${/[0-9]/.test(passwordData.newPassword) ? 'bg-green-500' : 'bg-red-500'}`} />
+                    <span className={/[0-9]/.test(passwordData.newPassword) ? 'text-green-400' : 'text-red-400'}>
+                      Number
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs">
+                    <div className={`w-2 h-2 rounded-full ${/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passwordData.newPassword) ? 'bg-green-500' : 'bg-red-500'}`} />
+                    <span className={/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(passwordData.newPassword) ? 'text-green-400' : 'text-red-400'}>
+                      Special character
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-white/70 mb-2">
+                Confirm New Password
+              </label>
+              <input
+                type="password"
+                value={passwordData.confirmPassword}
+                onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+                placeholder="Confirm new password"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+              />
+              {passwordData.confirmPassword && passwordData.newPassword !== passwordData.confirmPassword && (
+                <p className="text-xs text-red-400 mt-1">Passwords do not match</p>
+              )}
+            </div>
+            <Button
+              onClick={handlePasswordChange}
+              disabled={changingPassword}
+              className="bg-orange-600 hover:bg-orange-700 text-white"
+            >
+              {changingPassword ? (
+                <>
+                  <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                  Changing Password...
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4 mr-2" />
+                  Change Password
+                </>
+              )}
+            </Button>
           </div>
         </div>
 

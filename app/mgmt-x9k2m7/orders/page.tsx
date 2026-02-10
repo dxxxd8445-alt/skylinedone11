@@ -162,7 +162,7 @@ export default function OrdersPage() {
     const completedOrders = orderList.filter(o => o.status === "completed").length;
     const totalRevenue = orderList
       .filter(o => o.status === "completed")
-      .reduce((sum, o) => sum + o.amount, 0);
+      .reduce((sum, o) => sum + (o.amount_cents / 100), 0);
     const avgOrderValue = completedOrders > 0 ? totalRevenue / completedOrders : 0;
 
     setDateStats({

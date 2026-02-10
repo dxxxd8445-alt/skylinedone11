@@ -8,6 +8,7 @@ import { useCurrency } from "@/lib/currency-context";
 import { formatMoney } from "@/lib/money";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
 import { 
   ArrowLeft, 
   Lock, 
@@ -16,7 +17,8 @@ import {
   Tag, 
   Check,
   Mail,
-  Loader2
+  Loader2,
+  Bitcoin
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,6 +35,7 @@ export default function CheckoutConfirmPage() {
   const [couponLoading, setCouponLoading] = useState(false);
   const [couponError, setCouponError] = useState<string | null>(null);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [cryptoModalOpen, setCryptoModalOpen] = useState(false);
 
   const subtotal = getSubtotal();
   const discount = getDiscount();
@@ -86,10 +89,10 @@ export default function CheckoutConfirmPage() {
 
     try {
       setCheckoutLoading(true);
-      console.log("[Checkout] Creating Storrik payment intent with items:", items);
+      console.log("[Checkout] Creating MoneyMotion checkout with items:", items);
       
-      // Create order and Storrik payment intent
-      const response = await fetch('/api/storrik/create-checkout', {
+      // Create MoneyMotion checkout session
+      const response = await fetch('/api/moneymotion/create-checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -107,18 +110,18 @@ export default function CheckoutConfirmPage() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to create payment session');
+        throw new Error(error.error || 'Failed to create checkout session');
       }
 
       const data = await response.json();
       
       if (!data.checkoutUrl) {
-        throw new Error('No checkout URL returned from payment system');
+        throw new Error('No checkout URL returned');
       }
 
-      console.log("[Checkout] Redirecting to Storrik hosted checkout:", data.checkoutUrl);
+      console.log("[Checkout] Redirecting to MoneyMotion checkout:", data.checkoutUrl);
       
-      // Redirect to Storrik hosted checkout page
+      // Redirect to MoneyMotion hosted checkout
       window.location.href = data.checkoutUrl;
       
     } catch (error) {
@@ -340,7 +343,7 @@ export default function CheckoutConfirmPage() {
                 <button
                   onClick={handleCompletePayment}
                   disabled={!emailConfirmed || checkoutLoading}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] disabled:from-[#2563eb]/50 disabled:to-[#3b82f6]/50 disabled:cursor-not-allowed text-white font-bold text-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] disabled:from-[#2563eb]/50 disabled:to-[#3b82f6]/50 disabled:cursor-not-allowed text-white font-bold text-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 mb-3"
                 >
                   {checkoutLoading ? (
                     <>
@@ -353,6 +356,27 @@ export default function CheckoutConfirmPage() {
                       Complete Secure Payment
                     </>
                   )}
+                </button>
+
+                {/* Divider */}
+                <div className="relative my-4">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-[#1a1a1a]"></div>
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-[#0a0a0a] px-2 text-white/40">Or pay with</span>
+                  </div>
+                </div>
+
+                {/* Crypto Payment Button */}
+                <button
+                  onClick={() => setCryptoModalOpen(true)}
+                  disabled={!emailConfirmed}
+                  className="w-full py-3.5 rounded-xl bg-[#0a0a0a] hover:bg-[#1a1a1a] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold border-2 border-[#2563eb]/30 hover:border-[#2563eb]/60 transition-all flex items-center justify-center gap-2 group"
+                >
+                  <Bitcoin className="w-5 h-5 text-[#2563eb] group-hover:scale-110 transition-transform" />
+                  <span>Pay with Crypto</span>
+                  <span className="text-white/60 text-sm">(BTC/LTC)</span>
                 </button>
 
                 {/* Security Badges */}
@@ -372,7 +396,7 @@ export default function CheckoutConfirmPage() {
                     </div>
                   </div>
                   <p className="text-center text-white/40 text-xs">
-                    Powered by <span className="text-[#2563eb]">Storrik</span>
+                    Powered by <span className="text-[#2563eb]">MoneyMotion</span>
                   </p>
                 </div>
               </div>
@@ -382,6 +406,19 @@ export default function CheckoutConfirmPage() {
       </div>
 
       <Footer />
+
+      {/* Crypto Payment Modal */}
+      <CryptoPaymentModal
+        isOpen={cryptoModalOpen}
+        onClose={() => setCryptoModalOpen(false)}
+        totalUsd={total}
+        productName={items.map(i => i.productName).join(", ")}
+        customerEmail={guestEmail}
+        items={items}
+        subtotal={subtotal}
+        discount={discount}
+        couponCode={appliedCoupon?.code}
+      />
     </main>
   );
 }

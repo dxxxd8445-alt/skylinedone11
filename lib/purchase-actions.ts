@@ -90,7 +90,7 @@ export async function processPurchase(data: PurchaseData): Promise<PurchaseResul
         product_id: realProductId,
         product_name: data.productName,
         duration: data.duration,
-        amount: finalPrice,
+        amount_cents: Math.round(finalPrice * 100),
         status: "pending",
         payment_method: "card",
       })

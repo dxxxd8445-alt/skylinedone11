@@ -165,14 +165,28 @@ export default function LiveVisitorsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="relative w-full" style={{ height: '800px' }}>
-              <iframe
-                id="clicky-iframe"
-                src="https://clicky.com/stats/wp-iframe?site_id=101500977&sitekey=&type=pages-live&date=today"
-                className="w-full h-full border-0 rounded-b-lg"
-                title="Clicky Live Visitors"
-                loading="lazy"
-              />
+            <div className="relative w-full bg-[#0a0a0a] rounded-b-lg overflow-hidden" style={{ height: '800px' }}>
+              {/* Alternative: Direct link to Clicky dashboard */}
+              <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-[#2563eb]/20 to-[#3b82f6]/10 border border-[#2563eb]/30 mb-6">
+                  <BarChart3 className="w-16 h-16 text-[#2563eb] mx-auto" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">Clicky Analytics Dashboard</h3>
+                <p className="text-white/60 mb-6 max-w-md">
+                  View real-time visitor data, page views, locations, and detailed analytics in the full Clicky dashboard.
+                </p>
+                <Button
+                  onClick={() => window.open('https://clicky.com/101500977', '_blank')}
+                  size="lg"
+                  className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white"
+                >
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  Open Clicky Dashboard
+                </Button>
+                <p className="text-white/40 text-xs mt-4">
+                  Site ID: 101500977 • Real-time tracking active
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

@@ -297,12 +297,100 @@ export default function AdminDashboard() {
             </div>
           </div>
           
-          {/* Chart Placeholder */}
-          <div className="h-64 flex items-center justify-center border border-[#262626] rounded-lg bg-[#0a0a0a]/50">
-            <div className="text-center">
-              <BarChart3 className="w-12 h-12 text-white/20 mx-auto mb-3" />
-              <p className="text-white/40 text-sm">Chart visualization coming soon</p>
-              <p className="text-white/20 text-xs">Revenue: ${stats.revenue.toFixed(2)} | Orders: {stats.orders}</p>
+          {/* Chart with Real Data */}
+          <div className="h-64 relative">
+            {/* Y-axis labels */}
+            <div className="absolute left-0 top-0 bottom-0 w-12 flex flex-col justify-between text-xs text-white/40 pr-2">
+              <span>${Math.round(stats.revenue * 1.2)}</span>
+              <span>${Math.round(stats.revenue * 0.9)}</span>
+              <span>${Math.round(stats.revenue * 0.6)}</span>
+              <span>${Math.round(stats.revenue * 0.3)}</span>
+              <span>$0</span>
+            </div>
+
+            {/* Chart area */}
+            <div className="ml-12 h-full border-l border-b border-[#262626] relative">
+              {/* Grid lines */}
+              <div className="absolute inset-0 flex flex-col justify-between">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="border-t border-[#262626]/30" />
+                ))}
+              </div>
+
+              {/* Bars */}
+              <div className="absolute inset-0 flex items-end justify-around px-4 pb-8">
+                {/* Revenue Bar */}
+                <div className="flex-1 flex flex-col items-center gap-2 max-w-[120px]">
+                  <div className="w-full relative group">
+                    <div 
+                      className="w-full bg-gradient-to-t from-[#2563eb] to-[#3b82f6] rounded-t-lg transition-all duration-500 hover:from-[#3b82f6] hover:to-[#2563eb] cursor-pointer"
+                      style={{ height: `${Math.min((stats.revenue / (stats.revenue * 1.2)) * 100, 100)}%` }}
+                    >
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-[#2563eb] rounded px-2 py-1 text-xs text-white whitespace-nowrap">
+                        ${stats.revenue.toFixed(2)}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs font-semibold text-white">Revenue</p>
+                    <p className="text-[10px] text-white/40">${stats.revenue.toFixed(2)}</p>
+                  </div>
+                </div>
+
+                {/* Orders Bar */}
+                <div className="flex-1 flex flex-col items-center gap-2 max-w-[120px]">
+                  <div className="w-full relative group">
+                    <div 
+                      className="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg transition-all duration-500 hover:from-blue-400 hover:to-blue-300 cursor-pointer"
+                      style={{ height: `${Math.min((stats.orders / Math.max(stats.orders, 10)) * 100, 100)}%` }}
+                    >
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-blue-500 rounded px-2 py-1 text-xs text-white whitespace-nowrap">
+                        {stats.orders} orders
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs font-semibold text-white">Orders</p>
+                    <p className="text-[10px] text-white/40">{stats.orders} total</p>
+                  </div>
+                </div>
+
+                {/* Avg Order Value Bar */}
+                <div className="flex-1 flex flex-col items-center gap-2 max-w-[120px]">
+                  <div className="w-full relative group">
+                    <div 
+                      className="w-full bg-gradient-to-t from-purple-500 to-purple-400 rounded-t-lg transition-all duration-500 hover:from-purple-400 hover:to-purple-300 cursor-pointer"
+                      style={{ height: `${Math.min(((stats.revenue / Math.max(stats.orders, 1)) / (stats.revenue * 1.2)) * 100, 100)}%` }}
+                    >
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-purple-500 rounded px-2 py-1 text-xs text-white whitespace-nowrap">
+                        ${(stats.revenue / Math.max(stats.orders, 1)).toFixed(2)}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs font-semibold text-white">Avg Order</p>
+                    <p className="text-[10px] text-white/40">${(stats.revenue / Math.max(stats.orders, 1)).toFixed(2)}</p>
+                  </div>
+                </div>
+
+                {/* Conversion Rate Bar */}
+                <div className="flex-1 flex flex-col items-center gap-2 max-w-[120px]">
+                  <div className="w-full relative group">
+                    <div 
+                      className="w-full bg-gradient-to-t from-emerald-500 to-emerald-400 rounded-t-lg transition-all duration-500 hover:from-emerald-400 hover:to-emerald-300 cursor-pointer"
+                      style={{ height: `${Math.min(stats.conversionRate, 100)}%` }}
+                    >
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-emerald-500 rounded px-2 py-1 text-xs text-white whitespace-nowrap">
+                        {stats.conversionRate.toFixed(1)}%
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs font-semibold text-white">Conversion</p>
+                    <p className="text-[10px] text-white/40">{stats.conversionRate.toFixed(1)}%</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

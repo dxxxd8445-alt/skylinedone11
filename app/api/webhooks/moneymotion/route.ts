@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
           duration: order.duration,
           licenseKey,
           expiresAt,
-          totalPaid: order.amount,
+          totalPaid: order.amount_cents / 100,
         });
 
         if (!emailResult.success) {

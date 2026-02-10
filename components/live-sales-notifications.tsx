@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { ShoppingCart } from "lucide-react";
+import { X } from "lucide-react";
 
 interface Product {
   name: string;
@@ -41,6 +41,10 @@ export function LiveSalesNotifications() {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentSale, setCurrentSale] = useState<Sale | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const startXRef = useRef(0);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Fetch real products from your site
   useEffect(() => {
@@ -77,6 +81,7 @@ export function LiveSalesNotifications() {
       const sale = generateSale();
       setCurrentSale(sale);
       setIsVisible(true);
+      setDragOffset(0);
 
       // Hide after 5 seconds
       setTimeout(() => {
@@ -96,22 +101,75 @@ export function LiveSalesNotifications() {
     };
   }, [products]);
 
+  // Handle swipe/drag to dismiss
+  const handleStart = (clientX: number) => {
+    setIsDragging(true);
+    startXRef.current = clientX;
+  };
+
+  const handleMove = (clientX: number) => {
+    if (!isDragging) return;
+    const diff = clientX - startXRef.current;
+    // Only allow left swipe
+    if (diff < 0) {
+      setDragOffset(diff);
+    }
+  };
+
+  const handleEnd = () => {
+    setIsDragging(false);
+    // If swiped more than 100px, dismiss
+    if (dragOffset < -100) {
+      setIsVisible(false);
+      setDragOffset(0);
+    } else {
+      // Snap back
+      setDragOffset(0);
+    }
+  };
+
+  const handleDismiss = () => {
+    setIsVisible(false);
+    setDragOffset(0);
+  };
+
   if (!currentSale || products.length === 0) return null;
 
   return (
     <div
-      className={`fixed bottom-6 left-6 z-50 transition-all duration-500 ${
+      ref={cardRef}
+      className={`fixed bottom-6 left-6 z-50 transition-all duration-500 select-none ${
         isVisible
           ? "translate-x-0 opacity-100"
           : "-translate-x-full opacity-0"
       }`}
+      style={{
+        transform: `translateX(${isVisible ? dragOffset : -400}px)`,
+        transition: isDragging ? 'none' : 'all 0.5s',
+      }}
+      onMouseDown={(e) => handleStart(e.clientX)}
+      onMouseMove={(e) => handleMove(e.clientX)}
+      onMouseUp={handleEnd}
+      onMouseLeave={handleEnd}
+      onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+      onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+      onTouchEnd={handleEnd}
     >
-      <div className="relative group">
+      <div className="relative group cursor-grab active:cursor-grabbing">
         {/* Glow effect */}
         <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
         
         {/* Main card */}
         <div className="relative bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border-2 border-[#2563eb]/50 rounded-2xl p-4 shadow-2xl backdrop-blur-xl">
+          {/* Close button */}
+          <button
+            onClick={handleDismiss}
+            className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
+            aria-label="Dismiss notification"
+          >
+            <X className="w-4 h-4 text-white/60" />
+          </button>
+
           <div className="flex items-center gap-4">
             {/* Product Image */}
             <div className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-[#2563eb]/30 flex-shrink-0 bg-[#1a1a1a]">
@@ -125,7 +183,7 @@ export function LiveSalesNotifications() {
             </div>
 
             {/* Content */}
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 pr-6">
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 <p className="text-xs font-semibold text-white/60 uppercase tracking-wider">
@@ -146,6 +204,13 @@ export function LiveSalesNotifications() {
           <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#2563eb]/20 to-transparent animate-shimmer" />
           </div>
+
+          {/* Swipe indicator */}
+          {dragOffset < -20 && (
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 text-xs pointer-events-none">
+              Swipe to dismiss →
+            </div>
+          )}
         </div>
       </div>
 
