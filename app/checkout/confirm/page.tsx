@@ -89,10 +89,10 @@ export default function CheckoutConfirmPage() {
 
     try {
       setCheckoutLoading(true);
-      console.log("[Checkout] Creating MoneyMotion checkout with items:", items);
+      console.log("[Checkout] Creating Storrik checkout with items:", items);
       
-      // Create MoneyMotion checkout session
-      const response = await fetch('/api/moneymotion/create-checkout', {
+      // Create Storrik checkout session
+      const response = await fetch('/api/storrik/create-checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,9 +119,9 @@ export default function CheckoutConfirmPage() {
         throw new Error('No checkout URL returned');
       }
 
-      console.log("[Checkout] Redirecting to MoneyMotion checkout:", data.checkoutUrl);
+      console.log("[Checkout] Redirecting to Storrik checkout:", data.checkoutUrl);
       
-      // Redirect to MoneyMotion hosted checkout
+      // Redirect to Storrik hosted checkout
       window.location.href = data.checkoutUrl;
       
     } catch (error) {
