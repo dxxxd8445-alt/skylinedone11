@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     // Generate order number
     const year = new Date().getFullYear();
     const orderNum = Math.floor(Math.random() * 9000) + 1000;
-    const orderNumber = `ST-${year}-${orderNum}`;
+    const orderNumber = `MC-${year}-${orderNum}`;
 
     // Create orders for each item
     const orderIds: string[] = [];
@@ -75,22 +75,12 @@ export async function POST(request: NextRequest) {
           amount_cents: Math.round(item.price * item.quantity * 100),
           status: "pending",
           payment_method: "storrik",
-          coupon_code: couponCode,
         })
         .select()
         .single();
 
       if (orderError) {
-        console.error("[Storrik Checkout] Order creation error:", orderError);
-        console.error("[Storrik Checkout] Failed order data:", {
-          order_number: `${orderNumber}-${item.id}`,
-          customer_email: customerEmail,
-          product_id: realProductId,
-          product_name: item.productName,
-          duration: item.duration,
-          amount: item.price * item.quantity,
-        });
-        // Return detailed error instead of continuing
+        console.error("[Checkout] Order creation error:", orderError);
         return NextResponse.json(
           { error: `Database error: ${orderError.message || 'Failed to create order'}` },
           { status: 500 }
@@ -132,16 +122,10 @@ export async function POST(request: NextRequest) {
       }
       
       return NextResponse.json(
-        { error: result.error || "Failed to create Storrik checkout session" },
+        { error: result.error || "Failed to create checkout session" },
         { status: 500 }
       );
     }
-
-    console.log("[Storrik Checkout] Created checkout session:", {
-      orderNumber,
-      checkoutUrl: result.checkoutUrl,
-      sessionId: result.checkoutSessionId,
-    });
 
     return NextResponse.json({
       success: true,
@@ -151,7 +135,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error("[Storrik Checkout] Error:", error);
+    console.error("[Checkout] Error:", error);
     return NextResponse.json(
       { error: "Failed to process checkout" },
       { status: 500 }
