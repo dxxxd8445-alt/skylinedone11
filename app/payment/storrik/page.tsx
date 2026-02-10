@@ -79,15 +79,36 @@ function StorrikPaymentContent() {
     }
 
     fetchOrder();
-  }, [orderId]);
+
+    // Timeout fallback - if Storrik doesn't load in 10 seconds, show error
+    const timeout = setTimeout(() => {
+      if (!storrikReady) {
+        console.error("[Storrik Payment] Timeout - Storrik script failed to load");
+        setError("Payment system failed to load. Please refresh the page or contact support.");
+      }
+    }, 10000);
+
+    return () => clearTimeout(timeout);
+  }, [orderId, storrikReady]);
 
   const handleStorrikLoad = () => {
     console.log("[Storrik Payment] Storrik script loaded");
     if (window.storrik) {
-      window.storrik.configure({
-        pk: process.env.NEXT_PUBLIC_STORRIK_PUBLIC_KEY || "pk_live_UcQGVDAT8aH-M-NTV4UaVrY4IlNLKVXVUPEJ-4ya3D4",
-      });
-      setStorrikReady(true);
+      const publicKey = process.env.NEXT_PUBLIC_STORRIK_PUBLIC_KEY || "pk_live_UcQGVDAT8aH-M-NTV4UaVrY4IlNLKVXVUPEJ-4ya3D4";
+      console.log("[Storrik Payment] Configuring with key:", publicKey.substring(0, 15) + "...");
+      try {
+        window.storrik.configure({
+          pk: publicKey,
+        });
+        setStorrikReady(true);
+        console.log("[Storrik Payment] ✅ Configuration successful");
+      } catch (error) {
+        console.error("[Storrik Payment] Configuration error:", error);
+        setError("Failed to initialize payment system. Please refresh the page.");
+      }
+    } else {
+      console.error("[Storrik Payment] window.storrik not available");
+      setError("Payment system not available. Please refresh the page.");
     }
   };
 
@@ -174,6 +195,10 @@ function StorrikPaymentContent() {
         src="https://cdn.storrik.com/embed.js"
         strategy="afterInteractive"
         onLoad={handleStorrikLoad}
+        onError={(e) => {
+          console.error("[Storrik Payment] Script failed to load:", e);
+          setError("Failed to load payment system. Please refresh the page.");
+        }}
       />
       
       <div className="pt-24 pb-16">
@@ -233,6 +258,15 @@ function StorrikPaymentContent() {
                 </>
               )}
             </button>
+
+            {/* Debug info - remove after testing */}
+            {!storrikReady && (
+              <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                <p className="text-yellow-400 text-xs text-center">
+                  If this doesn't load, check browser console (F12) for errors
+                </p>
+              </div>
+            )}
 
             {/* Security Badges */}
             <div className="mt-6 space-y-3">
