@@ -86,9 +86,9 @@ export default function CheckoutConfirmPage() {
 
     try {
       setCheckoutLoading(true);
-      console.log("[Checkout] Creating Storrik payment intent with items:", items);
+      console.log("[Checkout] Creating order with items:", items);
       
-      // Create Storrik payment intent via backend API
+      // Create order in database
       const response = await fetch('/api/storrik/create-checkout', {
         method: 'POST',
         headers: {
@@ -107,22 +107,20 @@ export default function CheckoutConfirmPage() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || 'Failed to create payment session');
+        throw new Error(error.error || 'Failed to create order');
       }
 
       const data = await response.json();
       
-      if (!data.checkoutUrl) {
-        throw new Error('No checkout URL returned');
+      if (!data.orderId) {
+        throw new Error('No order ID returned');
       }
 
-      console.log("[Checkout] Redirecting to Storrik checkout:", data.checkoutUrl);
+      console.log("[Checkout] Order created, redirecting to payment:", data.orderId);
       
-      // Redirect to Storrik hosted checkout page
-      window.location.href = data.checkoutUrl;
+      // Redirect to Storrik payment page
+      router.push(`/payment/storrik?order_id=${data.orderId}`);
       
-      // Keep loading state true since we're redirecting
-      return;
     } catch (error) {
       console.error("[Checkout] Error:", error);
       setCheckoutLoading(false);

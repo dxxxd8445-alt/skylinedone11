@@ -20,17 +20,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get Storrik secret key from environment
-    const storrikSecretKey = process.env.STORRIK_SECRET_KEY;
-    
-    if (!storrikSecretKey) {
-      console.error("[Storrik Checkout] Missing STORRIK_SECRET_KEY environment variable");
-      return NextResponse.json(
-        { error: "Payment system not configured" },
-        { status: 500 }
-      );
-    }
-
     const supabase = createAdminClient();
 
     // Generate unique order number
@@ -51,6 +40,7 @@ export async function POST(request: NextRequest) {
         subtotal: subtotal,
         discount: discount,
         total: total,
+        customer_email: customerEmail,
       },
     };
 
@@ -72,67 +62,14 @@ export async function POST(request: NextRequest) {
 
     console.log("[Storrik Checkout] Order created:", order.id);
 
-    // Create Storrik payment intent
-    console.log("[Storrik Checkout] Creating Storrik payment intent...");
-    
-    const storrikResponse = await fetch("https://api.storrik.io/v1/payments/intents", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${storrikSecretKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        type: "hosted",
-        amount: Math.round(total * 100), // Amount in cents
-        currency: "usd",
-        email: customerEmail,
-        metadata: {
-          order_id: order.id,
-          order_number: orderNumber,
-          customer_name: customerName,
-        },
-      }),
-    });
-
-    if (!storrikResponse.ok) {
-      const errorText = await storrikResponse.text();
-      console.error("[Storrik Checkout] Storrik API error:", errorText);
-      
-      // Delete the pending order since payment intent failed
-      await supabase.from("orders").delete().eq("id", order.id);
-      
-      return NextResponse.json(
-        { error: "Failed to create payment session" },
-        { status: 500 }
-      );
-    }
-
-    const storrikData = await storrikResponse.json();
-    
-    if (!storrikData.ok || !storrikData.url) {
-      console.error("[Storrik Checkout] Invalid Storrik response:", storrikData);
-      
-      // Delete the pending order
-      await supabase.from("orders").delete().eq("id", order.id);
-      
-      return NextResponse.json(
-        { error: "Failed to create payment session" },
-        { status: 500 }
-      );
-    }
-
-    console.log("[Storrik Checkout] Storrik checkout URL:", storrikData.url);
-
-    // Update order with Storrik payment intent ID
-    await supabase
-      .from("orders")
-      .update({ payment_intent_id: storrikData.url.split("/").pop() })
-      .eq("id", order.id);
-
+    // Return order ID for Storrik embed to use
+    // The frontend will use Storrik embed to handle payment
     return NextResponse.json({
       success: true,
-      checkoutUrl: storrikData.url,
       orderId: order.id,
+      orderNumber: orderNumber,
+      amount: total,
+      customerEmail: customerEmail,
     });
 
   } catch (error) {
