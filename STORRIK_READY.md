@@ -1,157 +1,108 @@
-# ✅ Storrik Payment Integration - READY
+# ✅ Storrik Payment Integration Complete!
 
-## What's Been Done
+## What's Done
 
-### ✅ Removed "Write a Review" Button
-- Removed from all product pages
-- Clean 3-column stats layout (Rating, Reviews, Satisfaction)
+✅ Storrik API integration implemented
+✅ Checkout page updated to use Storrik
+✅ Webhook handler created for payment notifications
+✅ Code pushed to GitHub
+✅ Vercel is deploying now
 
-### ✅ Complete Storrik Integration
-- Full payment processor replacement (MoneyMotion → Storrik)
-- Admin dashboard configuration (no code changes needed)
-- Automatic order processing via webhooks
-- Email delivery with license keys
-- Discord notifications
+## Your Webhook URL
 
-## 🎯 Quick Start (3 Steps)
-
-### 1. Run SQL Script
-```sql
--- In Supabase SQL Editor, run:
-\i ADD_STORRIK_PAYMENT.sql
+```
+https://skylinecheats.org/api/webhooks/storrik
 ```
 
-### 2. Configure API Key
-1. Get key from: https://storrik.com/dashboard
-2. Go to: `/mgmt-x9k2m7/settings`
-3. Paste API key (PK_xxx)
-4. Click "Save Changes"
+## What You Need To Do RIGHT NOW
 
-### 3. Test Integration
-1. Go to: `/test-storrik`
-2. Verify all ✅ green checkmarks
-3. Test checkout with your Product ID
+### 1. Create Webhook in Storrik Dashboard
 
-## 📁 Key Files
+Go to your Storrik dashboard and create a webhook with this URL:
+```
+https://skylinecheats.org/api/webhooks/storrik
+```
 
-### Configuration
-- `app/mgmt-x9k2m7/settings/page.tsx` - Admin settings with API key input
-- `components/storrik-provider.tsx` - Auto-configures Storrik
-- `app/layout.tsx` - Loads Storrik script
+Subscribe to these events:
+- `payment.succeeded` (or `checkout.completed`)
+- `payment.failed`
 
-### Payment Flow
-- `lib/storrik.ts` - Storrik integration library
-- `components/storrik-checkout-button.tsx` - Reusable button
-- `app/api/webhooks/storrik/route.ts` - Webhook handler
+After creating it, Storrik will give you a **Webhook Secret** (starts with `whsec_`)
 
-### Testing & Docs
-- `app/test-storrik/page.tsx` - **Test page to verify setup**
-- `STORRIK_VERIFICATION_CHECKLIST.md` - Complete checklist
-- `STORRIK_INTEGRATION_COMPLETE.md` - Full documentation
-- `ADD_STORRIK_PAYMENT.sql` - Database setup
+### 2. Add Environment Variables to Vercel
 
-## 🧪 Verification Steps
+Go to: https://vercel.com → Your Project → Settings → Environment Variables
 
-1. **Admin Settings**
-   - ✅ Can enter API key
-   - ✅ Can save successfully
-   - ✅ Key persists after refresh
+Add these TWO variables:
 
-2. **Test Page** (`/test-storrik`)
-   - ✅ API Key: Configured
-   - ✅ Script: Loaded
-   - ✅ Status: Ready
+**Variable 1:**
+- Key: `STORRIK_SECRET_KEY`
+- Value: `sk_live_cvOn7sNpgwSCoE2J7akuPx-7akVBDS-FiYGL8L-eon4`
+- Environments: Check ALL boxes
 
-3. **Checkout Flow**
-   - ✅ Modal opens
-   - ✅ Payment processes
-   - ✅ Order created
-   - ✅ License generated
-   - ✅ Email sent
+**Variable 2:**
+- Key: `STORRIK_WEBHOOK_SECRET`
+- Value: `whsec_YOUR_SECRET_FROM_STEP_1`
+- Environments: Check ALL boxes
 
-## 🎨 Features
+### 3. Redeploy
 
-### For Admins
-- Configure API key in dashboard (no .env needed)
-- View all orders in admin panel
-- See generated license keys
-- Monitor payment status
+After adding the variables:
+1. Go to Deployments tab
+2. Click Redeploy on latest deployment
+3. Wait 2-3 minutes
 
-### For Customers
-- Secure Storrik checkout modal
-- Instant license delivery via email
-- Professional branded emails
-- Order history in account
+### 4. Test
 
-### Automatic Processing
-- Order creation on payment
-- License key generation
-- Email delivery
-- Discord notifications
-- Webhook verification
+1. Go to https://skylinecheats.org
+2. Add product to cart
+3. Go to checkout
+4. Click "Complete Secure Payment"
+5. Should redirect to Storrik checkout page (looks like your screenshots)
+6. Complete payment
+7. Order should be fulfilled automatically
 
-## 🔐 Security
+## How It Works
 
-- API key stored in database (not .env)
-- Fetched server-side only
-- HTTPS-only communication
-- PCI compliant (Storrik handles cards)
-- Webhook signature verification ready
+1. Customer clicks "Complete Secure Payment"
+2. Your site creates order in database (status: pending)
+3. Your site calls Storrik API to create checkout session
+4. Customer is redirected to Storrik's hosted checkout page
+5. Customer enters card details and pays
+6. Storrik processes payment
+7. Storrik sends webhook to your site
+8. Your site:
+   - Generates license key
+   - Updates order to "completed"
+   - Sends email with license key
+   - Sends Discord notification
+9. Customer gets redirected to success page
 
-## 📊 What Gets Created on Payment
+## The Checkout Page
 
-1. **Order Record**
-   - Customer email
-   - Product name
-   - Amount paid
-   - Status: "completed"
-   - Payment method: "storrik"
+When customers click pay, they'll see Storrik's checkout page with:
+- Order summary on left side
+- Payment form on right side
+- Card number, expiry, CVC fields
+- Country selector
+- "Pay $X.XX" button
+- Clean dark theme
 
-2. **License Key**
-   - Format: `SKY-XXXXX-XXXXX`
-   - Linked to order
-   - Status: "active"
-   - Expiration date set
+Exactly like the screenshots you showed me!
 
-3. **Email**
-   - Professional template
-   - Large license key display
-   - Order details
-   - Account link
+## Need Help?
 
-4. **Discord Notification** (optional)
-   - Customer info
-   - Product purchased
-   - Amount
-   - License key
+If something doesn't work:
+1. Check Vercel deployment logs
+2. Check browser console for errors
+3. Make sure webhook URL is correct in Storrik dashboard
+4. Make sure environment variables are set in Vercel
+5. Make sure you redeployed after adding variables
 
-## 🚀 Go Live Checklist
+## Summary
 
-- [ ] SQL script run
-- [ ] API key configured
-- [ ] Test page shows all green
-- [ ] Test payment successful
-- [ ] Webhook configured in Storrik
-- [ ] Production API key (not test)
-- [ ] Email sending works
-- [ ] First real transaction tested
+You're 2 steps away from accepting payments:
+1. Create webhook in Storrik dashboard → Get webhook secret
+2. Add both secrets to Vercel → Redeploy
 
-## 📞 Quick Links
-
-- **Test Page**: `/test-storrik`
-- **Admin Settings**: `/mgmt-x9k2m7/settings`
-- **Orders**: `/mgmt-x9k2m7/orders`
-- **Licenses**: `/mgmt-x9k2m7/licenses`
-- **Storrik Dashboard**: https://storrik.com/dashboard
-- **Storrik Docs**: https://docs.storrik.com
-
-## 🎯 Status
-
-**Integration**: ✅ Complete
-**Configuration**: ⏳ Pending (need your API key)
-**Testing**: ⏳ Pending (use `/test-storrik`)
-**Production**: ⏳ Pending (after testing)
-
----
-
-**Everything is ready!** Just add your Storrik API key in admin settings and test at `/test-storrik`
+That's it! Then test and you're live! 🚀

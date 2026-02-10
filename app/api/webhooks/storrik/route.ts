@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/storrik";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { sendLicenseKeyEmail } from "@/lib/email";
+import { sendPurchaseEmail } from "@/lib/email";
 import { sendDiscordNotification } from "@/lib/discord-webhook";
 
 export async function POST(request: NextRequest) {
@@ -91,14 +91,32 @@ export async function POST(request: NextRequest) {
         console.log("[Storrik Webhook] Order completed:", order.order_number);
         console.log("[Storrik Webhook] License key:", licenseKey);
 
-        // Send license key email
+        // Calculate expiration date based on duration
+        const expiresAt = new Date();
+        if (order.duration.includes("Day")) {
+          const days = parseInt(order.duration);
+          expiresAt.setDate(expiresAt.getDate() + days);
+        } else if (order.duration.includes("Week")) {
+          const weeks = parseInt(order.duration);
+          expiresAt.setDate(expiresAt.getDate() + (weeks * 7));
+        } else if (order.duration.includes("Month")) {
+          const months = parseInt(order.duration);
+          expiresAt.setMonth(expiresAt.getMonth() + months);
+        } else {
+          // Default to 30 days
+          expiresAt.setDate(expiresAt.getDate() + 30);
+        }
+
+        // Send purchase email
         try {
-          await sendLicenseKeyEmail({
-            to: customerEmail,
+          await sendPurchaseEmail({
+            customerEmail: customerEmail,
             orderNumber: order.order_number,
             productName: order.product_name,
-            licenseKey: licenseKey,
             duration: order.duration,
+            licenseKey: licenseKey,
+            expiresAt: expiresAt,
+            totalPaid: order.amount_cents / 100,
           });
           console.log("[Storrik Webhook] Email sent to:", customerEmail);
         } catch (emailError) {
