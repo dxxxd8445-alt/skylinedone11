@@ -138,7 +138,7 @@ export function LiveSalesNotifications() {
   return (
     <div
       ref={cardRef}
-      className={`fixed bottom-6 left-6 z-50 transition-all duration-500 select-none ${
+      className={`fixed bottom-6 left-6 z-50 transition-all duration-500 select-none hidden md:block ${
         isVisible
           ? "translate-x-0 opacity-100"
           : "-translate-x-full opacity-0"
