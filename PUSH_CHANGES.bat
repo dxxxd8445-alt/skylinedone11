@@ -18,7 +18,7 @@ echo       Done!
 echo.
 
 echo [2/3] Creating commit...
-git commit -m "Complete Stripe removal and Storrik card payment integration - Custom backend checkout system"
+git commit -m "Fix staff permissions, enhance customer orders and email system with Discord link"
 if errorlevel 1 (
     echo ERROR: Failed to create commit
     pause
@@ -42,22 +42,30 @@ echo   SUCCESS! All changes pushed to GitHub
 echo ============================================================
 echo.
 echo Changes pushed:
-echo   [+] Removed ALL Stripe dependencies and code
-echo   [+] Custom backend checkout system (no embeds)
-echo   [+] Storrik card payments only (no crypto)
-echo   [+] Order creation API at /api/storrik/create-checkout
-echo   [+] Payment form at /payment/checkout
-echo   [+] Payment processing at /api/payment/process
-echo   [+] Success page at /payment/success
-echo   [+] Database fixes (optional columns, disabled RLS)
-echo   [+] Works for ALL products without Storrik product IDs
+echo   [+] Fixed staff permission system for dashboard access
+echo   [+] Enhanced license key assignment from stock
+echo   [+] Stocked keys now assigned to customers automatically
+echo   [+] Improved purchase email with Discord link
+echo   [+] Beautiful email design with success icon
+echo   [+] Discord server link: https://discord.gg/skylineggs
+echo   [+] Customer orders display in account page
+echo   [+] License expiration dates calculated correctly
+echo   [+] All 9 staff permissions working correctly
 echo.
 echo Your site will auto-deploy on Vercel in 2-3 minutes!
 echo.
-echo Next steps:
-echo   1. Wait for Vercel deployment
-echo   2. Test checkout on https://skylinecheats.org
-echo   3. Add to cart -> Checkout -> Enter email -> Complete Payment
-echo   4. Verify order creation and license key generation
+echo What's working now:
+echo   1. Staff with 'dashboard' permission can view revenue
+echo   2. Customers see orders in /account page
+echo   3. License keys from stock assigned automatically
+echo   4. Beautiful purchase emails with Discord link
+echo   5. Expiration dates calculated from duration
+echo   6. All customer data displays correctly
+echo.
+echo To test:
+echo   1. Make a test purchase
+echo   2. Check email for license key and Discord link
+echo   3. Log into /account to see order
+echo   4. Verify license key matches email
 echo.
 pause

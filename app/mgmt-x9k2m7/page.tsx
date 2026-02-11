@@ -31,6 +31,7 @@ const DATE_RANGES = [
   { value: "lastMonth", label: "Last Month" },
   { value: "thisYear", label: "This Year" },
   { value: "all", label: "All Time" },
+  { value: "custom", label: "Custom Range" },
 ];
 
 export default function AdminDashboard() {
@@ -47,12 +48,22 @@ export default function AdminDashboard() {
   const [refreshing, setRefreshing] = useState(false);
   const [dateRange, setDateRange] = useState("last30days");
   const [dateRangeOpen, setDateRangeOpen] = useState(false);
+  const [customDateOpen, setCustomDateOpen] = useState(false);
+  const [customStartDate, setCustomStartDate] = useState("");
+  const [customEndDate, setCustomEndDate] = useState("");
   const [recentActivity, setRecentActivity] = useState<any[]>([]);
   const [topCustomers, setTopCustomers] = useState<any[]>([]);
 
   const loadStats = async () => {
     try {
-      const result = await getDashboardStats(dateRange);
+      let rangeToUse = dateRange;
+      
+      // If custom range, pass the custom dates
+      if (dateRange === "custom" && customStartDate && customEndDate) {
+        rangeToUse = `custom:${customStartDate}:${customEndDate}`;
+      }
+      
+      const result = await getDashboardStats(rangeToUse);
       
       if (!result.success) {
         throw new Error(result.error);
@@ -83,7 +94,7 @@ export default function AdminDashboard() {
       cancelled = true;
       clearTimeout(timeout);
     };
-  }, [dateRange]);
+  }, [dateRange, customStartDate, customEndDate]);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -152,8 +163,13 @@ export default function AdminDashboard() {
                   <button
                     key={range.value}
                     onClick={() => {
-                      setDateRange(range.value);
-                      setDateRangeOpen(false);
+                      if (range.value === "custom") {
+                        setCustomDateOpen(true);
+                        setDateRangeOpen(false);
+                      } else {
+                        setDateRange(range.value);
+                        setDateRangeOpen(false);
+                      }
                     }}
                     className={cn(
                       "w-full px-3 py-2 text-left text-sm transition-colors",
@@ -458,6 +474,103 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
+    
+      {/* Custom Date Range Modal */}
+      {customDateOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] shadow-xl p-6">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-lg font-semibold text-white">Custom Date Range</h3>
+                <p className="text-sm text-white/50">Select start and end dates</p>
+              </div>
+              <button
+                onClick={() => setCustomDateOpen(false)}
+                className="text-white/50 hover:text-white p-1 text-2xl leading-none"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-white/70 mb-2">
+                  Start Date
+                </label>
+                <input
+                  type="date"
+                  value={customStartDate}
+                  onChange={(e) => setCustomStartDate(e.target.value)}
+                  max={customEndDate || new Date().toISOString().split('T')[0]}
+                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white/70 mb-2">
+                  End Date
+                </label>
+                <input
+                  type="date"
+                  value={customEndDate}
+                  onChange={(e) => setCustomEndDate(e.target.value)}
+                  min={customStartDate}
+                  max={new Date().toISOString().split('T')[0]}
+                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                />
+              </div>
+
+              {customStartDate && customEndDate && (
+                <div className="p-3 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20">
+                  <p className="text-sm text-[#2563eb]">
+                    <strong>Selected Range:</strong> {new Date(customStartDate).toLocaleDateString()} - {new Date(customEndDate).toLocaleDateString()}
+                  </p>
+                  <p className="text-xs text-[#2563eb]/70 mt-1">
+                    {Math.ceil((new Date(customEndDate).getTime() - new Date(customStartDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} days
+                  </p>
+                </div>
+              )}
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    setCustomStartDate("");
+                    setCustomEndDate("");
+                    setCustomDateOpen(false);
+                    setDateRange("last30days");
+                  }}
+                  className="flex-1 px-4 py-2 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white hover:bg-[#262626] transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    if (customStartDate && customEndDate) {
+                      setDateRange("custom");
+                      setCustomDateOpen(false);
+                      toast({
+                        title: "Custom Range Applied",
+                        description: `Showing data from ${new Date(customStartDate).toLocaleDateString()} to ${new Date(customEndDate).toLocaleDateString()}`,
+                      });
+                    } else {
+                      toast({
+                        title: "Error",
+                        description: "Please select both start and end dates",
+                        variant: "destructive",
+                      });
+                    }
+                  }}
+                  disabled={!customStartDate || !customEndDate}
+                  className="flex-1 px-4 py-2 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold transition-colors"
+                >
+                  Apply Range
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </AdminShell>
   );
 }

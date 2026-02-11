@@ -54,8 +54,102 @@ export async function POST(request: NextRequest) {
           continue;
         }
 
-        // Generate license key
-        const licenseKey = `MC-${Date.now()}-${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
+        // Try to get a license key from stock for this product/variant
+        let licenseKey: string | null = null;
+        let stockLicenseId: string | null = null;
+        
+        // First try to find a license for the specific variant
+        if (order.variant_id) {
+          const { data: variantLicense } = await supabase
+            .from("licenses")
+            .select("id, license_key")
+            .eq("variant_id", order.variant_id)
+            .is("order_id", null) // Not yet assigned to an order
+            .is("customer_email", null) // Not yet assigned to a customer
+            .limit(1)
+            .single();
+          
+          if (variantLicense) {
+            licenseKey = variantLicense.license_key;
+            stockLicenseId = variantLicense.id;
+          }
+        }
+        
+        // If no variant-specific license, try product-specific
+        if (!licenseKey && order.product_id) {
+          const { data: productLicense } = await supabase
+            .from("licenses")
+            .select("id, license_key")
+            .eq("product_id", order.product_id)
+            .is("variant_id", null)
+            .is("order_id", null) // Not yet assigned to an order
+            .is("customer_email", null) // Not yet assigned to a customer
+            .limit(1)
+            .single();
+          
+          if (productLicense) {
+            licenseKey = productLicense.license_key;
+            stockLicenseId = productLicense.id;
+          }
+        }
+        
+        // If no stocked license found, generate a temporary one
+        if (!licenseKey) {
+          licenseKey = `TEMP-${Date.now()}-${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
+          console.warn(`[Stripe Webhook] No stocked license found for order ${orderId}, generated temporary key`);
+        }
+
+        // Calculate expiration date based on duration
+        let expiresAt: Date | null = null;
+        if (order.duration) {
+          const now = new Date();
+          const durationLower = order.duration.toLowerCase();
+          
+          if (durationLower.includes('day')) {
+            const days = parseInt(durationLower) || 1;
+            expiresAt = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+          } else if (durationLower.includes('week')) {
+            const weeks = parseInt(durationLower) || 1;
+            expiresAt = new Date(now.getTime() + weeks * 7 * 24 * 60 * 60 * 1000);
+          } else if (durationLower.includes('month')) {
+            const months = parseInt(durationLower) || 1;
+            expiresAt = new Date(now.setMonth(now.getMonth() + months));
+          } else if (durationLower.includes('year')) {
+            const years = parseInt(durationLower) || 1;
+            expiresAt = new Date(now.setFullYear(now.getFullYear() + years));
+          } else if (durationLower === 'lifetime') {
+            expiresAt = new Date('2099-12-31');
+          }
+        }
+
+        // If we found a stocked license, update it with customer info
+        if (stockLicenseId) {
+          await supabase
+            .from("licenses")
+            .update({ 
+              order_id: orderId,
+              customer_email: order.customer_email,
+              status: "active",
+              expires_at: expiresAt?.toISOString() || null,
+              assigned_at: new Date().toISOString()
+            })
+            .eq("id", stockLicenseId);
+        } else {
+          // Create new license record for temporary key
+          await supabase
+            .from("licenses")
+            .insert({
+              license_key: licenseKey,
+              customer_email: order.customer_email,
+              product_id: order.product_id,
+              product_name: order.product_name,
+              variant_id: order.variant_id,
+              order_id: orderId,
+              status: "active",
+              expires_at: expiresAt?.toISOString() || null,
+              assigned_at: new Date().toISOString()
+            });
+        }
 
         // Update order
         const { error: updateError } = await supabase
@@ -76,29 +170,35 @@ export async function POST(request: NextRequest) {
         // Send email
         try {
           await sendPurchaseEmail({
-            to: order.customer_email,
+            customerEmail: order.customer_email,
             orderNumber: order.order_number,
             productName: order.product_name,
             duration: order.duration,
             licenseKey,
-            amount: order.amount_cents / 100,
+            expiresAt: expiresAt || new Date('2099-12-31'),
+            totalPaid: order.amount_cents / 100,
           });
+          console.log(`[Stripe Webhook] Purchase email sent to ${order.customer_email}`);
         } catch (emailError) {
           console.error("[Stripe Webhook] Email send failed:", emailError);
         }
 
-        // Trigger Discord webhook
+        // Trigger Discord webhook for completed order
         try {
-          await triggerWebhooks({
-            event: 'purchase',
-            data: {
-              orderNumber: order.order_number,
-              productName: order.product_name,
-              amount: order.amount_cents / 100,
-              customerEmail: order.customer_email,
-              paymentMethod: 'stripe',
-            },
+          await triggerWebhooks('order.completed', {
+            order_number: order.order_number,
+            customer_email: order.customer_email,
+            customer_name: order.customer_email.split('@')[0],
+            amount: order.amount_cents / 100,
+            currency: 'usd',
+            payment_method: 'stripe',
+            items: [{
+              name: order.product_name,
+              quantity: 1,
+              price: order.amount_cents / 100,
+            }],
           });
+          console.log(`[Stripe Webhook] Discord webhook triggered for order ${order.order_number}`);
         } catch (webhookError) {
           console.error("[Stripe Webhook] Discord webhook failed:", webhookError);
         }

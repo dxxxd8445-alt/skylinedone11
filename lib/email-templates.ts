@@ -271,6 +271,109 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Your Skyline License Key</title>
       ${BASE_STYLES}
+      <style>
+        .success-icon {
+          width: 80px;
+          height: 80px;
+          margin: 0 auto 24px;
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+        
+        .checkmark {
+          width: 40px;
+          height: 40px;
+          border: 4px solid white;
+          border-radius: 50%;
+          position: relative;
+        }
+        
+        .checkmark::after {
+          content: '';
+          position: absolute;
+          left: 8px;
+          top: 3px;
+          width: 12px;
+          height: 20px;
+          border: solid white;
+          border-width: 0 4px 4px 0;
+          transform: rotate(45deg);
+        }
+        
+        .discord-button {
+          display: inline-block;
+          background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+          color: white !important;
+          text-decoration: none;
+          padding: 16px 32px;
+          border-radius: 12px;
+          font-weight: 600;
+          font-size: 16px;
+          text-align: center;
+          box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+          transition: all 0.3s ease;
+          margin: 8px 0;
+        }
+        
+        .discord-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(88, 101, 242, 0.4);
+        }
+        
+        .key-container {
+          background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+          border: 2px solid rgba(37, 99, 235, 0.3);
+          border-radius: 16px;
+          padding: 24px;
+          margin: 24px 0;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .key-container::before {
+          content: '🔑';
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          font-size: 80px;
+          opacity: 0.1;
+        }
+        
+        .feature-list {
+          background-color: ${BRAND_COLORS.background};
+          border: 1px solid rgba(37, 99, 235, 0.2);
+          border-radius: 12px;
+          padding: 20px;
+          margin: 24px 0;
+        }
+        
+        .feature-item {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .feature-item:last-child {
+          border-bottom: none;
+        }
+        
+        .feature-icon {
+          width: 32px;
+          height: 32px;
+          background: linear-gradient(135deg, ${BRAND_COLORS.primary} 0%, ${BRAND_COLORS.primaryDark} 100%);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+      </style>
     </head>
     <body style="background-color: ${BRAND_COLORS.background}; padding: 20px 0;">
       <div class="container">
@@ -279,24 +382,48 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
         </div>
         
         <div class="content">
-          <h2 class="greeting">Thanks for your purchase, ${username}! 🎉</h2>
+          <div class="success-icon">
+            <div class="checkmark"></div>
+          </div>
           
-          <p class="message">
-            Your order has been processed successfully and your license key is ready to use.
+          <h2 class="greeting" style="text-align: center; font-size: 24px; margin-bottom: 8px;">
+            Payment Successful! 🎉
+          </h2>
+          
+          <p class="message" style="text-align: center; font-size: 18px;">
+            Thanks for your purchase, <strong>${username}</strong>!
+          </p>
+          
+          <p class="message" style="text-align: center;">
+            Your order has been processed and your license key is ready to use.
           </p>
           
           <div class="info-box">
-            <h3 style="color: ${BRAND_COLORS.text}; margin: 0 0 16px 0; font-size: 18px;">Order Details</h3>
-            <p style="margin: 8px 0; color: ${BRAND_COLORS.textMuted};">
-              <strong>Order #:</strong> ${orderNumber}<br>
-              <strong>Product:</strong> ${productName}<br>
-              <strong>Amount:</strong> ${amount}
-            </p>
+            <h3 style="color: ${BRAND_COLORS.text}; margin: 0 0 16px 0; font-size: 18px; text-align: center;">📦 Order Details</h3>
+            <table style="width: 100%; color: ${BRAND_COLORS.textMuted};">
+              <tr>
+                <td style="padding: 8px 0;"><strong>Order Number:</strong></td>
+                <td style="padding: 8px 0; text-align: right; font-family: monospace;">${orderNumber}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0;"><strong>Product:</strong></td>
+                <td style="padding: 8px 0; text-align: right;">${productName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0;"><strong>Amount Paid:</strong></td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: #10b981;">$${amount}</td>
+              </tr>
+            </table>
           </div>
           
-          <h3 style="color: ${BRAND_COLORS.text}; margin: 24px 0 16px 0;">Your License Key</h3>
-          <div class="license-key">
-            ${licenseKey}
+          <div class="key-container">
+            <h3 style="color: ${BRAND_COLORS.text}; margin: 0 0 16px 0; font-size: 18px; text-align: center;">🔑 Your License Key</h3>
+            <div class="license-key" style="font-size: 16px; padding: 16px;">
+              ${licenseKey}
+            </div>
+            <p style="text-align: center; color: ${BRAND_COLORS.textMuted}; font-size: 14px; margin: 12px 0 0 0;">
+              💾 Save this key - you'll need it to activate your cheat
+            </p>
           </div>
           
           ${expiresAt ? `
@@ -312,23 +439,62 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
             </div>
           ` : ''}
           
+          <div class="feature-list">
+            <h3 style="color: ${BRAND_COLORS.text}; margin: 0 0 16px 0; font-size: 18px;">🚀 Next Steps</h3>
+            
+            <div class="feature-item">
+              <div class="feature-icon">1</div>
+              <div style="color: ${BRAND_COLORS.textMuted};">
+                <strong style="color: ${BRAND_COLORS.text};">Download the Cheat</strong><br>
+                <span style="font-size: 14px;">Visit your account dashboard to download</span>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">2</div>
+              <div style="color: ${BRAND_COLORS.textMuted};">
+                <strong style="color: ${BRAND_COLORS.text};">Join Our Discord</strong><br>
+                <span style="font-size: 14px;">Get support, updates, and connect with the community</span>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">3</div>
+              <div style="color: ${BRAND_COLORS.textMuted};">
+                <strong style="color: ${BRAND_COLORS.text};">Activate Your License</strong><br>
+                <span style="font-size: 14px;">Follow the setup guide for your specific game</span>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">4</div>
+              <div style="color: ${BRAND_COLORS.textMuted};">
+                <strong style="color: ${BRAND_COLORS.text};">Start Dominating</strong><br>
+                <span style="font-size: 14px;">Enjoy your undetected cheat and have fun!</span>
+              </div>
+            </div>
+          </div>
+          
           <div style="text-align: center; margin: 32px 0;">
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/account" class="button">
-              View My Account
+            <a href="https://discord.gg/skylineggs" class="discord-button">
+              💬 Join Discord Server
             </a>
           </div>
           
-          <p class="message">
-            <strong>Next Steps:</strong>
-          </p>
-          <ul style="color: ${BRAND_COLORS.textMuted}; padding-left: 20px;">
-            <li>Download the cheat from your account dashboard</li>
-            <li>Follow the setup guide for your specific game</li>
-            <li>Join our Discord for support and updates</li>
-          </ul>
+          <div style="text-align: center; margin: 24px 0;">
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/account" class="button">
+              📱 View My Account
+            </a>
+          </div>
           
-          <p class="message">
-            Keep this email safe! You'll need your license key to activate the cheat.
+          <div style="background-color: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center;">
+            <p style="color: #10b981; margin: 0; font-size: 16px;">
+              <strong>✨ Pro Tip:</strong> Join our Discord for exclusive updates, giveaways, and 24/7 support!
+            </p>
+          </div>
+          
+          <p class="message" style="font-size: 14px; text-align: center;">
+            Keep this email safe! You can always access your license key from your account dashboard.
           </p>
         </div>
         

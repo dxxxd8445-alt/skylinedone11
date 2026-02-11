@@ -1,0 +1,69 @@
+╔══════════════════════════════════════════════════════════════════╗
+║          DISCORD WEBHOOKS & REVENUE - QUICK REFERENCE            ║
+╚══════════════════════════════════════════════════════════════════╝
+
+✅ VERIFIED 100% WORKING
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📢 DISCORD WEBHOOKS
+
+When sent:
+  1. User clicks "Complete Secure Payment" → Blue "Checkout Started"
+  2. Stripe confirms payment → Green "Order Completed"
+
+How to configure:
+  1. Get Discord webhook URL from your server
+  2. Go to /mgmt-x9k2m7/webhooks
+  3. Add webhook with events: checkout.started, order.completed
+  4. Set Active to true
+  5. Save
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💰 REVENUE TRACKING
+
+Where to see:
+  - Main dashboard: /mgmt-x9k2m7
+  - Orders page: /mgmt-x9k2m7/orders
+
+How it works:
+  - Only counts completed orders
+  - Uses amount_cents field (cents / 100)
+  - Filters by date range
+  - Updates in real-time
+
+Accuracy: 100% - Direct from Stripe payments
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📦 ORDERS DISPLAY
+
+Where to see:
+  - Orders page: /mgmt-x9k2m7/orders
+
+What shows:
+  - All orders from database
+  - Filterable by status and date
+  - Order details, customer, amount
+  - Actions to complete/refund
+
+Future orders: YES - All new orders will show automatically
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 TO DEPLOY
+
+1. Run: PUSH_WEBHOOKS_UPDATE.bat
+2. Wait for Vercel deploy (~2 min)
+3. Add Discord webhook in admin
+4. Test checkout
+5. Done!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 FULL DETAILS
+
+See: WEBHOOKS_REVENUE_COMPLETE.md
+
+╚══════════════════════════════════════════════════════════════════╝

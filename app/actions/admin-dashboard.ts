@@ -5,10 +5,27 @@ import { requirePermission } from "@/lib/admin-auth";
 
 export async function getDashboardStats(dateRange: string = "last30days") {
   try {
-    await requirePermission("view_dashboard");
+    await requirePermission("dashboard");
     
     const supabase = createAdminClient();
-    const range = getDateRange(dateRange);
+    
+    // Handle custom date range
+    let range;
+    if (dateRange.startsWith("custom:")) {
+      const parts = dateRange.split(":");
+      if (parts.length === 3) {
+        const startDate = new Date(parts[1]);
+        const endDate = new Date(parts[2]);
+        endDate.setHours(23, 59, 59, 999); // End of day
+        range = { start: startDate, end: endDate };
+      } else {
+        range = getDateRange("last30days");
+      }
+    } else {
+      range = getDateRange(dateRange);
+    }
+    
+    console.log("[Dashboard] Date range:", range ? `${range.start.toISOString()} to ${range.end.toISOString()}` : "all time");
     
     // Get all completed orders
     let ordersQuery = supabase

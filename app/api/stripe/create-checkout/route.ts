@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, formatAmountForStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
+import { triggerWebhooks } from "@/lib/discord-webhook";
 
 interface CartItem {
   id: string;
@@ -125,6 +126,28 @@ export async function POST(request: NextRequest) {
         couponCode: couponCode || '',
       },
     });
+
+    // Trigger Discord webhook for checkout started
+    try {
+      await triggerWebhooks('checkout.started', {
+        customer_email: customerEmail,
+        customer_name: customerEmail.split('@')[0],
+        session_id: session.id,
+        items: items.map(item => ({
+          name: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        subtotal: body.subtotal,
+        discount: body.discount,
+        total: total,
+        currency: 'usd',
+      });
+      console.log(`[Stripe Checkout] Discord webhook triggered for checkout ${session.id}`);
+    } catch (webhookError) {
+      console.error("[Stripe Checkout] Discord webhook failed:", webhookError);
+      // Don't fail the checkout if webhook fails
+    }
 
     return NextResponse.json({
       success: true,
