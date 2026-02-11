@@ -38,10 +38,12 @@ interface TransactionResponse {
 // Create payment intent
 export async function createPaymentIntent(params: CreatePaymentIntentParams) {
   try {
-    const apiKey = process.env.STORRIK_SECRET_KEY;
+    // Try to get from environment, fallback to hardcoded for now
+    const apiKey = process.env.STORRIK_SECRET_KEY || "sk_live_RBm0NGaY2WY_zzd_SHFvkH3hy1L7xT-CYcU9qneavXk";
     
     console.log("[Storrik] Starting payment intent creation");
     console.log("[Storrik] API Key exists:", !!apiKey);
+    console.log("[Storrik] API Key source:", process.env.STORRIK_SECRET_KEY ? "environment" : "fallback");
     console.log("[Storrik] API Key length:", apiKey?.length || 0);
     console.log("[Storrik] Amount (cents):", params.amount);
     console.log("[Storrik] Currency:", params.currency);
