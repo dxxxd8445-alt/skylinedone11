@@ -123,7 +123,7 @@ export function VideoCarousel() {
                 onClick={() => handleVideoClick(video.youtubeId)}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
-                className={`group relative aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-[#0a0a1a] to-[#0a0a0a] border-2 cursor-pointer transition-all duration-700 ${
+                className={`group relative aspect-video rounded-2xl overflow-hidden bg-[#0a0a0a] border-2 cursor-pointer transition-all duration-700 ${
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"
@@ -136,19 +136,20 @@ export function VideoCarousel() {
                 }`}
                 style={{ transitionDelay: `${(index + 1) * 150}ms` }}
               >
-                {/* Multi-layered glow effect */}
-                <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#2563eb]/20 via-[#2563eb]/10 to-[#2563eb]/20 blur-xl transition-opacity duration-700 ${
-                  isPlaying ? "opacity-100" : isHovered ? "opacity-70" : "opacity-0"
-                }`} />
-                <div className={`absolute -inset-2 rounded-2xl bg-gradient-to-r from-[#2563eb]/10 to-[#2563eb]/10 blur-2xl transition-opacity duration-700 ${
-                  isPlaying ? "opacity-100" : "opacity-0"
-                }`} />
+                {/* Glow effect - only show when not playing */}
+                {!isPlaying && (
+                  <>
+                    <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#2563eb]/20 via-[#2563eb]/10 to-[#2563eb]/20 blur-xl transition-opacity duration-700 ${
+                      isHovered ? "opacity-70" : "opacity-0"
+                    }`} />
+                  </>
+                )}
                 
                 {isPlaying && video.youtubeId ? (
                   /* YouTube Embed */
-                  <div className="relative w-full h-full animate-fadeIn">
+                  <div className="relative w-full h-full">
                     <iframe
-                      className="absolute inset-0 w-full h-full z-10"
+                      className="absolute inset-0 w-full h-full"
                       src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
                       title={video.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
