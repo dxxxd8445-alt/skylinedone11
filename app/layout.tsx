@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://skylinecheats.org/og-image.jpg",
+        url: "https://skylinecheats.org/Skyline_banner.png",
         width: 1200,
         height: 630,
         alt: "Skyline Cheats - Undetected Game Enhancements",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SKYLINE CHEATS Undetected Hacks and Cheats for Games!",
     description: "Skyline Cheats offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Skyline Cheats.",
-    images: ["https://skylinecheats.org/og-image.jpg"],
+    images: ["https://skylinecheats.org/Skyline_banner.png"],
   },
 };
 
