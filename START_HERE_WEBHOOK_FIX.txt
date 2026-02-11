@@ -1,0 +1,101 @@
+═══════════════════════════════════════════════════════════════
+  🚨 URGENT: STRIPE WEBHOOK NOT WORKING - FIX NOW
+═══════════════════════════════════════════════════════════════
+
+YOUR PROBLEM:
+- Customer purchased but order stuck on "pending"
+- No Discord notification
+- No email sent to customer
+- This will happen to EVERY purchase until you fix it
+
+═══════════════════════════════════════════════════════════════
+
+THE ISSUE:
+Stripe webhook is not configured or webhook secret is missing.
+Without this, Stripe can't tell your site when payments complete.
+
+═══════════════════════════════════════════════════════════════
+
+WHAT YOU NEED TO DO RIGHT NOW (30 minutes):
+
+1. READ THIS FILE FIRST:
+   → URGENT_WEBHOOK_FIX_CHECKLIST.md
+   
+   This tells you EXACTLY what to do step-by-step:
+   - Configure Stripe webhook
+   - Add webhook secret to Vercel
+   - Redeploy your site
+   - Test it works
+
+2. COMPLETE THE STUCK ORDER:
+   → COMPLETE_STUCK_ORDER.sql
+   
+   Run this SQL script in Supabase to:
+   - Mark the order as completed
+   - Assign a license key
+   - Get the key to send to customer
+
+3. EMAIL THE CUSTOMER:
+   → MANUAL_EMAIL_TEMPLATE.html
+   
+   Use this beautiful email template to:
+   - Send the license key
+   - Apologize for the delay
+   - Give them instructions
+
+═══════════════════════════════════════════════════════════════
+
+QUICK FIX STEPS:
+
+Step 1: Go to https://dashboard.stripe.com/webhooks
+Step 2: Add endpoint: https://skylinecheats.org/api/webhooks/stripe
+Step 3: Select events: checkout.session.completed
+Step 4: Copy the signing secret (whsec_xxxxx)
+Step 5: Go to https://vercel.com/dashboard
+Step 6: Settings → Environment Variables
+Step 7: Add STRIPE_WEBHOOK_SECRET with the secret
+Step 8: Redeploy from Deployments tab
+Step 9: Run COMPLETE_STUCK_ORDER.sql in Supabase
+Step 10: Email customer using MANUAL_EMAIL_TEMPLATE.html
+
+═══════════════════════════════════════════════════════════════
+
+AFTER YOU FIX THIS:
+
+✅ All future orders will complete automatically
+✅ Customers will get emails instantly
+✅ Discord notifications will work
+✅ No more manual work needed
+
+═══════════════════════════════════════════════════════════════
+
+FILES TO USE:
+
+1. URGENT_WEBHOOK_FIX_CHECKLIST.md ← START HERE
+   Complete step-by-step guide with screenshots
+
+2. COMPLETE_STUCK_ORDER.sql
+   SQL script to fix the pending order
+
+3. MANUAL_EMAIL_TEMPLATE.html
+   Email template for the customer
+
+4. WEBHOOK_ISSUE_COMPLETE_SOLUTION.md
+   Full explanation of the problem
+
+5. FIX_STRIPE_WEBHOOK_NOW.md
+   Quick reference guide
+
+═══════════════════════════════════════════════════════════════
+
+IMPORTANT:
+
+⚠️  Every purchase will have this problem until you fix it
+⚠️  You need to manually complete the current stuck order
+⚠️  After fixing, everything will be automatic
+
+═══════════════════════════════════════════════════════════════
+
+START NOW: Open URGENT_WEBHOOK_FIX_CHECKLIST.md
+
+═══════════════════════════════════════════════════════════════
