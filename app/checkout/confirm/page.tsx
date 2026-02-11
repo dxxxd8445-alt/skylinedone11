@@ -90,6 +90,8 @@ export default function CheckoutConfirmPage() {
     try {
       setCheckoutLoading(true);
       console.log("[Checkout] Creating Storrik checkout with items:", items);
+      console.log("[Checkout] Customer email:", guestEmail);
+      console.log("[Checkout] Total amount:", total);
       
       // Create Storrik checkout session
       const response = await fetch('/api/storrik/create-checkout', {
@@ -108,15 +110,32 @@ export default function CheckoutConfirmPage() {
         }),
       });
 
+      console.log("[Checkout] API response status:", response.status);
+
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create checkout session');
+        let errorMessage = 'Failed to create checkout session';
+        try {
+          const error = await response.json();
+          errorMessage = error.error || errorMessage;
+          console.error("[Checkout] API error:", error);
+        } catch (e) {
+          const errorText = await response.text();
+          console.error("[Checkout] API error (text):", errorText);
+          errorMessage = errorText || errorMessage;
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
+      console.log("[Checkout] API response data:", data);
       
+      if (!data.success) {
+        throw new Error(data.error || 'Checkout session creation failed');
+      }
+
       if (!data.checkoutUrl) {
-        throw new Error('No checkout URL returned');
+        console.error("[Checkout] No checkout URL in response:", data);
+        throw new Error('No checkout URL returned from payment processor');
       }
 
       console.log("[Checkout] Redirecting to Storrik checkout:", data.checkoutUrl);
@@ -127,7 +146,10 @@ export default function CheckoutConfirmPage() {
     } catch (error) {
       console.error("[Checkout] Error:", error);
       setCheckoutLoading(false);
-      alert(error instanceof Error ? error.message : 'Payment system error. Please try again or contact support.');
+      
+      // Show detailed error message
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Payment Error: ${errorMessage}\n\nPlease try again or contact support if the issue persists.`);
     }
   };
 

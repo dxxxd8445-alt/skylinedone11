@@ -25,16 +25,38 @@ interface CheckoutRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("[Storrik API] Received checkout request");
+    
     const body: CheckoutRequest = await request.json();
     const { items, customerEmail, couponCode, total } = body;
 
+    console.log("[Storrik API] Request details:", {
+      itemCount: items?.length,
+      customerEmail,
+      couponCode,
+      total,
+    });
+
     if (!items || items.length === 0) {
+      console.error("[Storrik API] No items in cart");
       return NextResponse.json({ error: "No items in cart" }, { status: 400 });
     }
 
     if (!customerEmail) {
+      console.error("[Storrik API] No customer email");
       return NextResponse.json({ error: "Customer email required" }, { status: 400 });
     }
+
+    // Check if Storrik API key is configured
+    const storrikKey = process.env.STORRIK_SECRET_KEY;
+    if (!storrikKey) {
+      console.error("[Storrik API] STORRIK_SECRET_KEY not configured in environment");
+      return NextResponse.json({ 
+        error: "Payment processor not configured. Please contact support." 
+      }, { status: 500 });
+    }
+
+    console.log("[Storrik API] Environment check passed");
 
     const supabase = await createClient();
 
@@ -99,12 +121,16 @@ export async function POST(request: NextRequest) {
     // Create Storrik checkout session
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
     
+    console.log("[Storrik API] Creating checkout session with base URL:", baseUrl);
+    
     const lineItems = items.map(item => ({
       name: item.productName,
       description: `${item.productName} - ${item.duration}`,
       pricePerItemInCents: Math.round(item.price * 100),
       quantity: item.quantity,
     }));
+
+    console.log("[Storrik API] Line items:", lineItems);
 
     const result = await createCheckoutSession({
       description: `Order ${orderNumber}`,
@@ -115,8 +141,15 @@ export async function POST(request: NextRequest) {
       lineItems,
     });
 
+    console.log("[Storrik API] Checkout session result:", {
+      success: result.success,
+      hasCheckoutUrl: !!result.checkoutUrl,
+      error: result.error,
+    });
+
     if (!result.success || !result.checkoutUrl) {
       // Delete created orders on failure
+      console.log("[Storrik API] Checkout failed, deleting orders:", orderIds);
       for (const orderId of orderIds) {
         await supabase.from("orders").delete().eq("id", orderId);
       }
@@ -126,6 +159,8 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    console.log("[Storrik API] Checkout session created successfully");
 
     return NextResponse.json({
       success: true,
