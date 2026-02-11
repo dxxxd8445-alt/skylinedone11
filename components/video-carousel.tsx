@@ -158,18 +158,27 @@ export function VideoCarousel() {
                 ) : (
                   <>
                     {/* YouTube Thumbnail */}
-                    {video.youtubeId && (
+                    {video.youtubeId ? (
                       <img
-                        src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                        src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
                         alt={video.title}
                         className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
                           isHovered ? "scale-110" : "scale-100"
                         }`}
                         onError={(e) => {
-                          // Fallback to standard quality if high quality fails
-                          e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/0.jpg`;
+                          // Fallback chain: maxres -> hq -> standard
+                          const currentSrc = e.currentTarget.src;
+                          if (currentSrc.includes('maxresdefault')) {
+                            e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+                          } else if (currentSrc.includes('hqdefault')) {
+                            e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/0.jpg`;
+                          }
                         }}
                       />
+                    ) : (
+                      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#2563eb]/20 to-[#1e40af]/20 flex items-center justify-center">
+                        <span className="text-white/50 text-sm">Video unavailable</span>
+                      </div>
                     )}
                     
                     {/* Gradient overlay */}

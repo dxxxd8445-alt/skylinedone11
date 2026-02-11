@@ -160,32 +160,34 @@ export function FAQ() {
 
                   {/* Answer with smooth expand/collapse */}
                   <div
-                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      isExpanded ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    className={`grid transition-all duration-500 ease-in-out ${
+                      isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                     }`}
                   >
-                    <div className="px-6 pb-6 pl-20">
-                      {/* Vertical accent line */}
-                      <div className="relative pl-4 border-l-2 border-[#2563eb]/30">
-                        <p className="text-white/70 text-sm leading-relaxed whitespace-pre-line">
-                          {faq.answer.split("contact our support team").map((part, i, arr) =>
-                            i < arr.length - 1 ? (
-                              <span key={i}>
-                                {part}
-                                <a
-                                  href="https://discord.gg/skylineggs"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-[#2563eb] font-medium underline hover:text-[#3b82f6] transition-colors duration-300"
-                                >
-                                  contact our support team
-                                </a>
-                              </span>
-                            ) : (
-                              part
-                            )
-                          )}
-                        </p>
+                    <div className="overflow-hidden">
+                      <div className="px-6 pb-6 pl-20">
+                        {/* Vertical accent line */}
+                        <div className="relative pl-4 border-l-2 border-[#2563eb]/30">
+                          <p className="text-white/70 text-sm leading-relaxed whitespace-pre-line">
+                            {faq.answer.split("contact our support team").map((part, i, arr) =>
+                              i < arr.length - 1 ? (
+                                <span key={i}>
+                                  {part}
+                                  <a
+                                    href="https://discord.gg/skylineggs"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#2563eb] font-medium underline hover:text-[#3b82f6] transition-colors duration-300"
+                                  >
+                                    contact our support team
+                                  </a>
+                                </span>
+                              ) : (
+                                part
+                              )
+                            )}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
