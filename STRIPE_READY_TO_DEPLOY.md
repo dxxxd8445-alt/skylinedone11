@@ -22,13 +22,13 @@ npm install
 ### 2. Add Environment Variables to Vercel
 Go to Vercel Dashboard → Settings → Environment Variables
 
-Add these 3 variables:
+Add these 3 variables (get the actual values from your Stripe dashboard):
 ```
-STRIPE_SECRET_KEY=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
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
 
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_51SCYTuK796vdSUXdmQKSHDNGbjClEsU8VAHypkTKUAVYUTFtcEAH9px0c1UpNgP1zEGkBNyWzMpsd7Km95yLroUV00ZhJV69Jl
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key_here
 
-STRIPE_WEBHOOK_SECRET=whsec_UNhwqMCJFUUmKs1zapCxGrPI0xvb8vVK
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret_here
 ```
 
 Make sure to check ALL THREE environments (Production, Preview, Development) for each variable.
