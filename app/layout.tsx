@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
+import { Suspense } from "react";
 import { AuthProvider } from "@/lib/auth-context";
 import { CartProvider } from "@/lib/cart-context";
 import { CurrencyProvider } from "@/lib/currency-context";
@@ -16,6 +17,7 @@ import { WelcomePopup } from "@/components/welcome-popup";
 import { LiveSalesNotifications } from "@/components/live-sales-notifications";
 import { AnalyticsProvider } from "@/components/analytics-provider";
 import { ContentProtection } from "@/components/content-protection";
+import { AffiliateTracker } from "@/components/affiliate-tracker";
 import "@/lib/ssr-polyfills";
 import "./globals.css";
 
@@ -44,6 +46,9 @@ export default function RootLayout({
                 <I18nDocument />
                 <AnnouncementBanner />
                 <AnalyticsProvider />
+                <Suspense fallback={null}>
+                  <AffiliateTracker />
+                </Suspense>
                 {children}
                 <Toaster />
                 <TawkToChat />

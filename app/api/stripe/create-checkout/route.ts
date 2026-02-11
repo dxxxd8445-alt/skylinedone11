@@ -19,6 +19,7 @@ interface CheckoutRequest {
   customerEmail: string;
   customerName: string;
   couponCode?: string;
+  affiliateCode?: string;
   subtotal: number;
   discount: number;
   total: number;
@@ -27,7 +28,7 @@ interface CheckoutRequest {
 export async function POST(request: NextRequest) {
   try {
     const body: CheckoutRequest = await request.json();
-    const { items, customerEmail, couponCode, total } = body;
+    const { items, customerEmail, couponCode, affiliateCode, total } = body;
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "No items in cart" }, { status: 400 });
@@ -124,6 +125,7 @@ export async function POST(request: NextRequest) {
         orderNumber,
         orderIds: orderIds.join(','),
         couponCode: couponCode || '',
+        affiliateCode: affiliateCode || '',
       },
     });
 

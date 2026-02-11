@@ -9,6 +9,7 @@ import { formatMoney } from "@/lib/money";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { CryptoPaymentModal } from "@/components/crypto-payment-modal";
+import { getStoredAffiliateCode } from "@/components/affiliate-tracker";
 import { 
   ArrowLeft, 
   Lock, 
@@ -91,6 +92,12 @@ export default function CheckoutConfirmPage() {
       setCheckoutLoading(true);
       console.log("[Checkout] Creating Stripe checkout with items:", items);
       
+      // Get stored affiliate code
+      const affiliateCode = getStoredAffiliateCode();
+      if (affiliateCode) {
+        console.log("[Checkout] Including affiliate code:", affiliateCode);
+      }
+      
       // Create Stripe checkout session
       const response = await fetch('/api/stripe/create-checkout', {
         method: 'POST',
@@ -102,6 +109,7 @@ export default function CheckoutConfirmPage() {
           customerEmail: guestEmail,
           customerName: guestEmail.split('@')[0],
           couponCode: appliedCoupon?.code,
+          affiliateCode: affiliateCode || undefined,
           subtotal: subtotal,
           discount: discount,
           total: total,

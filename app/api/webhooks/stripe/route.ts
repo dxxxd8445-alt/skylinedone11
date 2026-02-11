@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
-      const { orderNumber, orderIds, couponCode } = session.metadata || {};
+      const { orderNumber, orderIds, couponCode, affiliateCode } = session.metadata || {};
 
       if (!orderIds) {
         console.error("[Stripe Webhook] No order IDs in metadata");
@@ -40,6 +40,25 @@ export async function POST(request: NextRequest) {
       }
 
       const orderIdArray = orderIds.split(',');
+
+      // Process affiliate referral if affiliate code exists
+      let affiliateId: string | null = null;
+      let commissionRate = 0;
+      
+      if (affiliateCode) {
+        const { data: affiliate } = await supabase
+          .from("affiliates")
+          .select("id, commission_rate, status")
+          .eq("affiliate_code", affiliateCode)
+          .eq("status", "active")
+          .single();
+        
+        if (affiliate) {
+          affiliateId = affiliate.id;
+          commissionRate = affiliate.commission_rate;
+          console.log(`[Stripe Webhook] Found affiliate ${affiliateId} with ${commissionRate}% commission`);
+        }
+      }
 
       // Update all orders to completed
       for (const orderId of orderIdArray) {
@@ -165,6 +184,53 @@ export async function POST(request: NextRequest) {
         if (updateError) {
           console.error(`[Stripe Webhook] Failed to update order ${orderId}:`, updateError);
           continue;
+        }
+
+        // Create affiliate referral if affiliate exists
+        if (affiliateId && commissionRate > 0) {
+          const orderAmount = order.amount_cents / 100;
+          const commissionAmount = (orderAmount * commissionRate) / 100;
+          
+          const { error: referralError } = await supabase
+            .from("affiliate_referrals")
+            .insert({
+              affiliate_id: affiliateId,
+              order_id: orderId,
+              referred_email: order.customer_email,
+              order_amount: orderAmount,
+              commission_amount: commissionAmount,
+              status: "pending", // Admin needs to approve
+            });
+          
+          if (referralError) {
+            console.error(`[Stripe Webhook] Failed to create affiliate referral:`, referralError);
+          } else {
+            // Get current affiliate stats
+            const { data: currentAffiliate } = await supabase
+              .from("affiliates")
+              .select("total_referrals, total_sales, pending_earnings, total_earnings")
+              .eq("id", affiliateId)
+              .single();
+            
+            if (currentAffiliate) {
+              // Update affiliate stats
+              const { error: statsError } = await supabase
+                .from("affiliates")
+                .update({
+                  total_referrals: (currentAffiliate.total_referrals || 0) + 1,
+                  total_sales: (currentAffiliate.total_sales || 0) + orderAmount,
+                  pending_earnings: (currentAffiliate.pending_earnings || 0) + commissionAmount,
+                  total_earnings: (currentAffiliate.total_earnings || 0) + commissionAmount,
+                })
+                .eq("id", affiliateId);
+              
+              if (statsError) {
+                console.error(`[Stripe Webhook] Failed to update affiliate stats:`, statsError);
+              } else {
+                console.log(`[Stripe Webhook] Created affiliate referral: $${commissionAmount.toFixed(2)} commission`);
+              }
+            }
+          }
         }
 
         // Send email

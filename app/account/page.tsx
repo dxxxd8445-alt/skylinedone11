@@ -66,7 +66,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-type TabType = "dashboard" | "orders" | "delivered" | "affiliate" | "profile" | "security";
+type TabType = "dashboard" | "orders" | "delivered" | "loaders" | "affiliate" | "profile" | "security";
 
 interface Order {
   id: string;
@@ -267,9 +267,10 @@ export default function AccountPage() {
       } else {
         alert(data.error || "Failed to create affiliate account");
       }
-    } catch (error) {
-      console.error("Affiliate registration error:", error);
-      alert("Failed to create affiliate account: " + error.message);
+    } catch (err) {
+      console.error("Affiliate registration error:", err);
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
+      alert("Failed to create affiliate account: " + errorMessage);
     } finally {
       setIsRegistering(false);
     }
@@ -348,18 +349,26 @@ export default function AccountPage() {
 
   const handleSaveProfile = async () => {
     setIsSaving(true);
+    setSaveSuccess(false);
     
-    const result = await updateProfile({
-      username: profileForm.fullName,
-      avatarUrl: profileImage || undefined,
-      phone: profileForm.phone,
-    });
-    
-    setIsSaving(false);
-    
-    if (result.success) {
-      setSaveSuccess(true);
-      setTimeout(() => setSaveSuccess(false), 3000);
+    try {
+      const result = await updateProfile({
+        username: profileForm.fullName,
+        avatarUrl: profileImage || undefined,
+        phone: profileForm.phone,
+      });
+      
+      if (result.success) {
+        setSaveSuccess(true);
+        setTimeout(() => setSaveSuccess(false), 3000);
+      } else {
+        alert(result.error || "Failed to update profile");
+      }
+    } catch (err) {
+      console.error("Profile update error:", err);
+      alert("Failed to update profile");
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -453,6 +462,7 @@ export default function AccountPage() {
     { id: "dashboard" as TabType, icon: LayoutDashboard, label: "Dashboard" },
     { id: "orders" as TabType, icon: ShoppingBag, label: "Orders" },
     { id: "delivered" as TabType, icon: Package, label: "Delivered" },
+    { id: "loaders" as TabType, icon: Download, label: "Loaders" },
     { id: "affiliate" as TabType, icon: Users, label: "Affiliate" },
     { id: "profile" as TabType, icon: User, label: "Profile" },
     { id: "security" as TabType, icon: Shield, label: "Security" },
@@ -808,6 +818,151 @@ export default function AccountPage() {
                       </Table>
                     </div>
                   )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        );
+
+      case "loaders":
+        return (
+          <div className="space-y-6 animate-fade-in">
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-[#2563eb]/10">
+                    <Download className="w-6 h-6 text-[#2563eb]" />
+                  </div>
+                  <div>
+                    <h1 className="text-3xl font-bold text-white">Cheat Loaders</h1>
+                    <p className="text-white/60 mt-1">Download the latest loader to use your cheats</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
+                <CardContent className="p-8">
+                  <div className="max-w-2xl mx-auto space-y-8">
+                    {/* Main Download Card */}
+                    <div className="relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/10 via-transparent to-blue-500/10 rounded-2xl" />
+                      <div className="relative bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#2563eb]/30 rounded-2xl p-8">
+                        <div className="flex items-start gap-6">
+                          <div className="flex-shrink-0">
+                            <div className="w-20 h-20 bg-gradient-to-br from-[#2563eb] to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-[#2563eb]/30">
+                              <Download className="w-10 h-10 text-white" />
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-2xl font-bold text-white mb-2">Skyline Loader v1.0</h3>
+                            <p className="text-white/60 mb-4">
+                              The official Skyline cheat loader. Required to run all Skyline products.
+                            </p>
+                            <div className="flex flex-wrap gap-3 mb-6">
+                              <Badge className="bg-green-500/20 text-green-400 border-green-500/30 border">
+                                <CheckCircle2 className="w-3 h-3 mr-1" />
+                                Latest Version
+                              </Badge>
+                              <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 border">
+                                <Shield className="w-3 h-3 mr-1" />
+                                Secure
+                              </Badge>
+                              <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 border">
+                                <Zap className="w-3 h-3 mr-1" />
+                                Fast
+                              </Badge>
+                            </div>
+                            <a
+                              href="https://cdn.discordapp.com/attachments/1469886516196147424/1471247056235532583/loader_1.exe?ex=698e3d18&is=698ceb98&hm=8aeb30fdf73ef891b2a425832d6faf2124923183bc26b6ebdfcc13d23a399c7f&"
+                              download
+                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2563eb] to-blue-600 hover:from-blue-600 hover:to-[#2563eb] text-white font-semibold rounded-xl shadow-lg shadow-[#2563eb]/30 transition-all hover:scale-105"
+                            >
+                              <Download className="w-5 h-5" />
+                              Download Loader
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Instructions */}
+                    <div className="bg-[#0a0a0a]/50 border border-[#1a1a1a] rounded-xl p-6">
+                      <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-[#2563eb]" />
+                        How to Use
+                      </h4>
+                      <ol className="space-y-3">
+                        <li className="flex items-start gap-3">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                            1
+                          </div>
+                          <div>
+                            <p className="text-white font-medium">Download the loader</p>
+                            <p className="text-white/60 text-sm">Click the download button above to get the latest version</p>
+                          </div>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                            2
+                          </div>
+                          <div>
+                            <p className="text-white font-medium">Run the loader</p>
+                            <p className="text-white/60 text-sm">Extract and run loader_1.exe as administrator</p>
+                          </div>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                            3
+                          </div>
+                          <div>
+                            <p className="text-white font-medium">Enter your license key</p>
+                            <p className="text-white/60 text-sm">Copy your license key from the "Delivered" tab and paste it into the loader</p>
+                          </div>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                            4
+                          </div>
+                          <div>
+                            <p className="text-white font-medium">Start your game</p>
+                            <p className="text-white/60 text-sm">Launch your game and enjoy your cheat!</p>
+                          </div>
+                        </li>
+                      </ol>
+                    </div>
+
+                    {/* Support */}
+                    <div className="bg-gradient-to-br from-[#2563eb]/10 to-blue-500/5 border border-[#2563eb]/20 rounded-xl p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-12 h-12 bg-[#2563eb]/20 rounded-xl flex items-center justify-center">
+                            <ExternalLink className="w-6 h-6 text-[#2563eb]" />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-lg font-bold text-white mb-2">Need Help?</h4>
+                          <p className="text-white/60 mb-4">
+                            Join our Discord server for support, updates, and to connect with the community.
+                          </p>
+                          <a
+                            href="https://discord.gg/skylineggs"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold rounded-lg transition-colors"
+                          >
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                            </svg>
+                            Join Discord
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
