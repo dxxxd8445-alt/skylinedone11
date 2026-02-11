@@ -24,10 +24,22 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Skyline Cheats - Play Without Limits",
+  title: "SKYLINE CHEATS Undetected Hacks and Cheats for Games!",
   description:
-    "A Powerful, Instant Solution to Play Without Limits. Elite cheats and hacks for a variety of online PC games.",
-    generator: 'v0.app'
+    "Skyline Cheats offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Skyline Cheats.",
+  generator: 'v0.app',
+  openGraph: {
+    title: "SKYLINE CHEATS Undetected Hacks and Cheats for Games!",
+    description: "Skyline Cheats offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Skyline Cheats.",
+    url: "https://skylinecheats.org",
+    siteName: "Skyline Cheats",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SKYLINE CHEATS Undetected Hacks and Cheats for Games!",
+    description: "Skyline Cheats offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Skyline Cheats.",
+  },
 };
 
 export default function RootLayout({
