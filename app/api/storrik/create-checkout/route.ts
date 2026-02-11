@@ -26,6 +26,12 @@ interface CheckoutRequest {
 export async function POST(request: NextRequest) {
   try {
     console.log("[Storrik API] Received checkout request");
+    console.log("[Storrik API] Environment variables check:", {
+      hasStorrikKey: !!process.env.STORRIK_SECRET_KEY,
+      hasStorrikWebhook: !!process.env.STORRIK_WEBHOOK_SECRET,
+      nodeEnv: process.env.NODE_ENV,
+      vercelEnv: process.env.VERCEL_ENV,
+    });
     
     const body: CheckoutRequest = await request.json();
     const { items, customerEmail, couponCode, total } = body;
@@ -51,12 +57,14 @@ export async function POST(request: NextRequest) {
     const storrikKey = process.env.STORRIK_SECRET_KEY;
     if (!storrikKey) {
       console.error("[Storrik API] STORRIK_SECRET_KEY not configured in environment");
+      console.error("[Storrik API] Available env keys:", Object.keys(process.env).filter(k => k.includes('STORRIK')));
       return NextResponse.json({ 
+        success: false,
         error: "Payment processor not configured. Please contact support." 
       }, { status: 500 });
     }
 
-    console.log("[Storrik API] Environment check passed");
+    console.log("[Storrik API] Environment check passed, API key length:", storrikKey.length);
 
     const supabase = await createClient();
 
