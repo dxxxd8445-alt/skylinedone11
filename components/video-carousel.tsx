@@ -158,7 +158,6 @@ export function VideoCarousel() {
                   </div>
                 ) : (
                   <>
-                  <>
                     {/* YouTube Thumbnail */}
                     <img
                       src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
