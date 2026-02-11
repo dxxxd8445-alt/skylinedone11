@@ -160,21 +160,18 @@ export function VideoCarousel() {
                   <>
                     {/* YouTube Thumbnail */}
                     <img
-                      src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
+                      src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
                       alt={video.title}
                       className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
                         isHovered ? "scale-110" : "scale-100"
                       }`}
                       onError={(e) => {
-                        // Fallback chain: maxres -> hq -> standard
+                        // Fallback to standard quality if hq fails
                         const currentSrc = e.currentTarget.src;
-                        if (currentSrc.includes('maxresdefault')) {
-                          e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
-                        } else if (currentSrc.includes('hqdefault')) {
+                        if (currentSrc.includes('hqdefault')) {
                           e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/0.jpg`;
-                        } else {
-                          // Last resort - hide the image and show a placeholder
-                          e.currentTarget.style.display = 'none';
+                        } else if (currentSrc.includes('/0.jpg')) {
+                          e.currentTarget.src = `https://img.youtube.com/vi/${video.youtubeId}/default.jpg`;
                         }
                       }}
                     />
