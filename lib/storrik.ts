@@ -42,12 +42,19 @@ export async function createPaymentIntent(params: CreatePaymentIntentParams) {
     
     console.log("[Storrik] Starting payment intent creation");
     console.log("[Storrik] API Key exists:", !!apiKey);
+    console.log("[Storrik] API Key length:", apiKey?.length || 0);
     console.log("[Storrik] Amount (cents):", params.amount);
     console.log("[Storrik] Currency:", params.currency);
+    console.log("[Storrik] Environment check:", {
+      hasKey: !!apiKey,
+      nodeEnv: process.env.NODE_ENV,
+      vercelEnv: process.env.VERCEL_ENV,
+    });
     
     if (!apiKey) {
       console.error("[Storrik] API key is missing!");
-      return { success: false, error: "Storrik API key not configured" };
+      console.error("[Storrik] Available env vars:", Object.keys(process.env).filter(k => k.includes('STORRIK')));
+      return { success: false, error: "Storrik API key not configured. Please contact support." };
     }
 
     const requestBody = {
@@ -98,21 +105,23 @@ export async function createPaymentIntent(params: CreatePaymentIntentParams) {
     // Check different possible response formats
     if (data.checkoutUrl) {
       // Direct checkout URL in response
+      console.log("[Storrik] Using direct checkoutUrl from response");
       return {
         success: true,
-        clientSecret: data.id || data.sessionId,
+        clientSecret: data.id || data.sessionId || data.clientSecret || 'unknown',
         pk: data.pk || '',
         checkoutUrl: data.checkoutUrl,
       };
     }
 
     if (data.ok && data.clientSecret) {
-      // Original format
-      const checkoutUrl = `https://checkout.storrik.com/pay/${data.clientSecret}?pk=${data.pk}`;
+      // Original format with clientSecret
+      console.log("[Storrik] Constructing URL from clientSecret");
+      const checkoutUrl = `https://checkout.storrik.com/pay/${data.clientSecret}${data.pk ? `?pk=${data.pk}` : ''}`;
       return {
         success: true,
         clientSecret: data.clientSecret,
-        pk: data.pk,
+        pk: data.pk || '',
         checkoutUrl,
       };
     }
@@ -120,7 +129,8 @@ export async function createPaymentIntent(params: CreatePaymentIntentParams) {
     if (data.id || data.sessionId) {
       // Has ID but no checkout URL - construct it
       const sessionId = data.id || data.sessionId;
-      const checkoutUrl = `https://checkout.storrik.com/pay/${sessionId}`;
+      console.log("[Storrik] Constructing URL from session ID:", sessionId);
+      const checkoutUrl = `https://checkout.storrik.com/pay/${sessionId}${data.pk ? `?pk=${data.pk}` : ''}`;
       return {
         success: true,
         clientSecret: sessionId,
@@ -129,10 +139,21 @@ export async function createPaymentIntent(params: CreatePaymentIntentParams) {
       };
     }
 
-    console.error("[Storrik] Unexpected response format:", data);
+    // Last resort - check if there's a url field
+    if (data.url) {
+      console.log("[Storrik] Using url field from response");
+      return {
+        success: true,
+        clientSecret: data.id || 'unknown',
+        pk: data.pk || '',
+        checkoutUrl: data.url,
+      };
+    }
+
+    console.error("[Storrik] Unexpected response format:", JSON.stringify(data));
     return {
       success: false,
-      error: "Invalid response from Storrik API",
+      error: `Invalid response from Storrik API. Response: ${JSON.stringify(data)}`,
     };
   } catch (error) {
     console.error("[Storrik] Exception:", error);
