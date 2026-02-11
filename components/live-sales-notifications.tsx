@@ -14,6 +14,7 @@ interface Sale {
   id: string;
   productName: string;
   productImage: string;
+  productSlug: string;
   timeAgo: string;
 }
 
@@ -73,6 +74,7 @@ export function LiveSalesNotifications() {
         id: Math.random().toString(36).substr(2, 9),
         productName: product.name,
         productImage: product.image,
+        productSlug: product.slug,
         timeAgo,
       };
     };
@@ -83,17 +85,17 @@ export function LiveSalesNotifications() {
       setIsVisible(true);
       setDragOffset(0);
 
-      // Hide after 5 seconds
+      // Hide after 6 seconds
       setTimeout(() => {
         setIsVisible(false);
-      }, 5000);
+      }, 6000);
     };
 
-    // Show first notification after 1 second
-    const initialTimeout = setTimeout(showNotification, 1000);
+    // Show first notification after 2 seconds
+    const initialTimeout = setTimeout(showNotification, 2000);
 
-    // Then show every 8 seconds (3s wait + 5s display)
-    const interval = setInterval(showNotification, 8000);
+    // Then show every 15 seconds (9s wait + 6s display)
+    const interval = setInterval(showNotification, 15000);
 
     return () => {
       clearTimeout(initialTimeout);
@@ -133,6 +135,13 @@ export function LiveSalesNotifications() {
     setDragOffset(0);
   };
 
+  const handleClick = () => {
+    if (!isDragging && currentSale) {
+      // Navigate to product page
+      window.location.href = `/store/${currentSale.productSlug}`;
+    }
+  };
+
   if (!currentSale || products.length === 0) return null;
 
   return (
@@ -154,8 +163,9 @@ export function LiveSalesNotifications() {
       onTouchStart={(e) => handleStart(e.touches[0].clientX)}
       onTouchMove={(e) => handleMove(e.touches[0].clientX)}
       onTouchEnd={handleEnd}
+      onClick={handleClick}
     >
-      <div className="relative group cursor-grab active:cursor-grabbing">
+      <div className="relative group cursor-pointer active:cursor-grabbing hover:scale-105 transition-transform duration-300">
         {/* Glow effect */}
         <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
         
@@ -163,7 +173,10 @@ export function LiveSalesNotifications() {
         <div className="relative bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border-2 border-[#2563eb]/50 rounded-2xl p-4 shadow-2xl backdrop-blur-xl">
           {/* Close button */}
           <button
-            onClick={handleDismiss}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDismiss();
+            }}
             className="absolute top-2 right-2 w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
             aria-label="Dismiss notification"
           >
