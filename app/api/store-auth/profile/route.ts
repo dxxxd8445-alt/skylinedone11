@@ -13,6 +13,14 @@ export async function PATCH(request: NextRequest) {
     if (!session) return NextResponse.json({ success: false, error: "Not signed in" }, { status: 401 });
 
     const body = await request.json();
+    console.log("[Store Auth] Profile update request:", {
+      userId: session.userId,
+      hasUsername: !!body.username,
+      hasAvatarUrl: !!body.avatarUrl,
+      avatarUrlLength: body.avatarUrl?.length || 0,
+      hasPhone: !!body.phone
+    });
+    
     const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
     if (typeof body.username === "string" && body.username.trim()) updates.username = body.username.trim();
     if (typeof body.avatarUrl === "string") updates.avatar_url = body.avatarUrl || null;
@@ -28,9 +36,11 @@ export async function PATCH(request: NextRequest) {
 
     if (error) {
       console.error("[Store Auth] Profile update error:", error);
-      return NextResponse.json({ success: false, error: "Update failed" }, { status: 500 });
+      return NextResponse.json({ success: false, error: `Update failed: ${error.message}` }, { status: 500 });
     }
 
+    console.log("[Store Auth] Profile updated successfully");
+    
     return NextResponse.json({
       success: true,
       user: {
@@ -44,6 +54,6 @@ export async function PATCH(request: NextRequest) {
     });
   } catch (err: any) {
     console.error("[Store Auth] Profile error:", err);
-    return NextResponse.json({ success: false, error: "Update failed" }, { status: 500 });
+    return NextResponse.json({ success: false, error: `Update failed: ${err.message || 'Unknown error'}` }, { status: 500 });
   }
 }

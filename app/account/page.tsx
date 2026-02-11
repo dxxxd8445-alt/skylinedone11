@@ -339,9 +339,24 @@ export default function AccountPage() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        return;
+      }
+      
+      // Validate file size (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        alert('Image size must be less than 2MB');
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onload = (event) => {
         setProfileImage(event.target?.result as string);
+      };
+      reader.onerror = () => {
+        alert('Failed to read image file');
       };
       reader.readAsDataURL(file);
     }
@@ -352,21 +367,26 @@ export default function AccountPage() {
     setSaveSuccess(false);
     
     try {
+      console.log('[Profile] Saving profile with image:', profileImage ? 'Yes' : 'No');
+      
       const result = await updateProfile({
         username: profileForm.fullName,
         avatarUrl: profileImage || undefined,
         phone: profileForm.phone,
       });
       
+      console.log('[Profile] Update result:', result);
+      
       if (result.success) {
         setSaveSuccess(true);
         setTimeout(() => setSaveSuccess(false), 3000);
       } else {
+        console.error('[Profile] Update failed:', result.error);
         alert(result.error || "Failed to update profile");
       }
     } catch (err) {
       console.error("Profile update error:", err);
-      alert("Failed to update profile");
+      alert("Failed to update profile: " + (err instanceof Error ? err.message : 'Unknown error'));
     } finally {
       setIsSaving(false);
     }
@@ -1452,9 +1472,9 @@ export default function AccountPage() {
                           Click on the avatar to upload a new image
                         </p>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-white/50">Max size: 5MB</span>
+                          <span className="text-xs text-white/50">Max size: 2MB</span>
                           <span className="text-white/30">•</span>
-                          <span className="text-xs text-white/50">Formats: JPG, PNG</span>
+                          <span className="text-xs text-white/50">Formats: JPG, PNG, GIF</span>
                         </div>
                       </div>
                     </div>
