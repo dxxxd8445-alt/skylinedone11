@@ -53,7 +53,7 @@ export async function createPaymentIntent(params: CreatePaymentIntentParams) {
     const requestBody = {
       amount: params.amount,
       currency: params.currency || 'USD',
-      payment_method: 'card',
+      method: 'card',
       type: params.type || 'hosted',
       email: params.customerEmail,
     };
@@ -80,25 +80,59 @@ export async function createPaymentIntent(params: CreatePaymentIntentParams) {
       };
     }
 
-    const data: PaymentIntentResponse = await response.json();
-    console.log("[Storrik] Success response:", data);
+    const responseText = await response.text();
+    console.log("[Storrik] Raw response:", responseText);
 
-    if (!data.ok || !data.clientSecret) {
-      console.error("[Storrik] Invalid response:", data);
+    let data: any;
+    try {
+      data = JSON.parse(responseText);
+      console.log("[Storrik] Parsed response:", JSON.stringify(data, null, 2));
+    } catch (e) {
+      console.error("[Storrik] Failed to parse response:", e);
       return {
         success: false,
-        error: "Invalid response from Storrik API",
+        error: "Invalid JSON response from Storrik API",
       };
     }
 
-    // For hosted checkout, we need to construct the checkout URL
-    const checkoutUrl = `https://checkout.storrik.com/pay/${data.clientSecret}?pk=${data.pk}`;
+    // Check different possible response formats
+    if (data.checkoutUrl) {
+      // Direct checkout URL in response
+      return {
+        success: true,
+        clientSecret: data.id || data.sessionId,
+        pk: data.pk || '',
+        checkoutUrl: data.checkoutUrl,
+      };
+    }
 
+    if (data.ok && data.clientSecret) {
+      // Original format
+      const checkoutUrl = `https://checkout.storrik.com/pay/${data.clientSecret}?pk=${data.pk}`;
+      return {
+        success: true,
+        clientSecret: data.clientSecret,
+        pk: data.pk,
+        checkoutUrl,
+      };
+    }
+
+    if (data.id || data.sessionId) {
+      // Has ID but no checkout URL - construct it
+      const sessionId = data.id || data.sessionId;
+      const checkoutUrl = `https://checkout.storrik.com/pay/${sessionId}`;
+      return {
+        success: true,
+        clientSecret: sessionId,
+        pk: data.pk || '',
+        checkoutUrl,
+      };
+    }
+
+    console.error("[Storrik] Unexpected response format:", data);
     return {
-      success: true,
-      clientSecret: data.clientSecret,
-      pk: data.pk,
-      checkoutUrl,
+      success: false,
+      error: "Invalid response from Storrik API",
     };
   } catch (error) {
     console.error("[Storrik] Exception:", error);
