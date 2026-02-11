@@ -623,7 +623,7 @@ export function ProductDetailClient({ product, reviews, gameSlug }: { product: P
             {/* Money Back Guarantee */}
             <div className="flex items-center justify-center gap-2 text-white/60 text-sm">
               <Shield className="w-4 h-4 text-green-400" />
-              <span>Secure checkout powered by Storrik</span>
+              <span>Secure checkout powered by Stripe</span>
             </div>
           </div>
         </div>

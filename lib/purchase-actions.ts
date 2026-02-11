@@ -102,126 +102,15 @@ export async function processPurchase(data: PurchaseData): Promise<PurchaseResul
       return { success: false, error: "Failed to create order" };
     }
     
-    // Create MoneyMotion checkout session
-    const apiKey = process.env.MONEYMOTION_API_KEY;
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-    const isDev = process.env.NODE_ENV !== "production";
-
-    if (!apiKey) {
-      console.error("[Purchase] MoneyMotion API key not configured");
-      if (isDev) {
-        await supabase
-          .from("orders")
-          .update({ payment_method: "mock" })
-          .eq("id", order.id);
-        return {
-          success: true,
-          orderId: order.id,
-          orderNumber,
-          checkoutUrl: `${baseUrl}/checkout/confirm?mock_success=true&order=${orderNumber}`,
-          sessionId: `mock_${orderNumber}`,
-        };
-      }
-      await supabase.from("orders").delete().eq("id", order.id);
-      return { success: false, error: "Payment system not configured" };
-    }
-    
-    // Real MoneyMotion integration
-    try {
-      console.log("[Purchase DEBUG] Starting MoneyMotion checkout");
-      console.log("[Purchase DEBUG] Base URL:", baseUrl);
-      console.log("[Purchase DEBUG] Order details:", {
-        orderNumber,
-        orderId: order.id,
-        productName: data.productName,
-        duration: data.duration,
-        finalPrice,
-        customerEmail: data.customerEmail,
-      });
-      
-      const { createCheckoutSession } = await import("@/lib/moneymotion");
-      
-      const checkoutParams = {
-        description: `${data.productName} - ${data.duration}`,
-        successUrl: `${baseUrl}/payment/success?order=${orderNumber}`,
-        cancelUrl: `${baseUrl}/payment/cancelled?order=${orderNumber}`,
-        failureUrl: `${baseUrl}/payment/cancelled?order=${orderNumber}`,
-        customerEmail: data.customerEmail,
-        lineItems: [
-          {
-            name: data.productName,
-            description: `${data.productName} - ${data.duration}`,
-            pricePerItemInCents: Math.round(finalPrice * 100),
-            quantity: 1,
-          },
-        ],
-      };
-      
-      console.log("[Purchase DEBUG] Checkout params:", JSON.stringify(checkoutParams, null, 2));
-      
-      const result = await createCheckoutSession(checkoutParams);
-      
-      console.log("[Purchase DEBUG] Checkout result:", JSON.stringify(result, null, 2));
-      
-      if (!result.success || !result.checkoutSessionId) {
-        console.error("[Purchase DEBUG] Checkout failed, deleting order");
-        if (isDev && (result.error || "").toLowerCase().includes("fetch failed")) {
-          await supabase
-            .from("orders")
-            .update({ payment_method: "mock" })
-            .eq("id", order.id);
-          return {
-            success: true,
-            orderId: order.id,
-            orderNumber,
-            checkoutUrl: `${baseUrl}/checkout/confirm?mock_success=true&order=${orderNumber}`,
-            sessionId: `mock_${orderNumber}`,
-          };
-        }
-        await supabase.from("orders").delete().eq("id", order.id);
-        return {
-          success: false,
-          error: result.error || "Failed to create checkout session",
-        };
-      }
-      
-      console.log("[Purchase DEBUG] Updating order with payment method");
-      await supabase.from("orders").update({
-        payment_method: "moneymotion",
-      }).eq("id", order.id);
-      
-      console.log("[Purchase DEBUG] Checkout successful, returning URL:", result.checkoutUrl);
-      
-      return {
-        success: true,
-        orderId: order.id,
-        orderNumber,
-        checkoutUrl: result.checkoutUrl,
-        sessionId: result.checkoutSessionId,
-      };
-    } catch (error) {
-      console.error("[Purchase DEBUG] Exception in MoneyMotion integration:", error);
-      console.error("[Purchase DEBUG] Exception stack:", error instanceof Error ? error.stack : "No stack");
-      const msg = error instanceof Error ? error.message : String(error);
-      if (isDev && msg.toLowerCase().includes("fetch failed")) {
-        await supabase
-          .from("orders")
-          .update({ payment_method: "mock" })
-          .eq("id", order.id);
-        return {
-          success: true,
-          orderId: order.id,
-          orderNumber,
-          checkoutUrl: `${baseUrl}/checkout/confirm?mock_success=true&order=${orderNumber}`,
-          sessionId: `mock_${orderNumber}`,
-        };
-      }
-      await supabase.from("orders").delete().eq("id", order.id);
-      return {
-        success: false,
-        error: `Exception: ${msg}`,
-      };
-    }
+    // Create Stripe checkout session (handled by checkout page)
+    // This function is deprecated - use Stripe API directly from checkout page
+    return {
+      success: true,
+      orderId: order.id,
+      orderNumber,
+      checkoutUrl: `/checkout/confirm`,
+      sessionId: `pending_${orderNumber}`,
+    };
     
   } catch (error) {
     console.error("[Purchase] Error:", error);

@@ -1,0 +1,53 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                  STRIPE MIGRATION - QUICK START                  ║
+╚══════════════════════════════════════════════════════════════════╝
+
+✅ ALL BUILD ERRORS FIXED
+✅ ALL STORRIK/MONEYMOTION CODE REMOVED
+✅ STRIPE FULLY IMPLEMENTED
+✅ READY TO DEPLOY
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 3 STEPS TO GO LIVE:
+
+1️⃣  ADD STRIPE KEYS TO VERCEL
+   → vercel.com/dashboard → Settings → Environment Variables
+   → Add 3 variables (see WHAT_TO_DO_NOW.md)
+
+2️⃣  CONFIGURE STRIPE WEBHOOK
+   → dashboard.stripe.com/webhooks → Add endpoint
+   → URL: https://skylinecheats.org/api/webhooks/stripe
+   → Events: checkout.session.completed, payment_intent.payment_failed
+
+3️⃣  PUSH CODE
+   → Double-click: PUSH_TO_VERCEL.bat
+   → Wait for Vercel to deploy
+   → Test checkout!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔑 STRIPE KEYS (for Vercel):
+
+STRIPE_SECRET_KEY:
+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
+
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY:
+pk_live_51SCYTuK796vdSUXdmQKSHDNGbjClEsU8VAHypkTKUAVYUTFtcEAH9px0c1UpNgP1zEGkBNyWzMpsd7Km95yLroUV00ZhJV69Jl
+
+STRIPE_WEBHOOK_SECRET:
+whsec_UNhwqMCJFUUmKs1zapCxGrPI0xvb8vVK
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 TEST CARD (after deployment):
+   Card: 4242 4242 4242 4242
+   Expiry: Any future date
+   CVC: Any 3 digits
+   ZIP: Any 5 digits
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 FULL DETAILS: See WHAT_TO_DO_NOW.md
+
+╚══════════════════════════════════════════════════════════════════╝

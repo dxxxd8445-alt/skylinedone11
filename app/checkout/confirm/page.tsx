@@ -395,7 +395,7 @@ export default function CheckoutConfirmPage() {
                     </div>
                   </div>
                   <p className="text-center text-white/40 text-xs">
-                    Powered by <span className="text-[#2563eb]">Storrik</span>
+                    Powered by <span className="text-[#2563eb]">Stripe</span>
                   </p>
                 </div>
               </div>

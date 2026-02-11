@@ -12,7 +12,7 @@ interface Settings {
   site_description: string;
   support_email: string;
   maintenance_mode: boolean;
-  storrik_api_key: string;
+  stripe_api_key: string;
 }
 
 export default function SettingsPage() {
@@ -21,7 +21,7 @@ export default function SettingsPage() {
     site_description: "Premium undetected cheats for all games",
     support_email: "support@skyline.local",
     maintenance_mode: false,
-    storrik_api_key: "",
+    stripe_api_key: "",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -251,23 +251,23 @@ export default function SettingsPage() {
           <div className="space-y-4">
             <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
               <p className="text-sm text-blue-400">
-                <strong>Storrik Payment Processor:</strong> Enter your Storrik Public API Key below to enable card payments. 
-                Get your API key from your Storrik dashboard.
+                <strong>Stripe Payment Processor:</strong> Enter your Stripe Publishable API Key below to enable card payments. 
+                Get your API key from your Stripe dashboard.
               </p>
             </div>
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">
-                Storrik Public API Key (PK_xxx)
+                Stripe Publishable API Key (pk_xxx)
               </label>
               <input
                 type="text"
-                value={settings.storrik_api_key}
-                onChange={(e) => setSettings({ ...settings, storrik_api_key: e.target.value })}
-                placeholder="PK_xxxxxxxxxxxxxxxxxxxxx"
+                value={settings.stripe_api_key}
+                onChange={(e) => setSettings({ ...settings, stripe_api_key: e.target.value })}
+                placeholder="pk_live_xxxxxxxxxxxxxxxxxxxxx"
                 className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors font-mono"
               />
               <p className="text-xs text-white/40 mt-1">
-                Your Storrik public key - safe to use in client-side code
+                Your Stripe publishable key - safe to use in client-side code
               </p>
             </div>
           </div>
