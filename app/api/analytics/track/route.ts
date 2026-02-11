@@ -103,6 +103,10 @@ async function getLocationFromIP(ip: string) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Silently skip analytics if tables don't exist
+    return NextResponse.json({ success: true });
+    
+    /* DISABLED ANALYTICS - UNCOMMENT WHEN TABLES ARE CREATED
     const supabase = createAdminClient();
     const body = await request.json();
     
@@ -230,6 +234,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true });
+    */
   } catch (error) {
     console.error('Analytics tracking error:', error);
     // Return success anyway to not break the frontend
