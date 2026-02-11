@@ -1718,7 +1718,7 @@ export default function AccountPage() {
       <Header />
 
       <main className="relative pt-20 pb-32 lg:pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 lg:pb-0">
           <div className="flex gap-8">
             {/* Enhanced Desktop Sidebar */}
             <aside className="hidden lg:block w-72 shrink-0">
@@ -1785,7 +1785,7 @@ export default function AccountPage() {
             </aside>
 
             {/* Enhanced Mobile Bottom Tab Bar */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#111111]/95 backdrop-blur-xl border-t border-[#1a1a1a] z-40 safe-area-pb">
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#111111]/95 backdrop-blur-xl border-t border-[#1a1a1a] z-[9999] safe-area-pb">
               <div className="flex items-center justify-around px-2 py-3">
                 {navItems.map((item) => (
                   <button
