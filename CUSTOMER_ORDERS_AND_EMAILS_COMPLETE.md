@@ -104,7 +104,7 @@ if (!licenseKey) {
 - 🔑 License key in highlighted box
 - ⏰ Expiration date (if applicable)
 - 🚀 Next steps with numbered instructions
-- 💬 Discord server link (https://discord.gg/skylinecheats)
+- 💬 Discord server link (https://discord.gg/skylineggs)
 - 📱 Account dashboard link
 - ✨ Pro tip to join Discord
 

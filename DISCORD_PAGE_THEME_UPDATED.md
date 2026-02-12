@@ -26,7 +26,7 @@ Updated Discord page to match the site's black and red theme instead of Discord 
 - **Border colors**: Consistent with site's red accent colors
 
 ## Functionality Preserved
-✅ Discord invite link (`https://discord.gg/skylinecheats`)  
+✅ Discord invite link (`https://discord.gg/skylineggs`)  
 ✅ Features grid (24/7 Support, Active Community, etc.)  
 ✅ Benefits section with member perks  
 ✅ Header component with navigation  

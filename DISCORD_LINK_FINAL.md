@@ -2,7 +2,7 @@
 
 ## Correct Discord Link
 
-**All Discord links are now set to:** `https://discord.gg/skylinecheats`
+**All Discord links are now set to:** `https://discord.gg/skylineggs`
 
 ## Summary
 
@@ -34,11 +34,11 @@
 ## Verification Complete
 
 ✅ No incorrect links remain
-✅ All links point to: `discord.gg/skylinecheats`
+✅ All links point to: `discord.gg/skylineggs`
 ✅ Site is ready for production
 
 ---
 
-**Final Discord Link**: `https://discord.gg/skylinecheats`
+**Final Discord Link**: `https://discord.gg/skylineggs`
 **Status**: Complete ✅
 **Date**: February 8, 2026

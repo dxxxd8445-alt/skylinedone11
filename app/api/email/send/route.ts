@@ -136,7 +136,7 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <td align="center" style="padding: 8px 0 24px;">
-                    <a href="https://discord.gg/skylinecheats" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 8px; font-weight: 600;">Join Our Discord</a>
+                    <a href="https://discord.gg/skylineggs" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 8px; font-weight: 600;">Join Our Discord</a>
                   </td>
                 </tr>
               </table>
@@ -203,7 +203,7 @@ NEXT STEPS
 3. Enter your license key when prompted
 4. Enjoy your premium experience!
 
-Need help? Join our Discord: https://discord.gg/skylinecheats
+Need help? Join our Discord: https://discord.gg/skylineggs
 
 © ${new Date().getFullYear()} Skyline Cheats. All rights reserved.
   `.trim();

@@ -69,7 +69,7 @@ STORE_SESSION_SECRET=your_32_char_secret_key
 
 #### Discord
 ```
-NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylinecheats
+NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylineggs
 ```
 
 ---
@@ -357,7 +357,7 @@ If critical issues occur:
 ## Contact Information
 
 ### Support Channels
-- Discord: https://discord.gg/skylinecheats
+- Discord: https://discord.gg/skylineggs
 - Admin Dashboard: https://skylinecheats.org/mgmt-x9k2m7
 - Vercel Dashboard: https://vercel.com/dashboard
 - Stripe Dashboard: https://dashboard.stripe.com

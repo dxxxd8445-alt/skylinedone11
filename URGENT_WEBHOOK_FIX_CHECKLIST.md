@@ -140,7 +140,7 @@ The Stripe webhook is not configured or the webhook secret is missing from Verce
    - Email: (from the query result)
    - Subject: "Your Skyline License Key - Order [ORDER_NUMBER]"
    - Body: Include the license key from the SQL output
-   - Include Discord link: https://discord.gg/skylinecheats
+   - Include Discord link: https://discord.gg/skylineggs
 
 ---
 

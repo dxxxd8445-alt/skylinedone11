@@ -69,4 +69,4 @@ Your site should now:
 
 ## Next Steps
 
-The dev server should now work without any UTF-8 encoding errors. All Discord links are correct (`discord.gg/skylinecheats`) and all special characters are properly encoded.
+The dev server should now work without any UTF-8 encoding errors. All Discord links are correct (`discord.gg/skylineggs`) and all special characters are properly encoded.

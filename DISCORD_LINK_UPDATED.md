@@ -4,7 +4,7 @@
 
 All Discord links have been updated from:
 - ❌ Old: `https://discord.gg/skylineeggs`
-- ✅ New: `https://discord.gg/skylinecheats`
+- ✅ New: `https://discord.gg/skylineggs`
 
 ## Files Updated
 
@@ -35,7 +35,7 @@ The following files now have the correct Discord link:
 
 Confirmed that:
 - ✅ No old links (`discord.gg/skylineeggs`) remain in any `.tsx` or `.ts` files
-- ✅ All links now point to `discord.gg/skylinecheats`
+- ✅ All links now point to `discord.gg/skylineggs`
 - ✅ Changes applied to 40+ locations across the codebase
 
 ## What This Means

@@ -969,7 +969,7 @@ export default function AccountPage() {
                             Join our Discord server for support, updates, and to connect with the community.
                           </p>
                           <a
-                            href="https://discord.gg/skylinecheats"
+                            href="https://discord.gg/skylineggs"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold rounded-lg transition-colors"

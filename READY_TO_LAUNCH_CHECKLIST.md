@@ -24,7 +24,7 @@
 - All "Magma" → "Skyline" references updated
 - All red colors → blue colors (#2563eb, #3b82f6)
 - Domain: skylinecheats.org
-- Discord: discord.gg/skylinecheats
+- Discord: discord.gg/skylineggs
 - Email templates: Blue branded
 - Admin panel: Blue themed
 
@@ -113,7 +113,7 @@ DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/1466894801541533707/...
 ### Text
 - [x] All "Magma" → "Skyline"
 - [x] Domain: skylinecheats.org
-- [x] Discord: discord.gg/skylinecheats
+- [x] Discord: discord.gg/skylineggs
 - [x] Email sender: Skyline <noreply@skylinecheats.org>
 
 ### Images

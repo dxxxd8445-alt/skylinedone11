@@ -15,7 +15,7 @@
 
 ### 2. Recent Site Updates
 - ✅ Video carousel colors changed from red to blue
-- ✅ All Discord links updated to `https://discord.gg/skylinecheats`
+- ✅ All Discord links updated to `https://discord.gg/skylineggs`
 - ✅ All UTF-8 encoding issues fixed
 - ✅ Footer logo size reduced
 - ✅ Welcome popup added (blue theme, appears after Terms acceptance)
@@ -66,7 +66,7 @@ Run the SQL from `ADD_PRODUCT_FEATURES.sql` to populate all product features.
 - [ ] Homepage loads without errors
 - [ ] Video carousel displays with blue theme
 - [ ] All navigation links work
-- [ ] Footer Discord link goes to `discord.gg/skylinecheats`
+- [ ] Footer Discord link goes to `discord.gg/skylineggs`
 - [ ] Terms popup appears on first visit
 - [ ] Welcome popup appears after accepting Terms
 - [ ] Welcome popup "CHECK IT OUT" button goes to HWID Spoofer
@@ -216,7 +216,7 @@ Run the SQL from `ADD_PRODUCT_FEATURES.sql` to populate all product features.
 ## 🔗 Important Links
 
 - **Site**: https://skylinecheats.org
-- **Discord**: https://discord.gg/skylinecheats
+- **Discord**: https://discord.gg/skylineggs
 - **Admin**: https://skylinecheats.org/mgmt-x9k2m7
 - **Stripe Dashboard**: https://dashboard.stripe.com
 - **Supabase Dashboard**: Your Supabase project URL

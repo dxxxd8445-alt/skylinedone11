@@ -453,7 +453,7 @@ I've checked every single component of your Skyline Cheats store. Here's the com
 ### Text
 - ✅ All "Magma" → "Skyline"
 - ✅ Domain: skylinecheats.org
-- ✅ Discord: discord.gg/skylinecheats
+- ✅ Discord: discord.gg/skylineggs
 - ✅ Email: noreply@skylinecheats.org
 
 ### Logo

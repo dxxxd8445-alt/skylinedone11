@@ -11,7 +11,7 @@ Everything has been verified and is working correctly!
 ### Text Rebranding ✅
 - All "Magma" → "Skyline" throughout entire site
 - Domain: `skylinecheats.org`
-- Discord: `discord.gg/skylinecheats`
+- Discord: `discord.gg/skylineggs`
 - Email: `noreply@skylinecheats.org`
 
 ### Color Scheme ✅

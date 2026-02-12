@@ -15,7 +15,7 @@ Your site is **100% complete** and ready for release!
 - ✅ Welcome popup with blue gradient
 - ✅ Product features with clean blue design
 - ✅ Footer logo optimized
-- ✅ All Discord links updated to `discord.gg/skylinecheats`
+- ✅ All Discord links updated to `discord.gg/skylineggs`
 
 ### Core Features
 - ✅ 16 products with pricing and variants
@@ -201,7 +201,7 @@ NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
 ## 🔗 IMPORTANT LINKS
 
 - **Live Site**: https://skylinecheats.org
-- **Discord**: https://discord.gg/skylinecheats
+- **Discord**: https://discord.gg/skylineggs
 - **Admin Panel**: https://skylinecheats.org/mgmt-x9k2m7
 - **Stripe Dashboard**: https://dashboard.stripe.com
 - **Supabase Dashboard**: Your Supabase project

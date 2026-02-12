@@ -57,7 +57,7 @@
 - **STATUS**: `/status` - Product status page
 - **GUIDES**: `/guides` - User guides
 - **REVIEWS**: `/reviews` - Customer reviews
-- **SUPPORT**: `https://discord.gg/skylinecheats` - Discord support
+- **SUPPORT**: `https://discord.gg/skylineggs` - Discord support
 
 ## ?? FINAL VERIFICATION
 

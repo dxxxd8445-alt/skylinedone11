@@ -97,7 +97,7 @@ export default function DiscordPage() {
             {/* Main CTA Button */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <a
-                href="https://discord.gg/skylinecheats"
+                href="https://discord.gg/skylineggs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-bold text-lg rounded-2xl transition-all duration-300 hover:scale-105 shadow-2xl shadow-[#2563eb]/30 hover:shadow-[#2563eb]/50 min-w-[280px] justify-center"

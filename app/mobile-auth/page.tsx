@@ -289,7 +289,7 @@ function MobileAuthContent() {
               <span>•</span>
               <Link href="/privacy" className="hover:text-white/60 transition-colors">Privacy</Link>
               <span>•</span>
-              <a href="https://discord.gg/skylinecheats" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Support</a>
+              <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Support</a>
             </div>
           </div>
         </div>

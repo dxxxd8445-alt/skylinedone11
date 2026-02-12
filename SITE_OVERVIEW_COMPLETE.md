@@ -136,7 +136,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
 ADMIN_PASSWORD=your_secure_password
 STORE_SESSION_SECRET=your_32_char_secret
-NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylinecheats
+NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylineggs
 ```
 
 ### Verification
@@ -202,7 +202,7 @@ Check all variables are set in Vercel:
 - Success icon with checkmark
 - Order details in table
 - License key highlighted
-- **Discord button: https://discord.gg/skylinecheats**
+- **Discord button: https://discord.gg/skylineggs**
 - Account dashboard link
 - Next steps guide
 - Responsive mobile design

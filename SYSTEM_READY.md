@@ -67,7 +67,7 @@ Your Skyline Cheats platform is **100% complete** and ready for testing/deployme
 - All "Magma" → "Skyline"
 - All red colors → blue (#2563eb)
 - New domain: skylinecheats.org
-- New Discord: discord.gg/skylinecheats
+- New Discord: discord.gg/skylineggs
 - Updated logo
 - 40+ files updated
 
@@ -266,7 +266,7 @@ Your Skyline Cheats platform is **100% complete** and ready for testing/deployme
 ### Text
 - All "Magma" → "Skyline"
 - All "magmacheats.com" → "skylinecheats.org"
-- All "discord.gg/magmacheats" → "discord.gg/skylinecheats"
+- All "discord.gg/magmacheats" → "discord.gg/skylineggs"
 
 ### Visual
 - Logo updated

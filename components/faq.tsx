@@ -174,7 +174,7 @@ export function FAQ() {
                                 <span key={i}>
                                   {part}
                                   <a
-                                    href="https://discord.gg/skylinecheats"
+                                    href="https://discord.gg/skylineggs"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-[#2563eb] font-medium underline hover:text-[#3b82f6] transition-colors duration-300"
@@ -218,7 +218,7 @@ export function FAQ() {
               </p>
             </div>
             <a
-              href="https://discord.gg/skylinecheats"
+              href="https://discord.gg/skylineggs"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative bg-[#2563eb] hover:bg-[#3b82f6] text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"

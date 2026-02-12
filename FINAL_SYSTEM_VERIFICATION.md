@@ -246,7 +246,7 @@ https://discord.com/api/webhooks/1466894801541533707/6Z-YfKfQbE-UuakpsNLfULuf_3W
 1. ✅ All text: "Magma" → "Skyline"
 2. ✅ All colors: Red → Blue
 3. ✅ Domain: magmacheats.com → skylinecheats.org
-4. ✅ Discord: discord.gg/magmacheats → discord.gg/skylinecheats
+4. ✅ Discord: discord.gg/magmacheats → discord.gg/skylineggs
 5. ✅ Logo: Updated to Skyline logo
 6. ✅ Email templates: Blue branding
 7. ✅ Admin panel: Blue theme
@@ -384,7 +384,7 @@ RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>
 
 # Site
 NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
-NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylinecheats
+NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylineggs
 
 # Admin
 ADMIN_USERNAME=admin

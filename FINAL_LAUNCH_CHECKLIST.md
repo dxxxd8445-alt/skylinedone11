@@ -58,7 +58,7 @@
 - [x] All red → blue colors
 - [x] Logo updated
 - [x] Domain: skylinecheats.org
-- [x] Discord: discord.gg/skylinecheats
+- [x] Discord: discord.gg/skylineggs
 - [x] Email templates blue
 
 ---

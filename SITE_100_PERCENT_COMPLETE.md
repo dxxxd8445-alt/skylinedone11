@@ -193,7 +193,7 @@ Your site is production-ready. All features are implemented, tested, and working
 **Maintenance Page**: `/maintenance`
 
 **Support Email**: support@skylinecheats.org
-**Discord**: https://discord.gg/skylinecheats
+**Discord**: https://discord.gg/skylineggs
 **Domain**: https://skylinecheats.org
 
 ---

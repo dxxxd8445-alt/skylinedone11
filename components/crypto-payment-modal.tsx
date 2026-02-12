@@ -367,7 +367,7 @@ export function CryptoPaymentModal({
             </div>
 
             <a
-              href="https://discord.gg/skylinecheats"
+              href="https://discord.gg/skylineggs"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-bold transition-all hover:scale-105 active:scale-95 mb-4 w-full"

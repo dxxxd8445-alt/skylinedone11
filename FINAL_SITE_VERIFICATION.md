@@ -6,7 +6,7 @@
 - [x] Site name changed from "Magma" to "Skyline"
 - [x] All red colors changed to blue (#2563eb, #3b82f6)
 - [x] Domain: skylinecheats.org
-- [x] Discord: discord.gg/skylinecheats
+- [x] Discord: discord.gg/skylineggs
 - [x] Logo updated
 - [x] All email templates rebranded
 - [x] 40+ component files updated

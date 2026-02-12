@@ -112,7 +112,7 @@ vercel --prod
 
 **Production Site:** https://skylinecheats.org
 **Admin Dashboard:** https://skylinecheats.org/mgmt-x9k2m7
-**Discord Server:** https://discord.gg/skylinecheats
+**Discord Server:** https://discord.gg/skylineggs
 
 **Crypto Addresses:**
 - Litecoin: `LSCp4ChhkBSKH3LesC6NGBbriSdXwrfHuW`

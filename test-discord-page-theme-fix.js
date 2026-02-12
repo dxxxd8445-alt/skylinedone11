@@ -100,7 +100,7 @@ console.log('=' .repeat(40));
 
 // Test 7: Check if Discord link is still present
 console.log('7. Discord link preservation...');
-if (discordContent.includes('https://discord.gg/skylinecheats')) {
+if (discordContent.includes('https://discord.gg/skylineggs')) {
   console.log('   ✅ Discord invite link preserved');
 } else {
   console.log('   ❌ Discord invite link missing');
