@@ -244,7 +244,7 @@ It automatically uses the email from your settings!
 ### Change Discord Link:
 Edit `magma src/app/maintenance/page.tsx` line ~80:
 ```tsx
-href="https://discord.gg/skylineggs"
+href="https://discord.gg/skylinecheats"
 ```
 
 ### Change Colors:

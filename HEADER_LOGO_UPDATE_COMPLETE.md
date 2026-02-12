@@ -47,7 +47,7 @@ Replace the "HOME" text link in the navigation with the Magma logo serving as th
 - **STATUS**: `/status` - Product status page
 - **GUIDES**: `/guides` - User guides
 - **REVIEWS**: `/reviews` - Customer reviews
-- **SUPPORT**: `https://discord.gg/skylineggs` - Discord support
+- **SUPPORT**: `https://discord.gg/skylinecheats` - Discord support
 
 ## 🎊 FINAL RESULT
 

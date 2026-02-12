@@ -90,7 +90,7 @@ function PaymentCancelledContent() {
                 <HelpCircle className="w-4 h-4" />
                 Having issues?{" "}
                 <a 
-                  href="https://discord.gg/skylineggs" 
+                  href="https://discord.gg/skylinecheats" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-[#2563eb] hover:underline"

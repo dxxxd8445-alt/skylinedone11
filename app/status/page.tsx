@@ -453,7 +453,7 @@ export default function StatusPage() {
                 </p>
                 
                 <a
-                  href="https://discord.gg/skylineggs"
+                  href="https://discord.gg/skylinecheats"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative inline-flex items-center gap-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#2563eb]/40 overflow-hidden group/discord"

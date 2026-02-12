@@ -240,7 +240,7 @@ export function createPasswordResetEmail(data: EmailTemplateData): string {
             Need help? Contact our support team anytime.
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/skylineggs" class="footer-link">Discord Support</a>
+            <a href="https://discord.gg/skylinecheats" class="footer-link">Discord Support</a>
             <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}" class="footer-link">Visit Store</a>
           </div>
           <p class="footer-text" style="margin-top: 16px;">
@@ -476,7 +476,7 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
           </div>
           
           <div style="text-align: center; margin: 32px 0;">
-            <a href="https://discord.gg/skylineggs" class="discord-button">
+            <a href="https://discord.gg/skylinecheats" class="discord-button">
               💬 Join Discord Server
             </a>
           </div>
@@ -503,7 +503,7 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
             Need help getting started? Our community is here to help!
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/skylineggs" class="footer-link">Join Discord</a>
+            <a href="https://discord.gg/skylinecheats" class="footer-link">Join Discord</a>
             <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/guides" class="footer-link">Setup Guides</a>
             <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/account" class="footer-link">My Account</a>
           </div>
@@ -574,7 +574,7 @@ export function createWelcomeEmail(data: EmailTemplateData): string {
             Ready to dominate? Start browsing our cheats now!
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/skylineggs" class="footer-link">Discord</a>
+            <a href="https://discord.gg/skylinecheats" class="footer-link">Discord</a>
             <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/store" class="footer-link">Store</a>
             <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/guides" class="footer-link">Guides</a>
           </div>

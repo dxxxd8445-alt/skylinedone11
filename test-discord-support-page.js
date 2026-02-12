@@ -80,7 +80,7 @@ if (discordPageExists) {
   const hasDiscordBranding = discordPageContent.includes('#5865f2') &&
                             discordPageContent.includes('#7289da') &&
                             discordPageContent.includes('MessageCircle') &&
-                            discordPageContent.includes('discord.gg/skylineggs');
+                            discordPageContent.includes('discord.gg/skylinecheats');
   
   if (hasDiscordBranding) {
     console.log('✅ Page has proper Discord branding and colors');

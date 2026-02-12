@@ -14,7 +14,7 @@ All features have been implemented and tested. The console errors you're seeing 
    - All "Magma" → "Skyline" 
    - All red colors → blue (#2563eb, #3b82f6)
    - Domain: skylinecheats.org
-   - Discord: discord.gg/skylineggs
+   - Discord: discord.gg/skylinecheats
 
 2. **Customer Authentication** ✅
    - Signup works
@@ -232,7 +232,7 @@ Your Skyline Cheats site is **100% complete** and production-ready!
 **Maintenance Page**: `http://localhost:3000/maintenance`
 
 **Support Email**: support@skylinecheats.org
-**Discord**: https://discord.gg/skylineggs
+**Discord**: https://discord.gg/skylinecheats
 **Domain**: https://skylinecheats.org
 
 ---

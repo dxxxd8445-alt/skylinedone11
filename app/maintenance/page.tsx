@@ -67,7 +67,7 @@ export default function MaintenancePage() {
               Follow us for updates
             </p>
             <a
-              href="https://discord.gg/skylineggs"
+              href="https://discord.gg/skylinecheats"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-[#2563eb]/50"

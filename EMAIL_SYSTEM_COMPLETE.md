@@ -113,7 +113,7 @@ The email system is **PRODUCTION READY** with:
 ## 📞 SUPPORT INTEGRATION
 
 All emails include:
-- Discord support links (https://discord.gg/skylineggs)
+- Discord support links (https://discord.gg/skylinecheats)
 - Professional branding
 - Clear call-to-action buttons
 - Security warnings and tips

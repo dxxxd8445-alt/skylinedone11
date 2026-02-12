@@ -110,7 +110,7 @@ export default function PaymentSuccessPage() {
               <div className="mt-12 p-6 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl">
                 <p className="text-white/60 text-sm mb-3">Need help?</p>
                 <a
-                  href="https://discord.gg/skylineggs"
+                  href="https://discord.gg/skylinecheats"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-[#2563eb] hover:text-[#3b82f6] font-semibold transition-colors"

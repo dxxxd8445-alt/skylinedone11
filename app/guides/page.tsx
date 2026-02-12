@@ -333,7 +333,7 @@ export default function GuidesPage() {
                     If you encounter any issues during setup, our support team is here to help you 24/7.
                   </p>
                   <a
-                    href="https://discord.gg/skylineggs"
+                    href="https://discord.gg/skylinecheats"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-2xl hover:shadow-[#2563eb]/50 hover:scale-105 group/discord"

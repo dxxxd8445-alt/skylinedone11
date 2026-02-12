@@ -45,7 +45,7 @@ try {
     test('Responsive design (@media)', templatesContent.includes('@media (max-width: 600px)'));
     test('Professional styling (Inter font)', templatesContent.includes('Inter'));
     test('Security warnings included', templatesContent.includes('This link expires'));
-    test('Discord support links', templatesContent.includes('discord.gg/skylineggs'));
+    test('Discord support links', templatesContent.includes('discord.gg/skylinecheats'));
     test('Beautiful gradients', templatesContent.includes('linear-gradient'));
   }
 

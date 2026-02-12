@@ -4,7 +4,7 @@ const path = require('path');
 function replaceInFile(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
-    const newContent = content.replace(/discord\.gg\/skylineggsu/g, 'discord.gg/skylineggs');
+    const newContent = content.replace(/discord\.gg\/skylineggsu/g, 'discord.gg/skylinecheats');
     
     if (content !== newContent) {
       fs.writeFileSync(filePath, newContent, 'utf8');
@@ -60,4 +60,4 @@ const result = walkDirectory('.', extensions);
 console.log(`\n🎉 Complete!`);
 console.log(`Files updated: ${result.filesUpdated}`);
 console.log(`Total replacements: ${result.totalReplacements}`);
-console.log(`\n✅ All Discord links updated to discord.gg/skylineggs`);
+console.log(`\n✅ All Discord links updated to discord.gg/skylinecheats`);

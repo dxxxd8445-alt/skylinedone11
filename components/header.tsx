@@ -799,7 +799,7 @@ export function Header() {
                     Privacy
                   </Link>
                   <span className="text-white/30">•</span>
-                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
+                  <a href="https://discord.gg/skylinecheats" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
                     Support
                   </a>
                 </div>

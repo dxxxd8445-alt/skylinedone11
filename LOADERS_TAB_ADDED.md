@@ -32,7 +32,7 @@ Position: Between "Delivered" and "Affiliate" tabs
 
 #### 3. Discord Support Section
 - **Help card** with Discord branding
-- **Discord button** linking to https://discord.gg/skylineggs
+- **Discord button** linking to https://discord.gg/skylinecheats
 - **Support message** encouraging users to join
 
 ### Design Features
