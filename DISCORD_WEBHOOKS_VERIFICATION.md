@@ -23,8 +23,8 @@ The system sends Discord notifications for these events:
 Each event has a beautifully formatted Discord embed with:
 
 - **Color Coding**:
-  - 🔵 Blue (#2563eb) - Completed orders
-  - 🔵 Light Blue (#3b82f6) - Pending/Checkout
+  - 🔵 Blue (#6b7280) - Completed orders
+  - 🔵 Light Blue (#9ca3af) - Pending/Checkout
   - 🔵 Dark Blue (#1e40af) - Failed payments
   - ⚪ Gray - Refunds
 
@@ -71,7 +71,7 @@ Email sent to customer
 2. Right-click on the channel where you want notifications
 3. Click **Edit Channel** → **Integrations** → **Webhooks**
 4. Click **New Webhook**
-5. Name it "Skyline Orders" (or whatever you prefer)
+5. Name it "Ring-0 Orders" (or whatever you prefer)
 6. Copy the **Webhook URL**
 
 ### Step 2: Add Webhook to Database
@@ -187,7 +187,7 @@ The `COMPLETE_SUPABASE_SETUP.sql` file now includes:
    ```bash
    curl -X POST "YOUR_WEBHOOK_URL" \
      -H "Content-Type: application/json" \
-     -d '{"content": "Test message from Skyline!"}'
+     -d '{"content": "Test message from Ring-0!"}'
    ```
 
 ### Orders Not Creating?
@@ -267,7 +267,7 @@ The `COMPLETE_SUPABASE_SETUP.sql` file now includes:
 
 ✅ Discord webhooks are **fully implemented**
 ✅ All order events trigger webhooks
-✅ Embeds are **Skyline blue branded**
+✅ Embeds are **Ring-0 blue branded**
 ✅ Order flow is **complete and working**
 ✅ License assignment is **automatic**
 ✅ Email delivery is **working**

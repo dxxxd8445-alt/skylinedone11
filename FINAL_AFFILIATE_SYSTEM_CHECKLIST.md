@@ -143,7 +143,7 @@ The affiliate system has been completely fixed and is ready to use. All bugs hav
 ## 🎯 AFFILIATE LINK FORMAT
 
 ```
-https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
+https://ring-0cheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 **Commission Rate**: 5% per sale

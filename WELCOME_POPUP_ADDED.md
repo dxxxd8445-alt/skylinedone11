@@ -7,7 +7,7 @@ Created a beautiful blue-themed welcome popup that appears after users accept th
 ## Design Features
 
 ### Visual Elements
-- 🎨 **Blue gradient theme** - Matches your site's color scheme (#2563eb, #3b82f6)
+- 🎨 **Blue gradient theme** - Matches your site's color scheme (#6b7280, #9ca3af)
 - ✨ **Animated effects**:
   - Floating shield icon with glow
   - Pulsing background orbs
@@ -61,8 +61,8 @@ Edit lines 60-65 in `components/welcome-popup.tsx`
 Edit line 30 to change where "CHECK OUT" navigates
 
 ### Change colors:
-- Primary blue: `#2563eb`
-- Light blue: `#3b82f6`
+- Primary blue: `#6b7280`
+- Light blue: `#9ca3af`
 - Background: `from-[#0a0a1a] via-[#1a1a2a] to-[#0a0a1a]`
 
 ### Change timing:
@@ -81,6 +81,6 @@ The popup features:
 ---
 
 **Status**: ✅ Complete
-**Theme**: Blue (#2563eb, #3b82f6)
+**Theme**: Blue (#6b7280, #9ca3af)
 **Trigger**: After Terms acceptance
 **Date**: February 8, 2026

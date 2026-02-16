@@ -35,7 +35,7 @@ If your store shows as "Inactive" or "Pending":
 
 ### Step 5: Update Environment Variables in Vercel
 1. Go to https://vercel.com
-2. Open your project: **skylinecheats**
+2. Open your project: **ring-0cheats**
 3. Go to **Settings** → **Environment Variables**
 4. Add or update:
    - `MONEYMOTION_API_KEY` = your LIVE API key from MoneyMotion dashboard

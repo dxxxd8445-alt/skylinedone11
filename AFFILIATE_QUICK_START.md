@@ -56,7 +56,7 @@ After registration, you'll see:
 ## 🔗 AFFILIATE LINK FORMAT
 
 ```
-https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
+https://ring-0cheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 Share this link to earn 5% commission on each sale!

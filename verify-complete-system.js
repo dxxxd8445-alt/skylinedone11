@@ -39,7 +39,7 @@ console.log("✓ PURCHASE EMAIL");
 console.log("  - Beautiful HTML design with success icon");
 console.log("  - Order details in clean table");
 console.log("  - License key in highlighted box");
-console.log("  - Discord button: https://discord.gg/skylineggs");
+console.log("  - Discord button: https://discord.gg/ring-0");
 console.log("  - Account dashboard link");
 console.log("  - Next steps guide");
 console.log("  - Pro tip to join Discord");

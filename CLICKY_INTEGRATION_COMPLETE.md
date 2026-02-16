@@ -28,7 +28,7 @@ Built a beautiful admin dashboard with:
 ## 🎨 Dashboard Features
 
 ### Visual Design
-- Blue-themed UI (#2563eb) matching your site
+- Blue-themed UI (#6b7280) matching your site
 - Gradient cards with animated pulse indicators
 - Dark background with subtle borders
 - Professional, modern layout

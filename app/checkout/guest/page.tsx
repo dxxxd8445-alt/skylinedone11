@@ -82,7 +82,7 @@ export default function GuestCheckoutPage() {
                   <div className="space-y-4">
                     <div>
                       <label className="block text-white/80 text-sm mb-2">
-                        Email Address <span className="text-[#2563eb]">*</span>
+                        Email Address <span className="text-[#6b7280]">*</span>
                       </label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
@@ -92,7 +92,7 @@ export default function GuestCheckoutPage() {
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="your@email.com"
                           required
-                          className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                          className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                         />
                       </div>
                     </div>
@@ -105,7 +105,7 @@ export default function GuestCheckoutPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-white/80 text-sm mb-2">
-                        First Name <span className="text-[#2563eb]">*</span>
+                        First Name <span className="text-[#6b7280]">*</span>
                       </label>
                       <input
                         type="text"
@@ -113,12 +113,12 @@ export default function GuestCheckoutPage() {
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder="John"
                         required
-                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                       />
                     </div>
                     <div>
                       <label className="block text-white/80 text-sm mb-2">
-                        Last Name <span className="text-[#2563eb]">*</span>
+                        Last Name <span className="text-[#6b7280]">*</span>
                       </label>
                       <input
                         type="text"
@@ -126,7 +126,7 @@ export default function GuestCheckoutPage() {
                         onChange={(e) => setLastName(e.target.value)}
                         placeholder="Doe"
                         required
-                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                       />
                     </div>
                     <div className="md:col-span-2">
@@ -136,7 +136,7 @@ export default function GuestCheckoutPage() {
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                         placeholder="123 Main St"
-                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                       />
                     </div>
                     <div>
@@ -146,7 +146,7 @@ export default function GuestCheckoutPage() {
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder="New York"
-                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                       />
                     </div>
                     <div>
@@ -156,7 +156,7 @@ export default function GuestCheckoutPage() {
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
                         placeholder="10001"
-                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                       />
                     </div>
                     <div className="md:col-span-2">
@@ -164,7 +164,7 @@ export default function GuestCheckoutPage() {
                       <select
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
-                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white focus:border-[#2563eb] focus:outline-none"
+                        className="w-full px-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white focus:border-[#6b7280] focus:outline-none"
                       >
                         <option>United States</option>
                         <option>Canada</option>
@@ -184,7 +184,7 @@ export default function GuestCheckoutPage() {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="+1 (555) 123-4567"
-                          className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                          className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                         />
                       </div>
                     </div>
@@ -193,7 +193,7 @@ export default function GuestCheckoutPage() {
 
                 {/* Error Message */}
                 {error && (
-                  <div className="p-3 bg-blue-500/20 border border-blue-500/50 rounded-lg text-blue-400 text-sm">
+                  <div className="p-3 bg-gray-500/20 border border-gray-500/50 rounded-lg text-gray-400 text-sm">
                     {error}
                   </div>
                 )}
@@ -202,7 +202,7 @@ export default function GuestCheckoutPage() {
                 <button
                   type="submit"
                   disabled={isProcessing}
-                  className="w-full py-4 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg font-bold text-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-[#6b7280] hover:bg-[#9ca3af] text-white rounded-lg font-bold text-lg transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                   {isProcessing ? (
                     <>
@@ -243,7 +243,7 @@ export default function GuestCheckoutPage() {
                         <p className="text-white/50 text-xs">{item.duration}</p>
                         <div className="flex items-center justify-between mt-1">
                           <span className="text-white/60 text-xs">x{item.quantity}</span>
-                          <span className="text-[#2563eb] font-bold text-sm">
+                          <span className="text-[#6b7280] font-bold text-sm">
                             {formatMoney({ amountUsd: item.price * item.quantity, currency, locale })}
                           </span>
                         </div>
@@ -266,7 +266,7 @@ export default function GuestCheckoutPage() {
                   )}
                   <div className="flex justify-between text-white font-bold text-xl pt-2">
                     <span>Total</span>
-                    <span className="text-[#2563eb]">{formatMoney({ amountUsd: total, currency, locale })}</span>
+                    <span className="text-[#6b7280]">{formatMoney({ amountUsd: total, currency, locale })}</span>
                   </div>
                 </div>
               </div>

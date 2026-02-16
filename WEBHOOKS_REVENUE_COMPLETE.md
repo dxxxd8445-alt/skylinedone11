@@ -89,12 +89,12 @@ I've verified and confirmed that:
 3. Click "Edit Channel"
 4. Go to "Integrations" → "Webhooks"
 5. Click "New Webhook"
-6. Name it "Skyline Orders" or similar
+6. Name it "Ring-0 Orders" or similar
 7. Copy the webhook URL (starts with `https://discord.com/api/webhooks/`)
 
 ### Step 2: Add Webhook in Admin Panel
 
-1. Go to `https://skylinecheats.org/mgmt-x9k2m7/webhooks`
+1. Go to `https://ring-0cheats.org/mgmt-x9k2m7/webhooks`
 2. Click "Add Webhook" button
 3. Fill in:
    - **Name:** Discord Notifications
@@ -292,7 +292,7 @@ I've verified and confirmed that:
 
 **Fix:**
 - Go to Stripe dashboard → Webhooks
-- Verify webhook URL: `https://skylinecheats.org/api/webhooks/stripe`
+- Verify webhook URL: `https://ring-0cheats.org/api/webhooks/stripe`
 - Verify events: `checkout.session.completed`, `payment_intent.payment_failed`
 - Check webhook signing secret matches `STRIPE_WEBHOOK_SECRET` in Vercel
 - Check Vercel logs for errors

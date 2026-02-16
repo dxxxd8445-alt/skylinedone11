@@ -1,4 +1,4 @@
--- Setup Discord Webhooks for Skyline Cheats
+-- Setup Discord Webhooks for Ring-0
 -- This script configures Discord webhooks for order notifications
 
 -- First, clear any existing webhooks to avoid duplicates
@@ -7,7 +7,7 @@ DELETE FROM webhooks WHERE url LIKE '%discord.com%';
 -- Insert Discord webhook for all order events
 INSERT INTO webhooks (name, url, events, is_active) VALUES
   (
-    'Skyline Discord - All Order Events', 
+    'Ring-0 Discord - All Order Events', 
     'https://discord.com/api/webhooks/1466894801541533707/6Z-YfKfQbE-UuakpsNLfULuf_3WefNpMbwLLiNJKMSf__Xv-7GL4e4b0M1F7409S5L54',
     ARRAY[
       'checkout.started',

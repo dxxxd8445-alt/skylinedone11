@@ -88,7 +88,7 @@ export function ImageUploader({ value, onChange, label = "Image", description }:
                 <button
                   type="button"
                   onClick={() => onChange("")}
-                  className="p-2 bg-blue-500/20 text-blue-500 rounded-lg hover:bg-blue-500/30 transition-colors"
+                  className="p-2 bg-gray-500/20 text-gray-500 rounded-lg hover:bg-gray-500/30 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -99,8 +99,8 @@ export function ImageUploader({ value, onChange, label = "Image", description }:
           <div
             className={`relative w-full aspect-video border-2 border-dashed rounded-lg transition-colors flex flex-col items-center justify-center gap-2 cursor-pointer ${
               dragActive
-                ? "border-[#2563eb] bg-[#2563eb]/5"
-                : "border-[#262626] bg-[#0a0a0a] hover:border-[#2563eb]/50 hover:bg-[#1a1a1a]"
+                ? "border-[#6b7280] bg-[#6b7280]/5"
+                : "border-[#262626] bg-[#0a0a0a] hover:border-[#6b7280]/50 hover:bg-[#1a1a1a]"
             }`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
@@ -117,7 +117,7 @@ export function ImageUploader({ value, onChange, label = "Image", description }:
             />
             
             {isUploading ? (
-              <Loader2 className="w-8 h-8 text-[#2563eb] animate-spin" />
+              <Loader2 className="w-8 h-8 text-[#6b7280] animate-spin" />
             ) : (
               <>
                 <div className="w-12 h-12 rounded-full bg-[#1a1a1a] flex items-center justify-center">
@@ -144,7 +144,7 @@ export function ImageUploader({ value, onChange, label = "Image", description }:
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Or paste image URL..."
-            className="w-full px-4 py-2.5 pl-10 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-[#2563eb]/50 transition-colors text-sm"
+            className="w-full px-4 py-2.5 pl-10 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white placeholder:text-white/30 focus:outline-none focus:border-[#6b7280]/50 transition-colors text-sm"
           />
         </div>
 

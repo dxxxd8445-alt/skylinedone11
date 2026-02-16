@@ -19,7 +19,7 @@ All stock-related indicators have been completely removed from the product pages
 ```jsx
 {selectedTier.stock !== undefined && (
   <div className="flex items-center gap-2 px-3 py-1.5 bg-[#0a0a0a]/50 rounded-lg border border-[#1a1a1a]">
-    <div className={`w-2 h-2 rounded-full ${selectedTier.stock > 0 ? 'bg-green-400' : 'bg-blue-400'}`} />
+    <div className={`w-2 h-2 rounded-full ${selectedTier.stock > 0 ? 'bg-green-400' : 'bg-gray-400'}`} />
     <span className="text-white/60 text-sm">
       {selectedTier.stock > 0 ? `${selectedTier.stock} in stock` : 'Out of stock'}
     </span>
@@ -37,7 +37,7 @@ All stock-related indicators have been completely removed from the product pages
 ```jsx
 {tier.stock !== undefined && (
   <div className="flex items-center gap-2 text-xs">
-    <div className={`w-2 h-2 rounded-full ${tier.stock > 0 ? 'bg-green-400' : 'bg-blue-400'}`} />
+    <div className={`w-2 h-2 rounded-full ${tier.stock > 0 ? 'bg-green-400' : 'bg-gray-400'}`} />
     <span className="text-white/60">
       {tier.stock > 0 ? `${tier.stock} left` : 'Out of stock'}
     </span>

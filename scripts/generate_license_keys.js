@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * License Key Generator for Skyline Cheats
+ * License Key Generator for Ring-0
  * Generates properly formatted license keys for your products
  */
 

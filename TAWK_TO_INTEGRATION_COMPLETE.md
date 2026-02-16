@@ -2,7 +2,7 @@
 
 ## 🎉 SUCCESS: Live Chat Successfully Implemented
 
-The Tawk.to live chat widget has been successfully integrated into your Skyline Cheats website!
+The Tawk.to live chat widget has been successfully integrated into your Ring-0 website!
 
 ## 📋 Implementation Details
 

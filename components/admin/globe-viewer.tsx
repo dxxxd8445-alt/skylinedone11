@@ -68,7 +68,7 @@ export function GlobeViewer({ visitors }: { visitors: Visitor[] }) {
       ctx.fill();
 
       // Draw globe border
-      ctx.strokeStyle = '#2563eb';
+      ctx.strokeStyle = '#6b7280';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.arc(0, 0, radius, 0, Math.PI * 2);
@@ -119,7 +119,7 @@ export function GlobeViewer({ visitors }: { visitors: Visitor[] }) {
         ctx.fillRect(x - 15, y - 15, 30, 30);
 
         // Draw marker dot
-        ctx.fillStyle = visitor.is_active ? '#22c55e' : '#3b82f6';
+        ctx.fillStyle = visitor.is_active ? '#22c55e' : '#9ca3af';
         ctx.beginPath();
         ctx.arc(x, y, 5, 0, Math.PI * 2);
         ctx.fill();
@@ -217,7 +217,7 @@ export function GlobeViewer({ visitors }: { visitors: Visitor[] }) {
           </div>
           <div className="bg-[#0a0a0a] p-3 rounded border border-[#1a1a1a]">
             <p className="text-white/60 text-sm">Countries</p>
-            <p className="text-2xl font-bold text-blue-500">
+            <p className="text-2xl font-bold text-gray-500">
               {new Set(visitors.map(v => v.country)).size}
             </p>
           </div>

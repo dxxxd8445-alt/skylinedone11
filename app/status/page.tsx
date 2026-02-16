@@ -89,7 +89,7 @@ export default function StatusPage() {
       case "active":
         return "bg-green-500/20 text-green-400 border-green-500/30";
       case "inactive":
-        return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
       case "maintenance":
         return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
       default:
@@ -128,7 +128,7 @@ export default function StatusPage() {
       case "active":
         return "bg-green-400";
       case "inactive":
-        return "bg-blue-400";
+        return "bg-gray-400";
       case "maintenance":
         return "bg-yellow-400";
       default:
@@ -157,7 +157,7 @@ export default function StatusPage() {
     <main className="min-h-screen bg-[#0a0a0a] relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#6b7280]/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-500/5 rounded-full blur-3xl animate-pulse delay-1000" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-yellow-500/5 rounded-full blur-3xl animate-pulse delay-500" />
       </div>
@@ -169,9 +169,9 @@ export default function StatusPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Badge */}
           <div className="text-center mb-8 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 border border-[#2563eb]/20 rounded-full mb-6">
-              <Radio className="w-4 h-4 text-[#2563eb] animate-pulse" />
-              <span className="text-[#2563eb] text-sm font-semibold">Live Status Monitor</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#6b7280]/10 border border-[#6b7280]/20 rounded-full mb-6">
+              <Radio className="w-4 h-4 text-[#6b7280] animate-pulse" />
+              <span className="text-[#6b7280] text-sm font-semibold">Live Status Monitor</span>
             </div>
           </div>
 
@@ -181,8 +181,8 @@ export default function StatusPage() {
               <span className="block mb-2">Status Updates</span>
               <span className="text-white">For our </span>
               <span className="relative inline-block">
-                <span className="text-[#2563eb]">Cheats</span>
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#2563eb] to-transparent" />
+                <span className="text-[#6b7280]">Cheats</span>
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#6b7280] to-transparent" />
               </span>
             </h1>
             <p className="text-white/60 text-lg max-w-2xl mx-auto mb-8">
@@ -194,16 +194,16 @@ export default function StatusPage() {
               <Button
                 onClick={handleManualRefresh}
                 disabled={loading}
-                className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white border-0 shadow-lg shadow-[#2563eb]/20 hover:shadow-xl hover:shadow-[#2563eb]/30 hover:-translate-y-0.5 transition-all"
+                className="bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white border-0 shadow-lg shadow-[#6b7280]/20 hover:shadow-xl hover:shadow-[#6b7280]/30 hover:-translate-y-0.5 transition-all"
               >
                 <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
                 Refresh Status
               </Button>
 
               <div className="flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] rounded-lg">
-                <Clock className="w-4 h-4 text-[#2563eb]" />
+                <Clock className="w-4 h-4 text-[#6b7280]" />
                 <span className="text-white/80 text-sm">
-                  Next refresh: <span className="font-bold text-[#2563eb]">{autoRefreshCountdown}s</span>
+                  Next refresh: <span className="font-bold text-[#6b7280]">{autoRefreshCountdown}s</span>
                 </span>
               </div>
             </div>
@@ -213,13 +213,13 @@ export default function StatusPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
             {/* Total Products */}
             <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#6b7280]/30 transition-all">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#2563eb]/10 flex items-center justify-center">
-                    <Server className="w-6 h-6 text-[#2563eb]" />
+                  <div className="w-12 h-12 rounded-xl bg-[#6b7280]/10 flex items-center justify-center">
+                    <Server className="w-6 h-6 text-[#6b7280]" />
                   </div>
-                  <TrendingUp className="w-5 h-5 text-[#2563eb]/50" />
+                  <TrendingUp className="w-5 h-5 text-[#6b7280]/50" />
                 </div>
                 <p className="text-4xl font-bold text-white mb-1">{totalProducts}</p>
                 <p className="text-white/60 text-sm">Total Products</p>
@@ -261,15 +261,15 @@ export default function StatusPage() {
 
             {/* Uptime Percentage */}
             <div className="group relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-blue-500/30 transition-all">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-gray-500/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-gray-500/30 transition-all">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 rounded-xl bg-gray-500/10 flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-gray-400" />
                   </div>
-                  <Sparkles className="w-5 h-5 text-blue-400/50" />
+                  <Sparkles className="w-5 h-5 text-gray-400/50" />
                 </div>
-                <p className="text-4xl font-bold text-blue-400 mb-1">{uptimePercentage}%</p>
+                <p className="text-4xl font-bold text-gray-400 mb-1">{uptimePercentage}%</p>
                 <p className="text-white/60 text-sm">Uptime Rate</p>
               </div>
             </div>
@@ -284,7 +284,7 @@ export default function StatusPage() {
           <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 mb-8">
             <div className="flex flex-wrap items-center justify-center gap-4">
               <div className="flex items-center gap-2">
-                <Zap className="w-5 h-5 text-[#2563eb]" />
+                <Zap className="w-5 h-5 text-[#6b7280]" />
                 <span className="text-white font-semibold">Status Legend:</span>
               </div>
               
@@ -304,12 +304,12 @@ export default function StatusPage() {
                 <span className="text-sm font-semibold text-yellow-400">UPDATING (NOT WORKING)</span>
               </div>
               
-              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-500/10 border-2 border-blue-500/30 group hover:bg-blue-500/20 transition-all">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-500/10 border-2 border-gray-500/30 group hover:bg-gray-500/20 transition-all">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-blue-400 rounded-full blur animate-pulse" />
-                  <div className="relative w-2.5 h-2.5 rounded-full bg-blue-400" />
+                  <div className="absolute inset-0 bg-gray-400 rounded-full blur animate-pulse" />
+                  <div className="relative w-2.5 h-2.5 rounded-full bg-gray-400" />
                 </div>
-                <span className="text-sm font-semibold text-blue-400">DETECTED (NOT WORKING)</span>
+                <span className="text-sm font-semibold text-gray-400">DETECTED (NOT WORKING)</span>
               </div>
             </div>
           </div>
@@ -319,7 +319,7 @@ export default function StatusPage() {
             <div className="flex flex-col items-center justify-center h-64 bg-[#111111] border border-[#1a1a1a] rounded-2xl">
               <div className="relative">
                 <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#1a1a1a]" />
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#2563eb] absolute top-0 left-0" />
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#6b7280] absolute top-0 left-0" />
               </div>
               <p className="text-white/60 mt-4">Loading status updates...</p>
             </div>
@@ -329,7 +329,7 @@ export default function StatusPage() {
                 <div key={game} className="animate-fade-in">
                   {/* Game Header */}
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="h-8 w-1 bg-gradient-to-b from-[#2563eb] to-transparent rounded-full" />
+                    <div className="h-8 w-1 bg-gradient-to-b from-[#6b7280] to-transparent rounded-full" />
                     <h2 className="text-white font-bold text-2xl uppercase tracking-wider">{game}</h2>
                     <div className="flex-1 h-px bg-gradient-to-r from-[#1a1a1a] to-transparent" />
                     <div className="px-3 py-1 bg-[#111111] border border-[#1a1a1a] rounded-lg">
@@ -347,13 +347,13 @@ export default function StatusPage() {
                         className="group relative"
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-                        <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                        <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#6b7280]/30 transition-all">
                           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             {/* Product Info */}
                             <div className="flex items-center gap-5 flex-1">
                               {/* Product Image */}
-                              <div className="relative w-16 h-16 rounded-xl bg-[#0a0a0a] overflow-hidden border-2 border-[#1a1a1a] group-hover:border-[#2563eb]/30 transition-all flex-shrink-0">
+                              <div className="relative w-16 h-16 rounded-xl bg-[#0a0a0a] overflow-hidden border-2 border-[#1a1a1a] group-hover:border-[#6b7280]/30 transition-all flex-shrink-0">
                                 {product.image ? (
                                   <Image
                                     src={product.image}
@@ -370,7 +370,7 @@ export default function StatusPage() {
 
                               {/* Product Details */}
                               <div className="flex-1 min-w-0">
-                                <h3 className="text-white font-bold text-lg mb-1 group-hover:text-[#2563eb] transition-colors truncate">
+                                <h3 className="text-white font-bold text-lg mb-1 group-hover:text-[#6b7280] transition-colors truncate">
                                   {product.name}
                                 </h3>
                                 <div className="flex items-center gap-2 text-white/50 text-sm">
@@ -405,7 +405,7 @@ export default function StatusPage() {
                               {/* Purchase Button */}
                               <Link
                                 href={`/store/${product.game.toLowerCase().replace(/\s+/g, "-")}/${product.slug}`}
-                                className="relative px-6 py-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-[#2563eb]/20 hover:shadow-xl hover:shadow-[#2563eb]/30 hover:-translate-y-0.5 flex items-center gap-2 whitespace-nowrap overflow-hidden group/btn"
+                                className="relative px-6 py-3 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-[#6b7280]/20 hover:shadow-xl hover:shadow-[#6b7280]/30 hover:-translate-y-0.5 flex items-center gap-2 whitespace-nowrap overflow-hidden group/btn"
                               >
                                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
                                 <span className="relative">Purchase Now</span>
@@ -425,10 +425,10 @@ export default function StatusPage() {
           {/* No products */}
           {products.length === 0 && !loading && (
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-50" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-50" />
               <div className="relative text-center py-20 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl">
-                <div className="w-20 h-20 bg-[#2563eb]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <AlertCircle className="w-10 h-10 text-[#2563eb]" />
+                <div className="w-20 h-20 bg-[#6b7280]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <AlertCircle className="w-10 h-10 text-[#6b7280]" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">No Products Yet</h3>
                 <p className="text-white/50 max-w-md mx-auto">Add products in the admin panel to see them here</p>
@@ -438,13 +438,13 @@ export default function StatusPage() {
 
           {/* Enhanced Discord Notice */}
           <div className="mt-16 relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/30 via-[#2563eb]/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
-            <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#2563eb]/30 rounded-2xl p-10 overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#2563eb]/5 rounded-full blur-3xl" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/30 via-[#6b7280]/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+            <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#6b7280]/30 rounded-2xl p-10 overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#6b7280]/5 rounded-full blur-3xl" />
               <div className="relative text-center">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 border border-[#2563eb]/30 rounded-full mb-6">
-                  <Radio className="w-4 h-4 text-[#2563eb] animate-pulse" />
-                  <span className="text-[#2563eb] text-sm font-semibold">Stay Connected</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#6b7280]/10 border border-[#6b7280]/30 rounded-full mb-6">
+                  <Radio className="w-4 h-4 text-[#6b7280] animate-pulse" />
+                  <span className="text-[#6b7280] text-sm font-semibold">Stay Connected</span>
                 </div>
                 
                 <h3 className="text-white font-bold text-3xl mb-3">Get Instant Status Updates</h3>
@@ -453,10 +453,10 @@ export default function StatusPage() {
                 </p>
                 
                 <a
-                  href="https://discord.gg/skylineggs"
+                  href="https://discord.gg/ring-0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative inline-flex items-center gap-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#2563eb]/40 overflow-hidden group/discord"
+                  className="relative inline-flex items-center gap-3 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white px-10 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[#6b7280]/40 overflow-hidden group/discord"
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover/discord:translate-x-full transition-transform duration-700" />
                   <Radio className="w-5 h-5 relative" />
@@ -471,8 +471,8 @@ export default function StatusPage() {
           <div className="mt-8 flex items-center justify-center gap-6 flex-wrap">
             <div className="flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] rounded-lg">
               <div className="relative">
-                <div className="absolute inset-0 bg-[#2563eb] rounded-full blur animate-pulse" />
-                <div className="relative w-2 h-2 bg-[#2563eb] rounded-full" />
+                <div className="absolute inset-0 bg-[#6b7280] rounded-full blur animate-pulse" />
+                <div className="relative w-2 h-2 bg-[#6b7280] rounded-full" />
               </div>
               <span className="text-sm text-white/60">
                 Last refresh: <span className="text-white font-medium">{lastRefresh.toLocaleTimeString()}</span>
@@ -480,7 +480,7 @@ export default function StatusPage() {
             </div>
             
             <div className="flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] rounded-lg">
-              <RefreshCw className="w-3.5 h-3.5 text-[#2563eb]" />
+              <RefreshCw className="w-3.5 h-3.5 text-[#6b7280]" />
               <span className="text-sm text-white/60">Auto-refreshes every 30 seconds</span>
             </div>
           </div>

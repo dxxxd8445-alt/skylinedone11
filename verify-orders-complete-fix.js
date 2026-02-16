@@ -166,7 +166,7 @@ async function testCustomerOrdersAPI() {
   
   try {
     // Test with a known customer email
-    const testEmail = 'test@skylinecheats.org';
+    const testEmail = 'test@ring-0cheats.org';
     
     const { data: orders, error: ordersError } = await supabase
       .from('orders')

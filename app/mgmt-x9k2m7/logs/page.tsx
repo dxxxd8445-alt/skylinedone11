@@ -448,7 +448,7 @@ export default function LogsPage() {
       case "logout":
         return <LogOut className="h-4 w-4 text-orange-500" />;
       case "security":
-        return <AlertTriangle className="h-4 w-4 text-blue-500" />;
+        return <AlertTriangle className="h-4 w-4 text-gray-500" />;
       case "error":
         return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
       default:
@@ -459,9 +459,9 @@ export default function LogsPage() {
   const getRoleIcon = (role: string) => {
     switch (role) {
       case "admin":
-        return <Shield className="h-4 w-4 text-blue-500" />;
+        return <Shield className="h-4 w-4 text-gray-500" />;
       case "staff":
-        return <Users className="h-4 w-4 text-blue-500" />;
+        return <Users className="h-4 w-4 text-gray-500" />;
       default:
         return <Users className="h-4 w-4" />;
     }
@@ -471,13 +471,13 @@ export default function LogsPage() {
     const getSeverityColor = (sev?: string) => {
       switch (sev) {
         case "critical":
-          return "text-blue-700 border-blue-200 bg-blue-50";
+          return "text-gray-700 border-gray-200 bg-gray-50";
         case "high":
           return "text-orange-700 border-orange-200 bg-orange-50";
         case "medium":
           return "text-yellow-700 border-yellow-200 bg-yellow-50";
         case "low":
-          return "text-blue-700 border-blue-200 bg-blue-50";
+          return "text-gray-700 border-gray-200 bg-gray-50";
         default:
           return "";
       }
@@ -498,7 +498,7 @@ export default function LogsPage() {
         );
       case "security":
         return (
-          <Badge variant="outline" className={`text-blue-700 border-blue-200 bg-blue-50 ${getSeverityColor(severity)}`}>
+          <Badge variant="outline" className={`text-gray-700 border-gray-200 bg-gray-50 ${getSeverityColor(severity)}`}>
             Security
           </Badge>
         );
@@ -517,13 +517,13 @@ export default function LogsPage() {
     switch (role) {
       case "admin":
         return (
-          <Badge variant="outline" className="text-blue-700 border-blue-200 bg-blue-50">
+          <Badge variant="outline" className="text-gray-700 border-gray-200 bg-gray-50">
             Admin
           </Badge>
         );
       case "staff":
         return (
-          <Badge variant="outline" className="text-blue-700 border-blue-200 bg-blue-50">
+          <Badge variant="outline" className="text-gray-700 border-gray-200 bg-gray-50">
             Staff
           </Badge>
         );
@@ -595,7 +595,7 @@ export default function LogsPage() {
               onClick={handleClearLogs}
               variant="outline"
               size="sm"
-              className="text-blue-600 hover:text-blue-700"
+              className="text-gray-600 hover:text-gray-700"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Clear Logs
@@ -606,7 +606,7 @@ export default function LogsPage() {
             onClick={handleLogout}
             variant="destructive"
             size="sm"
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-gray-600 hover:bg-gray-700"
           >
             <Power className="h-4 w-4 mr-2" />
             Logout
@@ -619,9 +619,9 @@ export default function LogsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="flex items-center gap-2 text-white">
-                  <Users className="h-5 w-5 text-[#2563eb]" />
+                  <Users className="h-5 w-5 text-[#6b7280]" />
                   Active Sessions
-                  <Badge variant="outline" className="ml-2 bg-[#2563eb]/20 text-[#2563eb] border-[#2563eb]/30">
+                  <Badge variant="outline" className="ml-2 bg-[#6b7280]/20 text-[#6b7280] border-[#6b7280]/30">
                     {activeSessions.length} online
                   </Badge>
                 </CardTitle>
@@ -641,7 +641,7 @@ export default function LogsPage() {
           <CardContent>
             {sessionsLoading ? (
               <div className="flex items-center justify-center py-8">
-                <RefreshCw className="h-6 w-6 animate-spin text-[#2563eb]" />
+                <RefreshCw className="h-6 w-6 animate-spin text-[#6b7280]" />
               </div>
             ) : activeSessions.length === 0 ? (
               <div className="text-center py-8">
@@ -653,19 +653,19 @@ export default function LogsPage() {
                 {activeSessions.map((session) => (
                   <div
                     key={session.id}
-                    className="flex items-center justify-between p-4 rounded-lg bg-[#0a0a0a] border border-[#262626] hover:border-[#2563eb]/30 transition-colors"
+                    className="flex items-center justify-between p-4 rounded-lg bg-[#0a0a0a] border border-[#262626] hover:border-[#6b7280]/30 transition-colors"
                   >
                     <div className="flex items-center gap-4 flex-1">
                       {/* Role Icon */}
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                         session.actor_role === "admin" 
-                          ? "bg-[#2563eb]/20 border-2 border-[#2563eb]/30" 
-                          : "bg-blue-500/20 border-2 border-blue-500/30"
+                          ? "bg-[#6b7280]/20 border-2 border-[#6b7280]/30" 
+                          : "bg-gray-500/20 border-2 border-gray-500/30"
                       }`}>
                         {session.actor_role === "admin" ? (
-                          <Shield className="h-5 w-5 text-[#2563eb]" />
+                          <Shield className="h-5 w-5 text-[#6b7280]" />
                         ) : (
-                          <Users className="h-5 w-5 text-blue-400" />
+                          <Users className="h-5 w-5 text-gray-400" />
                         )}
                       </div>
 
@@ -677,8 +677,8 @@ export default function LogsPage() {
                             variant="outline" 
                             className={
                               session.actor_role === "admin"
-                                ? "bg-[#2563eb]/20 text-[#2563eb] border-[#2563eb]/30"
-                                : "bg-blue-500/20 text-blue-400 border-blue-500/30"
+                                ? "bg-[#6b7280]/20 text-[#6b7280] border-[#6b7280]/30"
+                                : "bg-gray-500/20 text-gray-400 border-gray-500/30"
                             }
                           >
                             {session.actor_role}
@@ -720,14 +720,14 @@ export default function LogsPage() {
 
         {/* Enhanced Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4">
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+          <Card className="bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-blue-700">Total Logs</CardTitle>
-              <Activity className="h-4 w-4 text-blue-600" />
+              <CardTitle className="text-sm font-medium text-gray-700">Total Logs</CardTitle>
+              <Activity className="h-4 w-4 text-gray-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-800">{stats.totalLogs}</div>
-              <p className="text-xs text-blue-600 mt-1">All time</p>
+              <div className="text-2xl font-bold text-gray-800">{stats.totalLogs}</div>
+              <p className="text-xs text-gray-600 mt-1">All time</p>
             </CardContent>
           </Card>
 
@@ -764,25 +764,25 @@ export default function LogsPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+          <Card className="bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-blue-700">Admin</CardTitle>
-              <Shield className="h-4 w-4 text-blue-600" />
+              <CardTitle className="text-sm font-medium text-gray-700">Admin</CardTitle>
+              <Shield className="h-4 w-4 text-gray-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-800">{stats.adminSessions}</div>
-              <p className="text-xs text-blue-600 mt-1">Sessions</p>
+              <div className="text-2xl font-bold text-gray-800">{stats.adminSessions}</div>
+              <p className="text-xs text-gray-600 mt-1">Sessions</p>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+          <Card className="bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-blue-700">Staff</CardTitle>
-              <Users className="h-4 w-4 text-blue-600" />
+              <CardTitle className="text-sm font-medium text-gray-700">Staff</CardTitle>
+              <Users className="h-4 w-4 text-gray-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-800">{stats.staffSessions}</div>
-              <p className="text-xs text-blue-600 mt-1">Sessions</p>
+              <div className="text-2xl font-bold text-gray-800">{stats.staffSessions}</div>
+              <p className="text-xs text-gray-600 mt-1">Sessions</p>
             </CardContent>
           </Card>
 

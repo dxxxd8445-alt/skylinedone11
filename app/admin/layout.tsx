@@ -2,8 +2,8 @@ import React from "react"
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin Panel | Skyline Cheats",
-  description: "Skyline Cheats Admin Dashboard",
+  title: "Admin Panel | Ring-0",
+  description: "Ring-0 Admin Dashboard",
 };
 
 export default function AdminLayout({

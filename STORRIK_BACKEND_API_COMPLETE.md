@@ -174,7 +174,7 @@ WHERE name = 'Valorant';
 ### In Storrik Dashboard
 
 1. Go to Storrik Dashboard → Webhooks
-2. Add webhook endpoint: `https://skylinecheats.org/api/webhooks/storrik`
+2. Add webhook endpoint: `https://ring-0cheats.org/api/webhooks/storrik`
 3. Select events:
    - `checkout.completed`
    - `payment.succeeded`
@@ -219,7 +219,7 @@ Already exists at `/api/webhooks/storrik/route.ts` and handles:
 Make sure these are set in `.env.local` and Vercel:
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 RESEND_API_KEY=your_resend_key
 ```
 

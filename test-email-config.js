@@ -73,7 +73,7 @@ async function testEmailConfiguration() {
     
     // We can't directly access env vars from Node.js script, but we can infer from API responses
     console.log('   📧 RESEND_API_KEY: Set in .env.local');
-    console.log('   📧 RESEND_FROM_EMAIL: Skyline <onboarding@resend.dev>');
+    console.log('   📧 RESEND_FROM_EMAIL: Ring-0 <onboarding@resend.dev>');
     console.log('   ✅ Email configuration updated to use verified domain');
     console.log('');
 

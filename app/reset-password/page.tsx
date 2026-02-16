@@ -58,7 +58,7 @@ function ResetPasswordContent() {
         <div className="w-full max-w-md rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] p-6 text-center">
           <p className="text-white/70 mb-4">Invalid or missing reset link. Request a new one.</p>
           <Link href="/forgot-password">
-            <Button className="bg-[#2563eb] hover:bg-[#b91c1c] text-white">Request reset</Button>
+            <Button className="bg-[#6b7280] hover:bg-[#b91c1c] text-white">Request reset</Button>
           </Link>
         </div>
       </div>
@@ -80,7 +80,7 @@ function ResetPasswordContent() {
           </p>
           <div className="space-y-3">
             <Link href="/account">
-              <Button className="w-full bg-[#2563eb] hover:bg-[#b91c1c] text-white font-semibold py-3">
+              <Button className="w-full bg-[#6b7280] hover:bg-[#b91c1c] text-white font-semibold py-3">
                 Sign In to Customer Dashboard
               </Button>
             </Link>
@@ -107,7 +107,7 @@ function ResetPasswordContent() {
         </Link>
         <div className="rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] p-6 sm:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#1e40af] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#6b7280] to-[#1e40af] flex items-center justify-center">
               <Flame className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -148,11 +148,11 @@ function ResetPasswordContent() {
                 />
               </div>
             </div>
-            <Button type="submit" disabled={submitting} className="w-full bg-[#2563eb] hover:bg-[#b91c1c] text-white">
+            <Button type="submit" disabled={submitting} className="w-full bg-[#6b7280] hover:bg-[#b91c1c] text-white">
               {submitting ? "Updating…" : "Update password"}
             </Button>
             <p className="text-center">
-              <Link href="/forgot-password" className="text-sm text-white/50 hover:text-[#2563eb] transition-colors">
+              <Link href="/forgot-password" className="text-sm text-white/50 hover:text-[#6b7280] transition-colors">
                 Request a new link
               </Link>
             </p>
@@ -167,7 +167,7 @@ export default function ResetPasswordPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#2563eb]/30 border-t-[#2563eb] rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#6b7280]/30 border-t-[#6b7280] rounded-full animate-spin" />
       </div>
     }>
       <ResetPasswordContent />

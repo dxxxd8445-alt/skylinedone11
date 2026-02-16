@@ -151,7 +151,7 @@ if (fs.existsSync(emailPath)) {
   
   const emailFeatures = [
     { name: 'Mobile-responsive CSS', pattern: /@media.*max-width.*600px/ },
-    { name: 'Professional Magma branding', pattern: /Skyline Cheats/ },
+    { name: 'Professional Magma branding', pattern: /Ring-0/ },
     { name: 'Touch-friendly buttons', pattern: /display: block.*width: 100%/ },
     { name: 'Responsive container', pattern: /max-width: 600px/ },
     { name: 'Mobile padding adjustments', pattern: /padding: 24px 20px/ },

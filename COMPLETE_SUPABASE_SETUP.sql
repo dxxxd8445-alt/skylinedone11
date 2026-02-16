@@ -1,5 +1,5 @@
 -- ============================================
--- COMPLETE Skyline Store DATABASE SETUP
+-- COMPLETE Ring-0 Store DATABASE SETUP
 -- Run this entire script in your new Supabase SQL Editor
 -- ============================================
 
@@ -357,13 +357,13 @@ ON CONFLICT DO NOTHING;
 
 -- Insert sample team member (admin user)
 INSERT INTO team_members (name, email, username, role, status, permissions) VALUES
-('Admin User', 'admin@skyline.local', 'admin', 'Owner', 'active', 
+('Admin User', 'admin@ring-0.local', 'admin', 'Owner', 'active', 
  '["dashboard", "manage_products", "manage_categories", "manage_orders", "stock_keys", "manage_coupons", "manage_webhooks", "manage_team", "manage_settings", "manage_logins"]'::jsonb)
 ON CONFLICT (email) DO NOTHING;
 
 -- Insert sample settings
 INSERT INTO settings (key, value, description) VALUES
-('site_name', '"Skyline Store"', 'Website name'),
+('site_name', '"Ring-0 Store"', 'Website name'),
 ('site_description', '"Premium gaming software and cheats"', 'Website description'),
 ('maintenance_mode', 'false', 'Enable/disable maintenance mode'),
 ('max_licenses_per_order', '5', 'Maximum licenses per order'),
@@ -446,4 +446,4 @@ COMMENT ON TABLE admin_audit_logs IS 'Admin and staff login/logout tracking';
 COMMENT ON TABLE stripe_sessions IS 'Stripe checkout session tracking';
 
 -- Success message
-SELECT '🎉 SETUP COMPLETE! Your Skyline Store database is ready!' as message;
+SELECT '🎉 SETUP COMPLETE! Your Ring-0 Store database is ready!' as message;

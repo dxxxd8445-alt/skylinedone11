@@ -16,11 +16,11 @@ The Stripe webhook endpoint is not configured in your Stripe dashboard, OR the w
 ### Step 1: Check Stripe Dashboard Webhook Configuration
 
 1. Go to: https://dashboard.stripe.com/webhooks
-2. Look for a webhook with endpoint: `https://skylinecheats.org/api/webhooks/stripe`
+2. Look for a webhook with endpoint: `https://ring-0cheats.org/api/webhooks/stripe`
 
 **If webhook DOES NOT EXIST:**
 - Click "Add endpoint"
-- Endpoint URL: `https://skylinecheats.org/api/webhooks/stripe`
+- Endpoint URL: `https://ring-0cheats.org/api/webhooks/stripe`
 - Description: "Order completion webhook"
 - Events to send:
   - ✅ `checkout.session.completed`
@@ -115,7 +115,7 @@ I'll create a script for you to manually complete stuck orders.
 
 Stripe webhooks require:
 1. ✅ Webhook endpoint configured in Stripe dashboard
-2. ✅ Correct webhook URL: `https://skylinecheats.org/api/webhooks/stripe`
+2. ✅ Correct webhook URL: `https://ring-0cheats.org/api/webhooks/stripe`
 3. ✅ Webhook secret in environment variables
 4. ✅ Events selected: `checkout.session.completed`
 

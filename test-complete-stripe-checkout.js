@@ -80,9 +80,9 @@ async function testCompleteStripeCheckout() {
         price: testVariant.price / 100, // Convert to dollars
         quantity: 1,
       }],
-      customer_email: 'test@skylinecheats.org',
-      success_url: 'https://skylinecheats.org/payment/success',
-      cancel_url: 'https://skylinecheats.org/payment/cancelled',
+      customer_email: 'test@ring-0cheats.org',
+      success_url: 'https://ring-0cheats.org/payment/success',
+      cancel_url: 'https://ring-0cheats.org/payment/cancelled',
     };
     
     console.log('✅ Checkout data prepared:');

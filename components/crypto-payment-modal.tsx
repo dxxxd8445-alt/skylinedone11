@@ -244,7 +244,7 @@ export function CryptoPaymentModal({
             <div className="space-y-4 mb-8">
               <div className="flex items-center justify-between text-white/60">
                 <span>Invoice ID</span>
-                <span className="text-[#2563eb] font-mono font-semibold">
+                <span className="text-[#6b7280] font-mono font-semibold">
                   {orderId || "Generating..."}
                 </span>
               </div>
@@ -273,7 +273,7 @@ export function CryptoPaymentModal({
                   type="text"
                   value={currentAddress}
                   readOnly
-                  className="w-full px-4 py-4 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white font-mono text-sm pr-12 focus:outline-none focus:border-[#2563eb] transition-colors"
+                  className="w-full px-4 py-4 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white font-mono text-sm pr-12 focus:outline-none focus:border-[#6b7280] transition-colors"
                 />
                 <button
                   onClick={() => copyToClipboard(currentAddress)}
@@ -292,7 +292,7 @@ export function CryptoPaymentModal({
             <div className="relative">
               <div className="relative h-16 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-2xl overflow-hidden">
                 <div
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] transition-all duration-100 ease-out"
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] transition-all duration-100 ease-out"
                   style={{ width: `${sliderPosition}%` }}
                 />
                 <input
@@ -315,9 +315,9 @@ export function CryptoPaymentModal({
                   }}
                 >
                   {isConfirming ? (
-                    <Loader2 className="w-6 h-6 text-[#2563eb] animate-spin" />
+                    <Loader2 className="w-6 h-6 text-[#6b7280] animate-spin" />
                   ) : (
-                    <ArrowLeft className="w-6 h-6 text-[#2563eb] rotate-180" />
+                    <ArrowLeft className="w-6 h-6 text-[#6b7280] rotate-180" />
                   )}
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -349,7 +349,7 @@ export function CryptoPaymentModal({
 
             <div className="bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl p-5 mb-6">
               <p className="text-white/60 text-sm mb-2">Order ID</p>
-              <p className="text-[#2563eb] font-mono font-bold text-xl">{orderId}</p>
+              <p className="text-[#6b7280] font-mono font-bold text-xl">{orderId}</p>
             </div>
 
             <div className="bg-gradient-to-br from-yellow-500/10 to-transparent border-2 border-yellow-500/30 rounded-xl p-6 mb-6">
@@ -367,7 +367,7 @@ export function CryptoPaymentModal({
             </div>
 
             <a
-              href="https://discord.gg/skylineggs"
+              href="https://discord.gg/ring-0"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-bold transition-all hover:scale-105 active:scale-95 mb-4 w-full"

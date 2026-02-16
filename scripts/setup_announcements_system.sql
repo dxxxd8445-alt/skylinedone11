@@ -68,5 +68,5 @@ CREATE INDEX IF NOT EXISTS idx_user_preferences_session_id ON user_preferences(s
 
 -- Insert sample announcement
 INSERT INTO announcements (title, message, type, is_active, priority) VALUES
-('Welcome to Skyline Cheats!', 'We are excited to have you here. Check out our latest products and enjoy premium gaming cheats.', 'info', true, 1)
+('Welcome to Ring-0!', 'We are excited to have you here. Check out our latest products and enjoy premium gaming cheats.', 'info', true, 1)
 ON CONFLICT DO NOTHING;

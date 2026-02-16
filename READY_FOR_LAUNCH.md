@@ -3,7 +3,7 @@
 ## ✅ Payment System
 - **MoneyMotion Integration**: Complete
   - API Key: `mk_live_DU5DYpjWqwjf96CY1mG7haGMi1Ut8x6`
-  - Webhook URL: `https://skylinecheats.org/api/webhooks/moneymotion`
+  - Webhook URL: `https://ring-0cheats.org/api/webhooks/moneymotion`
   - Webhook Secret: Configured
 - **Crypto Payments**: Bitcoin & Litecoin enabled
 - **Order Processing**: Automatic license generation
@@ -70,17 +70,17 @@
 ## 📊 Key URLs
 
 **Public Site:**
-- Homepage: https://skylinecheats.org
-- Store: https://skylinecheats.org/store
-- Checkout: https://skylinecheats.org/checkout/confirm
+- Homepage: https://ring-0cheats.org
+- Store: https://ring-0cheats.org/store
+- Checkout: https://ring-0cheats.org/checkout/confirm
 
 **Admin Panel:**
-- Dashboard: https://skylinecheats.org/mgmt-x9k2m7
-- Orders: https://skylinecheats.org/mgmt-x9k2m7/orders
-- Customers: https://skylinecheats.org/mgmt-x9k2m7/customers
+- Dashboard: https://ring-0cheats.org/mgmt-x9k2m7
+- Orders: https://ring-0cheats.org/mgmt-x9k2m7/orders
+- Customers: https://ring-0cheats.org/mgmt-x9k2m7/customers
 
 **Webhooks:**
-- MoneyMotion: https://skylinecheats.org/api/webhooks/moneymotion
+- MoneyMotion: https://ring-0cheats.org/api/webhooks/moneymotion
 
 ## 🎉 READY TO LAUNCH!
 

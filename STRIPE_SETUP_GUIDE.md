@@ -19,7 +19,7 @@ npm install
 
 1. Go to https://dashboard.stripe.com/test/webhooks
 2. Click "Add endpoint"
-3. Enter URL: `https://skylinecheats.org/api/webhooks/stripe`
+3. Enter URL: `https://ring-0cheats.org/api/webhooks/stripe`
 4. Select these events:
    - `checkout.session.completed`
    - `payment_intent.succeeded`

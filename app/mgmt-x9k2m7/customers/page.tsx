@@ -231,7 +231,7 @@ export default function CustomersPage() {
           <Button
             onClick={loadCustomers}
             disabled={loading}
-            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+            className="bg-[#6b7280] hover:bg-[#9ca3af] text-white"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -246,8 +246,8 @@ export default function CustomersPage() {
                 <p className="text-white/60 text-sm">Total Customers</p>
                 <p className="text-2xl font-bold text-white">{customers.length}</p>
               </div>
-              <div className="p-3 rounded-xl bg-[#2563eb]/10">
-                <Users className="w-6 h-6 text-[#2563eb]" />
+              <div className="p-3 rounded-xl bg-[#6b7280]/10">
+                <Users className="w-6 h-6 text-[#6b7280]" />
               </div>
             </div>
           </CardContent>
@@ -278,7 +278,7 @@ export default function CustomersPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (
@@ -342,8 +342,8 @@ export default function CustomersPage() {
                     {filteredCustomers.length === 0 && !loading && (
                       <TableRow>
                         <TableCell colSpan={6} className="py-16 text-center">
-                          <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
-                            <Users className="w-8 h-8 text-[#2563eb]" />
+                          <div className="w-16 h-16 rounded-full bg-[#6b7280]/10 flex items-center justify-center mx-auto mb-4">
+                            <Users className="w-8 h-8 text-[#6b7280]" />
                           </div>
                           <p className="text-white/60">No customers found</p>
                         </TableCell>

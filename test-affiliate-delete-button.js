@@ -18,7 +18,7 @@ console.log('  - DELETE: Delete affiliate (cascade deletes referrals & clicks)\n
 // Test 2: Verify frontend implementation
 console.log('✓ Frontend Implementation:');
 console.log('  - Delete button visible in affiliates table');
-console.log('  - Button has red styling (text-blue-600)');
+console.log('  - Button has red styling (text-gray-600)');
 console.log('  - Button shows "Delete" text with trash icon');
 console.log('  - onClick handler calls deleteAffiliate(affiliate.id)\n');
 

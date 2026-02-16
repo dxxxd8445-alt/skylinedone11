@@ -1,5 +1,5 @@
 -- ============================================
--- COMPLETE SKYLINE STORE DATABASE SETUP
+-- COMPLETE RING-0 STORE DATABASE SETUP
 -- COPY AND PASTE THIS ENTIRE SCRIPT INTO SUPABASE SQL EDITOR
 -- THIS IS THE ONLY SCRIPT YOU NEED TO RUN
 -- ============================================
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS products (
   description TEXT,
   image TEXT,
   gallery JSONB DEFAULT '[]'::jsonb,
-  provider TEXT DEFAULT 'Skyline',
+  provider TEXT DEFAULT 'Ring-0',
   features TEXT[] DEFAULT '{}',
   requirements TEXT[] DEFAULT '{}',
   feature_cards JSONB DEFAULT '[]'::jsonb,
@@ -454,14 +454,14 @@ ON CONFLICT (code) DO NOTHING;
 
 -- Settings
 INSERT INTO settings (key, value, description) VALUES
-('site_name', '"Skyline Store"', 'Website name'),
+('site_name', '"Ring-0 Store"', 'Website name'),
 ('site_description', '"Premium gaming software and cheats"', 'Website description'),
 ('maintenance_mode', 'false', 'Enable/disable maintenance mode')
 ON CONFLICT (key) DO NOTHING;
 
 -- Announcements
 INSERT INTO announcements (title, message, type, priority, is_active) VALUES
-('Welcome to Skyline Cheats!', 'Check out our latest products and exclusive deals. Join our Discord for updates and support!', 'info', 5, true)
+('Welcome to Ring-0!', 'Check out our latest products and exclusive deals. Join our Discord for updates and support!', 'info', 5, true)
 ON CONFLICT DO NOTHING;
 
 -- ============================================

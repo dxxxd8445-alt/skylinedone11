@@ -36,7 +36,7 @@ The webhooks are pulled from the `webhooks` table in your database:
 ### Discord Message Format:
 
 **Checkout Started:**
-- Blue embed (color: #3b82f6)
+- Blue embed (color: #9ca3af)
 - Title: "🛒 New Checkout Started!"
 - Shows customer info, cart items, total amount
 - Indicates customer is reviewing order

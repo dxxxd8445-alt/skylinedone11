@@ -18,10 +18,10 @@
 4. ✅ Done!
 
 ### Step 3: Test It (5 minutes)
-1. Go to: `https://skylinecheats.org/reviews`
+1. Go to: `https://ring-0cheats.org/reviews`
 2. Click "Write a Review"
 3. Submit a test review
-4. Go to: `https://skylinecheats.org/mgmt-x9k2m7/reviews`
+4. Go to: `https://ring-0cheats.org/mgmt-x9k2m7/reviews`
 5. Click "Approve" on your test review
 6. Go back to reviews page
 7. See your review is now visible!
@@ -44,8 +44,8 @@
 
 ## 📍 Important URLs
 
-- **Public Reviews**: `https://skylinecheats.org/reviews`
-- **Admin Reviews**: `https://skylinecheats.org/mgmt-x9k2m7/reviews`
+- **Public Reviews**: `https://ring-0cheats.org/reviews`
+- **Admin Reviews**: `https://ring-0cheats.org/mgmt-x9k2m7/reviews`
 - **Admin Password**: `Sk7yL!n3_Adm1n_2026_X9k2M7pQ`
 
 ## 🔒 How It Works

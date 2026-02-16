@@ -71,7 +71,7 @@
 ## How It Works
 
 ### Affiliate Flow:
-1. User clicks affiliate link: `https://skylinecheats.org?ref=ABC123`
+1. User clicks affiliate link: `https://ring-0cheats.org?ref=ABC123`
 2. AffiliateTracker component captures the `ref` parameter
 3. Stores code in localStorage with 30-day expiration
 4. Tracks the click in database via `/api/affiliate/track`
@@ -182,7 +182,7 @@ The affiliate numbers in `/mgmt-x9k2m7/affiliates` now update automatically when
 
 If you encounter any issues:
 1. Check browser console for errors
-2. Check localStorage for `skyline_affiliate_ref` key
+2. Check localStorage for `ring-0_affiliate_ref` key
 3. Check Stripe webhook logs in Stripe dashboard
 4. Check Supabase logs for database errors
 5. Check admin dashboard affiliate stats

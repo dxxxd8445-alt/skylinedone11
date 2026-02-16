@@ -6,7 +6,7 @@
  */
 
 const RESEND_API_KEY = 're_5BWCUqaS_F9ME2HR5MXF3tm4DfFoRpSUJ';
-const FROM_EMAIL = 'Skyline <noreply@skylinecheats.org>';
+const FROM_EMAIL = 'Ring-0 <noreply@ring-0cheats.org>';
 const TEST_EMAIL = 'your-email@example.com'; // CHANGE THIS TO YOUR EMAIL
 
 // Test invitation email HTML
@@ -18,8 +18,8 @@ function createTestInviteEmail() {
 <body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <div style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#2563eb 0%,#3b82f6 100%);border-radius:16px;margin-bottom:20px;line-height:60px;color:white;font-size:32px;">🔥</div>
-      <h1 style="color:#fff;margin:0;font-size:28px;font-weight:bold;">Welcome to Skyline</h1>
+      <div style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#6b7280 0%,#9ca3af 100%);border-radius:16px;margin-bottom:20px;line-height:60px;color:white;font-size:32px;">🔥</div>
+      <h1 style="color:#fff;margin:0;font-size:28px;font-weight:bold;">Welcome to Ring-0</h1>
     </div>
     <div style="background:#111;border:1px solid #262626;border-radius:16px;padding:40px;">
       <h2 style="color:#fff;margin:0 0 20px;font-size:20px;">Hi Test User,</h2>
@@ -28,11 +28,11 @@ function createTestInviteEmail() {
       <p style="color:#a3a3a3;line-height:1.6;margin:0 0 24px;"><strong style="color:#fff;">Permissions:</strong> Dashboard, Manage Products</p>
       <p style="color:#a3a3a3;line-height:1.6;margin:0 0 30px;">If you received this email, team invitations are working!</p>
       <div style="text-align:center;margin:30px 0;">
-        <a href="https://skylinecheats.org/staff/accept-invite?token=test123" style="display:inline-block;background:linear-gradient(135deg,#2563eb 0%,#3b82f6 100%);color:white;text-decoration:none;padding:16px 32px;border-radius:10px;font-weight:600;font-size:16px;">Test Invitation Link</a>
+        <a href="https://ring-0cheats.org/staff/accept-invite?token=test123" style="display:inline-block;background:linear-gradient(135deg,#6b7280 0%,#9ca3af 100%);color:white;text-decoration:none;padding:16px 32px;border-radius:10px;font-weight:600;font-size:16px;">Test Invitation Link</a>
       </div>
       <p style="color:#737373;font-size:14px;margin:20px 0 0;">This is a test email. The invitation link is not real.</p>
     </div>
-    <p style="text-align:center;color:#525252;font-size:12px;margin:20px 0 0;">© ${new Date().getFullYear()} Skyline. All rights reserved.</p>
+    <p style="text-align:center;color:#525252;font-size:12px;margin:20px 0 0;">© ${new Date().getFullYear()} Ring-0. All rights reserved.</p>
   </div>
 </body>
 </html>`.trim();
@@ -73,10 +73,10 @@ async function testEmail() {
       
       if (data.message && data.message.includes('domain')) {
         console.log('\n⚠️  DOMAIN VERIFICATION REQUIRED');
-        console.log('Your domain "skylinecheats.org" needs to be verified in Resend.');
+        console.log('Your domain "ring-0cheats.org" needs to be verified in Resend.');
         console.log('\n📋 Steps to fix:');
         console.log('1. Go to: https://resend.com/domains');
-        console.log('2. Add domain: skylinecheats.org');
+        console.log('2. Add domain: ring-0cheats.org');
         console.log('3. Add DNS records to your domain provider');
         console.log('4. Wait for verification (usually 5-10 minutes)');
         console.log('\n💡 OR use a verified email address for testing:');

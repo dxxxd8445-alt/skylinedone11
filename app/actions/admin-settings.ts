@@ -28,9 +28,9 @@ export async function loadSettings() {
     return { 
       success: true, 
       settings: {
-        site_name: settingsMap.site_name || "Skyline Cheats",
+        site_name: settingsMap.site_name || "Ring-0",
         site_description: settingsMap.site_description || "Premium undetected cheats for all games",
-        support_email: settingsMap.support_email || "support@skyline.local",
+        support_email: settingsMap.support_email || "support@ring-0.local",
         maintenance_mode: settingsMap.maintenance_mode || false,
         storrik_api_key: settingsMap.storrik_api_key || "",
       }

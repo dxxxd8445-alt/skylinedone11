@@ -2,7 +2,7 @@
 
 ## 🎉 Status: FULLY OPERATIONAL
 
-Clicky Web Analytics has been successfully integrated into your Skyline Cheats site!
+Clicky Web Analytics has been successfully integrated into your Ring-0 site!
 
 ---
 
@@ -69,7 +69,7 @@ A beautiful admin dashboard page showing:
 
 ### Admin Dashboard
 Navigate to: **Admin Panel → Live Visitors**
-- URL: `https://skylinecheats.org/mgmt-x9k2m7/live-visitors`
+- URL: `https://ring-0cheats.org/mgmt-x9k2m7/live-visitors`
 - Shows real-time visitor data
 - Auto-refreshes every 30 seconds
 - Embedded Clicky dashboards
@@ -186,7 +186,7 @@ Navigate to: **Admin Panel → Live Visitors**
 ## 🎨 UI Design
 
 ### Color Scheme
-- Primary: Blue (#2563eb)
+- Primary: Blue (#6b7280)
 - Background: Dark gradient (#111111 to #0a0a0a)
 - Borders: Subtle (#1a1a1a)
 - Text: White with opacity variations

@@ -1,5 +1,5 @@
 -- ============================================
--- FINAL DATABASE FIX - Skyline Cheats
+-- FINAL DATABASE FIX - Ring-0
 -- ============================================
 -- This script fixes all remaining database issues:
 -- 1. Ensures affiliates table uses store_user_id (not user_id)

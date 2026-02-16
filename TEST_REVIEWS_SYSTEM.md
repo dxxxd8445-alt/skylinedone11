@@ -13,7 +13,7 @@ Copy all content → Paste in Supabase SQL Editor → Run
 ### ✅ Step 1: Test Customer Review Submission
 
 1. **Go to Reviews Page**
-   - URL: `https://skylinecheats.org/reviews`
+   - URL: `https://ring-0cheats.org/reviews`
    - Should see existing reviews (if any approved)
 
 2. **Click "Write a Review" Button**
@@ -36,7 +36,7 @@ Copy all content → Paste in Supabase SQL Editor → Run
 ### ✅ Step 2: Test Admin Review Management
 
 1. **Go to Admin Reviews Page**
-   - URL: `https://skylinecheats.org/mgmt-x9k2m7/reviews`
+   - URL: `https://ring-0cheats.org/mgmt-x9k2m7/reviews`
    - Password: `Sk7yL!n3_Adm1n_2026_X9k2M7pQ`
 
 2. **Check Dashboard Stats**
@@ -66,7 +66,7 @@ Copy all content → Paste in Supabase SQL Editor → Run
    - Badge should change from yellow "PENDING" to green "APPROVED"
 
 2. **Verify on Public Page**
-   - Go back to: `https://skylinecheats.org/reviews`
+   - Go back to: `https://ring-0cheats.org/reviews`
    - Your review should NOW be visible!
    - Should show with 5 stars, username, text
 

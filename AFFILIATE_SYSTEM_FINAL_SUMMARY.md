@@ -70,7 +70,7 @@ The affiliate system is now **100% working and ready to use**. All bugs have bee
 
 After successful registration, you should see:
 - ✅ Your unique affiliate code
-- ✅ Your affiliate link (https://skylinecheats.org?ref=YOUR_CODE)
+- ✅ Your affiliate link (https://ring-0cheats.org?ref=YOUR_CODE)
 - ✅ Commission rate (5%)
 - ✅ Stats dashboard showing:
   - Total Earnings
@@ -119,7 +119,7 @@ After successful registration, you should see:
 ## 🔗 AFFILIATE LINK FORMAT
 
 ```
-https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
+https://ring-0cheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 Share this link to earn 5% commission on each sale!

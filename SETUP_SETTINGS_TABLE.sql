@@ -1,5 +1,5 @@
 -- ============================================
--- SETTINGS TABLE SETUP - Skyline Cheats
+-- SETTINGS TABLE SETUP - Ring-0
 -- ============================================
 -- This script ensures the settings table exists
 -- and has the correct structure
@@ -28,9 +28,9 @@ CREATE POLICY "Allow all operations for service role" ON settings FOR ALL USING 
 
 -- Insert default settings if they don't exist
 INSERT INTO settings (key, value) VALUES
-  ('site_name', '"Skyline Cheats"'),
+  ('site_name', '"Ring-0"'),
   ('site_description', '"Premium undetected cheats for all games"'),
-  ('support_email', '"support@skylinecheats.org"'),
+  ('support_email', '"support@ring-0cheats.org"'),
   ('maintenance_mode', 'false')
 ON CONFLICT (key) DO NOTHING;
 

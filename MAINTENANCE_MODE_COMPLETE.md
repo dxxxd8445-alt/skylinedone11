@@ -17,7 +17,7 @@ I've built a complete maintenance mode system that:
 - Takes effect instantly (no restart needed)
 
 ### 2. **Beautiful Maintenance Page** 🎨
-- **Blue gradient theme** matching Skyline branding
+- **Blue gradient theme** matching Ring-0 branding
 - **Animated elements**: Pulsing background, spinning gear, bouncing wrench
 - **Responsive design**: Works on mobile and desktop
 - **Information cards**: Shows estimated time, status, support email
@@ -48,11 +48,11 @@ All settings now work properly:
 - **Title**: Gradient text from blue to light blue
 - **Info cards**: 3 cards showing time, status, support
 - **Discord button**: Gradient blue button with hover effect
-- **Branding**: Skyline Cheats logo at bottom
+- **Branding**: Ring-0 logo at bottom
 
 ### Colors Used:
-- Primary Blue: `#2563eb`
-- Light Blue: `#3b82f6`
+- Primary Blue: `#6b7280`
+- Light Blue: `#9ca3af`
 - Dark Background: `#0a0a0a`
 - Dark Blue Accent: `#1a1a3a`
 
@@ -97,9 +97,9 @@ settings table:
 ```
 
 ### Settings Keys:
-- `site_name`: "Skyline Cheats"
+- `site_name`: "Ring-0"
 - `site_description`: "Premium undetected cheats for all games"
-- `support_email`: "support@skylinecheats.org"
+- `support_email`: "support@ring-0cheats.org"
 - `maintenance_mode`: false (boolean)
 
 ## 📝 Setup Instructions
@@ -244,14 +244,14 @@ It automatically uses the email from your settings!
 ### Change Discord Link:
 Edit `magma src/app/maintenance/page.tsx` line ~80:
 ```tsx
-href="https://discord.gg/skylineggs"
+href="https://discord.gg/ring-0"
 ```
 
 ### Change Colors:
 All colors use Tailwind classes:
-- `bg-[#2563eb]` - Primary blue
-- `bg-[#3b82f6]` - Light blue
-- `text-[#2563eb]` - Blue text
+- `bg-[#6b7280]` - Primary blue
+- `bg-[#9ca3af]` - Light blue
+- `text-[#6b7280]` - Blue text
 
 ## ✅ Summary
 
@@ -264,7 +264,7 @@ Your maintenance mode system is now complete with:
 ✅ **All settings save/load** correctly
 ✅ **No JSON errors** - fixed parsing issue
 ✅ **Responsive design** works on all devices
-✅ **Professional look** matches Skyline branding
+✅ **Professional look** matches Ring-0 branding
 
 **Everything is working and ready to use!** 🚀
 

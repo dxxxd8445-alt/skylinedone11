@@ -9,7 +9,7 @@ All code is deployed and SQL is configured. Follow these steps to verify everyth
 ## 📝 TEST 1: Customer Can Submit Review (Starts as Pending)
 
 ### Steps:
-1. **Open your site**: `https://skylinecheats.org/reviews`
+1. **Open your site**: `https://ring-0cheats.org/reviews`
 2. **Click "Write a Review"** button (blue button near top)
 3. **Fill out the form**:
    - Username: `TestCustomer`
@@ -33,7 +33,7 @@ All code is deployed and SQL is configured. Follow these steps to verify everyth
 ## 📝 TEST 2: Admin Can See Pending Review
 
 ### Steps:
-1. **Go to admin panel**: `https://skylinecheats.org/mgmt-x9k2m7/reviews`
+1. **Go to admin panel**: `https://ring-0cheats.org/mgmt-x9k2m7/reviews`
 2. **Login** with password: `Sk7yL!n3_Adm1n_2026_X9k2M7pQ`
 3. **Check the stats at top**:
    - Should show "Pending Approval: 1"
@@ -77,7 +77,7 @@ All code is deployed and SQL is configured. Follow these steps to verify everyth
 ## 📝 TEST 4: Approved Review Shows on Public Page
 
 ### Steps:
-1. **Go back to public reviews page**: `https://skylinecheats.org/reviews`
+1. **Go back to public reviews page**: `https://ring-0cheats.org/reviews`
 2. **Scroll through reviews**
 
 ### ✅ Expected Result:

@@ -1,4 +1,4 @@
-# 🚀 Skyline Release Checklist
+# 🚀 Ring-0 Release Checklist
 
 ## Pre-Release Steps
 
@@ -110,9 +110,9 @@ vercel --prod
 
 ## Important URLs
 
-**Production Site:** https://skylinecheats.org
-**Admin Dashboard:** https://skylinecheats.org/mgmt-x9k2m7
-**Discord Server:** https://discord.gg/skylineggs
+**Production Site:** https://ring-0cheats.org
+**Admin Dashboard:** https://ring-0cheats.org/mgmt-x9k2m7
+**Discord Server:** https://discord.gg/ring-0
 
 **Crypto Addresses:**
 - Litecoin: `LSCp4ChhkBSKH3LesC6NGBbriSdXwrfHuW`
@@ -128,9 +128,9 @@ Make sure these are set in your hosting platform:
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 RESEND_API_KEY=re_5BWCUqaS_F9ME2HR5MXF3tm4DfFoRpSUJ
-RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>
+RESEND_FROM_EMAIL=Ring-0 <noreply@ring-0cheats.org>
 NEXT_PUBLIC_CLICKY_SITE_ID=101500977
 ```
 

@@ -22,7 +22,7 @@ You need to add your Storrik API keys to Vercel:
 
 ### Go to Vercel Dashboard:
 1. Go to https://vercel.com/dashboard
-2. Click on your project "Skyline Cheats"
+2. Click on your project "Ring-0"
 3. Go to **Settings** → **Environment Variables**
 
 ### Add These Variables:
@@ -52,7 +52,7 @@ Storrik needs to know where to send payment confirmations.
 3. Click **Add Webhook Endpoint**
 4. Enter this URL:
    ```
-   https://skylinecheats.org/api/webhooks/storrik
+   https://ring-0cheats.org/api/webhooks/storrik
    ```
 5. Select these events to listen for:
    - `payment.succeeded`
@@ -84,7 +84,7 @@ After adding environment variables:
 
 ### Test on Production:
 
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add a product to cart
 3. Go to checkout
 4. Enter your email
@@ -153,7 +153,7 @@ After adding environment variables:
 **Solution:**
 - Check if webhook is set up correctly (Step 2)
 - Check Vercel logs for webhook errors
-- Verify webhook URL is exactly: `https://skylinecheats.org/api/webhooks/storrik`
+- Verify webhook URL is exactly: `https://ring-0cheats.org/api/webhooks/storrik`
 
 ### Issue: Webhook not being called
 **Solution:**
@@ -187,7 +187,7 @@ After adding environment variables:
    ↓
 8. Storrik processes payment
    ↓
-9. Storrik → POST https://skylinecheats.org/api/webhooks/storrik
+9. Storrik → POST https://ring-0cheats.org/api/webhooks/storrik
    Body: { event: "payment.succeeded", data: { ... } }
    ↓
 10. Webhook handler:

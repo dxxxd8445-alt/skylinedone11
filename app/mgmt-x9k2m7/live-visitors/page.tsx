@@ -62,14 +62,14 @@ export default function LiveVisitorsPage() {
             </Button>
             <Button
               onClick={refreshClicky}
-              className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+              className="bg-[#6b7280] hover:bg-[#9ca3af] text-white"
             >
               <RefreshCw className="w-4 h-4 mr-2" />
               Refresh Now
             </Button>
             <Button
               onClick={() => window.open('https://clicky.com/101500977', '_blank')}
-              className="bg-[#1a1a1a] hover:bg-[#262626] text-white border border-[#2563eb]/30"
+              className="bg-[#1a1a1a] hover:bg-[#262626] text-white border border-[#6b7280]/30"
             >
               <ExternalLink className="w-4 h-4 mr-2" />
               Full Dashboard
@@ -86,8 +86,8 @@ export default function LiveVisitorsPage() {
                   <p className="text-white/60 text-sm">Live Tracking</p>
                   <p className="text-2xl font-bold text-white mt-2">Active</p>
                 </div>
-                <div className="p-3 rounded-xl bg-[#2563eb]/10">
-                  <Users className="w-6 h-6 text-[#2563eb] animate-pulse" />
+                <div className="p-3 rounded-xl bg-[#6b7280]/10">
+                  <Users className="w-6 h-6 text-[#6b7280] animate-pulse" />
                 </div>
               </div>
             </CardContent>
@@ -100,8 +100,8 @@ export default function LiveVisitorsPage() {
                   <p className="text-white/60 text-sm">Analytics</p>
                   <p className="text-2xl font-bold text-white mt-2">Clicky</p>
                 </div>
-                <div className="p-3 rounded-xl bg-blue-500/10">
-                  <Globe className="w-6 h-6 text-blue-400" />
+                <div className="p-3 rounded-xl bg-gray-500/10">
+                  <Globe className="w-6 h-6 text-gray-400" />
                 </div>
               </div>
             </CardContent>
@@ -139,11 +139,11 @@ export default function LiveVisitorsPage() {
         </div>
 
         {/* Info Banner */}
-        <Card className="bg-gradient-to-r from-[#2563eb]/10 to-transparent border-[#2563eb]/30">
+        <Card className="bg-gradient-to-r from-[#6b7280]/10 to-transparent border-[#6b7280]/30">
           <CardContent className="p-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded-lg bg-[#2563eb]/20">
-                <BarChart3 className="w-5 h-5 text-[#2563eb]" />
+              <div className="p-2 rounded-lg bg-[#6b7280]/20">
+                <BarChart3 className="w-5 h-5 text-[#6b7280]" />
               </div>
               <div className="flex-1">
                 <h3 className="text-white font-semibold mb-1">Clicky Web Analytics Integration</h3>
@@ -160,7 +160,7 @@ export default function LiveVisitorsPage() {
         <Card className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-[#1a1a1a]">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
-              <Activity className="w-5 h-5 text-[#2563eb]" />
+              <Activity className="w-5 h-5 text-[#6b7280]" />
               Live Visitor Dashboard
             </CardTitle>
           </CardHeader>
@@ -168,8 +168,8 @@ export default function LiveVisitorsPage() {
             <div className="relative w-full bg-[#0a0a0a] rounded-b-lg overflow-hidden" style={{ height: '800px' }}>
               {/* Alternative: Direct link to Clicky dashboard */}
               <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-[#2563eb]/20 to-[#3b82f6]/10 border border-[#2563eb]/30 mb-6">
-                  <BarChart3 className="w-16 h-16 text-[#2563eb] mx-auto" />
+                <div className="p-6 rounded-2xl bg-gradient-to-br from-[#6b7280]/20 to-[#9ca3af]/10 border border-[#6b7280]/30 mb-6">
+                  <BarChart3 className="w-16 h-16 text-[#6b7280] mx-auto" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">Clicky Analytics Dashboard</h3>
                 <p className="text-white/60 mb-6 max-w-md">
@@ -178,7 +178,7 @@ export default function LiveVisitorsPage() {
                 <Button
                   onClick={() => window.open('https://clicky.com/101500977', '_blank')}
                   size="lg"
-                  className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white"
+                  className="bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white"
                 >
                   <ExternalLink className="w-5 h-5 mr-2" />
                   Open Clicky Dashboard
@@ -213,7 +213,7 @@ export default function LiveVisitorsPage() {
                 <Button
                   onClick={() => window.open('https://clicky.com/101500977', '_blank')}
                   size="sm"
-                  className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+                  className="bg-[#6b7280] hover:bg-[#9ca3af] text-white"
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Open Full Dashboard

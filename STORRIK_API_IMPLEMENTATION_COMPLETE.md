@@ -57,8 +57,8 @@ Body:
       order_number: "ORD-123",
       customer_email: "customer@example.com"
     },
-    success_url: "https://skylinecheats.org/payment/success?order_id=uuid",
-    cancel_url: "https://skylinecheats.org/cart"
+    success_url: "https://ring-0cheats.org/payment/success?order_id=uuid",
+    cancel_url: "https://ring-0cheats.org/cart"
   }
 ```
 
@@ -83,7 +83,7 @@ Make sure these are in Vercel:
 STORRIK_SECRET_KEY=sk_live__vt_sjJObqx8wIyB1NMsYi9sD4ShALJ18CBGBZZDAxk
 STORRIK_WEBHOOK_SECRET=whsec_NIiLZwWd69gg9m3cn2KadKi0O5LnFX4SOUeEi10Yv9Ef7d2d98c
 RESEND_API_KEY=your_resend_key
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
@@ -155,7 +155,7 @@ Your dev server is already running at `http://localhost:3000`
 ### If webhook doesn't trigger:
 
 **Check:**
-1. Webhook URL in Storrik dashboard: `https://skylinecheats.org/api/webhooks/storrik`
+1. Webhook URL in Storrik dashboard: `https://ring-0cheats.org/api/webhooks/storrik`
 2. Webhook events enabled: `transaction.succeeded`, `payment.succeeded`
 3. Webhook secret matches: `whsec_NIiLZwWd69gg9m3cn2KadKi0O5LnFX4SOUeEi10Yv9Ef7d2d98c`
 4. Vercel logs for webhook errors

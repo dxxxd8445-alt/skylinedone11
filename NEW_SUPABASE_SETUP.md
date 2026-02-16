@@ -60,7 +60,7 @@ Run this SQL to create your admin account:
 -- Create admin user
 INSERT INTO admin_users (email, password_hash, role, is_active)
 VALUES (
-  'admin@skylinecheats.org',
+  'admin@ring-0cheats.org',
   crypt('Sk7yL!n3_Adm1n_2026_X9k2M7pQ', gen_salt('bf')),
   'super_admin',
   true
@@ -74,7 +74,7 @@ Run this SQL:
 -- Setup Discord webhook
 INSERT INTO webhooks (name, url, events, is_active) VALUES
   (
-    'Skyline Discord - All Order Events', 
+    'Ring-0 Discord - All Order Events', 
     'https://discord.com/api/webhooks/1466894801541533707/6Z-YfKfQbE-UuakpsNLfULuf_3WefNpMbwLLiNJKMSf__Xv-7GL4e4b0M1F7409S5L54',
     ARRAY['checkout.started', 'order.pending', 'order.completed', 'payment.completed', 'payment.failed', 'order.refunded', 'order.disputed'],
     true

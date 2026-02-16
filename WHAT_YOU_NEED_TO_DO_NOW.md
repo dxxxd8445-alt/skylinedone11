@@ -39,7 +39,7 @@ Go to your Storrik dashboard (wherever you manage your Storrik account)
 2. Click **Add Webhook** or **Create Endpoint**
 3. Enter this URL:
    ```
-   https://skylinecheats.org/api/webhooks/storrik
+   https://ring-0cheats.org/api/webhooks/storrik
    ```
 4. Select events:
    - `payment.succeeded`
@@ -63,7 +63,7 @@ After adding environment variables:
 
 ## 🧪 THEN TEST IT:
 
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add product to cart
 3. Go to checkout
 4. Enter email

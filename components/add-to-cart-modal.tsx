@@ -73,7 +73,7 @@ export function AddToCartModal({ isOpen, onClose, product }: AddToCartModalProps
           <Link
             href="/cart"
             onClick={onClose}
-            className="flex items-center justify-center gap-2 w-full py-3 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-lg font-semibold transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-3 bg-[#6b7280] hover:bg-[#9ca3af] text-white rounded-lg font-semibold transition-colors"
           >
             Review & Checkout
             <ArrowRight className="w-4 h-4" />

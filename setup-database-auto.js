@@ -5,7 +5,7 @@ const SUPABASE_URL = 'https://bcjzfqvomwtuyznnlxha.supabase.co';
 const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJjanpmcXZvbXd0dXl6bm5seGhhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2OTg3MDU1NSwiZXhwIjoyMDg1NDQ2NTU1fQ.1gp_MzZ1cU2ec4a2PwinO7wNr6I3YXz6wGHhSuORpvk';
 
 async function setupDatabase() {
-  console.log('🚀 Setting up your Skyline Store database...');
+  console.log('🚀 Setting up your Ring-0 Store database...');
   
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
     auth: {

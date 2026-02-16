@@ -21,28 +21,28 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4 text-white">2. Use of License</h2>
             <p>
-              Permission is granted to temporarily download one copy of the materials (information or software) on Skyline Cheats website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
+              Permission is granted to temporarily download one copy of the materials (information or software) on Ring-0 website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold mb-4 text-white">3. Disclaimer</h2>
             <p>
-              The materials on Skyline Cheats website are provided "as is". Skyline Cheats makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+              The materials on Ring-0 website are provided "as is". Ring-0 makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold mb-4 text-white">4. Limitations</h2>
             <p>
-              In no event shall Skyline Cheats or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Skyline Cheats Internet site.
+              In no event shall Ring-0 or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Ring-0 Internet site.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold mb-4 text-white">5. Revisions and Errata</h2>
             <p>
-              The materials appearing on Skyline Cheats web site could include technical, typographical, or photographic errors. Skyline Cheats does not warrant that any of the materials on its web site are accurate, complete, or current.
+              The materials appearing on Ring-0 web site could include technical, typographical, or photographic errors. Ring-0 does not warrant that any of the materials on its web site are accurate, complete, or current.
             </p>
           </section>
         </div>

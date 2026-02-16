@@ -87,7 +87,7 @@ export default function DebugAuthPage() {
                   {authInfo.authenticated ? (
                     <CheckCircle className="h-5 w-5 text-green-500" />
                   ) : (
-                    <XCircle className="h-5 w-5 text-blue-500" />
+                    <XCircle className="h-5 w-5 text-gray-500" />
                   )}
                   <span className="font-medium">
                     {authInfo.authenticated ? "Authenticated" : "Not Authenticated"}
@@ -104,11 +104,11 @@ export default function DebugAuthPage() {
                 )}
 
                 {authInfo.error && (
-                  <div className="flex items-start gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <AlertTriangle className="h-4 w-4 text-blue-500 mt-0.5" />
+                  <div className="flex items-start gap-2 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                    <AlertTriangle className="h-4 w-4 text-gray-500 mt-0.5" />
                     <div>
-                      <p className="font-medium text-blue-800">Error:</p>
-                      <p className="text-sm text-blue-600">{authInfo.error}</p>
+                      <p className="font-medium text-gray-800">Error:</p>
+                      <p className="text-sm text-gray-600">{authInfo.error}</p>
                     </div>
                   </div>
                 )}

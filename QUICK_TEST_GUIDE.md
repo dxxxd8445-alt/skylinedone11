@@ -1,4 +1,4 @@
-# 🧪 QUICK TEST GUIDE - Skyline Cheats
+# 🧪 QUICK TEST GUIDE - Ring-0
 
 ## 🚀 STEP-BY-STEP TESTING
 
@@ -143,7 +143,7 @@
 - Can copy affiliate link
 
 #### C. Test Affiliate Referral
-1. Copy affiliate link (e.g., `https://skylinecheats.org?ref=ABC123`)
+1. Copy affiliate link (e.g., `https://ring-0cheats.org?ref=ABC123`)
 2. Open in incognito/private window
 3. Complete a purchase using that link
 4. Go back to affiliate dashboard
@@ -162,10 +162,10 @@
 #### A. License Delivery Email
 1. Complete a purchase
 2. Check email inbox
-3. Open "Your Skyline License Key" email
+3. Open "Your Ring-0 License Key" email
 
 **✅ Expected Results:**
-- Email has blue Skyline branding
+- Email has blue Ring-0 branding
 - Shows order number
 - Shows product name
 - Shows license key
@@ -178,8 +178,8 @@
 4. Check inbox
 
 **✅ Expected Results:**
-- Email has blue Skyline branding
-- Has "Reset Your Skyline Password" title
+- Email has blue Ring-0 branding
+- Has "Reset Your Ring-0 Password" title
 - Reset link works
 
 ---
@@ -299,7 +299,7 @@
 
 ### Emails
 - [ ] License delivery email sent
-- [ ] Blue Skyline branding
+- [ ] Blue Ring-0 branding
 - [ ] License keys included
 - [ ] Password reset works
 

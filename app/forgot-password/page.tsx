@@ -51,8 +51,8 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#1a1a1a] to-[#0a0a0a] flex flex-col">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#3b82f6]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6b7280]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#9ca3af]/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
       </div>
 
       {/* Header - Mobile friendly */}
@@ -63,13 +63,7 @@ export default function ForgotPasswordPage() {
         </Link>
         
         <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/images/Skyline_without_bg.png"
-            alt="Skyline Cheats"
-            width={120}
-            height={32}
-            className="h-8 w-auto"
-          />
+          <span className="text-2xl font-bold text-white">Ring-0</span>
         </Link>
         
         <div className="w-16" /> {/* Spacer for centering */}
@@ -86,11 +80,11 @@ export default function ForgotPasswordPage() {
 
           {/* Main card */}
           <div className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
             <div className="relative rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] p-6 sm:p-8">
               {/* Header */}
               <div className="text-center mb-8">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center shadow-lg shadow-[#2563eb]/30">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center shadow-lg shadow-[#6b7280]/30">
                   <Mail className="w-8 h-8 text-white" />
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Forgot Password?</h1>
@@ -115,14 +109,14 @@ export default function ForgotPasswordPage() {
                   {/* Instructions */}
                   <div className="space-y-4">
                     <div className="flex items-start gap-3 p-4 rounded-xl bg-[#0a0a0a]/50 border border-[#1a1a1a]">
-                      <Smartphone className="w-5 h-5 text-[#2563eb] mt-0.5 flex-shrink-0" />
+                      <Smartphone className="w-5 h-5 text-[#6b7280] mt-0.5 flex-shrink-0" />
                       <div>
                         <p className="text-white font-medium text-sm">Mobile Users</p>
                         <p className="text-white/60 text-sm">Check your email app and tap the reset link</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3 p-4 rounded-xl bg-[#0a0a0a]/50 border border-[#1a1a1a]">
-                      <Monitor className="w-5 h-5 text-[#2563eb] mt-0.5 flex-shrink-0" />
+                      <Monitor className="w-5 h-5 text-[#6b7280] mt-0.5 flex-shrink-0" />
                       <div>
                         <p className="text-white font-medium text-sm">Desktop Users</p>
                         <p className="text-white/60 text-sm">Click the reset link in your email to continue</p>
@@ -147,7 +141,7 @@ export default function ForgotPasswordPage() {
                       Try Different Email
                     </Button>
                     <Link href="/">
-                      <Button className="w-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/30">
+                      <Button className="w-full bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white shadow-lg shadow-[#6b7280]/30">
                         Return to Store
                       </Button>
                     </Link>
@@ -169,7 +163,7 @@ export default function ForgotPasswordPage() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="your@email.com"
                         required
-                        className="pl-12 pr-4 py-4 bg-[#0a0a0a] border-[#1a1a1a] text-white placeholder:text-white/40 focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all h-12"
+                        className="pl-12 pr-4 py-4 bg-[#0a0a0a] border-[#1a1a1a] text-white placeholder:text-white/40 focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 transition-all h-12"
                       />
                     </div>
                     <p className="text-white/40 text-xs mt-2">
@@ -181,7 +175,7 @@ export default function ForgotPasswordPage() {
                   <Button 
                     type="submit" 
                     disabled={submitting} 
-                    className="w-full py-4 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-[#2563eb]/30 h-12"
+                    className="w-full py-4 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-lg shadow-[#6b7280]/30 h-12"
                   >
                     {submitting ? (
                       <div className="flex items-center justify-center gap-2">
@@ -200,7 +194,7 @@ export default function ForgotPasswordPage() {
                   <div className="text-center space-y-3">
                     <p className="text-white/50 text-sm">
                       Remember your password?{" "}
-                      <Link href="/" className="text-[#2563eb] hover:text-[#3b82f6] font-medium transition-colors">
+                      <Link href="/" className="text-[#6b7280] hover:text-[#9ca3af] font-medium transition-colors">
                         Sign in instead
                       </Link>
                     </p>
@@ -210,7 +204,7 @@ export default function ForgotPasswordPage() {
                       <span>•</span>
                       <Link href="/privacy" className="hover:text-white/60 transition-colors">Privacy</Link>
                       <span>•</span>
-                      <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Support</a>
+                      <a href="https://discord.gg/ring-0" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">Support</a>
                     </div>
                   </div>
                 </form>

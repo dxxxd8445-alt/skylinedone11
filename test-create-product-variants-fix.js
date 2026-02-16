@@ -45,7 +45,7 @@ async function testCreateProductVariantsFix() {
         description: 'Test product to verify pricing fix',
         image: null,
         status: 'active',
-        provider: 'Skyline',
+        provider: 'Ring-0',
         features: ['Test Feature'],
         requirements: ['Test Requirement'],
         gallery: []

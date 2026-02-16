@@ -129,8 +129,8 @@ export function ReviewsManagement({ initialReviews }: ReviewsManagementProps) {
               <p className="text-white/60 text-sm mb-1">Total Reviews</p>
               <p className="text-3xl font-bold text-white">{reviews.length}</p>
             </div>
-            <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
-              <MessageSquare className="w-6 h-6 text-blue-400" />
+            <div className="w-12 h-12 rounded-full bg-gray-500/10 flex items-center justify-center">
+              <MessageSquare className="w-6 h-6 text-gray-400" />
             </div>
           </div>
         </div>
@@ -172,7 +172,7 @@ export function ReviewsManagement({ initialReviews }: ReviewsManagementProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by username or review text..."
-                className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20"
+                className="w-full pl-10 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#6b7280]/20"
               />
             </div>
           </div>
@@ -183,8 +183,8 @@ export function ReviewsManagement({ initialReviews }: ReviewsManagementProps) {
               onClick={() => setFilter("all")}
               className={`px-6 py-3 rounded-lg font-semibold transition-all ${
                 filter === "all"
-                  ? "bg-[#2563eb] text-white"
-                  : "bg-[#0a0a0a] border border-[#262626] text-white/60 hover:text-white hover:border-[#2563eb]/30"
+                  ? "bg-[#6b7280] text-white"
+                  : "bg-[#0a0a0a] border border-[#262626] text-white/60 hover:text-white hover:border-[#6b7280]/30"
               }`}
             >
               All ({reviews.length})
@@ -242,7 +242,7 @@ export function ReviewsManagement({ initialReviews }: ReviewsManagementProps) {
                 <div className="flex-1 space-y-4">
                   {/* Header */}
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center text-white text-lg font-bold">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center text-white text-lg font-bold">
                       {review.avatar || review.username[0].toUpperCase()}
                     </div>
                     <div className="flex-1">

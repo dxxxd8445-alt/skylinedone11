@@ -136,7 +136,7 @@ async function testDiscordWebhookSystem() {
         },
       ],
       footer: {
-        text: 'Skyline Cheats • Order System',
+        text: 'Ring-0 • Order System',
       },
       timestamp: new Date().toISOString(),
     };

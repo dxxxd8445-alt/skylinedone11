@@ -1,4 +1,4 @@
-# 🚀 FINAL RELEASE VERIFICATION - Skyline Cheats
+# 🚀 FINAL RELEASE VERIFICATION - Ring-0
 
 ## ✅ COMPLETED UPDATES
 
@@ -15,7 +15,7 @@
 
 ### 2. Recent Site Updates
 - ✅ Video carousel colors changed from red to blue
-- ✅ All Discord links updated to `https://discord.gg/skylineggs`
+- ✅ All Discord links updated to `https://discord.gg/ring-0`
 - ✅ All UTF-8 encoding issues fixed
 - ✅ Footer logo size reduced
 - ✅ Welcome popup added (blue theme, appears after Terms acceptance)
@@ -37,7 +37,7 @@ DELETE FROM webhooks;
 
 -- Insert NEW webhook
 INSERT INTO webhooks (name, url, events, is_active) VALUES (
-  'Skyline Discord - Order Notifications',
+  'Ring-0 Discord - Order Notifications',
   'https://discord.com/api/webhooks/1470214571913646246/QtYckEUaUFeG8ybiRMY1CVH1VnybbxS3-R4fdRECQZ7zGVVwgwSTn2EdI4rseTrFUaHr',
   ARRAY[
     'checkout.started',
@@ -66,7 +66,7 @@ Run the SQL from `ADD_PRODUCT_FEATURES.sql` to populate all product features.
 - [ ] Homepage loads without errors
 - [ ] Video carousel displays with blue theme
 - [ ] All navigation links work
-- [ ] Footer Discord link goes to `discord.gg/skylineggs`
+- [ ] Footer Discord link goes to `discord.gg/ring-0`
 - [ ] Terms popup appears on first visit
 - [ ] Welcome popup appears after accepting Terms
 - [ ] Welcome popup "CHECK IT OUT" button goes to HWID Spoofer
@@ -124,7 +124,7 @@ Run the SQL from `ADD_PRODUCT_FEATURES.sql` to populate all product features.
    -d '{
      "embeds": [{
        "title": "🧪 Test Notification",
-       "description": "Skyline Cheats webhook is working!",
+       "description": "Ring-0 webhook is working!",
        "color": 2563235
      }]
    }'
@@ -215,9 +215,9 @@ Run the SQL from `ADD_PRODUCT_FEATURES.sql` to populate all product features.
 
 ## 🔗 Important Links
 
-- **Site**: https://skylinecheats.org
-- **Discord**: https://discord.gg/skylineggs
-- **Admin**: https://skylinecheats.org/mgmt-x9k2m7
+- **Site**: https://ring-0cheats.org
+- **Discord**: https://discord.gg/ring-0
+- **Admin**: https://ring-0cheats.org/mgmt-x9k2m7
 - **Stripe Dashboard**: https://dashboard.stripe.com
 - **Supabase Dashboard**: Your Supabase project URL
 

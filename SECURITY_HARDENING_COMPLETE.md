@@ -68,7 +68,7 @@ Your admin panel and site are now protected with **enterprise-grade security mea
 
 Access your security logs at:
 ```
-https://skylinecheats.org/mgmt-x9k2m7/security
+https://ring-0cheats.org/mgmt-x9k2m7/security
 ```
 
 **Features:**

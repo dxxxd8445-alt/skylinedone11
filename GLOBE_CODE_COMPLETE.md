@@ -401,7 +401,7 @@ export default function LiveVisitorsPage() {
             </Button>
             <Button
               onClick={loadVisitors}
-              className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+              className="bg-[#6b7280] hover:bg-[#9ca3af] text-white"
             >
               <RefreshCw className="w-4 h-4 mr-2" />
               Refresh
@@ -418,8 +418,8 @@ export default function LiveVisitorsPage() {
                   <p className="text-white/60 text-sm">Visitors Now</p>
                   <p className="text-3xl font-bold text-white mt-2">{totalVisitors}</p>
                 </div>
-                <div className="p-3 rounded-xl bg-[#2563eb]/10">
-                  <Users className="w-6 h-6 text-[#2563eb] animate-pulse" />
+                <div className="p-3 rounded-xl bg-[#6b7280]/10">
+                  <Users className="w-6 h-6 text-[#6b7280] animate-pulse" />
                 </div>
               </div>
             </CardContent>
@@ -432,8 +432,8 @@ export default function LiveVisitorsPage() {
                   <p className="text-white/60 text-sm">Countries</p>
                   <p className="text-3xl font-bold text-white mt-2">{uniqueCountries}</p>
                 </div>
-                <div className="p-3 rounded-xl bg-blue-500/10">
-                  <Globe className="w-6 h-6 text-blue-400" />
+                <div className="p-3 rounded-xl bg-gray-500/10">
+                  <Globe className="w-6 h-6 text-gray-400" />
                 </div>
               </div>
             </CardContent>
@@ -477,7 +477,7 @@ export default function LiveVisitorsPage() {
             <Card className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-[#1a1a1a]">
               <CardHeader>
                 <CardTitle className="text-white flex items-center gap-2">
-                  <Globe className="w-5 h-5 text-[#2563eb]" />
+                  <Globe className="w-5 h-5 text-[#6b7280]" />
                   Global Activity
                 </CardTitle>
               </CardHeader>
@@ -492,7 +492,7 @@ export default function LiveVisitorsPage() {
             <Card className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-[#1a1a1a]">
               <CardHeader>
                 <CardTitle className="text-white flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-[#2563eb]" />
+                  <MapPin className="w-5 h-5 text-[#6b7280]" />
                   Top Locations
                 </CardTitle>
               </CardHeader>
@@ -501,7 +501,7 @@ export default function LiveVisitorsPage() {
                   topLocations.map((location) => (
                     <div
                       key={`${location.country}-${location.city}`}
-                      className="p-3 rounded-lg bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-all"
+                      className="p-3 rounded-lg bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#6b7280]/30 transition-all"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div>
@@ -513,13 +513,13 @@ export default function LiveVisitorsPage() {
                           </p>
                         </div>
                         <div className="text-right">
-                          <p className="text-[#2563eb] font-bold text-lg">{location.count}</p>
+                          <p className="text-[#6b7280] font-bold text-lg">{location.count}</p>
                           <p className="text-white/40 text-xs">visitors</p>
                         </div>
                       </div>
                       <div className="w-full bg-[#1a1a1a] rounded-full h-1.5">
                         <div
-                          className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] h-1.5 rounded-full transition-all"
+                          className="bg-gradient-to-r from-[#6b7280] to-[#9ca3af] h-1.5 rounded-full transition-all"
                           style={{
                             width: `${(location.count / Math.max(...topLocations.map((l) => l.count), 1)) * 100}%`,
                           }}
@@ -540,7 +540,7 @@ export default function LiveVisitorsPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle className="text-white flex items-center gap-2">
-                <Eye className="w-5 h-5 text-[#2563eb]" />
+                <Eye className="w-5 h-5 text-[#6b7280]" />
                 Live Feed
               </CardTitle>
               <div className="relative">
@@ -560,7 +560,7 @@ export default function LiveVisitorsPage() {
                 filteredVisitors.map((visitor, index) => (
                   <div
                     key={visitor.id}
-                    className="p-3 rounded-lg bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-all animate-in fade-in slide-in-from-top-2"
+                    className="p-3 rounded-lg bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#6b7280]/30 transition-all animate-in fade-in slide-in-from-top-2"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="flex items-center justify-between">
@@ -578,10 +578,10 @@ export default function LiveVisitorsPage() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[#2563eb] text-xs font-semibold">
+                        <p className="text-[#6b7280] text-xs font-semibold">
                           {visitor.latitude.toFixed(2)}°N
                         </p>
-                        <p className="text-[#2563eb] text-xs font-semibold">
+                        <p className="text-[#6b7280] text-xs font-semibold">
                           {visitor.longitude.toFixed(2)}°E
                         </p>
                       </div>

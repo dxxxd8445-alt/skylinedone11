@@ -10,7 +10,7 @@ Customer dashboard login and signup not working.
 Open `magma src/.env.local` and add this line:
 
 ```env
-STORE_SESSION_SECRET=skyline-store-secret-key-2026-change-in-production
+STORE_SESSION_SECRET=ring-0-store-secret-key-2026-change-in-production
 ```
 
 ### STEP 2: Verify Database Table

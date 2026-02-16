@@ -18,7 +18,7 @@
 
 ### 3. Updated Checkout Flow
 - ✅ Checkout now opens Storrik's embedded payment modal
-- ✅ Uses expanded style with custom blue colors (#2563eb)
+- ✅ Uses expanded style with custom blue colors (#6b7280)
 - ✅ Properly handles loading states
 - ✅ Shows clear error messages if Storrik isn't loaded
 

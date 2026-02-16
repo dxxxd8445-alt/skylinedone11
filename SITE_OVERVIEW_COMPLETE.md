@@ -121,7 +121,7 @@ STRIPE_WEBHOOK_SECRET=whsec_UNhwqMCJFUUmKs1zapCxGrPI0xvb8vVK
 #### Email Delivery (Resend)
 ```env
 RESEND_API_KEY=re_...
-RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>
+RESEND_FROM_EMAIL=Ring-0 <noreply@ring-0cheats.org>
 ```
 
 #### Database (Supabase)
@@ -133,10 +133,10 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 #### Application
 ```env
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 ADMIN_PASSWORD=your_secure_password
 STORE_SESSION_SECRET=your_32_char_secret
-NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylineggs
+NEXT_PUBLIC_DISCORD_URL=https://discord.gg/ring-0
 ```
 
 ### Verification
@@ -202,7 +202,7 @@ Check all variables are set in Vercel:
 - Success icon with checkmark
 - Order details in table
 - License key highlighted
-- **Discord button: https://discord.gg/skylineggs**
+- **Discord button: https://discord.gg/ring-0**
 - Account dashboard link
 - Next steps guide
 - Responsive mobile design
@@ -260,7 +260,7 @@ Check all variables are set in Vercel:
 
 ### Webhook Endpoint
 ```
-https://skylinecheats.org/api/webhooks/stripe
+https://ring-0cheats.org/api/webhooks/stripe
 ```
 
 ### Events to Listen For

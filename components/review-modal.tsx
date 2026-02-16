@@ -93,7 +93,7 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
                   resetForm();
                   onOpenChange(false);
                 }}
-                className="absolute -right-2 -top-2 p-1 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#2563eb]"
+                className="absolute -right-2 -top-2 p-1 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#6b7280]"
                 type="button"
               >
                 <X className="w-5 h-5 text-white/60 hover:text-white transition-colors" />
@@ -118,7 +118,7 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-colors"
+                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#6b7280] focus:ring-1 focus:ring-[#6b7280] transition-colors"
                   required
                 />
               </div>
@@ -170,7 +170,7 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Tell us about your experience..."
                   rows={4}
-                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] transition-colors resize-none"
+                  className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-[#6b7280] focus:ring-1 focus:ring-[#6b7280] transition-colors resize-none"
                   required
                 />
                 <p className="text-white/40 text-xs">
@@ -192,7 +192,7 @@ export function ReviewModal({ open, onOpenChange, onSubmit }: ReviewModalProps) 
               <button
                 type="submit"
                 disabled={!username || !rating || text.length < 10 || isSubmitting}
-                className="w-full bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-[#6b7280] hover:bg-[#9ca3af] disabled:bg-[#6b7280]/50 disabled:cursor-not-allowed text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>

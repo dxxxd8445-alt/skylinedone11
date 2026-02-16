@@ -132,17 +132,17 @@ export function AdminSidebar() {
       >
       {/* Logo Header */}
       <div className="h-16 flex items-center justify-between px-4 border-b border-[#1a1a1a] relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/5 to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/5 to-transparent opacity-50" />
         <Link href="/mgmt-x9k2m7" className="flex items-center gap-3 relative z-10 group">
           <div className="relative">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb] via-[#3b82f6] to-[#1e40af] flex items-center justify-center shadow-lg shadow-[#2563eb]/30 group-hover:shadow-[#2563eb]/50 transition-all duration-300">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6b7280] via-[#9ca3af] to-[#1e40af] flex items-center justify-center shadow-lg shadow-[#6b7280]/30 group-hover:shadow-[#6b7280]/50 transition-all duration-300">
               <Flame className="w-6 h-6 text-white" />
             </div>
-            <div className="absolute inset-0 rounded-xl bg-[#2563eb] blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
+            <div className="absolute inset-0 rounded-xl bg-[#6b7280] blur-xl opacity-20 group-hover:opacity-30 transition-opacity" />
           </div>
           {isOpen && (
             <div className="flex flex-col">
-              <span className="font-bold text-white text-lg tracking-tight">Skyline</span>
+              <span className="font-bold text-white text-lg tracking-tight">Ring-0</span>
               <span className="text-[10px] text-white/40 font-medium uppercase tracking-wider">Admin Panel</span>
             </div>
           )}
@@ -150,7 +150,7 @@ export function AdminSidebar() {
         <button
           type="button"
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="relative z-10 w-8 h-8 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 group lg:flex hidden"
+          className="relative z-10 w-8 h-8 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#6b7280]/30 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 group lg:flex hidden"
           title={isOpen ? "Collapse sidebar" : "Expand sidebar"}
         >
           {isOpen ? (
@@ -164,7 +164,7 @@ export function AdminSidebar() {
         <button
           type="button"
           onClick={() => setSidebarOpen(false)}
-          className="relative z-10 w-8 h-8 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 group lg:hidden"
+          className="relative z-10 w-8 h-8 rounded-lg bg-[#1a1a1a] hover:bg-[#262626] border border-[#262626] hover:border-[#6b7280]/30 flex items-center justify-center text-white/60 hover:text-white transition-all duration-200 group lg:hidden"
           title="Close sidebar"
         >
           <ChevronLeft className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -190,14 +190,14 @@ export function AdminSidebar() {
               className={cn(
                 "relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group overflow-hidden",
                 isActive
-                  ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-lg shadow-[#2563eb]/20"
+                  ? "bg-gradient-to-r from-[#6b7280] to-[#9ca3af] text-white shadow-lg shadow-[#6b7280]/20"
                   : "text-white/60 hover:bg-[#1a1a1a] hover:text-white"
               )}
             >
               {/* Active indicator */}
               {isActive && (
                 <>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] opacity-100" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] opacity-100" />
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-r-full" />
                   <div className="absolute inset-0 bg-white/5 backdrop-blur-sm" />
                 </>
@@ -205,7 +205,7 @@ export function AdminSidebar() {
               
               {/* Hover effect */}
               {!isActive && (
-                <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
               )}
 
               <item.icon
@@ -248,18 +248,18 @@ export function AdminSidebar() {
           className={cn(
             "relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group overflow-hidden",
             pathname === "/mgmt-x9k2m7/settings"
-              ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-lg shadow-[#2563eb]/20"
+              ? "bg-gradient-to-r from-[#6b7280] to-[#9ca3af] text-white shadow-lg shadow-[#6b7280]/20"
               : "text-white/60 hover:bg-[#1a1a1a] hover:text-white"
           )}
         >
           {pathname === "/mgmt-x9k2m7/settings" && (
             <>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6]" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280] to-[#9ca3af]" />
               <div className="absolute inset-0 bg-white/5 backdrop-blur-sm" />
             </>
           )}
           {!pathname.includes("/settings") && (
-            <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
           )}
           <Settings className={cn(
             "w-5 h-5 flex-shrink-0 relative z-10 transition-all duration-200",
@@ -291,9 +291,9 @@ export function AdminSidebar() {
               window.location.href = "/";
             }
           }}
-          className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/60 hover:bg-blue-500/10 hover:text-blue-400 border border-transparent hover:border-blue-500/20 transition-all duration-200 group overflow-hidden"
+          className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/60 hover:bg-gray-500/10 hover:text-gray-400 border border-transparent hover:border-gray-500/20 transition-all duration-200 group overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
           <LogOut className="w-5 h-5 flex-shrink-0 relative z-10 transition-all duration-200 group-hover:scale-110" />
           {isOpen && (
             <span className="font-medium relative z-10">Exit Admin</span>
@@ -305,7 +305,7 @@ export function AdminSidebar() {
           <div className="pt-3 px-3">
             <div className="bg-[#1a1a1a]/50 border border-[#262626] rounded-lg p-2.5">
               <div className="flex items-start gap-2">
-                <div className="w-1 h-1 rounded-full bg-[#2563eb] mt-1.5 flex-shrink-0 animate-pulse" />
+                <div className="w-1 h-1 rounded-full bg-[#6b7280] mt-1.5 flex-shrink-0 animate-pulse" />
                 <p className="text-[10px] text-white/30 leading-relaxed">
                   Press <kbd className="px-1 py-0.5 bg-[#0a0a0a] border border-[#262626] rounded text-white/40">⌘</kbd> + <kbd className="px-1 py-0.5 bg-[#0a0a0a] border border-[#262626] rounded text-white/40">B</kbd> to toggle
                 </p>

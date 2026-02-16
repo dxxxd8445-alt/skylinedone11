@@ -11,7 +11,7 @@ Updated Discord page to match the site's black and red theme instead of Discord 
 - **Cleaner page layout** - Less cluttered, more focused
 
 ### 2. Color Theme Updates
-- **Discord icon container**: Changed from Discord blue (`#5865f2` to `#7289da`) to site red (`#2563eb` to `#3b82f6`)
+- **Discord icon container**: Changed from Discord blue (`#5865f2` to `#7289da`) to site red (`#6b7280` to `#9ca3af`)
 - **Main heading gradient**: Updated "Discord" text from blue to red gradient
 - **Main CTA button**: Changed from Discord blue to site red gradient
 - **Background effects**: Updated all blue accents to red theme
@@ -20,13 +20,13 @@ Updated Discord page to match the site's black and red theme instead of Discord 
 
 ### 3. Theme Consistency Achieved
 - **Background**: Consistent black (`#0a0a0a`) with red accents
-- **Gradients**: All use site red (`#2563eb` to `#3b82f6`) instead of Discord blue
-- **Shadows**: Red shadow effects (`shadow-[#2563eb]/30`)
+- **Gradients**: All use site red (`#6b7280` to `#9ca3af`) instead of Discord blue
+- **Shadows**: Red shadow effects (`shadow-[#6b7280]/30`)
 - **Hover states**: Red hover effects matching site theme
 - **Border colors**: Consistent with site's red accent colors
 
 ## Functionality Preserved
-✅ Discord invite link (`https://discord.gg/skylineggs`)  
+✅ Discord invite link (`https://discord.gg/ring-0`)  
 ✅ Features grid (24/7 Support, Active Community, etc.)  
 ✅ Benefits section with member perks  
 ✅ Header component with navigation  

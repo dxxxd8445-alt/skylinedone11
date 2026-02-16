@@ -48,7 +48,7 @@ The user requested:
 - 🔢 **Order number** for tracking
 - 🛒 **Items purchased** with quantities and prices
 - ⏰ **Timestamp** of the order
-- 🏷️ **Skyline Cheats branding** with logo
+- 🏷️ **Ring-0 branding** with logo
 - 🎨 **Professional styling** with colors and icons
 
 ### Failed Payment Notifications:

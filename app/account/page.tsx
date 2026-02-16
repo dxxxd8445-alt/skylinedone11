@@ -277,7 +277,7 @@ export default function AccountPage() {
   };
 
   const copyAffiliateLink = (code: string) => {
-    const link = `https://skylinecheats.org?ref=${code}`;
+    const link = `https://ring-0cheats.org?ref=${code}`;
     navigator.clipboard.writeText(link);
     setCopiedKey("affiliate-link");
     setTimeout(() => setCopiedKey(null), 2000);
@@ -314,7 +314,7 @@ export default function AccountPage() {
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
         <div className="relative">
           <div className="w-16 h-16 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-          <div className="w-16 h-16 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+          <div className="w-16 h-16 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
         </div>
       </div>
     );
@@ -325,7 +325,7 @@ export default function AccountPage() {
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
         <div className="relative">
           <div className="w-16 h-16 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-          <div className="w-16 h-16 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+          <div className="w-16 h-16 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
         </div>
       </div>
     );
@@ -458,7 +458,7 @@ export default function AccountPage() {
       case "failed":
       case "refunded":
         return (
-          <Badge className="bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 border-0">
+          <Badge className="bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 border-0">
             {status}
           </Badge>
         );
@@ -495,13 +495,13 @@ export default function AccountPage() {
           <div className="space-y-6 animate-fade-in">
             {/* Enhanced Welcome Header */}
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl" />
               <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-8">
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-3 mb-2">
-                      <div className="p-2 rounded-lg bg-[#2563eb]/10">
-                        <Sparkles className="w-5 h-5 text-[#2563eb]" />
+                      <div className="p-2 rounded-lg bg-[#6b7280]/10">
+                        <Sparkles className="w-5 h-5 text-[#6b7280]" />
                       </div>
                       <h1 className="text-3xl md:text-4xl font-bold text-white">
                         Welcome back, {user?.username || "User"}!
@@ -511,8 +511,8 @@ export default function AccountPage() {
                       Here&apos;s what&apos;s happening with your account
                     </p>
                   </div>
-                  <div className="hidden md:block p-3 rounded-xl bg-[#2563eb]/10">
-                    <TrendingUp className="w-8 h-8 text-[#2563eb]" />
+                  <div className="hidden md:block p-3 rounded-xl bg-[#6b7280]/10">
+                    <TrendingUp className="w-8 h-8 text-[#6b7280]" />
                   </div>
                 </div>
               </div>
@@ -525,9 +525,9 @@ export default function AccountPage() {
                   icon: Package, 
                   label: "Total Orders", 
                   value: stats.totalOrders, 
-                  gradient: "from-[#2563eb]/20 to-transparent",
-                  iconBg: "bg-[#2563eb]/10",
-                  iconColor: "text-[#2563eb]"
+                  gradient: "from-[#6b7280]/20 to-transparent",
+                  iconBg: "bg-[#6b7280]/10",
+                  iconColor: "text-[#6b7280]"
                 },
                 { 
                   icon: Clock, 
@@ -549,14 +549,14 @@ export default function AccountPage() {
                   icon: Key, 
                   label: "License Keys", 
                   value: stats.deliveredCount,
-                  gradient: "from-blue-500/20 to-transparent",
-                  iconBg: "bg-blue-500/10",
-                  iconColor: "text-blue-500"
+                  gradient: "from-gray-500/20 to-transparent",
+                  iconBg: "bg-gray-500/10",
+                  iconColor: "text-gray-500"
                 },
               ].map((stat, index) => (
                 <div key={index} className="group relative" style={{ animationDelay: `${index * 100}ms` }}>
                   <div className={`absolute -inset-0.5 bg-gradient-to-r ${stat.gradient} rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500`} />
-                  <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all">
+                  <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#6b7280]/30 transition-all">
                     <div className="flex items-center justify-between mb-4">
                       <div className={`p-3 rounded-xl ${stat.iconBg} group-hover:scale-110 transition-transform`}>
                         <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
@@ -572,18 +572,18 @@ export default function AccountPage() {
 
             {/* Enhanced Recent Orders */}
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
               <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                 <CardHeader className="flex flex-row items-center justify-between border-b border-[#1a1a1a]">
                   <CardTitle className="text-xl flex items-center gap-2">
-                    <ShoppingBag className="w-5 h-5 text-[#2563eb]" />
+                    <ShoppingBag className="w-5 h-5 text-[#6b7280]" />
                     Recent Orders
                   </CardTitle>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setActiveTab("orders")}
-                    className="text-[#2563eb] hover:text-[#3b82f6] hover:bg-[#2563eb]/10"
+                    className="text-[#6b7280] hover:text-[#9ca3af] hover:bg-[#6b7280]/10"
                   >
                     View All
                     <ChevronRight className="w-4 h-4 ml-1" />
@@ -594,7 +594,7 @@ export default function AccountPage() {
                     <div className="py-12 flex justify-center">
                       <div className="relative">
                         <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                        <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+                        <div className="w-12 h-12 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
                       </div>
                     </div>
                   ) : (
@@ -605,11 +605,11 @@ export default function AccountPage() {
                           className="group/item relative"
                           style={{ animationDelay: `${index * 100}ms` }}
                         >
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-xl blur opacity-0 group-hover/item:opacity-100 transition duration-300" />
-                          <div className="relative flex items-center justify-between p-4 rounded-xl bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-all">
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-xl blur opacity-0 group-hover/item:opacity-100 transition duration-300" />
+                          <div className="relative flex items-center justify-between p-4 rounded-xl bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#6b7280]/30 transition-all">
                             <div className="flex items-center gap-4">
-                              <div className="p-3 rounded-xl bg-[#2563eb]/10 group-hover/item:scale-110 transition-transform">
-                                <Package className="w-5 h-5 text-[#2563eb]" />
+                              <div className="p-3 rounded-xl bg-[#6b7280]/10 group-hover/item:scale-110 transition-transform">
+                                <Package className="w-5 h-5 text-[#6b7280]" />
                               </div>
                               <div>
                                 <p className="font-semibold text-white">{order.product}</p>
@@ -627,8 +627,8 @@ export default function AccountPage() {
                       ))}
                       {!ordersLicensesLoading && orders.length === 0 && (
                         <div className="py-12 text-center">
-                          <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
-                            <ShoppingBag className="w-8 h-8 text-[#2563eb]" />
+                          <div className="w-16 h-16 rounded-full bg-[#6b7280]/10 flex items-center justify-center mx-auto mb-4">
+                            <ShoppingBag className="w-8 h-8 text-[#6b7280]" />
                           </div>
                           <p className="text-white/60">No orders yet</p>
                           <p className="text-white/40 text-sm mt-1">Your orders will appear here</p>
@@ -646,11 +646,11 @@ export default function AccountPage() {
         return (
           <div className="space-y-6 animate-fade-in">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl" />
               <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-[#2563eb]/10">
-                    <ShoppingBag className="w-6 h-6 text-[#2563eb]" />
+                  <div className="p-2 rounded-lg bg-[#6b7280]/10">
+                    <ShoppingBag className="w-6 h-6 text-[#6b7280]" />
                   </div>
                   <div>
                     <h1 className="text-3xl font-bold text-white">Your Orders</h1>
@@ -661,14 +661,14 @@ export default function AccountPage() {
             </div>
 
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
               <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                 <CardContent className="p-0">
                   {ordersLicensesLoading ? (
                     <div className="py-12 flex justify-center">
                       <div className="relative">
                         <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                        <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+                        <div className="w-12 h-12 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
                       </div>
                     </div>
                   ) : (
@@ -690,7 +690,7 @@ export default function AccountPage() {
                               <TableCell className="font-mono text-white/80">{order.order_number}</TableCell>
                               <TableCell>
                                 <div>
-                                  <p className="font-semibold text-white group-hover/row:text-[#2563eb] transition-colors">{order.product}</p>
+                                  <p className="font-semibold text-white group-hover/row:text-[#6b7280] transition-colors">{order.product}</p>
                                   <p className="text-sm text-white/50">{order.duration}</p>
                                 </div>
                               </TableCell>
@@ -708,7 +708,7 @@ export default function AccountPage() {
                                   variant="ghost"
                                   size="sm"
                                   onClick={() => handleViewOrder(order)}
-                                  className="text-[#2563eb] hover:text-[#3b82f6] hover:bg-[#2563eb]/10"
+                                  className="text-[#6b7280] hover:text-[#9ca3af] hover:bg-[#6b7280]/10"
                                 >
                                   <Eye className="w-4 h-4 mr-1" />
                                   View
@@ -719,8 +719,8 @@ export default function AccountPage() {
                           {orders.length === 0 && (
                             <TableRow>
                               <TableCell colSpan={6} className="py-16 text-center">
-                                <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
-                                  <ShoppingBag className="w-8 h-8 text-[#2563eb]" />
+                                <div className="w-16 h-16 rounded-full bg-[#6b7280]/10 flex items-center justify-center mx-auto mb-4">
+                                  <ShoppingBag className="w-8 h-8 text-[#6b7280]" />
                                 </div>
                                 <p className="text-white/60">No orders yet</p>
                               </TableCell>
@@ -740,11 +740,11 @@ export default function AccountPage() {
         return (
           <div className="space-y-6 animate-fade-in">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl" />
               <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-[#2563eb]/10">
-                    <Package className="w-6 h-6 text-[#2563eb]" />
+                  <div className="p-2 rounded-lg bg-[#6b7280]/10">
+                    <Package className="w-6 h-6 text-[#6b7280]" />
                   </div>
                   <div>
                     <h1 className="text-3xl font-bold text-white">Delivered Licenses</h1>
@@ -757,14 +757,14 @@ export default function AccountPage() {
             </div>
 
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
               <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                 <CardContent className="p-0">
                   {ordersLicensesLoading ? (
                     <div className="py-12 flex justify-center">
                       <div className="relative">
                         <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                        <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+                        <div className="w-12 h-12 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
                       </div>
                     </div>
                   ) : (
@@ -792,7 +792,7 @@ export default function AccountPage() {
                                     variant="ghost"
                                     size="sm"
                                     onClick={() => copyToClipboard(l.license_key, l.id)}
-                                    className="opacity-0 group-hover/row:opacity-100 transition-opacity hover:bg-[#2563eb]/10"
+                                    className="opacity-0 group-hover/row:opacity-100 transition-opacity hover:bg-[#6b7280]/10"
                                   >
                                     {copiedKey === l.id ? (
                                       <CheckCircle2 className="w-4 h-4 text-green-400" />
@@ -815,7 +815,7 @@ export default function AccountPage() {
                                   variant="ghost"
                                   size="sm"
                                   onClick={() => window.open(process.env.NEXT_PUBLIC_DISCORD_URL || 'https://discord.gg/your-invite-code', '_blank')}
-                                  className="text-[#2563eb] hover:text-[#3b82f6] hover:bg-[#2563eb]/10"
+                                  className="text-[#6b7280] hover:text-[#9ca3af] hover:bg-[#6b7280]/10"
                                 >
                                   <Download className="w-4 h-4 mr-1" />
                                   Download
@@ -826,8 +826,8 @@ export default function AccountPage() {
                           {licenses.length === 0 && (
                             <TableRow>
                               <TableCell colSpan={5} className="py-16 text-center">
-                                <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
-                                  <Key className="w-8 h-8 text-[#2563eb]" />
+                                <div className="w-16 h-16 rounded-full bg-[#6b7280]/10 flex items-center justify-center mx-auto mb-4">
+                                  <Key className="w-8 h-8 text-[#6b7280]" />
                                 </div>
                                 <p className="text-white/60">No licenses yet</p>
                                 <p className="text-white/40 text-sm mt-1">Orders completed under your account email will appear here</p>
@@ -848,11 +848,11 @@ export default function AccountPage() {
         return (
           <div className="space-y-6 animate-fade-in">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl" />
               <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-[#2563eb]/10">
-                    <Download className="w-6 h-6 text-[#2563eb]" />
+                  <div className="p-2 rounded-lg bg-[#6b7280]/10">
+                    <Download className="w-6 h-6 text-[#6b7280]" />
                   </div>
                   <div>
                     <h1 className="text-3xl font-bold text-white">Cheat Loaders</h1>
@@ -863,31 +863,31 @@ export default function AccountPage() {
             </div>
 
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
               <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                 <CardContent className="p-8">
                   <div className="max-w-2xl mx-auto space-y-8">
                     {/* Main Download Card */}
                     <div className="relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#2563eb]/10 via-transparent to-blue-500/10 rounded-2xl" />
-                      <div className="relative bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#2563eb]/30 rounded-2xl p-8">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#6b7280]/10 via-transparent to-gray-500/10 rounded-2xl" />
+                      <div className="relative bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#6b7280]/30 rounded-2xl p-8">
                         <div className="flex items-start gap-6">
                           <div className="flex-shrink-0">
-                            <div className="w-20 h-20 bg-gradient-to-br from-[#2563eb] to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-[#2563eb]/30">
+                            <div className="w-20 h-20 bg-gradient-to-br from-[#6b7280] to-gray-600 rounded-2xl flex items-center justify-center shadow-lg shadow-[#6b7280]/30">
                               <Download className="w-10 h-10 text-white" />
                             </div>
                           </div>
                           <div className="flex-1">
-                            <h3 className="text-2xl font-bold text-white mb-2">Skyline Loader v1.0</h3>
+                            <h3 className="text-2xl font-bold text-white mb-2">Ring-0 Loader v1.0</h3>
                             <p className="text-white/60 mb-4">
-                              The official Skyline cheat loader. Required to run all Skyline products.
+                              The official Ring-0 cheat loader. Required to run all Ring-0 products.
                             </p>
                             <div className="flex flex-wrap gap-3 mb-6">
                               <Badge className="bg-green-500/20 text-green-400 border-green-500/30 border">
                                 <CheckCircle2 className="w-3 h-3 mr-1" />
                                 Latest Version
                               </Badge>
-                              <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 border">
+                              <Badge className="bg-gray-500/20 text-gray-400 border-gray-500/30 border">
                                 <Shield className="w-3 h-3 mr-1" />
                                 Secure
                               </Badge>
@@ -899,7 +899,7 @@ export default function AccountPage() {
                             <a
                               href="https://cdn.discordapp.com/attachments/1469886516196147424/1471247056235532583/loader_1.exe?ex=698e3d18&is=698ceb98&hm=8aeb30fdf73ef891b2a425832d6faf2124923183bc26b6ebdfcc13d23a399c7f&"
                               download
-                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2563eb] to-blue-600 hover:from-blue-600 hover:to-[#2563eb] text-white font-semibold rounded-xl shadow-lg shadow-[#2563eb]/30 transition-all hover:scale-105"
+                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#6b7280] to-gray-600 hover:from-gray-600 hover:to-[#6b7280] text-white font-semibold rounded-xl shadow-lg shadow-[#6b7280]/30 transition-all hover:scale-105"
                             >
                               <Download className="w-5 h-5" />
                               Download Loader
@@ -912,12 +912,12 @@ export default function AccountPage() {
                     {/* Instructions */}
                     <div className="bg-[#0a0a0a]/50 border border-[#1a1a1a] rounded-xl p-6">
                       <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-[#2563eb]" />
+                        <Sparkles className="w-5 h-5 text-[#6b7280]" />
                         How to Use
                       </h4>
                       <ol className="space-y-3">
                         <li className="flex items-start gap-3">
-                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#6b7280]/20 rounded-full flex items-center justify-center text-[#6b7280] text-sm font-bold">
                             1
                           </div>
                           <div>
@@ -926,7 +926,7 @@ export default function AccountPage() {
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
-                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#6b7280]/20 rounded-full flex items-center justify-center text-[#6b7280] text-sm font-bold">
                             2
                           </div>
                           <div>
@@ -935,7 +935,7 @@ export default function AccountPage() {
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
-                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#6b7280]/20 rounded-full flex items-center justify-center text-[#6b7280] text-sm font-bold">
                             3
                           </div>
                           <div>
@@ -944,7 +944,7 @@ export default function AccountPage() {
                           </div>
                         </li>
                         <li className="flex items-start gap-3">
-                          <div className="flex-shrink-0 w-6 h-6 bg-[#2563eb]/20 rounded-full flex items-center justify-center text-[#2563eb] text-sm font-bold">
+                          <div className="flex-shrink-0 w-6 h-6 bg-[#6b7280]/20 rounded-full flex items-center justify-center text-[#6b7280] text-sm font-bold">
                             4
                           </div>
                           <div>
@@ -956,11 +956,11 @@ export default function AccountPage() {
                     </div>
 
                     {/* Support */}
-                    <div className="bg-gradient-to-br from-[#2563eb]/10 to-blue-500/5 border border-[#2563eb]/20 rounded-xl p-6">
+                    <div className="bg-gradient-to-br from-[#6b7280]/10 to-gray-500/5 border border-[#6b7280]/20 rounded-xl p-6">
                       <div className="flex items-start gap-4">
                         <div className="flex-shrink-0">
-                          <div className="w-12 h-12 bg-[#2563eb]/20 rounded-xl flex items-center justify-center">
-                            <ExternalLink className="w-6 h-6 text-[#2563eb]" />
+                          <div className="w-12 h-12 bg-[#6b7280]/20 rounded-xl flex items-center justify-center">
+                            <ExternalLink className="w-6 h-6 text-[#6b7280]" />
                           </div>
                         </div>
                         <div className="flex-1">
@@ -969,7 +969,7 @@ export default function AccountPage() {
                             Join our Discord server for support, updates, and to connect with the community.
                           </p>
                           <a
-                            href="https://discord.gg/skylineggs"
+                            href="https://discord.gg/ring-0"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold rounded-lg transition-colors"
@@ -993,11 +993,11 @@ export default function AccountPage() {
         return (
           <div className="space-y-6 animate-fade-in">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl" />
               <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-[#2563eb]/10">
-                    <Users className="w-6 h-6 text-[#2563eb]" />
+                  <div className="p-2 rounded-lg bg-[#6b7280]/10">
+                    <Users className="w-6 h-6 text-[#6b7280]" />
                   </div>
                   <div>
                     <h1 className="text-3xl font-bold text-white">Affiliate Program</h1>
@@ -1011,17 +1011,17 @@ export default function AccountPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : !affiliateData ? (
               // Registration Form
               <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
                 <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                   <CardHeader className="border-b border-[#1a1a1a]">
                     <CardTitle className="flex items-center gap-2 text-xl">
-                      <Award className="w-5 h-5 text-[#2563eb]" />
+                      <Award className="w-5 h-5 text-[#6b7280]" />
                       Join Our Affiliate Program
                     </CardTitle>
                   </CardHeader>
@@ -1029,22 +1029,22 @@ export default function AccountPage() {
                     <div className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="text-center p-6 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a]">
-                          <div className="w-12 h-12 bg-[#2563eb]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <DollarSign className="w-6 h-6 text-[#2563eb]" />
+                          <div className="w-12 h-12 bg-[#6b7280]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <DollarSign className="w-6 h-6 text-[#6b7280]" />
                           </div>
                           <h3 className="font-bold text-white mb-2">5% Commission</h3>
                           <p className="text-white/60 text-sm">Earn 5% on every sale you refer</p>
                         </div>
                         <div className="text-center p-6 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a]">
-                          <div className="w-12 h-12 bg-[#2563eb]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <BarChart className="w-6 h-6 text-[#2563eb]" />
+                          <div className="w-12 h-12 bg-[#6b7280]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <BarChart className="w-6 h-6 text-[#6b7280]" />
                           </div>
                           <h3 className="font-bold text-white mb-2">Real-time Tracking</h3>
                           <p className="text-white/60 text-sm">Monitor clicks and conversions</p>
                         </div>
                         <div className="text-center p-6 bg-[#0a0a0a]/50 rounded-xl border border-[#1a1a1a]">
-                          <div className="w-12 h-12 bg-[#2563eb]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                            <Zap className="w-6 h-6 text-[#2563eb]" />
+                          <div className="w-12 h-12 bg-[#6b7280]/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+                            <Zap className="w-6 h-6 text-[#6b7280]" />
                           </div>
                           <h3 className="font-bold text-white mb-2">Fast Payouts</h3>
                           <p className="text-white/60 text-sm">Monthly payments via PayPal</p>
@@ -1060,7 +1060,7 @@ export default function AccountPage() {
                             id="payment_method"
                             value={affiliateForm.payment_method}
                             onChange={(e) => setAffiliateForm({ ...affiliateForm, payment_method: e.target.value })}
-                            className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] text-white rounded-md focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20"
+                            className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] text-white rounded-md focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20"
                           >
                             <option value="paypal">PayPal</option>
                             <option value="cashapp">Cash App</option>
@@ -1079,7 +1079,7 @@ export default function AccountPage() {
                               value={affiliateForm.payment_email}
                               onChange={(e) => setAffiliateForm({ ...affiliateForm, payment_email: e.target.value })}
                               placeholder="your-paypal@email.com"
-                              className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20"
+                              className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20"
                             />
                           </div>
                         )}
@@ -1095,7 +1095,7 @@ export default function AccountPage() {
                               value={affiliateForm.cashapp_tag}
                               onChange={(e) => setAffiliateForm({ ...affiliateForm, cashapp_tag: e.target.value })}
                               placeholder="$YourCashAppTag"
-                              className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20"
+                              className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20"
                             />
                           </div>
                         )}
@@ -1110,7 +1110,7 @@ export default function AccountPage() {
                                 id="crypto_type"
                                 value={affiliateForm.crypto_type}
                                 onChange={(e) => setAffiliateForm({ ...affiliateForm, crypto_type: e.target.value })}
-                                className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] text-white rounded-md focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20"
+                                className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] text-white rounded-md focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20"
                               >
                                 <option value="">Select Cryptocurrency</option>
                                 <option value="btc">Bitcoin (BTC)</option>
@@ -1136,7 +1136,7 @@ export default function AccountPage() {
                                 value={affiliateForm.payment_email}
                                 onChange={(e) => setAffiliateForm({ ...affiliateForm, payment_email: e.target.value })}
                                 placeholder={`Enter your ${affiliateForm.crypto_type?.toUpperCase() || 'crypto'} address`}
-                                className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 font-mono text-sm"
+                                className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 font-mono text-sm"
                               />
                             </div>
                           </>
@@ -1145,7 +1145,7 @@ export default function AccountPage() {
                         <Button
                           onClick={handleAffiliateRegister}
                           disabled={isRegistering}
-                          className="w-full py-6 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-bold text-lg shadow-lg shadow-[#2563eb]/30 hover:shadow-xl hover:shadow-[#2563eb]/50 transition-all"
+                          className="w-full py-6 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white font-bold text-lg shadow-lg shadow-[#6b7280]/30 hover:shadow-xl hover:shadow-[#6b7280]/50 transition-all"
                         >
                           {isRegistering ? (
                             <>
@@ -1182,9 +1182,9 @@ export default function AccountPage() {
                       icon: MousePointer, 
                       label: "Total Clicks", 
                       value: affiliateStats?.totalClicks || 0,
-                      gradient: "from-blue-500/20 to-transparent",
-                      iconBg: "bg-blue-500/10",
-                      iconColor: "text-blue-500"
+                      gradient: "from-gray-500/20 to-transparent",
+                      iconBg: "bg-gray-500/10",
+                      iconColor: "text-gray-500"
                     },
                     { 
                       icon: Users, 
@@ -1198,14 +1198,14 @@ export default function AccountPage() {
                       icon: TrendingUp, 
                       label: "Conversion Rate", 
                       value: `${affiliateStats?.conversionRate.toFixed(1) || '0.0'}%`,
-                      gradient: "from-[#2563eb]/20 to-transparent",
-                      iconBg: "bg-[#2563eb]/10",
-                      iconColor: "text-[#2563eb]"
+                      gradient: "from-[#6b7280]/20 to-transparent",
+                      iconBg: "bg-[#6b7280]/10",
+                      iconColor: "text-[#6b7280]"
                     },
                   ].map((stat, index) => (
                     <div key={index} className="group relative" style={{ animationDelay: `${index * 100}ms` }}>
                       <div className={`absolute -inset-0.5 bg-gradient-to-r ${stat.gradient} rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500`} />
-                      <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#2563eb]/30 transition-all">
+                      <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 hover:border-[#6b7280]/30 transition-all">
                         <div className="flex items-center justify-between mb-4">
                           <div className={`p-3 rounded-xl ${stat.iconBg} group-hover:scale-110 transition-transform`}>
                             <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
@@ -1220,11 +1220,11 @@ export default function AccountPage() {
 
                 {/* Affiliate Link */}
                 <div className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
                   <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                     <CardHeader className="border-b border-[#1a1a1a]">
                       <CardTitle className="flex items-center gap-2 text-xl">
-                        <LinkIcon className="w-5 h-5 text-[#2563eb]" />
+                        <LinkIcon className="w-5 h-5 text-[#6b7280]" />
                         Your Affiliate Link
                       </CardTitle>
                     </CardHeader>
@@ -1232,13 +1232,13 @@ export default function AccountPage() {
                       <div className="space-y-4">
                         <div className="flex items-center gap-3 p-4 bg-[#0a0a0a] rounded-xl border border-[#1a1a1a]">
                           <code className="flex-1 font-mono text-white text-sm break-all">
-                            https://skylinecheats.org?ref={affiliateData.affiliate_code}
+                            https://ring-0cheats.org?ref={affiliateData.affiliate_code}
                           </code>
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => copyAffiliateLink(affiliateData.affiliate_code)}
-                            className="hover:bg-[#2563eb]/10"
+                            className="hover:bg-[#6b7280]/10"
                           >
                             {copiedKey === "affiliate-link" ? (
                               <CheckCircle2 className="w-5 h-5 text-green-400" />
@@ -1249,7 +1249,7 @@ export default function AccountPage() {
                         </div>
                         <div className="flex items-center gap-2 text-sm text-white/60">
                           <span>Commission Rate:</span>
-                          <Badge className="bg-[#2563eb]/20 text-[#2563eb] border-0">
+                          <Badge className="bg-[#6b7280]/20 text-[#6b7280] border-0">
                             {affiliateData.commission_rate}%
                           </Badge>
                         </div>
@@ -1260,11 +1260,11 @@ export default function AccountPage() {
 
                 {/* Payment Method Info */}
                 <div className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
                   <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                     <CardHeader className="border-b border-[#1a1a1a]">
                       <CardTitle className="flex items-center gap-2 text-xl">
-                        <CreditCard className="w-5 h-5 text-[#2563eb]" />
+                        <CreditCard className="w-5 h-5 text-[#6b7280]" />
                         Payment Method
                       </CardTitle>
                     </CardHeader>
@@ -1288,7 +1288,7 @@ export default function AccountPage() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => copyToClipboard(affiliateData.payment_email || '', 'paypal-email')}
-                                className="hover:bg-[#2563eb]/10"
+                                className="hover:bg-[#6b7280]/10"
                               >
                                 {copiedKey === 'paypal-email' ? (
                                   <CheckCircle2 className="w-4 h-4 text-green-400" />
@@ -1309,7 +1309,7 @@ export default function AccountPage() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => copyToClipboard(affiliateData.cashapp_tag || '', 'cashapp-tag')}
-                                className="hover:bg-[#2563eb]/10"
+                                className="hover:bg-[#6b7280]/10"
                               >
                                 {copiedKey === 'cashapp-tag' ? (
                                   <CheckCircle2 className="w-4 h-4 text-green-400" />
@@ -1335,7 +1335,7 @@ export default function AccountPage() {
                                   variant="ghost"
                                   size="sm"
                                   onClick={() => copyToClipboard(affiliateData.payment_email || '', 'crypto-address')}
-                                  className="hover:bg-[#2563eb]/10"
+                                  className="hover:bg-[#6b7280]/10"
                                 >
                                   {copiedKey === 'crypto-address' ? (
                                     <CheckCircle2 className="w-4 h-4 text-green-400" />
@@ -1354,11 +1354,11 @@ export default function AccountPage() {
 
                 {/* Recent Referrals */}
                 <div className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
                   <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                     <CardHeader className="border-b border-[#1a1a1a]">
                       <CardTitle className="flex items-center gap-2 text-xl">
-                        <BarChart className="w-5 h-5 text-[#2563eb]" />
+                        <BarChart className="w-5 h-5 text-[#6b7280]" />
                         Recent Referrals
                       </CardTitle>
                     </CardHeader>
@@ -1384,7 +1384,7 @@ export default function AccountPage() {
                                   <TableCell>
                                     <Badge className={
                                       referral.status === 'paid' ? "bg-green-500/20 text-green-400 border-0" :
-                                      referral.status === 'approved' ? "bg-blue-500/20 text-blue-400 border-0" :
+                                      referral.status === 'approved' ? "bg-gray-500/20 text-gray-400 border-0" :
                                       "bg-yellow-500/20 text-yellow-400 border-0"
                                     }>
                                       {referral.status}
@@ -1404,8 +1404,8 @@ export default function AccountPage() {
                         </div>
                       ) : (
                         <div className="py-16 text-center">
-                          <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
-                            <Users className="w-8 h-8 text-[#2563eb]" />
+                          <div className="w-16 h-16 rounded-full bg-[#6b7280]/10 flex items-center justify-center mx-auto mb-4">
+                            <Users className="w-8 h-8 text-[#6b7280]" />
                           </div>
                           <p className="text-white/60">No referrals yet</p>
                           <p className="text-white/40 text-sm mt-1">Share your affiliate link to start earning</p>
@@ -1423,11 +1423,11 @@ export default function AccountPage() {
         return (
           <div className="space-y-6 animate-fade-in">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl" />
               <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-[#2563eb]/10">
-                    <User className="w-6 h-6 text-[#2563eb]" />
+                  <div className="p-2 rounded-lg bg-[#6b7280]/10">
+                    <User className="w-6 h-6 text-[#6b7280]" />
                   </div>
                   <div>
                     <h1 className="text-3xl font-bold text-white">Profile Settings</h1>
@@ -1438,17 +1438,17 @@ export default function AccountPage() {
             </div>
 
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
               <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                 <CardContent className="p-8">
                   <div className="space-y-8">
                     {/* Enhanced Avatar Upload */}
                     <div className="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-[#1a1a1a]">
                       <div className="relative group/avatar">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-full blur opacity-0 group-hover/avatar:opacity-75 transition duration-500" />
-                        <Avatar className="relative w-28 h-28 border-4 border-[#1a1a1a] group-hover/avatar:border-[#2563eb]/50 transition-colors">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] rounded-full blur opacity-0 group-hover/avatar:opacity-75 transition duration-500" />
+                        <Avatar className="relative w-28 h-28 border-4 border-[#1a1a1a] group-hover/avatar:border-[#6b7280]/50 transition-colors">
                           <AvatarImage src={profileImage || undefined} alt="Profile" />
-                          <AvatarFallback className="bg-[#2563eb]/20 text-[#2563eb] text-3xl font-bold">
+                          <AvatarFallback className="bg-[#6b7280]/20 text-[#6b7280] text-3xl font-bold">
                             {user?.username?.charAt(0).toUpperCase() || "U"}
                           </AvatarFallback>
                         </Avatar>
@@ -1484,14 +1484,14 @@ export default function AccountPage() {
                       <div className="space-y-2 group/input">
                         <Label htmlFor="fullName" className="text-white font-medium">Full Name</Label>
                         <div className="relative">
-                          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#6b7280] transition-colors" />
                           <Input
                             id="fullName"
                             value={profileForm.fullName}
                             onChange={(e) =>
                               setProfileForm({ ...profileForm, fullName: e.target.value })
                             }
-                            className="pl-11 bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                            className="pl-11 bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                           />
                         </div>
                       </div>
@@ -1513,14 +1513,14 @@ export default function AccountPage() {
                       <div className="space-y-2 sm:col-span-2 group/input">
                         <Label htmlFor="phone" className="text-white font-medium">Phone Number</Label>
                         <div className="relative">
-                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#2563eb] transition-colors" />
+                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within/input:text-[#6b7280] transition-colors" />
                           <Input
                             id="phone"
                             value={profileForm.phone}
                             onChange={(e) =>
                               setProfileForm({ ...profileForm, phone: e.target.value })
                             }
-                            className="pl-11 bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                            className="pl-11 bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                             placeholder="+1 (555) 000-0000"
                           />
                         </div>
@@ -1532,7 +1532,7 @@ export default function AccountPage() {
                       <Button
                         onClick={handleSaveProfile}
                         disabled={isSaving}
-                        className="relative bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/30 hover:shadow-xl hover:shadow-[#2563eb]/50 transition-all overflow-hidden group/btn"
+                        className="relative bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white shadow-lg shadow-[#6b7280]/30 hover:shadow-xl hover:shadow-[#6b7280]/50 transition-all overflow-hidden group/btn"
                       >
                         <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
                         {isSaving ? (
@@ -1565,11 +1565,11 @@ export default function AccountPage() {
         return (
           <div className="space-y-6 animate-fade-in">
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl" />
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl" />
               <div className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-[#2563eb]/10">
-                    <Shield className="w-6 h-6 text-[#2563eb]" />
+                  <div className="p-2 rounded-lg bg-[#6b7280]/10">
+                    <Shield className="w-6 h-6 text-[#6b7280]" />
                   </div>
                   <div>
                     <h1 className="text-3xl font-bold text-white">Security Settings</h1>
@@ -1581,11 +1581,11 @@ export default function AccountPage() {
 
             {/* Change Password Card */}
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
               <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                 <CardHeader className="border-b border-[#1a1a1a]">
                   <CardTitle className="flex items-center gap-2 text-xl">
-                    <Key className="w-5 h-5 text-[#2563eb]" />
+                    <Key className="w-5 h-5 text-[#6b7280]" />
                     Change Password
                   </CardTitle>
                 </CardHeader>
@@ -1602,7 +1602,7 @@ export default function AccountPage() {
                         onChange={(e) =>
                           setSecurityForm({ ...securityForm, currentPassword: e.target.value })
                         }
-                        className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                        className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                       />
                     </div>
 
@@ -1617,7 +1617,7 @@ export default function AccountPage() {
                         onChange={(e) =>
                           setSecurityForm({ ...securityForm, newPassword: e.target.value })
                         }
-                        className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                        className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                       />
                     </div>
 
@@ -1632,12 +1632,12 @@ export default function AccountPage() {
                         onChange={(e) =>
                           setSecurityForm({ ...securityForm, confirmPassword: e.target.value })
                         }
-                        className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                        className="bg-[#0a0a0a] border-[#1a1a1a] text-white focus:border-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                       />
                     </div>
 
                     {passwordError && (
-                      <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl text-blue-400 text-sm animate-shake">
+                      <div className="p-4 bg-gray-500/10 border border-gray-500/30 rounded-xl text-gray-400 text-sm animate-shake">
                         {passwordError}
                       </div>
                     )}
@@ -1646,7 +1646,7 @@ export default function AccountPage() {
                       <Button 
                         onClick={handleChangePassword}
                         disabled={isChangingPassword}
-                        className="relative bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/30 hover:shadow-xl hover:shadow-[#2563eb]/50 transition-all overflow-hidden group/btn"
+                        className="relative bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white shadow-lg shadow-[#6b7280]/30 hover:shadow-xl hover:shadow-[#6b7280]/50 transition-all overflow-hidden group/btn"
                       >
                         <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
                         {isChangingPassword ? (
@@ -1676,7 +1676,7 @@ export default function AccountPage() {
               <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                 <CardHeader className="border-b border-[#1a1a1a]">
                   <CardTitle className="flex items-center gap-2 text-xl">
-                    <Shield className="w-5 h-5 text-[#2563eb]" />
+                    <Shield className="w-5 h-5 text-[#6b7280]" />
                     Two-Factor Authentication
                   </CardTitle>
                 </CardHeader>
@@ -1694,7 +1694,7 @@ export default function AccountPage() {
                   </div>
                   <Button
                     variant="outline"
-                    className="mt-6 bg-transparent border-[#1a1a1a] hover:bg-[#2563eb]/10 hover:border-[#2563eb] text-white transition-all"
+                    className="mt-6 bg-transparent border-[#1a1a1a] hover:bg-[#6b7280]/10 hover:border-[#6b7280] text-white transition-all"
                   >
                     <Shield className="w-4 h-4 mr-2" />
                     Enable 2FA
@@ -1711,7 +1711,7 @@ export default function AccountPage() {
     <div className="min-h-screen bg-[#0a0a0a] relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#6b7280]/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
@@ -1724,24 +1724,24 @@ export default function AccountPage() {
             <aside className="hidden lg:block w-72 shrink-0">
               <div className="sticky top-24">
                 <div className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
                   <Card className="relative bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a]">
                     <CardContent className="p-6">
                       {/* Enhanced Profile Info */}
                       <div className="flex flex-col items-center text-center mb-6 pb-6 border-b border-[#1a1a1a]">
                         <div className="relative group/avatar mb-4">
-                          <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-full blur opacity-75 group-hover/avatar:opacity-100 transition-opacity" />
-                          <Avatar className="relative w-24 h-24 border-4 border-[#1a1a1a] ring-2 ring-[#2563eb]/20">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] rounded-full blur opacity-75 group-hover/avatar:opacity-100 transition-opacity" />
+                          <Avatar className="relative w-24 h-24 border-4 border-[#1a1a1a] ring-2 ring-[#6b7280]/20">
                             <AvatarImage src={profileImage || undefined} alt="Profile" />
-                            <AvatarFallback className="bg-[#2563eb]/20 text-[#2563eb] text-2xl font-bold">
+                            <AvatarFallback className="bg-[#6b7280]/20 text-[#6b7280] text-2xl font-bold">
                               {user?.username?.charAt(0).toUpperCase() || "U"}
                             </AvatarFallback>
                           </Avatar>
                         </div>
                         <h3 className="font-bold text-white text-lg mb-1">{user?.username || "User"}</h3>
                         <p className="text-sm text-white/60 break-all">{user?.email}</p>
-                        <div className="mt-3 px-3 py-1.5 bg-[#2563eb]/10 rounded-full">
-                          <span className="text-xs text-[#2563eb] font-semibold">Premium Member</span>
+                        <div className="mt-3 px-3 py-1.5 bg-[#6b7280]/10 rounded-full">
+                          <span className="text-xs text-[#6b7280] font-semibold">Premium Member</span>
                         </div>
                       </div>
 
@@ -1753,12 +1753,12 @@ export default function AccountPage() {
                             onClick={() => setActiveTab(item.id)}
                             className={`relative w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all group/nav overflow-hidden ${
                               activeTab === item.id
-                                ? "bg-[#2563eb]/10 text-[#2563eb]"
+                                ? "bg-[#6b7280]/10 text-[#6b7280]"
                                 : "text-white/60 hover:bg-[#0a0a0a] hover:text-white"
                             }`}
                           >
                             {activeTab === item.id && (
-                              <span className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/20 to-transparent" />
+                              <span className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/20 to-transparent" />
                             )}
                             <item.icon className={`w-5 h-5 relative ${activeTab === item.id ? 'group-hover/nav:scale-110' : ''} transition-transform`} />
                             <span className="relative">{item.label}</span>
@@ -1771,7 +1771,7 @@ export default function AccountPage() {
                         <div className="pt-4 mt-4 border-t border-[#1a1a1a]">
                           <button
                             onClick={handleSignOut}
-                            className="relative w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-blue-400 hover:bg-blue-500/10 transition-all group/logout overflow-hidden"
+                            className="relative w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 hover:bg-gray-500/10 transition-all group/logout overflow-hidden"
                           >
                             <LogOut className="w-5 h-5 group-hover/logout:scale-110 transition-transform" />
                             Logout
@@ -1793,12 +1793,12 @@ export default function AccountPage() {
                     onClick={() => setActiveTab(item.id)}
                     className={`flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl transition-all min-w-0 flex-1 active:scale-95 ${
                       activeTab === item.id
-                        ? "text-[#2563eb]"
+                        ? "text-[#6b7280]"
                         : "text-white/60"
                     }`}
                   >
                     <div className={`p-2 rounded-xl transition-all ${
-                      activeTab === item.id ? "bg-[#2563eb]/10 scale-110" : ""
+                      activeTab === item.id ? "bg-[#6b7280]/10 scale-110" : ""
                     }`}>
                       <item.icon className="w-5 h-5" />
                     </div>
@@ -1807,7 +1807,7 @@ export default function AccountPage() {
                 ))}
                 <button
                   onClick={handleSignOut}
-                  className="flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl transition-all min-w-0 flex-1 text-blue-400 active:scale-95"
+                  className="flex flex-col items-center gap-1.5 px-3 py-2 rounded-xl transition-all min-w-0 flex-1 text-gray-400 active:scale-95"
                 >
                   <div className="p-2 rounded-xl">
                     <LogOut className="w-5 h-5" />
@@ -1831,12 +1831,12 @@ export default function AccountPage() {
           {selectedOrder && (
             <>
               {/* Enhanced Header with gradient */}
-              <div className="relative bg-gradient-to-br from-[#2563eb]/20 via-[#2563eb]/10 to-transparent p-8 pb-10">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#2563eb]/10 rounded-full blur-3xl" />
+              <div className="relative bg-gradient-to-br from-[#6b7280]/20 via-[#6b7280]/10 to-transparent p-8 pb-10">
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#6b7280]/10 rounded-full blur-3xl" />
                 <DialogHeader className="relative">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="p-3 rounded-xl bg-[#2563eb]/20 backdrop-blur-sm ring-2 ring-[#2563eb]/30">
-                      <Receipt className="w-6 h-6 text-[#2563eb]" />
+                    <div className="p-3 rounded-xl bg-[#6b7280]/20 backdrop-blur-sm ring-2 ring-[#6b7280]/30">
+                      <Receipt className="w-6 h-6 text-[#6b7280]" />
                     </div>
                     <DialogTitle className="text-2xl font-bold text-white">
                       Order Details
@@ -1851,11 +1851,11 @@ export default function AccountPage() {
               {/* Content */}
               <div className="p-6 -mt-6">
                 {/* Product Card */}
-                <div className="bg-[#0a0a0a] rounded-2xl p-6 mb-6 border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-colors">
+                <div className="bg-[#0a0a0a] rounded-2xl p-6 mb-6 border border-[#1a1a1a] hover:border-[#6b7280]/30 transition-colors">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-xl bg-[#2563eb]/10 flex-shrink-0">
-                        <Sparkles className="w-7 h-7 text-[#2563eb]" />
+                      <div className="p-3 rounded-xl bg-[#6b7280]/10 flex-shrink-0">
+                        <Sparkles className="w-7 h-7 text-[#6b7280]" />
                       </div>
                       <div>
                         <h3 className="font-bold text-white text-lg mb-1">
@@ -1865,16 +1865,16 @@ export default function AccountPage() {
                       </div>
                     </div>
                     <div className="text-left sm:text-right pl-14 sm:pl-0">
-                      <p className="text-3xl font-bold text-[#2563eb]">${selectedOrder.total.toFixed(2)}</p>
+                      <p className="text-3xl font-bold text-[#6b7280]">${selectedOrder.total.toFixed(2)}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Order Info Grid */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-[#0a0a0a]/50 rounded-xl p-4 border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-colors">
+                  <div className="bg-[#0a0a0a]/50 rounded-xl p-4 border border-[#1a1a1a] hover:border-[#6b7280]/30 transition-colors">
                     <div className="flex items-center gap-2 mb-2">
-                      <Calendar className="w-4 h-4 text-[#2563eb]" />
+                      <Calendar className="w-4 h-4 text-[#6b7280]" />
                       <span className="text-xs text-white/50 uppercase tracking-wider font-semibold">
                         Date
                       </span>
@@ -1888,9 +1888,9 @@ export default function AccountPage() {
                     </p>
                   </div>
 
-                  <div className="bg-[#0a0a0a]/50 rounded-xl p-4 border border-[#1a1a1a] hover:border-[#2563eb]/30 transition-colors">
+                  <div className="bg-[#0a0a0a]/50 rounded-xl p-4 border border-[#1a1a1a] hover:border-[#6b7280]/30 transition-colors">
                     <div className="flex items-center gap-2 mb-2">
-                      <CreditCard className="w-4 h-4 text-[#2563eb]" />
+                      <CreditCard className="w-4 h-4 text-[#6b7280]" />
                       <span className="text-xs text-white/50 uppercase tracking-wider font-semibold">
                         Payment
                       </span>
@@ -1905,7 +1905,7 @@ export default function AccountPage() {
                 <div className="bg-[#0a0a0a]/50 rounded-xl p-4 mb-6 border border-[#1a1a1a]">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Hash className="w-4 h-4 text-[#2563eb]" />
+                      <Hash className="w-4 h-4 text-[#6b7280]" />
                       <span className="text-xs text-white/50 uppercase tracking-wider font-semibold">
                         Status
                       </span>
@@ -1916,10 +1916,10 @@ export default function AccountPage() {
 
                 {/* License Key */}
                 {selectedOrder.licenseKey && (
-                  <div className="bg-gradient-to-r from-[#2563eb]/10 to-[#2563eb]/5 rounded-2xl p-5 border border-[#2563eb]/30 mb-6">
+                  <div className="bg-gradient-to-r from-[#6b7280]/10 to-[#6b7280]/5 rounded-2xl p-5 border border-[#6b7280]/30 mb-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <Key className="w-5 h-5 text-[#2563eb]" />
-                      <span className="text-xs text-[#2563eb] uppercase tracking-wider font-bold">
+                      <Key className="w-5 h-5 text-[#6b7280]" />
+                      <span className="text-xs text-[#6b7280] uppercase tracking-wider font-bold">
                         License Key
                       </span>
                     </div>
@@ -1931,7 +1931,7 @@ export default function AccountPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => copyToClipboard(selectedOrder.licenseKey!, 'modal')}
-                        className="flex-shrink-0 hover:bg-[#2563eb]/10"
+                        className="flex-shrink-0 hover:bg-[#6b7280]/10"
                       >
                         {copiedKey === 'modal' ? (
                           <CheckCircle2 className="w-5 h-5 text-green-400" />
@@ -1946,7 +1946,7 @@ export default function AccountPage() {
                 {/* Close Button */}
                 <Button
                   onClick={() => setOrderModalOpen(false)}
-                  className="w-full py-6 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white font-bold text-lg shadow-lg shadow-[#2563eb]/30 hover:shadow-xl hover:shadow-[#2563eb]/50 transition-all rounded-xl"
+                  className="w-full py-6 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white font-bold text-lg shadow-lg shadow-[#6b7280]/30 hover:shadow-xl hover:shadow-[#6b7280]/50 transition-all rounded-xl"
                 >
                   Close
                 </Button>

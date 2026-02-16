@@ -8,11 +8,11 @@ if (typeof window === 'undefined') {
   // @ts-ignore
   global.window = {
     location: {
-      href: 'https://skylinecheats.org',
-      origin: 'https://skylinecheats.org',
+      href: 'https://ring-0cheats.org',
+      origin: 'https://ring-0cheats.org',
       protocol: 'https:',
-      host: 'skylinecheats.org',
-      hostname: 'skylinecheats.org',
+      host: 'ring-0cheats.org',
+      hostname: 'ring-0cheats.org',
       port: '',
       pathname: '/',
       search: '',
@@ -20,7 +20,7 @@ if (typeof window === 'undefined') {
       assign: () => {},
       replace: () => {},
       reload: () => {},
-      toString: () => 'https://skylinecheats.org',
+      toString: () => 'https://ring-0cheats.org',
     },
     document: {
       documentElement: {

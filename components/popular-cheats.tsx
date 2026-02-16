@@ -207,18 +207,18 @@ export function PopularCheats({ products }: PopularCheatsProps) {
       <section ref={sectionRef} className="py-16 sm:py-24 bg-[#0a0a0a] relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2563eb]/8 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#2563eb]/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6b7280]/8 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#6b7280]/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10 sm:mb-16 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 border border-[#2563eb]/20 rounded-full mb-6 backdrop-blur-sm">
-              <Sparkles className="w-4 h-4 text-[#2563eb] animate-pulse" />
-              <span className="text-[#2563eb] text-sm font-semibold">Coming Soon</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#6b7280]/10 border border-[#6b7280]/20 rounded-full mb-6 backdrop-blur-sm">
+              <Sparkles className="w-4 h-4 text-[#6b7280] animate-pulse" />
+              <span className="text-[#6b7280] text-sm font-semibold">Coming Soon</span>
             </div>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-4 tracking-tight">
-              Your Cheats<span className="text-[#2563eb]">.</span>
+              Your Cheats<span className="text-[#6b7280]">.</span>
             </h2>
             <p className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto">
               Beautifully simple. Unbelievably powerful.
@@ -226,10 +226,10 @@ export function PopularCheats({ products }: PopularCheatsProps) {
           </div>
           
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb]/20 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative text-center py-20 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#1a1a1a] hover:border-[#2563eb]/30 rounded-2xl transition-all duration-500">
-              <div className="w-20 h-20 bg-[#2563eb]/10 rounded-full flex items-center justify-center mx-auto mb-6 transition-transform duration-500 group-hover:scale-110">
-                <Star className="w-10 h-10 text-[#2563eb]" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280]/20 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative text-center py-20 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border-2 border-[#1a1a1a] hover:border-[#6b7280]/30 rounded-2xl transition-all duration-500">
+              <div className="w-20 h-20 bg-[#6b7280]/10 rounded-full flex items-center justify-center mx-auto mb-6 transition-transform duration-500 group-hover:scale-110">
+                <Star className="w-10 h-10 text-[#6b7280]" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-3">No Products Yet</h3>
               <p className="text-white/50 max-w-md mx-auto">
@@ -252,13 +252,13 @@ export function PopularCheats({ products }: PopularCheatsProps) {
     >
       {/* Enhanced Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#2563eb]/8 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-[#2563eb]/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#6b7280]/8 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-1/3 right-1/3 w-[500px] h-[500px] bg-[#6b7280]/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
-        backgroundImage: `linear-gradient(#2563eb 1px, transparent 1px), linear-gradient(90deg, #2563eb 1px, transparent 1px)`,
+        backgroundImage: `linear-gradient(#6b7280 1px, transparent 1px), linear-gradient(90deg, #6b7280 1px, transparent 1px)`,
         backgroundSize: '50px 50px',
       }} />
 
@@ -267,18 +267,18 @@ export function PopularCheats({ products }: PopularCheatsProps) {
         <div className={`text-center mb-10 sm:mb-16 transition-all duration-1000 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#2563eb]/10 border border-[#2563eb]/20 rounded-full mb-6 backdrop-blur-sm">
-            <TrendingUp className="w-4 h-4 text-[#2563eb] animate-pulse" />
-            <span className="text-[#2563eb] text-sm font-semibold">Most Popular</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#6b7280]/10 border border-[#6b7280]/20 rounded-full mb-6 backdrop-blur-sm">
+            <TrendingUp className="w-4 h-4 text-[#6b7280] animate-pulse" />
+            <span className="text-[#6b7280] text-sm font-semibold">Most Popular</span>
           </div>
 
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
             Featured
             <br />
-            <span className="text-[#2563eb] relative inline-block group">
+            <span className="text-[#6b7280] relative inline-block group">
               Products
-              <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-transparent rounded-full" />
-              <span className="absolute -bottom-2 left-0 w-3/4 h-1 bg-gradient-to-r from-[#2563eb] to-transparent rounded-full blur-md opacity-60" />
+              <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-transparent rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-3/4 h-1 bg-gradient-to-r from-[#6b7280] to-transparent rounded-full blur-md opacity-60" />
             </span>
           </h2>
 
@@ -300,20 +300,20 @@ export function PopularCheats({ products }: PopularCheatsProps) {
             <>
               <button
                 onClick={goToPrevious}
-                className="group absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-[#2563eb]/10 hover:bg-[#2563eb]/20 border-2 border-[#2563eb]/20 hover:border-[#2563eb]/40 backdrop-blur-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
+                className="group absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-[#6b7280]/10 hover:bg-[#6b7280]/20 border-2 border-[#6b7280]/20 hover:border-[#6b7280]/40 backdrop-blur-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
                 aria-label="Previous product"
               >
-                <div className="absolute inset-0 rounded-full bg-[#2563eb]/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <ChevronLeft className="relative z-10 w-7 h-7 text-[#2563eb] transition-transform duration-300 group-hover:-translate-x-0.5" />
+                <div className="absolute inset-0 rounded-full bg-[#6b7280]/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <ChevronLeft className="relative z-10 w-7 h-7 text-[#6b7280] transition-transform duration-300 group-hover:-translate-x-0.5" />
               </button>
 
               <button
                 onClick={goToNext}
-                className="group absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-[#2563eb] hover:bg-[#3b82f6] backdrop-blur-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 overflow-hidden"
+                className="group absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-40 w-14 h-14 rounded-full bg-[#6b7280] hover:bg-[#9ca3af] backdrop-blur-xl flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 overflow-hidden"
                 aria-label="Next product"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <div className="absolute -inset-1 bg-[#2563eb] blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
+                <div className="absolute -inset-1 bg-[#6b7280] blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
                 <ChevronRight className="relative z-10 w-7 h-7 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
               </button>
             </>
@@ -343,16 +343,16 @@ export function PopularCheats({ products }: PopularCheatsProps) {
                 >
                   <div className={`group/card relative w-full h-full rounded-3xl overflow-hidden border-2 backdrop-blur-sm ${
                     isCenter 
-                      ? "border-[#2563eb] shadow-[0_0_60px_rgba(37,99,235,0.4)]" 
+                      ? "border-[#6b7280] shadow-[0_0_60px_rgba(37,99,235,0.4)]" 
                       : "border-white/10"
                   }`}>
                     {/* Multiple layered glows */}
                     {isCenter && (
                       <>
-                        <div className={`absolute -inset-2 rounded-3xl bg-gradient-to-r from-[#2563eb]/30 via-[#2563eb]/20 to-[#2563eb]/30 blur-2xl transition-opacity duration-500 ${
+                        <div className={`absolute -inset-2 rounded-3xl bg-gradient-to-r from-[#6b7280]/30 via-[#6b7280]/20 to-[#6b7280]/30 blur-2xl transition-opacity duration-500 ${
                           isHovered ? "opacity-100" : "opacity-70"
                         }`} />
-                        <div className={`absolute -inset-4 rounded-3xl bg-gradient-to-r from-[#2563eb]/20 to-[#2563eb]/20 blur-3xl transition-opacity duration-500 ${
+                        <div className={`absolute -inset-4 rounded-3xl bg-gradient-to-r from-[#6b7280]/20 to-[#6b7280]/20 blur-3xl transition-opacity duration-500 ${
                           isHovered ? "opacity-100" : "opacity-50"
                         }`} />
                       </>
@@ -361,9 +361,9 @@ export function PopularCheats({ products }: PopularCheatsProps) {
                     {/* Animated particles for center card */}
                     {isCenter && (
                       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#2563eb]/60 rounded-full animate-particle-1" />
-                        <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-[#2563eb]/40 rounded-full animate-particle-2" />
-                        <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-[#2563eb]/50 rounded-full animate-particle-3" />
+                        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#6b7280]/60 rounded-full animate-particle-1" />
+                        <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-[#6b7280]/40 rounded-full animate-particle-2" />
+                        <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-[#6b7280]/50 rounded-full animate-particle-3" />
                       </div>
                     )}
 
@@ -386,7 +386,7 @@ export function PopularCheats({ products }: PopularCheatsProps) {
                       {/* Scan line effect */}
                       {isCenter && isHovered && (
                         <div className="absolute inset-0 opacity-30">
-                          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2563eb]/20 to-transparent animate-scan" />
+                          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#6b7280]/20 to-transparent animate-scan" />
                         </div>
                       )}
 
@@ -400,7 +400,7 @@ export function PopularCheats({ products }: PopularCheatsProps) {
 
                       {/* Crown badge for center */}
                       {isCenter && (
-                        <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#2563eb] flex items-center justify-center shadow-lg shadow-[#2563eb]/50 animate-pulse">
+                        <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-[#6b7280] flex items-center justify-center shadow-lg shadow-[#6b7280]/50 animate-pulse">
                           <Crown className="w-5 h-5 text-white" />
                         </div>
                       )}
@@ -436,7 +436,7 @@ export function PopularCheats({ products }: PopularCheatsProps) {
                       <button
                         className={`group/btn relative w-full py-3.5 rounded-xl font-bold transition-all duration-500 overflow-hidden ${
                           isCenter
-                            ? "bg-[#2563eb] hover:bg-[#3b82f6] text-white shadow-lg shadow-[#2563eb]/30 hover:shadow-xl hover:shadow-[#2563eb]/40 hover:scale-105"
+                            ? "bg-[#6b7280] hover:bg-[#9ca3af] text-white shadow-lg shadow-[#6b7280]/30 hover:shadow-xl hover:shadow-[#6b7280]/40 hover:scale-105"
                             : "bg-white/5 backdrop-blur-sm text-white/50 border border-white/10 hover:border-white/20"
                         }`}
                       >
@@ -471,17 +471,17 @@ export function PopularCheats({ products }: PopularCheatsProps) {
                     {/* Corner accents for center card */}
                     {isCenter && (
                       <>
-                        <div className={`absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-[#2563eb] rounded-tl-3xl transition-all duration-500 ${
-                          isHovered ? "w-20 h-20 border-[#3b82f6]" : ""
+                        <div className={`absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-[#6b7280] rounded-tl-3xl transition-all duration-500 ${
+                          isHovered ? "w-20 h-20 border-[#9ca3af]" : ""
                         }`} />
-                        <div className={`absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-[#2563eb] rounded-tr-3xl transition-all duration-500 ${
-                          isHovered ? "w-20 h-20 border-[#3b82f6]" : ""
+                        <div className={`absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-[#6b7280] rounded-tr-3xl transition-all duration-500 ${
+                          isHovered ? "w-20 h-20 border-[#9ca3af]" : ""
                         }`} />
-                        <div className={`absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-[#2563eb] rounded-bl-3xl transition-all duration-500 ${
-                          isHovered ? "w-20 h-20 border-[#3b82f6]" : ""
+                        <div className={`absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-[#6b7280] rounded-bl-3xl transition-all duration-500 ${
+                          isHovered ? "w-20 h-20 border-[#9ca3af]" : ""
                         }`} />
-                        <div className={`absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-[#2563eb] rounded-br-3xl transition-all duration-500 ${
-                          isHovered ? "w-20 h-20 border-[#3b82f6]" : ""
+                        <div className={`absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-[#6b7280] rounded-br-3xl transition-all duration-500 ${
+                          isHovered ? "w-20 h-20 border-[#9ca3af]" : ""
                         }`} />
                       </>
                     )}
@@ -505,7 +505,7 @@ export function PopularCheats({ products }: PopularCheatsProps) {
                 >
                   <div className={`relative overflow-hidden rounded-full transition-all duration-500 ${
                     index === currentIndex
-                      ? "h-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] shadow-lg shadow-[#2563eb]/50 ring-2 ring-[#2563eb]/30"
+                      ? "h-3 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] shadow-lg shadow-[#6b7280]/50 ring-2 ring-[#6b7280]/30"
                       : "h-2.5 bg-white/20 group-hover/dot:bg-white/40 group-hover/dot:scale-125"
                   }`}>
                     {index === currentIndex && (
@@ -528,7 +528,7 @@ export function PopularCheats({ products }: PopularCheatsProps) {
             <div className="max-w-sm mx-auto px-4 mb-6">
               <div className="h-1.5 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
                 <div
-                  className="h-full bg-gradient-to-r from-[#2563eb] via-[#ff4444] to-[#2563eb] rounded-full transition-all duration-700 ease-out relative"
+                  className="h-full bg-gradient-to-r from-[#6b7280] via-[#ff4444] to-[#6b7280] rounded-full transition-all duration-700 ease-out relative"
                   style={{
                     width: `${((currentIndex + 1) / displayProducts.length) * 100}%`,
                   }}
@@ -545,7 +545,7 @@ export function PopularCheats({ products }: PopularCheatsProps) {
             <div className="flex items-center justify-center gap-2 pb-4">
               <button
                 onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                className="flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] hover:border-[#2563eb]/30 rounded-lg transition-all group overflow-hidden"
+                className="flex items-center gap-2 px-4 py-2 bg-[#111111] border border-[#1a1a1a] hover:border-[#6b7280]/30 rounded-lg transition-all group overflow-hidden"
               >
                 <div className="relative">
                   <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-400' : 'bg-white/40'}`}>

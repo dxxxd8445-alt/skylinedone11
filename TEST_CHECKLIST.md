@@ -44,7 +44,7 @@
 
 ### Steps:
 1. On Stripe checkout page
-2. Enter test email: `test@skyline.com`
+2. Enter test email: `test@ring-0.com`
 3. Enter test card: `4242 4242 4242 4242`
 4. Expiry: Any future date (e.g., `12/25`)
 5. CVC: Any 3 digits (e.g., `123`)
@@ -86,12 +86,12 @@ Each message should show:
 ## ✅ TEST 5: Email Delivery
 
 ### Steps:
-1. Check email inbox for `test@skyline.com`
-2. Look for email from `Skyline <noreply@skylinecheats.org>`
+1. Check email inbox for `test@ring-0.com`
+2. Look for email from `Ring-0 <noreply@ring-0cheats.org>`
 
 ### Expected Results:
 - ✅ Email received
-- ✅ Subject: "🔥 Your Skyline License Keys - Order #..."
+- ✅ Subject: "🔥 Your Ring-0 License Keys - Order #..."
 - ✅ Blue gradient header
 - ✅ Order details shown
 - ✅ License key displayed
@@ -103,7 +103,7 @@ Each message should show:
 
 ### Steps:
 1. Go to: `http://localhost:3000/account`
-2. Login with: `test@skyline.com`
+2. Login with: `test@ring-0.com`
 3. Check "Orders" tab
 4. Check "Delivered" tab
 
@@ -211,7 +211,7 @@ npm run dev
 # - Add Fortnite Aimbot (1 Day) to cart
 # - Use coupon: WELCOME10
 # - Checkout with test card: 4242 4242 4242 4242
-# - Email: test@skyline.com
+# - Email: test@ring-0.com
 
 # 4. Check Discord
 # - Should see 4 webhook messages
@@ -221,7 +221,7 @@ npm run dev
 
 # 6. Check Customer Dashboard
 # - Go to: http://localhost:3000/account
-# - Login with test@skyline.com
+# - Login with test@ring-0.com
 # - Verify order and license appear
 
 # 7. Check Admin Panel

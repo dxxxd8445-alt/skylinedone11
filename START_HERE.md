@@ -1,4 +1,4 @@
-# 🚀 START HERE - Skyline Cheats Setup
+# 🚀 START HERE - Ring-0 Setup
 
 ## ✅ Everything is COMPLETE and READY!
 
@@ -44,7 +44,7 @@ npm run dev
 
 ## 🎯 What's Working
 
-✅ Complete Skyline blue branding
+✅ Complete Ring-0 blue branding
 ✅ Stripe payment processing
 ✅ Discord webhooks (7 events)
 ✅ License key assignment

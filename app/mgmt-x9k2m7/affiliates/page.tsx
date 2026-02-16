@@ -205,7 +205,7 @@ export default function AffiliatesPage() {
           <Button
             onClick={loadAffiliates}
             disabled={loading}
-            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+            className="bg-[#6b7280] hover:bg-[#9ca3af] text-white"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -221,8 +221,8 @@ export default function AffiliatesPage() {
                   <p className="text-white/60 text-sm">Total Affiliates</p>
                   <p className="text-2xl font-bold text-white">{totalStats.totalAffiliates}</p>
                 </div>
-                <div className="p-3 rounded-xl bg-[#2563eb]/10">
-                  <Users className="w-6 h-6 text-[#2563eb]" />
+                <div className="p-3 rounded-xl bg-[#6b7280]/10">
+                  <Users className="w-6 h-6 text-[#6b7280]" />
                 </div>
               </div>
             </CardContent>
@@ -249,8 +249,8 @@ export default function AffiliatesPage() {
                   <p className="text-white/60 text-sm">Total Referrals</p>
                   <p className="text-2xl font-bold text-white">{totalStats.totalReferrals}</p>
                 </div>
-                <div className="p-3 rounded-xl bg-blue-500/10">
-                  <TrendingUp className="w-6 h-6 text-blue-500" />
+                <div className="p-3 rounded-xl bg-gray-500/10">
+                  <TrendingUp className="w-6 h-6 text-gray-500" />
                 </div>
               </div>
             </CardContent>
@@ -296,7 +296,7 @@ export default function AffiliatesPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (
@@ -351,7 +351,7 @@ export default function AffiliatesPage() {
                         <TableCell>
                           <Badge className={
                             affiliate.status === 'active' ? "bg-green-500/20 text-green-400 border-0" :
-                            affiliate.status === 'suspended' ? "bg-blue-500/20 text-blue-400 border-0" :
+                            affiliate.status === 'suspended' ? "bg-gray-500/20 text-gray-400 border-0" :
                             "bg-yellow-500/20 text-yellow-400 border-0"
                           }>
                             {affiliate.status}
@@ -362,7 +362,7 @@ export default function AffiliatesPage() {
                             <div className="flex items-center gap-2 mb-1">
                               {affiliate.payment_method === 'paypal' && (
                                 <div className="flex items-center gap-1">
-                                  <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                                  <div className="w-4 h-4 bg-gray-500 rounded-full flex items-center justify-center">
                                     <span className="text-xs text-white font-bold">P</span>
                                   </div>
                                   <span className="text-white text-sm font-medium">PayPal</span>
@@ -400,7 +400,7 @@ export default function AffiliatesPage() {
                               size="sm"
                               variant="ghost"
                               onClick={() => viewAffiliateDetails(affiliate)}
-                              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
+                              className="text-gray-400 hover:text-gray-300 hover:bg-gray-500/10"
                               title="View Details"
                             >
                               <Eye className="w-4 h-4" />
@@ -421,8 +421,8 @@ export default function AffiliatesPage() {
                     {filteredAffiliates.length === 0 && !loading && (
                       <TableRow>
                         <TableCell colSpan={8} className="py-16 text-center">
-                          <div className="w-16 h-16 rounded-full bg-[#2563eb]/10 flex items-center justify-center mx-auto mb-4">
-                            <Users className="w-8 h-8 text-[#2563eb]" />
+                          <div className="w-16 h-16 rounded-full bg-[#6b7280]/10 flex items-center justify-center mx-auto mb-4">
+                            <Users className="w-8 h-8 text-[#6b7280]" />
                           </div>
                           <p className="text-white/60">No affiliates found</p>
                         </TableCell>
@@ -443,7 +443,7 @@ export default function AffiliatesPage() {
             <>
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-white flex items-center gap-3">
-                  <Users className="w-6 h-6 text-[#2563eb]" />
+                  <Users className="w-6 h-6 text-[#6b7280]" />
                   Affiliate Details - {selectedAffiliate.store_users?.username || 'Unknown'}
                 </DialogTitle>
               </DialogHeader>
@@ -466,7 +466,7 @@ export default function AffiliatesPage() {
                       </div>
                       <div>
                         <Label className="text-white/60">Affiliate Code</Label>
-                        <code className="font-mono text-sm bg-[#1a1a1a] px-2 py-1 rounded text-[#2563eb]">
+                        <code className="font-mono text-sm bg-[#1a1a1a] px-2 py-1 rounded text-[#6b7280]">
                           {selectedAffiliate.affiliate_code}
                         </code>
                       </div>
@@ -474,7 +474,7 @@ export default function AffiliatesPage() {
                         <Label className="text-white/60">Status</Label>
                         <Badge className={
                           selectedAffiliate.status === 'active' ? "bg-green-500/20 text-green-400 border-0" :
-                          selectedAffiliate.status === 'suspended' ? "bg-blue-500/20 text-blue-400 border-0" :
+                          selectedAffiliate.status === 'suspended' ? "bg-gray-500/20 text-gray-400 border-0" :
                           "bg-yellow-500/20 text-yellow-400 border-0"
                         }>
                           {selectedAffiliate.status}
@@ -493,7 +493,7 @@ export default function AffiliatesPage() {
                         <div className="flex items-center gap-2 mt-1">
                           {selectedAffiliate.payment_method === 'paypal' && (
                             <>
-                              <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                              <div className="w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center">
                                 <span className="text-xs text-white font-bold">P</span>
                               </div>
                               <span className="text-white font-semibold">PayPal</span>
@@ -555,7 +555,7 @@ export default function AffiliatesPage() {
                   </Card>
                   <Card className="bg-[#0a0a0a] border-[#1a1a1a]">
                     <CardContent className="p-4 text-center">
-                      <Users className="w-8 h-8 text-blue-500 mx-auto mb-2" />
+                      <Users className="w-8 h-8 text-gray-500 mx-auto mb-2" />
                       <p className="text-2xl font-bold text-white">{selectedAffiliate.total_referrals}</p>
                       <p className="text-white/60 text-sm">Total Referrals</p>
                     </CardContent>
@@ -584,7 +584,7 @@ export default function AffiliatesPage() {
                   <CardContent>
                     {detailsLoading ? (
                       <div className="py-8 flex justify-center">
-                        <div className="w-8 h-8 border-4 border-[#1a1a1a] border-t-[#2563eb] rounded-full animate-spin" />
+                        <div className="w-8 h-8 border-4 border-[#1a1a1a] border-t-[#6b7280] rounded-full animate-spin" />
                       </div>
                     ) : affiliateReferrals.length > 0 ? (
                       <div className="overflow-x-auto">
@@ -607,7 +607,7 @@ export default function AffiliatesPage() {
                                 <TableCell>
                                   <Badge className={
                                     referral.status === 'paid' ? "bg-green-500/20 text-green-400 border-0" :
-                                    referral.status === 'approved' ? "bg-blue-500/20 text-blue-400 border-0" :
+                                    referral.status === 'approved' ? "bg-gray-500/20 text-gray-400 border-0" :
                                     "bg-yellow-500/20 text-yellow-400 border-0"
                                   }>
                                     {referral.status}
@@ -639,7 +639,7 @@ export default function AffiliatesPage() {
             <>
               <DialogHeader>
                 <DialogTitle className="text-xl font-bold text-white flex items-center gap-3">
-                  <Edit className="w-5 h-5 text-[#2563eb]" />
+                  <Edit className="w-5 h-5 text-[#6b7280]" />
                   Edit Affiliate
                 </DialogTitle>
               </DialogHeader>
@@ -763,7 +763,7 @@ export default function AffiliatesPage() {
                 <div className="flex gap-3 pt-4">
                   <Button
                     onClick={saveAffiliateChanges}
-                    className="flex-1 bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+                    className="flex-1 bg-[#6b7280] hover:bg-[#9ca3af] text-white"
                   >
                     Save Changes
                   </Button>

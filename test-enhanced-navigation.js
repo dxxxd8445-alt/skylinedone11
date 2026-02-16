@@ -19,7 +19,7 @@ const headerContent = fs.readFileSync(headerPath, 'utf8');
 
 const hasDesktopEnhancements = headerContent.includes('group-hover:scale-110') && 
                               headerContent.includes('animated underline') &&
-                              headerContent.includes('bg-gradient-to-r from-[#2563eb] to-[#3b82f6]') &&
+                              headerContent.includes('bg-gradient-to-r from-[#6b7280] to-[#9ca3af]') &&
                               headerContent.includes('group-hover:w-full') &&
                               headerContent.includes('glow effect');
 
@@ -44,9 +44,9 @@ if (hasAnimatedUnderline) {
 
 // Test 3: Check glow effects
 console.log('\n3. Checking glow effects...');
-const hasGlowEffects = headerContent.includes('group-hover:from-[#2563eb]/10') && 
-                      headerContent.includes('group-hover:to-[#3b82f6]/10') &&
-                      headerContent.includes('bg-gradient-to-r from-[#2563eb]/0');
+const hasGlowEffects = headerContent.includes('group-hover:from-[#6b7280]/10') && 
+                      headerContent.includes('group-hover:to-[#9ca3af]/10') &&
+                      headerContent.includes('bg-gradient-to-r from-[#6b7280]/0');
 
 if (hasGlowEffects) {
   console.log('✅ Glow effects properly implemented');

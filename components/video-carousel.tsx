@@ -62,7 +62,7 @@ export function VideoCarousel() {
   return (
     <section ref={sectionRef} className="py-20 bg-[#0a0a0a] relative overflow-hidden">
       {/* Background accent */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#2563eb]/5 blur-[120px] rounded-full" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#6b7280]/5 blur-[120px] rounded-full" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
@@ -75,12 +75,12 @@ export function VideoCarousel() {
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-3">
               Insights that
               <br />
-              <span className="text-[#2563eb] relative inline-block group">
+              <span className="text-[#6b7280] relative inline-block group">
                 power performance
                 {/* Animated underline */}
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-transparent rounded-full transform origin-left transition-all duration-500" />
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-transparent rounded-full transform origin-left transition-all duration-500" />
                 {/* Glow effect */}
-                <span className="absolute -bottom-2 left-0 w-3/4 h-1 bg-gradient-to-r from-[#2563eb] to-transparent rounded-full blur-md opacity-60" />
+                <span className="absolute -bottom-2 left-0 w-3/4 h-1 bg-gradient-to-r from-[#6b7280] to-transparent rounded-full blur-md opacity-60" />
               </span>
             </h2>
             <p className="text-white/50 mt-4 max-w-md">
@@ -92,20 +92,20 @@ export function VideoCarousel() {
           <div className="flex items-center gap-3">
             <button
               onClick={prevSlide}
-              className="group relative w-12 h-12 rounded-full bg-[#2563eb]/10 hover:bg-[#2563eb]/20 border border-[#2563eb]/20 hover:border-[#2563eb]/40 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
+              className="group relative w-12 h-12 rounded-full bg-[#6b7280]/10 hover:bg-[#6b7280]/20 border border-[#6b7280]/20 hover:border-[#6b7280]/40 flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95"
             >
               {/* Glow */}
-              <div className="absolute inset-0 rounded-full bg-[#2563eb]/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <ChevronLeft className="relative z-10 w-6 h-6 text-[#2563eb] transition-transform duration-300 group-hover:-translate-x-0.5" />
+              <div className="absolute inset-0 rounded-full bg-[#6b7280]/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <ChevronLeft className="relative z-10 w-6 h-6 text-[#6b7280] transition-transform duration-300 group-hover:-translate-x-0.5" />
             </button>
             <button
               onClick={nextSlide}
-              className="group relative w-12 h-12 rounded-full bg-[#2563eb] hover:bg-[#3b82f6] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 overflow-hidden"
+              className="group relative w-12 h-12 rounded-full bg-[#6b7280] hover:bg-[#9ca3af] flex items-center justify-center transition-all duration-300 hover:scale-110 active:scale-95 overflow-hidden"
             >
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               {/* Glow */}
-              <div className="absolute -inset-1 bg-[#2563eb] blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
+              <div className="absolute -inset-1 bg-[#6b7280] blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
               <ChevronRight className="relative z-10 w-6 h-6 text-white transition-transform duration-300 group-hover:translate-x-0.5" />
             </button>
           </div>
@@ -129,17 +129,17 @@ export function VideoCarousel() {
                     : "opacity-0 translate-y-10"
                 } ${
                   isPlaying 
-                    ? "shadow-[0_0_40px_rgba(37,99,235,0.5)] border-[#2563eb] scale-105" 
+                    ? "shadow-[0_0_40px_rgba(37,99,235,0.5)] border-[#6b7280] scale-105" 
                     : isHovered 
-                    ? "border-[#2563eb]/70 scale-[1.03] shadow-xl shadow-[#2563eb]/20" 
-                    : "border-[#262626] hover:border-[#2563eb]/50"
+                    ? "border-[#6b7280]/70 scale-[1.03] shadow-xl shadow-[#6b7280]/20" 
+                    : "border-[#262626] hover:border-[#6b7280]/50"
                 }`}
                 style={{ transitionDelay: `${(index + 1) * 150}ms` }}
               >
                 {/* Glow effect - only show when not playing */}
                 {!isPlaying && (
                   <>
-                    <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#2563eb]/20 via-[#2563eb]/10 to-[#2563eb]/20 blur-xl transition-opacity duration-700 ${
+                    <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-r from-[#6b7280]/20 via-[#6b7280]/10 to-[#6b7280]/20 blur-xl transition-opacity duration-700 ${
                       isHovered ? "opacity-70" : "opacity-0"
                     }`} />
                   </>
@@ -179,8 +179,8 @@ export function VideoCarousel() {
                     {/* Gradient overlay */}
                     <div className={`absolute inset-0 bg-gradient-to-br transition-all duration-500 ${
                       isHovered 
-                        ? "from-[#2563eb]/30 via-[#2563eb]/10 to-transparent" 
-                        : "from-[#2563eb]/10 to-transparent"
+                        ? "from-[#6b7280]/30 via-[#6b7280]/10 to-transparent" 
+                        : "from-[#6b7280]/10 to-transparent"
                     }`} />
 
                     {/* Play button with enhanced animation */}
@@ -189,12 +189,12 @@ export function VideoCarousel() {
                         isHovered ? "scale-110" : "scale-100"
                       }`}>
                         {/* Pulsing ring */}
-                        <div className={`absolute inset-0 rounded-full bg-[#2563eb]/30 transition-all duration-700 ${
+                        <div className={`absolute inset-0 rounded-full bg-[#6b7280]/30 transition-all duration-700 ${
                           isHovered ? "scale-150 opacity-0" : "scale-100 opacity-100"
                         }`} />
                         
                         {/* Button */}
-                        <button className="relative w-16 h-16 rounded-full bg-[#2563eb] hover:bg-[#3b82f6] flex items-center justify-center transition-all duration-300 shadow-xl shadow-[#2563eb]/50 group-hover:shadow-2xl group-hover:shadow-[#2563eb]/60">
+                        <button className="relative w-16 h-16 rounded-full bg-[#6b7280] hover:bg-[#9ca3af] flex items-center justify-center transition-all duration-300 shadow-xl shadow-[#6b7280]/50 group-hover:shadow-2xl group-hover:shadow-[#6b7280]/60">
                           {/* Inner glow */}
                           <div className="absolute inset-2 rounded-full bg-gradient-to-br from-white/20 to-transparent" />
                           <Play className="relative z-10 w-6 h-6 text-white fill-white ml-1" />
@@ -209,11 +209,11 @@ export function VideoCarousel() {
                     </div>
 
                     {/* Corner accents */}
-                    <div className={`absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-[#2563eb]/50 rounded-tl-lg transition-all duration-500 ${
-                      isHovered ? "w-12 h-12 border-[#2563eb]" : ""
+                    <div className={`absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-[#6b7280]/50 rounded-tl-lg transition-all duration-500 ${
+                      isHovered ? "w-12 h-12 border-[#6b7280]" : ""
                     }`} />
-                    <div className={`absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-[#2563eb]/50 rounded-br-lg transition-all duration-500 ${
-                      isHovered ? "w-12 h-12 border-[#2563eb]" : ""
+                    <div className={`absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-[#6b7280]/50 rounded-br-lg transition-all duration-500 ${
+                      isHovered ? "w-12 h-12 border-[#6b7280]" : ""
                     }`} />
                   </>
                 )}

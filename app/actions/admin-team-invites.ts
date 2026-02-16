@@ -24,21 +24,21 @@ function inviteEmailHTML(params: {
 <body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <div style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#2563eb 0%,#3b82f6 100%);border-radius:16px;margin-bottom:20px;line-height:60px;color:white;font-size:32px;">🔥</div>
-      <h1 style="color:#fff;margin:0;font-size:28px;font-weight:bold;">Welcome to Skyline</h1>
+      <div style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#6b7280 0%,#9ca3af 100%);border-radius:16px;margin-bottom:20px;line-height:60px;color:white;font-size:32px;">🔥</div>
+      <h1 style="color:#fff;margin:0;font-size:28px;font-weight:bold;">Welcome to Ring-0</h1>
     </div>
     <div style="background:#111;border:1px solid #262626;border-radius:16px;padding:40px;">
       <h2 style="color:#fff;margin:0 0 20px;font-size:20px;">Hi ${params.name},</h2>
-      <p style="color:#a3a3a3;line-height:1.6;margin:0 0 20px;">You've been invited to join the Skyline admin team.</p>
+      <p style="color:#a3a3a3;line-height:1.6;margin:0 0 20px;">You've been invited to join the Ring-0 admin team.</p>
       <p style="color:#a3a3a3;line-height:1.6;margin:0 0 8px;"><strong style="color:#fff;">Username:</strong> ${params.username || params.name}</p>
       <p style="color:#a3a3a3;line-height:1.6;margin:0 0 24px;"><strong style="color:#fff;">Permissions:</strong> ${permList}</p>
       <p style="color:#a3a3a3;line-height:1.6;margin:0 0 30px;">Click the button below to accept and set up your account:</p>
       <div style="text-align:center;margin:30px 0;">
-        <a href="${params.inviteLink}" style="display:inline-block;background:linear-gradient(135deg,#2563eb 0%,#3b82f6 100%);color:white;text-decoration:none;padding:16px 32px;border-radius:10px;font-weight:600;font-size:16px;">Accept Invitation</a>
+        <a href="${params.inviteLink}" style="display:inline-block;background:linear-gradient(135deg,#6b7280 0%,#9ca3af 100%);color:white;text-decoration:none;padding:16px 32px;border-radius:10px;font-weight:600;font-size:16px;">Accept Invitation</a>
       </div>
       <p style="color:#737373;font-size:14px;margin:20px 0 0;">This link expires in 7 days. If you didn't expect this, you can ignore this email.</p>
     </div>
-    <p style="text-align:center;color:#525252;font-size:12px;margin:20px 0 0;">© ${new Date().getFullYear()} Skyline. All rights reserved.</p>
+    <p style="text-align:center;color:#525252;font-size:12px;margin:20px 0 0;">© ${new Date().getFullYear()} Ring-0. All rights reserved.</p>
   </div>
 </body>
 </html>`.trim();
@@ -52,18 +52,18 @@ function reminderEmailHTML(params: { name: string; inviteLink: string }) {
 <body style="margin:0;padding:0;background:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
   <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
     <div style="text-align:center;margin-bottom:40px;">
-      <div style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#2563eb 0%,#3b82f6 100%);border-radius:16px;margin-bottom:20px;line-height:60px;color:white;font-size:32px;">🔥</div>
+      <div style="display:inline-block;width:60px;height:60px;background:linear-gradient(135deg,#6b7280 0%,#9ca3af 100%);border-radius:16px;margin-bottom:20px;line-height:60px;color:white;font-size:32px;">🔥</div>
       <h1 style="color:#fff;margin:0;font-size:28px;font-weight:bold;">Invitation Reminder</h1>
     </div>
     <div style="background:#111;border:1px solid #262626;border-radius:16px;padding:40px;">
       <h2 style="color:#fff;margin:0 0 20px;font-size:20px;">Hi ${params.name},</h2>
-      <p style="color:#a3a3a3;line-height:1.6;margin:0 0 20px;">This is a reminder to accept your invitation to join the Skyline admin team.</p>
+      <p style="color:#a3a3a3;line-height:1.6;margin:0 0 20px;">This is a reminder to accept your invitation to join the Ring-0 admin team.</p>
       <div style="text-align:center;margin:30px 0;">
-        <a href="${params.inviteLink}" style="display:inline-block;background:linear-gradient(135deg,#2563eb 0%,#3b82f6 100%);color:white;text-decoration:none;padding:16px 32px;border-radius:10px;font-weight:600;font-size:16px;">Accept Invitation</a>
+        <a href="${params.inviteLink}" style="display:inline-block;background:linear-gradient(135deg,#6b7280 0%,#9ca3af 100%);color:white;text-decoration:none;padding:16px 32px;border-radius:10px;font-weight:600;font-size:16px;">Accept Invitation</a>
       </div>
       <p style="color:#737373;font-size:14px;margin:20px 0 0;">This link expires in 7 days.</p>
     </div>
-    <p style="text-align:center;color:#525252;font-size:12px;margin:20px 0 0;">© ${new Date().getFullYear()} Skyline. All rights reserved.</p>
+    <p style="text-align:center;color:#525252;font-size:12px;margin:20px 0 0;">© ${new Date().getFullYear()} Ring-0. All rights reserved.</p>
   </div>
 </body>
 </html>`.trim();
@@ -136,7 +136,7 @@ export async function inviteTeamMember(data: {
 
     const emailResult = await sendEmail({
       to: email,
-      subject: "You're invited to join Skyline Admin Team",
+      subject: "You're invited to join Ring-0 Admin Team",
       html: inviteEmailHTML({
         name: data.name.trim(),
         username,
@@ -211,7 +211,7 @@ export async function resendInvite(teamMemberId: string) {
 
     const emailResult = await sendEmail({
       to: teamMember.email,
-      subject: "Reminder: Join Skyline Admin Team",
+      subject: "Reminder: Join Ring-0 Admin Team",
       html: reminderEmailHTML({ name: teamMember.name, inviteLink }),
     });
 

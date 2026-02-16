@@ -261,9 +261,9 @@ export default function OrdersPage() {
 
   const statusColors: Record<string, string> = {
     pending: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-    paid: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    paid: "bg-gray-500/10 text-gray-400 border-gray-500/20",
     completed: "bg-green-500/10 text-green-400 border-green-500/20",
-    failed: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    failed: "bg-gray-500/10 text-gray-400 border-gray-500/20",
     refunded: "bg-gray-500/10 text-gray-400 border-gray-500/20",
   };
 
@@ -332,7 +332,7 @@ export default function OrdersPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gray-500 to-gray-600 flex items-center justify-center">
               <ShoppingCart className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -368,7 +368,7 @@ export default function OrdersPage() {
 
         <div className="bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -387,7 +387,7 @@ export default function OrdersPage() {
           size="sm"
           onClick={handleMarkAllCompleted}
           disabled={bulkUpdating || loading}
-          className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#1e40af] hover:to-[#2563eb] text-white border-0"
+          className="bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#1e40af] hover:to-[#6b7280] text-white border-0"
         >
           {bulkUpdating ? (
             <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
@@ -420,7 +420,7 @@ export default function OrdersPage() {
                   }}
                   className={cn(
                     "w-full px-3 py-2 text-left text-sm transition-colors",
-                    dateFilter === opt.value ? "bg-[#2563eb]/20 text-[#2563eb]" : "text-white/80 hover:bg-white/5"
+                    dateFilter === opt.value ? "bg-[#6b7280]/20 text-[#6b7280]" : "text-white/80 hover:bg-white/5"
                   )}
                 >
                   {opt.label}
@@ -453,7 +453,7 @@ export default function OrdersPage() {
                   }}
                   className={cn(
                     "w-full px-3 py-2 text-left text-sm transition-colors",
-                    statusFilter === opt.value ? "bg-[#2563eb]/20 text-[#2563eb]" : "text-white/80 hover:bg-white/5"
+                    statusFilter === opt.value ? "bg-[#6b7280]/20 text-[#6b7280]" : "text-white/80 hover:bg-white/5"
                   )}
                 >
                   {opt.label}
@@ -477,7 +477,7 @@ export default function OrdersPage() {
 
       {loading ? (
         <div className="flex justify-center h-64 items-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#2563eb]/30 border-t-[#2563eb] animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#6b7280]/30 border-t-[#6b7280] animate-spin" />
         </div>
       ) : (
         <DataTable
@@ -512,7 +512,7 @@ export default function OrdersPage() {
                   variant="ghost"
                   onClick={() => handleUpdateStatus(order.id, "refunded")}
                   disabled={updating === order.id}
-                  className="text-blue-400 hover:bg-blue-500/10 h-8 px-2"
+                  className="text-gray-400 hover:bg-gray-500/10 h-8 px-2"
                 >
                   {updating === order.id ? <RefreshCw className="w-4 h-4 animate-spin" /> : <XCircle className="w-4 h-4" />}
                 </Button>
@@ -535,14 +535,14 @@ export default function OrdersPage() {
 
       {detailLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="w-10 h-10 rounded-full border-2 border-[#2563eb]/30 border-t-[#2563eb] animate-spin" />
+          <div className="w-10 h-10 rounded-full border-2 border-[#6b7280]/30 border-t-[#6b7280] animate-spin" />
         </div>
       )}
 
       {detailModal && !detailLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
           <div className="w-full max-w-lg rounded-2xl bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] shadow-xl overflow-hidden">
-            <div className="p-6 border-b border-[#262626] bg-gradient-to-r from-[#2563eb]/10 to-transparent">
+            <div className="p-6 border-b border-[#262626] bg-gradient-to-r from-[#6b7280]/10 to-transparent">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h3 className="text-lg font-semibold text-white">Order details</h3>
@@ -600,10 +600,10 @@ export default function OrdersPage() {
                 </div>
               </div>
               {detailModal.license && (
-                <div className="p-4 rounded-xl bg-gradient-to-r from-[#2563eb]/10 to-transparent border border-[#2563eb]/20">
+                <div className="p-4 rounded-xl bg-gradient-to-r from-[#6b7280]/10 to-transparent border border-[#6b7280]/20">
                   <div className="flex items-center gap-2 mb-2">
-                    <Key className="w-4 h-4 text-[#2563eb]" />
-                    <span className="text-xs uppercase tracking-wider text-[#2563eb]">License</span>
+                    <Key className="w-4 h-4 text-[#6b7280]" />
+                    <span className="text-xs uppercase tracking-wider text-[#6b7280]">License</span>
                     <Badge className="ml-auto text-xs">{detailModal.license.status}</Badge>
                   </div>
                   <div className="flex items-center gap-2">
@@ -644,7 +644,7 @@ export default function OrdersPage() {
                     variant="outline"
                     onClick={() => handleUpdateStatus(detailModal.id, "refunded")}
                     disabled={updating === detailModal.id}
-                    className="border-blue-500/50 text-blue-400 hover:bg-blue-500/10"
+                    className="border-gray-500/50 text-gray-400 hover:bg-gray-500/10"
                   >
                     {updating === detailModal.id ? <RefreshCw className="w-4 h-4 animate-spin" /> : <XCircle className="w-4 h-4 mr-1" />}
                     Refund

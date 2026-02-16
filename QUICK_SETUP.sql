@@ -1,5 +1,5 @@
 -- ============================================
--- QUICK Skyline Store DATABASE SETUP
+-- QUICK Ring-0 Store DATABASE SETUP
 -- Copy and paste this into your Supabase SQL Editor and click "Run"
 -- ============================================
 
@@ -202,7 +202,7 @@ CREATE POLICY IF NOT EXISTS "Public can read approved reviews" ON reviews FOR SE
 
 -- Insert admin user
 INSERT INTO team_members (name, email, username, role, status, permissions) VALUES
-('Admin User', 'admin@skyline.local', 'admin', 'Owner', 'active', 
+('Admin User', 'admin@ring-0.local', 'admin', 'Owner', 'active', 
  '["dashboard", "manage_products", "manage_categories", "manage_orders", "stock_keys", "manage_coupons", "manage_webhooks", "manage_team", "manage_settings", "manage_logins"]'::jsonb)
 ON CONFLICT (email) DO NOTHING;
 
@@ -238,7 +238,7 @@ ON CONFLICT DO NOTHING;
 
 -- Insert sample settings
 INSERT INTO settings (key, value, description) VALUES
-('site_name', '"Skyline Store"', 'Website name'),
+('site_name', '"Ring-0 Store"', 'Website name'),
 ('maintenance_mode', 'false', 'Enable/disable maintenance mode')
 ON CONFLICT (key) DO NOTHING;
 

@@ -64,7 +64,7 @@ export default function ProductsPage() {
     description: "",
     image: "",
     status: "active",
-    provider: "Skyline",
+    provider: "Ring-0",
     features: "",
     requirements: "",
     gallery: [],
@@ -198,7 +198,7 @@ export default function ProductsPage() {
       toast({
         title: "Success",
         description: "Product updated successfully",
-        className: "border-blue-500/20 bg-blue-500/10",
+        className: "border-gray-500/20 bg-gray-500/10",
       });
       
       setShowEditModal(false);
@@ -226,7 +226,7 @@ export default function ProductsPage() {
       toast({
         title: "Success",
         description: "Product deleted successfully",
-        className: "border-blue-500/20 bg-blue-500/10",
+        className: "border-gray-500/20 bg-gray-500/10",
       });
       setShowDeleteModal(false);
       setSelectedProduct(null);
@@ -298,7 +298,7 @@ export default function ProductsPage() {
       description: "",
       image: "",
       status: "active",
-      provider: "Skyline",
+      provider: "Ring-0",
       features: "",
       requirements: "",
       gallery: [],
@@ -374,7 +374,7 @@ export default function ProductsPage() {
       setProcessing("variant-delete");
       const res = await deleteVariant(v.id);
       if (!res.success) throw new Error(res.error);
-      toast({ title: "Variant removed", className: "border-blue-500/20 bg-blue-500/10" });
+      toast({ title: "Variant removed", className: "border-gray-500/20 bg-gray-500/10" });
       setVariants((prev) => prev.filter((x) => x.id !== v.id));
       setEditingVariant(null);
     } catch (e: any) {
@@ -391,15 +391,15 @@ export default function ProductsPage() {
       sortable: true,
       render: (product: Product) => (
         <div className="flex items-center gap-3 group">
-          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gradient-to-br from-[#2563eb]/20 to-[#2563eb]/5 border border-[#2563eb]/10 flex items-center justify-center transition-all group-hover:border-[#2563eb]/30">
+          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gradient-to-br from-[#6b7280]/20 to-[#6b7280]/5 border border-[#6b7280]/10 flex items-center justify-center transition-all group-hover:border-[#6b7280]/30">
             {product.image ? (
               <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
             ) : (
-              <Package className="w-5 h-5 text-[#2563eb]/50" />
+              <Package className="w-5 h-5 text-[#6b7280]/50" />
             )}
           </div>
           <div>
-            <p className="text-white font-semibold tracking-tight group-hover:text-[#2563eb] transition-colors">
+            <p className="text-white font-semibold tracking-tight group-hover:text-[#6b7280] transition-colors">
               {product.name}
             </p>
             <div className="flex items-center gap-1.5 mt-0.5">
@@ -491,8 +491,8 @@ export default function ProductsPage() {
       <AdminShell title="Products" subtitle="Manage your product catalog">
         <div className="flex flex-col items-center justify-center h-64 gap-4">
           <div className="relative">
-            <div className="w-12 h-12 rounded-full border-2 border-[#2563eb]/20 border-t-[#2563eb] animate-spin" />
-            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#2563eb]/5 blur-xl animate-pulse" />
+            <div className="w-12 h-12 rounded-full border-2 border-[#6b7280]/20 border-t-[#6b7280] animate-spin" />
+            <div className="absolute inset-0 w-12 h-12 rounded-full bg-[#6b7280]/5 blur-xl animate-pulse" />
           </div>
           <p className="text-white/40 text-sm font-medium">Loading products...</p>
         </div>
@@ -504,14 +504,14 @@ export default function ProductsPage() {
     <AdminShell title="Products" subtitle="Manage your product catalog">
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#2563eb]/30 transition-all">
+        <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-4 hover:border-[#6b7280]/30 transition-all">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/50 text-xs font-semibold uppercase tracking-wider">Total Products</p>
               <p className="text-2xl font-bold text-white mt-1">{products.length}</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
-              <Package className="w-6 h-6 text-[#2563eb]" />
+            <div className="w-12 h-12 rounded-lg bg-[#6b7280]/10 border border-[#6b7280]/20 flex items-center justify-center">
+              <Package className="w-6 h-6 text-[#6b7280]" />
             </div>
           </div>
         </div>
@@ -553,7 +553,7 @@ export default function ProductsPage() {
             variant="outline"
             size="sm"
             disabled={loading}
-            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#2563eb]/30 transition-all"
+            className="bg-[#1a1a1a] border-[#262626] text-white hover:bg-[#262626] hover:border-[#6b7280]/30 transition-all"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -562,7 +562,7 @@ export default function ProductsPage() {
         <Button
           onClick={() => setShowAddModal(true)}
           size="sm"
-          className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 transition-all"
+          className="bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white shadow-lg shadow-[#6b7280]/20 transition-all"
         >
           <Plus className="w-4 h-4 mr-2" />
           Add Product
@@ -581,7 +581,7 @@ export default function ProductsPage() {
               onClick={() => openEditModal(product)}
               size="sm"
               variant="ghost"
-              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-all"
+              className="text-gray-400 hover:text-gray-300 hover:bg-gray-500/10 transition-all"
               title="Edit Product"
             >
               <Edit className="w-4 h-4" />
@@ -590,7 +590,7 @@ export default function ProductsPage() {
               onClick={() => openDeleteModal(product)}
               size="sm"
               variant="ghost"
-              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 transition-all"
+              className="text-gray-400 hover:text-gray-300 hover:bg-gray-500/10 transition-all"
               title="Delete Product"
             >
               <Trash2 className="w-4 h-4" />
@@ -604,8 +604,8 @@ export default function ProductsPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
-                <Plus className="w-4 h-4 text-[#2563eb]" />
+              <div className="w-8 h-8 rounded-lg bg-[#6b7280]/10 border border-[#6b7280]/20 flex items-center justify-center">
+                <Plus className="w-4 h-4 text-[#6b7280]" />
               </div>
               Add New Product
             </DialogTitle>
@@ -624,24 +624,24 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Product Name <span className="text-blue-400">*</span>
+                    Product Name <span className="text-gray-400">*</span>
                   </label>
                   <Input
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g., Apex Legends Cheat"
-                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Slug <span className="text-blue-400">*</span>
+                    Slug <span className="text-gray-400">*</span>
                   </label>
                   <Input
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
                     placeholder="e.g., apex-legends"
-                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 font-mono transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50 font-mono transition-colors"
                   />
                 </div>
               </div>
@@ -649,13 +649,13 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Game <span className="text-blue-400">*</span>
+                    Game <span className="text-gray-400">*</span>
                   </label>
                   <Input
                     value={formData.game}
                     onChange={(e) => setFormData({ ...formData, game: e.target.value })}
                     placeholder="e.g., Apex Legends"
-                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
@@ -663,7 +663,7 @@ export default function ProductsPage() {
                   <Input
                     value={formData.provider}
                     onChange={(e) => setFormData({ ...formData, provider: e.target.value })}
-                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-[#2563eb]/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-[#6b7280]/50 transition-colors"
                   />
                 </div>
               </div>
@@ -681,7 +681,7 @@ export default function ProductsPage() {
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb]/50 transition-colors"
+                    className="w-full px-4 py-2.5 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280]/50 transition-colors"
                   >
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -726,7 +726,7 @@ export default function ProductsPage() {
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Describe your product..."
                   rows={3}
-                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50 resize-none transition-colors"
                 />
               </div>
               
@@ -739,7 +739,7 @@ export default function ProductsPage() {
                   onChange={(e) => setFormData({ ...formData, features: e.target.value })}
                   placeholder="Aimbot, ESP, No Recoil, Radar"
                   rows={2}
-                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50 resize-none transition-colors"
                 />
               </div>
               
@@ -752,7 +752,7 @@ export default function ProductsPage() {
                   onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                   placeholder="Windows 10, Intel CPU, 8GB RAM"
                   rows={2}
-                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50 resize-none transition-colors"
                 />
               </div>
             </div>
@@ -777,7 +777,7 @@ export default function ProductsPage() {
                           <Button
                             size="sm"
                             variant="ghost"
-                            className="text-blue-400 hover:bg-blue-500/10 hover:text-blue-300"
+                            className="text-gray-400 hover:bg-gray-500/10 hover:text-gray-300"
                             onClick={() => {
                               const duration = prompt("Edit duration:", variant.duration);
                               const price = prompt("Edit price:", variant.price.toString());
@@ -794,7 +794,7 @@ export default function ProductsPage() {
                           <Button
                             size="sm"
                             variant="ghost"
-                            className="text-blue-400 hover:bg-blue-500/10 hover:text-blue-300"
+                            className="text-gray-400 hover:bg-gray-500/10 hover:text-gray-300"
                             onClick={() => {
                               const newVariants = addModalVariants.filter((_, i) => i !== index);
                               setAddModalVariants(newVariants);
@@ -813,7 +813,7 @@ export default function ProductsPage() {
                     placeholder="e.g. 1 Day, 7 Days, 30 Days"
                     value={variantForm.duration}
                     onChange={(e) => setVariantForm({ ...variantForm, duration: e.target.value })}
-                    className="flex-1 bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50"
+                    className="flex-1 bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50"
                   />
                   <Input
                     placeholder="Price"
@@ -821,11 +821,11 @@ export default function ProductsPage() {
                     step="0.01"
                     value={variantForm.price}
                     onChange={(e) => setVariantForm({ ...variantForm, price: e.target.value })}
-                    className="w-32 bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#2563eb]/50"
+                    className="w-32 bg-[#1a1a1a] border-[#262626] text-white placeholder:text-white/30 focus:border-[#6b7280]/50"
                   />
                   <Button
                     size="sm"
-                    className="bg-[#2563eb] hover:bg-[#3b82f6] text-white px-6"
+                    className="bg-[#6b7280] hover:bg-[#9ca3af] text-white px-6"
                     onClick={() => {
                       if (variantForm.duration && variantForm.price) {
                         const newVariants = [...addModalVariants, { 
@@ -867,7 +867,7 @@ export default function ProductsPage() {
             <Button
               onClick={handleAddProduct}
               disabled={processing === "add" || !formData.name || !formData.slug || !formData.game}
-              className="bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white shadow-lg shadow-[#2563eb]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white shadow-lg shadow-[#6b7280]/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "add" ? (
                 <>
@@ -890,8 +890,8 @@ export default function ProductsPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                <Edit className="w-4 h-4 text-blue-400" />
+              <div className="w-8 h-8 rounded-lg bg-gray-500/10 border border-gray-500/20 flex items-center justify-center">
+                <Edit className="w-4 h-4 text-gray-400" />
               </div>
               Edit Product
             </DialogTitle>
@@ -910,22 +910,22 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Product Name <span className="text-blue-400">*</span>
+                    Product Name <span className="text-gray-400">*</span>
                   </label>
                   <Input
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-blue-500/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-gray-500/50 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Slug <span className="text-blue-400">*</span>
+                    Slug <span className="text-gray-400">*</span>
                   </label>
                   <Input
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
-                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-blue-500/50 font-mono transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-gray-500/50 font-mono transition-colors"
                   />
                 </div>
               </div>
@@ -933,12 +933,12 @@ export default function ProductsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/70">
-                    Game <span className="text-blue-400">*</span>
+                    Game <span className="text-gray-400">*</span>
                   </label>
                   <Input
                     value={formData.game}
                     onChange={(e) => setFormData({ ...formData, game: e.target.value })}
-                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-blue-500/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-gray-500/50 transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
@@ -946,7 +946,7 @@ export default function ProductsPage() {
                   <Input
                     value={formData.provider}
                     onChange={(e) => setFormData({ ...formData, provider: e.target.value })}
-                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-blue-500/50 transition-colors"
+                    className="bg-[#1a1a1a] border-[#262626] text-white focus:border-gray-500/50 transition-colors"
                   />
                 </div>
               </div>
@@ -964,7 +964,7 @@ export default function ProductsPage() {
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-blue-500/50 transition-colors"
+                    className="w-full px-4 py-2.5 bg-[#1a1a1a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-gray-500/50 transition-colors"
                   >
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -1034,7 +1034,7 @@ export default function ProductsPage() {
                                 <span className="text-xs">Stock:</span>
                                 <span className="font-medium">{v.stock}</span>
                               </div>
-                              <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => {
+                              <Button size="sm" className="bg-gray-600 hover:bg-gray-700 text-white" onClick={() => {
                                 const dur = (document.getElementById(`edit-duration-${v.id}`) as HTMLInputElement)?.value?.trim() || v.duration;
                                 const priceInput = (document.getElementById(`edit-price-${v.id}`) as HTMLInputElement)?.value ?? "0";
                                 const priceInDollars = parseFloat(priceInput);
@@ -1054,10 +1054,10 @@ export default function ProductsPage() {
                                 <span className="text-white/50 text-sm">stock {v.stock}</span>
                               </div>
                               <div className="flex gap-1">
-                                <Button size="sm" variant="ghost" className="text-blue-400 hover:bg-blue-500/10" onClick={() => setEditingVariant(v)}>
+                                <Button size="sm" variant="ghost" className="text-gray-400 hover:bg-gray-500/10" onClick={() => setEditingVariant(v)}>
                                   <Edit className="w-3 h-3" />
                                 </Button>
-                                <Button size="sm" variant="ghost" className="text-blue-400 hover:bg-blue-500/10" onClick={() => handleDeleteVariant(v)} disabled={processing === "variant-delete"}>
+                                <Button size="sm" variant="ghost" className="text-gray-400 hover:bg-gray-500/10" onClick={() => handleDeleteVariant(v)} disabled={processing === "variant-delete"}>
                                   <Trash2 className="w-3 h-3" />
                                 </Button>
                               </div>
@@ -1081,7 +1081,7 @@ export default function ProductsPage() {
                         onChange={(e) => setVariantForm({ ...variantForm, price: e.target.value })}
                         className="w-24 bg-[#1a1a1a] border-[#262626] text-white"
                       />
-                      <Button size="sm" onClick={handleAddVariant} disabled={processing === "variant-add"} className="bg-blue-600 hover:bg-blue-700 text-white">
+                      <Button size="sm" onClick={handleAddVariant} disabled={processing === "variant-add"} className="bg-gray-600 hover:bg-gray-700 text-white">
                         {processing === "variant-add" ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4 mr-1" />}
                         Add variant
                       </Button>
@@ -1104,7 +1104,7 @@ export default function ProductsPage() {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={3}
-                  className="bg-[#1a1a1a] border-[#262626] text-white focus:border-blue-500/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white focus:border-gray-500/50 resize-none transition-colors"
                 />
               </div>
               
@@ -1116,7 +1116,7 @@ export default function ProductsPage() {
                   value={formData.features}
                   onChange={(e) => setFormData({ ...formData, features: e.target.value })}
                   rows={2}
-                  className="bg-[#1a1a1a] border-[#262626] text-white focus:border-blue-500/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white focus:border-gray-500/50 resize-none transition-colors"
                 />
               </div>
               
@@ -1128,7 +1128,7 @@ export default function ProductsPage() {
                   value={formData.requirements}
                   onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                   rows={2}
-                  className="bg-[#1a1a1a] border-[#262626] text-white focus:border-blue-500/50 resize-none transition-colors"
+                  className="bg-[#1a1a1a] border-[#262626] text-white focus:border-gray-500/50 resize-none transition-colors"
                 />
               </div>
             </div>
@@ -1145,7 +1145,7 @@ export default function ProductsPage() {
             <Button
               onClick={handleEditProduct}
               disabled={processing === "edit" || !formData.name || !formData.slug || !formData.game}
-              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-gray-600 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "edit" ? (
                 <>
@@ -1168,8 +1168,8 @@ export default function ProductsPage() {
         <DialogContent className="bg-[#0a0a0a] border-[#1a1a1a] text-white max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                <AlertCircle className="w-4 h-4 text-blue-400" />
+              <div className="w-8 h-8 rounded-lg bg-gray-500/10 border border-gray-500/20 flex items-center justify-center">
+                <AlertCircle className="w-4 h-4 text-gray-400" />
               </div>
               Delete Product
             </DialogTitle>
@@ -1179,7 +1179,7 @@ export default function ProductsPage() {
           </DialogHeader>
           
           <div className="py-4 space-y-4">
-            <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4">
+            <div className="bg-gray-500/5 border border-gray-500/20 rounded-xl p-4">
               <p className="text-white/70">
                 Delete <span className="font-semibold text-white">{selectedProduct?.name}</span>? Product will be removed. Linked orders and licenses will be unlinked (not deleted).
               </p>
@@ -1236,7 +1236,7 @@ export default function ProductsPage() {
             <Button
               onClick={() => handleDeleteProduct(true)}
               disabled={processing === "delete"}
-              className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="bg-gradient-to-r from-gray-600 to-gray-500 hover:from-gray-500 hover:to-gray-600 text-white shadow-lg shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               {processing === "delete" ? (
                 <>

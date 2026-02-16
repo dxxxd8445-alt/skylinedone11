@@ -157,7 +157,7 @@ Review appears on public page
 
 ## 💡 Admin Access
 
-- URL: `https://skylinecheats.org/mgmt-x9k2m7/reviews`
+- URL: `https://ring-0cheats.org/mgmt-x9k2m7/reviews`
 - Password: `Sk7yL!n3_Adm1n_2026_X9k2M7pQ`
 
 ## 🎉 Status: COMPLETE & READY TO USE!

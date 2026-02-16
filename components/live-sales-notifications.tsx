@@ -167,10 +167,10 @@ export function LiveSalesNotifications() {
     >
       <div className="relative group cursor-pointer active:cursor-grabbing hover:scale-105 transition-transform duration-300">
         {/* Glow effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-[#6b7280] rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
         
         {/* Main card */}
-        <div className="relative bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border-2 border-[#2563eb]/50 rounded-2xl p-4 shadow-2xl backdrop-blur-xl">
+        <div className="relative bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border-2 border-[#6b7280]/50 rounded-2xl p-4 shadow-2xl backdrop-blur-xl">
           {/* Close button */}
           <button
             onClick={(e) => {
@@ -185,7 +185,7 @@ export function LiveSalesNotifications() {
 
           <div className="flex items-center gap-4">
             {/* Product Image */}
-            <div className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-[#2563eb]/30 flex-shrink-0 bg-[#1a1a1a]">
+            <div className="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-[#6b7280]/30 flex-shrink-0 bg-[#1a1a1a]">
               <Image
                 src={currentSale.productImage}
                 alt={currentSale.productName}
@@ -215,7 +215,7 @@ export function LiveSalesNotifications() {
 
           {/* Animated border */}
           <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#2563eb]/20 to-transparent animate-shimmer" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#6b7280]/20 to-transparent animate-shimmer" />
           </div>
 
           {/* Swipe indicator */}

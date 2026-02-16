@@ -170,7 +170,7 @@ git push origin main
 
 ## 📊 Security Dashboard
 
-**Access:** `https://skylinecheats.org/mgmt-x9k2m7/security`
+**Access:** `https://ring-0cheats.org/mgmt-x9k2m7/security`
 
 **Features:**
 - View all security events

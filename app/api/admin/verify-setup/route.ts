@@ -47,7 +47,7 @@ export async function GET() {
     const { data: adminUser } = await supabase
       .from('team_members')
       .select('id, name, email, role, permissions')
-      .eq('email', 'admin@skyline.local')
+      .eq('email', 'admin@ring-0.local')
       .single();
 
     return NextResponse.json({

@@ -101,7 +101,7 @@ export function DataTable<T extends { id: string }>({
                 setSearch(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full md:w-80 pl-10 pr-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-[#2563eb] transition-colors"
+              className="w-full md:w-80 pl-10 pr-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-[#6b7280] transition-colors"
             />
           </div>
         </div>
@@ -124,7 +124,7 @@ export function DataTable<T extends { id: string }>({
                   <div className="flex items-center gap-2">
                     {column.label}
                     {sortKey === column.key && (
-                      <span className="text-[#2563eb]">
+                      <span className="text-[#6b7280]">
                         {sortOrder === "asc" ? "↑" : "↓"}
                       </span>
                     )}

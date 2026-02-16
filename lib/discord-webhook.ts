@@ -117,10 +117,10 @@ export function createCheckoutStartedEmbed(checkoutData: {
   return {
     title: '🛒 New Checkout Started!',
     description: `🎯 A customer has initiated checkout and is reviewing their order.`,
-    color: 0x3b82f6, // Skyline Blue
+    color: 0x3b82f6, // Ring-0 Blue
     fields,
     footer: {
-      text: 'Skyline Cheats • Checkout System',
+      text: 'Ring-0 • Checkout System',
     },
     timestamp: new Date().toISOString(),
   };
@@ -185,7 +185,7 @@ export function createNewOrderEmbed(orderData: {
     color: 0x10b981, // Green for success
     fields,
     footer: {
-      text: 'Skyline Cheats • Order System',
+      text: 'Ring-0 • Order System',
     },
     timestamp: new Date().toISOString(),
   };
@@ -256,7 +256,7 @@ export function createPendingOrderEmbed(orderData: {
     color: 0xf59e0b, // Orange/Amber for pending
     fields,
     footer: {
-      text: 'Skyline Cheats • Order System',
+      text: 'Ring-0 • Order System',
     },
     timestamp: new Date().toISOString(),
   };
@@ -335,7 +335,7 @@ export function createPaymentFailedEmbed(paymentData: {
     color: 0xef4444, // Red for failed
     fields,
     footer: {
-      text: 'Skyline Cheats • Payment System',
+      text: 'Ring-0 • Payment System',
     },
     timestamp: new Date().toISOString(),
   };
@@ -400,7 +400,7 @@ export function createRefundEmbed(refundData: {
     color: 0x8b5cf6, // Purple for refund
     fields,
     footer: {
-      text: 'Skyline Cheats • Refund System',
+      text: 'Ring-0 • Refund System',
     },
     timestamp: new Date().toISOString(),
   };
@@ -457,7 +457,7 @@ export async function triggerWebhooks(eventType: string, eventData: any) {
               // Generic Discord message for other events
               payload = {
                 content: `**${eventType.toUpperCase()}**\n\`\`\`json\n${JSON.stringify(eventData, null, 2)}\`\`\``,
-                username: 'Skyline Cheats',
+                username: 'Ring-0',
               };
               break;
           }
@@ -465,7 +465,7 @@ export async function triggerWebhooks(eventType: string, eventData: any) {
           if (embed!) {
             payload = {
               embeds: [embed],
-              username: 'Skyline Cheats',
+              username: 'Ring-0',
             };
           }
         } else {

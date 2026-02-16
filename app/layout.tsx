@@ -24,30 +24,21 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SKYLINE CHEATS Undetected Hacks and Cheats for Games!",
+  title: "Ring-0 Undetected Hacks and Cheats for Games!",
   description:
-    "Skyline Cheats offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Skyline Cheats.",
+    "Ring-0 offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Ring-0.",
   generator: 'v0.app',
   openGraph: {
-    title: "SKYLINE CHEATS Undetected Hacks and Cheats for Games!",
-    description: "Skyline Cheats offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Skyline Cheats.",
-    url: "https://skylinecheats.org",
-    siteName: "Skyline Cheats",
+    title: "Ring-0 Undetected Hacks and Cheats for Games!",
+    description: "Ring-0 offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Ring-0.",
+    url: "https://ring-0.xyz",
+    siteName: "Ring-0",
     type: "website",
-    images: [
-      {
-        url: "https://skylinecheats.org/Skyline_banner.png",
-        width: 1200,
-        height: 630,
-        alt: "Skyline Cheats - Undetected Game Enhancements",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SKYLINE CHEATS Undetected Hacks and Cheats for Games!",
-    description: "Skyline Cheats offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Skyline Cheats.",
-    images: ["https://skylinecheats.org/Skyline_banner.png"],
+    title: "Ring-0 Undetected Hacks and Cheats for Games!",
+    description: "Ring-0 offers elite, regularly updated undetected game enhancements trusted by 300,000+ customers and backed by 4,000+ 5-star reviews. Instant delivery, secure checkout, and 24/7 support. Gain the competitive edge with Ring-0.",
   },
 };
 

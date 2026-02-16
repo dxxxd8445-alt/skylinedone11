@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     
     const sent = await sendEmail({
       to: user.email,
-      subject: "Reset your Skyline password",
+      subject: "Reset your Ring-0 password",
       html: emailHtml,
     });
 

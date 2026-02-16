@@ -412,17 +412,17 @@ INSERT INTO licenses (license_key, order_id, product_id, product_name, customer_
 -- INSERT TEAM MEMBERS
 -- ============================================================================
 INSERT INTO team_members (name, email, role, is_active) VALUES
-('Admin User', 'admin@skyline.local', 'Owner', true),
-('Support Team', 'support@skyline.local', 'Support', true),
-('Developer', 'dev@skyline.local', 'Developer', true);
+('Admin User', 'admin@ring-0.local', 'Owner', true),
+('Support Team', 'support@ring-0.local', 'Support', true),
+('Developer', 'dev@ring-0.local', 'Developer', true);
 
 -- ============================================================================
 -- INSERT SETTINGS
 -- ============================================================================
 INSERT INTO settings (key, value) VALUES
-('site_name', '"Skyline Cheats"'),
+('site_name', '"Ring-0"'),
 ('site_description', '"Premium undetected cheats for all games"'),
-('support_email', '"support@skyline.local"'),
+('support_email', '"support@ring-0.local"'),
 ('maintenance_mode', 'false');
 
 -- ============================================================================

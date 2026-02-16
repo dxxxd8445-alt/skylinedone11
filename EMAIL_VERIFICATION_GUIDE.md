@@ -3,14 +3,14 @@
 ## 🔍 Current Configuration
 
 **Resend API Key:** `re_5BWCUqaS_F9ME2HR5MXF3tm4DfFoRpSUJ`  
-**From Email:** `Skyline <noreply@skylinecheats.org>`  
-**Domain:** `skylinecheats.org`
+**From Email:** `Ring-0 <noreply@ring-0cheats.org>`  
+**Domain:** `ring-0cheats.org`
 
 ---
 
 ## ⚠️ IMPORTANT: Domain Verification Required
 
-Resend requires you to **verify your domain** before you can send emails from `noreply@skylinecheats.org`.
+Resend requires you to **verify your domain** before you can send emails from `noreply@ring-0cheats.org`.
 
 ### Why Domain Verification is Needed:
 - Prevents spam and email spoofing
@@ -26,7 +26,7 @@ Resend requires you to **verify your domain** before you can send emails from `n
 1. Go to: https://resend.com/domains
 2. Log in with your Resend account
 3. Click "Add Domain"
-4. Enter: `skylinecheats.org`
+4. Enter: `ring-0cheats.org`
 5. Click "Add"
 
 ### Step 2: Add DNS Records
@@ -66,7 +66,7 @@ For immediate testing, you can use Resend's test email address:
 
 ### Update .env.local:
 ```env
-RESEND_FROM_EMAIL=Skyline <onboarding@resend.dev>
+RESEND_FROM_EMAIL=Ring-0 <onboarding@resend.dev>
 ```
 
 **Note:** This only works for sending to your own verified email address in Resend.
@@ -157,11 +157,11 @@ RESEND_FROM_EMAIL=Skyline <onboarding@resend.dev>
 
 ### Subject:
 ```
-You're invited to join Skyline Admin Team
+You're invited to join Ring-0 Admin Team
 ```
 
 ### Content:
-- Skyline logo and branding
+- Ring-0 logo and branding
 - Welcome message
 - Username and permissions
 - "Accept Invitation" button

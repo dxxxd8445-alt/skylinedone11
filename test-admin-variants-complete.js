@@ -45,7 +45,7 @@ async function testCompleteVariantsWorkflow() {
         description: 'Test product for variants functionality',
         image: null,
         status: 'active',
-        provider: 'Skyline',
+        provider: 'Ring-0',
         features: ['Test Feature 1', 'Test Feature 2'],
         requirements: ['Test Requirement 1', 'Test Requirement 2'],
         gallery: []

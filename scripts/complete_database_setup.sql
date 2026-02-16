@@ -239,9 +239,9 @@ CREATE INDEX IF NOT EXISTS idx_categories_slug ON categories(slug);
 -- INSERT DEFAULT SETTINGS
 -- ============================================================================
 INSERT INTO settings (key, value) VALUES
-('site_name', 'Skyline Cheats'),
+('site_name', 'Ring-0'),
 ('site_description', 'Premium gaming enhancements'),
-('support_email', 'support@skylinecheats.org'),
+('support_email', 'support@ring-0cheats.org'),
 ('maintenance_mode', 'false')
 ON CONFLICT (key) DO NOTHING;
 

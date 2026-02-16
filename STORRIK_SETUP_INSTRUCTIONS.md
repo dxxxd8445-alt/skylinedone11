@@ -24,7 +24,7 @@
 
 **Webhook URL:**
 ```
-https://skylinecheats.org/api/webhooks/storrik
+https://ring-0cheats.org/api/webhooks/storrik
 ```
 
 **Events to Subscribe To:**
@@ -44,7 +44,7 @@ https://skylinecheats.org/api/webhooks/storrik
 
 **Vercel (Production):**
 1. Go to https://vercel.com
-2. Open your project: **skylinecheats**
+2. Open your project: **ring-0cheats**
 3. Go to **Settings** → **Environment Variables**
 4. Add these variables:
 
@@ -75,7 +75,7 @@ Wait 2-3 minutes for Vercel to deploy.
 
 ### Step 4: Test the Checkout
 
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add a product to cart
 3. Go to checkout
 4. Enter your email

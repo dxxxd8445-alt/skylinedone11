@@ -10,7 +10,7 @@ const WEBHOOK_URL = 'https://discord.com/api/webhooks/1470214571913646246/QtYckE
 // Test data for each event type
 const testEvents = {
   'checkout.started': {
-    customer_email: 'test@skylinecheats.org',
+    customer_email: 'test@ring-0cheats.org',
     customer_name: 'John Doe',
     session_id: 'cs_test_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0',
     items: [
@@ -25,7 +25,7 @@ const testEvents = {
   
   'order.pending': {
     order_number: 'ORD-TEST-12345',
-    customer_email: 'test@skylinecheats.org',
+    customer_email: 'test@ring-0cheats.org',
     customer_name: 'John Doe',
     amount: 71.98,
     currency: 'USD',
@@ -38,7 +38,7 @@ const testEvents = {
   
   'payment.completed': {
     order_number: 'ORD-TEST-12345',
-    customer_email: 'test@skylinecheats.org',
+    customer_email: 'test@ring-0cheats.org',
     customer_name: 'John Doe',
     amount: 71.98,
     currency: 'USD',
@@ -50,7 +50,7 @@ const testEvents = {
   
   'order.completed': {
     order_number: 'ORD-TEST-12345',
-    customer_email: 'test@skylinecheats.org',
+    customer_email: 'test@ring-0cheats.org',
     customer_name: 'John Doe',
     amount: 71.98,
     currency: 'USD',
@@ -63,7 +63,7 @@ const testEvents = {
   'payment.failed': {
     payment_intent_id: 'pi_test_1234567890abcdef',
     order_number: 'ORD-TEST-12346',
-    customer_email: 'test@skylinecheats.org',
+    customer_email: 'test@ring-0cheats.org',
     customer_name: 'Jane Smith',
     amount: 29.99,
     currency: 'USD',
@@ -72,7 +72,7 @@ const testEvents = {
   
   'order.refunded': {
     order_number: 'ORD-TEST-12345',
-    customer_email: 'test@skylinecheats.org',
+    customer_email: 'test@ring-0cheats.org',
     customer_name: 'John Doe',
     amount: 71.98,
     currency: 'USD',
@@ -120,7 +120,7 @@ function createCheckoutStartedEmbed(data) {
     description: '🎯 A customer has initiated checkout and is reviewing their order.',
     color: 0x3b82f6,
     fields,
-    footer: { text: 'Skyline Cheats • Checkout System' },
+    footer: { text: 'Ring-0 • Checkout System' },
     timestamp: new Date().toISOString()
   };
 }
@@ -148,7 +148,7 @@ function createPendingOrderEmbed(data) {
     description: '💳 A new order has been created and is awaiting payment confirmation from Stripe.',
     color: 0xf59e0b,
     fields,
-    footer: { text: 'Skyline Cheats • Order System' },
+    footer: { text: 'Ring-0 • Order System' },
     timestamp: new Date().toISOString()
   };
 }
@@ -175,7 +175,7 @@ function createCompletedOrderEmbed(data) {
     description: '🎊 **Ka-ching!** A new order has been successfully processed and payment confirmed.',
     color: 0x10b981,
     fields,
-    footer: { text: 'Skyline Cheats • Order System' },
+    footer: { text: 'Ring-0 • Order System' },
     timestamp: new Date().toISOString()
   };
 }
@@ -214,7 +214,7 @@ function createPaymentFailedEmbed(data) {
     description: '⚠️ A payment attempt has failed. Customer may retry or contact support.',
     color: 0xef4444,
     fields,
-    footer: { text: 'Skyline Cheats • Payment System' },
+    footer: { text: 'Ring-0 • Payment System' },
     timestamp: new Date().toISOString()
   };
 }
@@ -240,7 +240,7 @@ function createRefundEmbed(data) {
     description: '💰 A refund has been processed and funds are being returned to the customer.',
     color: 0x8b5cf6,
     fields,
-    footer: { text: 'Skyline Cheats • Refund System' },
+    footer: { text: 'Ring-0 • Refund System' },
     timestamp: new Date().toISOString()
   };
 }
@@ -253,7 +253,7 @@ async function sendWebhook(eventType, embed) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         embeds: [embed],
-        username: 'Skyline Cheats'
+        username: 'Ring-0'
       })
     });
 
@@ -329,7 +329,7 @@ async function testAllWebhooks() {
       { name: '⚠️ Dispute Reason', value: testEvents['order.disputed'].dispute_reason, inline: false },
       { name: '📋 Status', value: `**${testEvents['order.disputed'].dispute_status.toUpperCase()}**`, inline: false }
     ],
-    footer: { text: 'Skyline Cheats • Dispute System' },
+    footer: { text: 'Ring-0 • Dispute System' },
     timestamp: new Date().toISOString()
   };
   results.push(await sendWebhook('order.disputed', disputeEmbed));

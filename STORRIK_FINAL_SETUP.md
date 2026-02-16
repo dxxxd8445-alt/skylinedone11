@@ -45,7 +45,7 @@ sk_live_RBm0NGaY2WY_zzd_SHFvkH3hy1L7xT-CYcU9qneavXk
 
 Add this in your Storrik dashboard:
 ```
-https://skylinecheats.org/api/webhooks/storrik
+https://ring-0cheats.org/api/webhooks/storrik
 ```
 
 Subscribe to events:
@@ -65,7 +65,7 @@ Subscribe to events:
 ## Test Production
 
 After adding environment variables to Vercel and redeploying:
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add product to cart
 3. Go to checkout
 4. Click "Complete Secure Payment"

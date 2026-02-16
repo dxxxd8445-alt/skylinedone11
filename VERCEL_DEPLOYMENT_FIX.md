@@ -10,7 +10,7 @@ Missing environment variables in Vercel dashboard.
 
 ### Step 1: Go to Vercel Dashboard
 1. Open https://vercel.com
-2. Select your project: `skylinecheats.org`
+2. Select your project: `ring-0cheats.org`
 3. Go to **Settings** → **Environment Variables**
 
 ### Step 2: Add These Variables
@@ -32,12 +32,12 @@ Environment: Production, Preview, Development (select all)
 
 #### Verify These Existing Variables Are Set
 ```
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 NEXT_PUBLIC_SUPABASE_URL=https://dbshpcygbhnuekcsywel.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=(your anon key)
 SUPABASE_SERVICE_ROLE_KEY=(your service role key)
 RESEND_API_KEY=(your resend key)
-RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>
+RESEND_FROM_EMAIL=Ring-0 <noreply@ring-0cheats.org>
 ADMIN_PASSWORD=(your admin password)
 STORE_SESSION_SECRET=(your session secret)
 DISCORD_WEBHOOK_URL=(your discord webhook)
@@ -52,7 +52,7 @@ If it doesn't auto-deploy:
 3. Click **Redeploy**
 
 ### Step 4: Test Production
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add a product to cart
 3. Go to checkout
 4. Click "Complete Secure Payment"
@@ -64,7 +64,7 @@ If it doesn't auto-deploy:
 - Returns `checkoutUrl` like: `https://checkout.storrik.com/pay/{session_id}`
 - Browser redirects to Storrik's hosted payment page
 - User completes payment on Storrik's site
-- Storrik sends webhook to: `https://skylinecheats.org/api/webhooks/storrik`
+- Storrik sends webhook to: `https://ring-0cheats.org/api/webhooks/storrik`
 - Order is marked as complete
 - License key is emailed to customer
 
@@ -103,7 +103,7 @@ If it doesn't auto-deploy:
 ## Webhook Configuration
 
 Make sure your Storrik webhook is configured:
-- URL: `https://skylinecheats.org/api/webhooks/storrik`
+- URL: `https://ring-0cheats.org/api/webhooks/storrik`
 - Secret: `whsec_omph1TVrBz4AbxDVnNE80gGChA9JYgbQG7IIvyeNmLU3b599555`
 - Events: `payment.succeeded`, `payment.failed`
 

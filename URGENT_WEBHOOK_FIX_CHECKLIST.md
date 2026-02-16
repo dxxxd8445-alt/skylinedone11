@@ -22,11 +22,11 @@ The Stripe webhook is not configured or the webhook secret is missing from Verce
    - Login to your Stripe account
 
 2. **Check if webhook exists**
-   - Look for endpoint: `https://skylinecheats.org/api/webhooks/stripe`
+   - Look for endpoint: `https://ring-0cheats.org/api/webhooks/stripe`
    
 3. **If webhook DOES NOT exist:**
    - Click "Add endpoint" button
-   - Enter endpoint URL: `https://skylinecheats.org/api/webhooks/stripe`
+   - Enter endpoint URL: `https://ring-0cheats.org/api/webhooks/stripe`
    - Description: "Order completion and payment tracking"
    - Click "Select events"
    - Search and select these events:
@@ -48,7 +48,7 @@ The Stripe webhook is not configured or the webhook secret is missing from Verce
 
 1. **Go to Vercel Dashboard**
    - URL: https://vercel.com/dashboard
-   - Select your Skyline project
+   - Select your Ring-0 project
 
 2. **Go to Environment Variables**
    - Click "Settings" tab
@@ -138,9 +138,9 @@ The Stripe webhook is not configured or the webhook secret is missing from Verce
 
 6. **Manually email the customer:**
    - Email: (from the query result)
-   - Subject: "Your Skyline License Key - Order [ORDER_NUMBER]"
+   - Subject: "Your Ring-0 License Key - Order [ORDER_NUMBER]"
    - Body: Include the license key from the SQL output
-   - Include Discord link: https://discord.gg/skylineggs
+   - Include Discord link: https://discord.gg/ring-0
 
 ---
 
@@ -171,7 +171,7 @@ The Stripe webhook is not configured or the webhook secret is missing from Verce
 
 After completing all steps, verify:
 
-- [ ] Stripe webhook exists at `https://skylinecheats.org/api/webhooks/stripe`
+- [ ] Stripe webhook exists at `https://ring-0cheats.org/api/webhooks/stripe`
 - [ ] Webhook has events: `checkout.session.completed`, `payment_intent.payment_failed`
 - [ ] Webhook signing secret copied
 - [ ] `STRIPE_WEBHOOK_SECRET` added to Vercel

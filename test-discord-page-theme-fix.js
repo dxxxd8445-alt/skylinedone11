@@ -50,7 +50,7 @@ console.log('=' .repeat(40));
 
 // Test 3: Check if Discord blue colors have been replaced with red
 console.log('3. Discord blue to red gradient conversion...');
-if (discordContent.includes('from-[#2563eb] to-[#3b82f6]') && !discordContent.includes('from-[#5865f2] to-[#7289da]')) {
+if (discordContent.includes('from-[#6b7280] to-[#9ca3af]') && !discordContent.includes('from-[#5865f2] to-[#7289da]')) {
   console.log('   ✅ Main Discord gradient changed to red theme');
   improvements.push('Updated Discord gradient from blue to red');
 } else {
@@ -61,7 +61,7 @@ if (discordContent.includes('from-[#2563eb] to-[#3b82f6]') && !discordContent.in
 
 // Test 4: Check if background effects use consistent red theme
 console.log('4. Background effects color consistency...');
-const redBackgroundCount = (discordContent.match(/bg-\[#2563eb\]/g) || []).length;
+const redBackgroundCount = (discordContent.match(/bg-\[#6b7280\]/g) || []).length;
 const blueBackgroundCount = (discordContent.match(/bg-\[#5865f2\]/g) || []).length;
 
 if (redBackgroundCount > 0 && blueBackgroundCount === 0) {
@@ -75,7 +75,7 @@ if (redBackgroundCount > 0 && blueBackgroundCount === 0) {
 
 // Test 5: Check if main CTA button uses red theme
 console.log('5. Main CTA button theme...');
-if (discordContent.includes('bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb]')) {
+if (discordContent.includes('bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280]')) {
   console.log('   ✅ Main CTA button uses red gradient theme');
   improvements.push('Main CTA button updated to red theme');
 } else {
@@ -86,7 +86,7 @@ if (discordContent.includes('bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:
 
 // Test 6: Check if shadow effects use red theme
 console.log('6. Shadow effects theme consistency...');
-if (discordContent.includes('shadow-[#2563eb]/30') && discordContent.includes('hover:shadow-[#2563eb]/50')) {
+if (discordContent.includes('shadow-[#6b7280]/30') && discordContent.includes('hover:shadow-[#6b7280]/50')) {
   console.log('   ✅ Shadow effects use red theme');
   improvements.push('Shadow effects updated to red theme');
 } else {
@@ -100,7 +100,7 @@ console.log('=' .repeat(40));
 
 // Test 7: Check if Discord link is still present
 console.log('7. Discord link preservation...');
-if (discordContent.includes('https://discord.gg/skylineggs')) {
+if (discordContent.includes('https://discord.gg/ring-0')) {
   console.log('   ✅ Discord invite link preserved');
 } else {
   console.log('   ❌ Discord invite link missing');

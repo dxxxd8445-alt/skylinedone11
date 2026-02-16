@@ -110,7 +110,6 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { icon: null, label: "HOME", href: "/", isLogo: true },
     { icon: Home, label: "HOME", href: "/" },
     { icon: Store, label: t("nav_store"), href: "/store" },
     { icon: BarChart3, label: t("nav_status"), href: "/status" },
@@ -224,23 +223,10 @@ export function Header() {
     <header className="fixed left-0 right-0 z-[9998] bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#1a1a1a]" style={{ top: 'var(--announcement-height, 0px)' }}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-3">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="relative transition-transform duration-300 group-hover:scale-110">
-              <Image
-                src="/images/content-removebg-preview.png"
-                alt="Skyline Cheats"
-                width={600}
-                height={160}
-                className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_14px_rgba(37,99,235,0.6)]"
-                priority
-              />
-            </div>
-          </Link>
-
+          
           {/* Desktop Navigation Menu */}
           <nav className="hidden lg:flex items-center gap-6 flex-1 justify-center max-w-2xl">
-            {navItems.filter(item => !item.isLogo && item.label !== "HOME").map((item, i) => (
+            {navItems.map((item, i) => (
               <div key={i} className="relative group">
                 {item.external ? (
                   <a
@@ -253,10 +239,10 @@ export function Header() {
                     <span className="relative z-10">{item.label}</span>
                     
                     {/* Animated underline */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] transition-all duration-300 group-hover:w-full rounded-full" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] transition-all duration-300 group-hover:w-full rounded-full" />
                     
                     {/* Glow effect */}
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#2563eb]/0 to-[#3b82f6]/0 group-hover:from-[#2563eb]/10 group-hover:to-[#3b82f6]/10 transition-all duration-300 -z-10" />
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#6b7280]/0 to-[#9ca3af]/0 group-hover:from-[#6b7280]/10 group-hover:to-[#9ca3af]/10 transition-all duration-300 -z-10" />
                   </a>
                 ) : (
                   <Link
@@ -267,10 +253,10 @@ export function Header() {
                     <span className="relative z-10">{item.label}</span>
                     
                     {/* Animated underline */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] transition-all duration-300 group-hover:w-full rounded-full" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] transition-all duration-300 group-hover:w-full rounded-full" />
                     
                     {/* Glow effect */}
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#2563eb]/0 to-[#3b82f6]/0 group-hover:from-[#2563eb]/10 group-hover:to-[#3b82f6]/10 transition-all duration-300 -z-10" />
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#6b7280]/0 to-[#9ca3af]/0 group-hover:from-[#6b7280]/10 group-hover:to-[#9ca3af]/10 transition-all duration-300 -z-10" />
                   </Link>
                 )}
               </div>
@@ -286,13 +272,13 @@ export function Header() {
                 <>
                   <Link
                     href="/mobile-auth?mode=signin"
-                    className="flex items-center justify-center px-2.5 py-1.5 bg-[#262626] hover:bg-[#333333] text-white/90 hover:text-white text-xs font-medium rounded-md transition-all min-h-[32px] border border-[#333333] hover:border-[#2563eb]/30"
+                    className="flex items-center justify-center px-2.5 py-1.5 bg-[#262626] hover:bg-[#333333] text-white/90 hover:text-white text-xs font-medium rounded-md transition-all min-h-[32px] border border-[#333333] hover:border-[#6b7280]/30"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/mobile-auth?mode=signup"
-                    className="flex items-center justify-center px-2.5 py-1.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white text-xs font-semibold rounded-md transition-all min-h-[32px] shadow-lg shadow-[#2563eb]/20"
+                    className="flex items-center justify-center px-2.5 py-1.5 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white text-xs font-semibold rounded-md transition-all min-h-[32px] shadow-lg shadow-[#6b7280]/20"
                   >
                     Sign Up
                   </Link>
@@ -301,7 +287,7 @@ export function Header() {
                 // Logged in - show Account button
                 <Link
                   href="/account"
-                  className="flex items-center justify-center px-2.5 py-1.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white text-xs font-semibold rounded-md transition-all min-h-[32px] shadow-lg shadow-[#2563eb]/20"
+                  className="flex items-center justify-center px-2.5 py-1.5 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white text-xs font-semibold rounded-md transition-all min-h-[32px] shadow-lg shadow-[#6b7280]/20"
                 >
                   My Account
                 </Link>
@@ -311,7 +297,7 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] transition-all duration-300 min-h-[44px] min-w-[44px] border border-[#262626] hover:border-[#2563eb]/30"
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] transition-all duration-300 min-h-[44px] min-w-[44px] border border-[#262626] hover:border-[#6b7280]/30"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -322,7 +308,7 @@ export function Header() {
             </button>
             {/* Desktop Search */}
             <div ref={searchRef} className="relative hidden lg:block">
-              <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#2563eb]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
+              <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#6b7280]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
                 <Search className="w-4 h-4 text-white/50 transition-colors duration-300" />
                 <input
                   type="text"
@@ -402,7 +388,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="h-9 px-2.5 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 transition-all duration-300 text-xs font-semibold min-h-[36px]"
+                        className="h-9 px-2.5 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#6b7280]/30 transition-all duration-300 text-xs font-semibold min-h-[36px]"
                         aria-label="Currency"
                         type="button"
                         suppressHydrationWarning
@@ -445,7 +431,7 @@ export function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
-                      className="h-9 px-2.5 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 transition-all duration-300 text-xs font-semibold min-h-[36px]"
+                      className="h-9 px-2.5 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#6b7280]/30 transition-all duration-300 text-xs font-semibold min-h-[36px]"
                       aria-label="Language"
                       type="button"
                       suppressHydrationWarning
@@ -520,7 +506,7 @@ export function Header() {
               >
                 <Image
                   src="/images/content-removebg-preview.png"
-                  alt="Skyline Cheats"
+                  alt="Ring-0"
                   width={400}
                   height={107}
                   className="h-10 w-auto"
@@ -538,7 +524,7 @@ export function Header() {
             {/* Mobile Search Bar - Inside Menu */}
             <div className="px-4 py-4 border-b border-[#1a1a1a] bg-[#0a0a0a]/50">
               <div ref={searchRef} className="relative">
-                <div className="flex items-center gap-3 bg-[#1a1a1a] rounded-xl px-4 py-3 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#2563eb]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f] border border-[#262626] focus-within:border-[#2563eb]/30">
+                <div className="flex items-center gap-3 bg-[#1a1a1a] rounded-xl px-4 py-3 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#6b7280]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f] border border-[#262626] focus-within:border-[#6b7280]/30">
                   <Search className="w-5 h-5 text-white/70 transition-colors duration-300 flex-shrink-0" />
                   <input
                     type="text"
@@ -629,7 +615,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#2563eb]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
+                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#6b7280]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
                         type="button"
                         aria-label="Currency"
                         suppressHydrationWarning
@@ -680,7 +666,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#2563eb]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
+                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#6b7280]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
                         type="button"
                         aria-label="Language"
                         suppressHydrationWarning
@@ -734,7 +720,7 @@ export function Header() {
             <nav className="flex-1 px-4 py-4 overflow-y-auto">
               <div className="space-y-2">
                 {/* Main Navigation */}
-                {navItems.filter(item => !item.isLogo).map((item, i) => (
+                {navItems.map((item, i) => (
                   <div key={i}>
                     {item.external ? (
                       <a
@@ -742,11 +728,11 @@ export function Header() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#2563eb]/20"
+                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#6b7280]/20"
                       >
                         {item.icon && (
-                          <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-[#2563eb]" />
+                          <div className="w-10 h-10 rounded-lg bg-[#6b7280]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[#6b7280]" />
                           </div>
                         )}
                         <div className="flex-1">
@@ -759,11 +745,11 @@ export function Header() {
                       <Link
                         href={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#2563eb]/20"
+                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#6b7280]/20"
                       >
                         {item.icon && (
-                          <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-[#2563eb]" />
+                          <div className="w-10 h-10 rounded-lg bg-[#6b7280]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[#6b7280]" />
                           </div>
                         )}
                         <div className="flex-1">
@@ -788,18 +774,18 @@ export function Header() {
             <div className="px-4 py-4 border-t border-[#1a1a1a] bg-[#0a0a0a]/90">
               <div className="text-center">
                 <p className="text-white/40 text-xs">
-                  • 2025 Skyline Cheats. All rights reserved.
+                  • 2025 Ring-0. All rights reserved.
                 </p>
                 <div className="flex items-center justify-center gap-4 mt-2">
-                  <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
+                  <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#6b7280] text-xs transition-colors">
                     Terms
                   </Link>
                   <span className="text-white/30">•</span>
-                  <Link href="/privacy" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
+                  <Link href="/privacy" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#6b7280] text-xs transition-colors">
                     Privacy
                   </Link>
                   <span className="text-white/30">•</span>
-                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
+                  <a href="https://discord.gg/ring-0" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#6b7280] text-xs transition-colors">
                     Support
                   </a>
                 </div>

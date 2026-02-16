@@ -5,7 +5,7 @@ GitHub detected a Stripe API key in your git history and is blocking the push.
 ## ✅ Quick Fix - Allow the Secret:
 
 1. **Click this link to allow the secret:**
-   https://github.com/dxxxd8445-alt/skylinedone11/security/secret-scanning/unblock-secret/39RDiYxCgPjCrQ8HuMrWc3k4Bxl
+   https://github.com/dxxxd8445-alt/ring-0done11/security/secret-scanning/unblock-secret/39RDiYxCgPjCrQ8HuMrWc3k4Bxl
 
 2. **Click "Allow secret"** button
 
@@ -33,7 +33,7 @@ After allowing the secret and pushing:
 ## 🔄 Alternative: Start Fresh
 
 If you don't want to allow the secret, you can:
-1. Delete the `skylinedone11` repository on GitHub
+1. Delete the `ring-0done11` repository on GitHub
 2. Create it again
 3. Remove the `.git` folder from your project
 4. Initialize fresh git repo without the old history

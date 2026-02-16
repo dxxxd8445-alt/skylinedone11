@@ -34,7 +34,7 @@ The code is pushed to GitHub and will auto-deploy to Vercel, but you need to add
 Once deployed, test the complete flow:
 
 #### Test with Valorant:
-1. Go to your store: `https://skylinecheats.org/store`
+1. Go to your store: `https://ring-0cheats.org/store`
 2. Find **Valorant** product
 3. Click **Add to Cart**
 4. Go to **Cart** → **Checkout**
@@ -68,7 +68,7 @@ Once deployed, test the complete flow:
 9. User completes payment in Storrik modal
 
 ### Backend Flow (After Payment):
-1. Storrik sends webhook to: `https://skylinecheats.org/api/webhooks/storrik`
+1. Storrik sends webhook to: `https://ring-0cheats.org/api/webhooks/storrik`
 2. Webhook handler receives `transaction.succeeded` event
 3. Finds the pending order by customer email
 4. Updates order status to "completed"
@@ -94,7 +94,7 @@ Once deployed, test the complete flow:
 
 ### If webhook doesn't trigger:
 - Check Vercel logs: Vercel Dashboard → Your Project → Logs
-- Verify webhook URL in Storrik dashboard: `https://skylinecheats.org/api/webhooks/storrik`
+- Verify webhook URL in Storrik dashboard: `https://ring-0cheats.org/api/webhooks/storrik`
 - Verify webhook secret matches: `whsec_NIiLZwWd69gg9m3cn2KadKi0O5LnFX4SOUeEi10Yv9Ef7d2d98c`
 - Check that webhook events are enabled in Storrik dashboard
 

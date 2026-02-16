@@ -11,15 +11,15 @@ export const revalidate = 60;
 
 // Map of game slugs to display names and gradient colors
 const gameConfig: Record<string, { name: string; gradient: string; accentColor: string }> = {
-  "apex-legends": { name: "Apex Legends", gradient: "from-blue-600/40 via-orange-500/30 to-blue-800/40", accentColor: "#2563eb" },
-  "fortnite": { name: "Fortnite", gradient: "from-blue-500/40 via-purple-500/30 to-blue-700/40", accentColor: "#3b82f6" },
+  "apex-legends": { name: "Apex Legends", gradient: "from-gray-600/40 via-orange-500/30 to-gray-800/40", accentColor: "#6b7280" },
+  "fortnite": { name: "Fortnite", gradient: "from-gray-500/40 via-purple-500/30 to-gray-700/40", accentColor: "#9ca3af" },
   "universal": { name: "HWID Spoofer", gradient: "from-emerald-500/40 via-teal-500/30 to-emerald-700/40", accentColor: "#10b981" },
-  "marvel-rivals": { name: "Marvel Rivals", gradient: "from-blue-500/40 via-yellow-500/30 to-blue-700/40", accentColor: "#3b82f6" },
+  "marvel-rivals": { name: "Marvel Rivals", gradient: "from-gray-500/40 via-yellow-500/30 to-gray-700/40", accentColor: "#9ca3af" },
   "delta-force": { name: "Delta Force", gradient: "from-green-600/40 via-emerald-500/30 to-green-800/40", accentColor: "#22c55e" },
   "pubg": { name: "PUBG", gradient: "from-orange-500/40 via-yellow-500/30 to-orange-700/40", accentColor: "#f97316" },
   "dayz": { name: "DayZ", gradient: "from-gray-600/40 via-green-600/30 to-gray-800/40", accentColor: "#4ade80" },
   "dune-awakening": { name: "Dune Awakening", gradient: "from-amber-600/40 via-orange-500/30 to-amber-800/40", accentColor: "#f59e0b" },
-  "dead-by-daylight": { name: "Dead by Daylight", gradient: "from-blue-700/40 via-blue-600/30 to-blue-900/40", accentColor: "#b91c1c" },
+  "dead-by-daylight": { name: "Dead by Daylight", gradient: "from-gray-700/40 via-blue-600/30 to-gray-900/40", accentColor: "#b91c1c" },
   "arc-raiders": { name: "ARC Raiders", gradient: "from-cyan-500/40 via-teal-400/30 to-cyan-700/40", accentColor: "#06b6d4" },
   "rainbow-six-siege": { name: "Rainbow Six Siege", gradient: "from-yellow-500/40 via-amber-500/30 to-yellow-700/40", accentColor: "#eab308" },
   "battlefield": { name: "Battlefield", gradient: "from-orange-600/40 via-blue-500/30 to-orange-800/40", accentColor: "#ea580c" },
@@ -29,7 +29,7 @@ const gameConfig: Record<string, { name: string; gradient: string; accentColor: 
   "black-ops-7-and-warzone": { name: "Black Ops 7 & Warzone", gradient: "from-green-500/40 via-emerald-400/30 to-green-700/40", accentColor: "#22c55e" },
   "rust": { name: "Rust", gradient: "from-orange-700/40 via-blue-600/30 to-orange-900/40", accentColor: "#c2410c" },
   "escape-from-tarkov": { name: "Escape from Tarkov", gradient: "from-gray-700/40 via-gray-600/30 to-gray-900/40", accentColor: "#71717a" },
-  "valorant": { name: "Valorant", gradient: "from-blue-500/40 via-pink-500/30 to-blue-700/40", accentColor: "#3b82f6" },
+  "valorant": { name: "Valorant", gradient: "from-gray-500/40 via-pink-500/30 to-gray-700/40", accentColor: "#9ca3af" },
   "hwid-spoofer": { name: "HWID Spoofer", gradient: "from-emerald-500/40 via-teal-500/30 to-emerald-700/40", accentColor: "#10b981" },
 };
 
@@ -45,7 +45,7 @@ function gameToSlug(game: string): string {
 
 // Card gradient colors for variety
 const cardGradients = [
-  "from-blue-500/30 via-blue-600/20 to-blue-700/30",
+  "from-gray-500/30 via-blue-600/20 to-gray-700/30",
   "from-orange-500/30 via-orange-600/20 to-orange-700/30",
   "from-cyan-500/30 via-teal-600/20 to-cyan-700/30",
   "from-amber-500/30 via-yellow-600/20 to-amber-700/30",
@@ -77,8 +77,8 @@ export default async function GameCheatSelectionPage({
 
   const config = gameConfig[gameSlugNorm] || gameConfig[gameSlug] || { 
     name: gameProducts[0]?.game || "Game", 
-    gradient: "from-blue-600/40 via-blue-500/30 to-blue-800/40",
-    accentColor: "#2563eb"
+    gradient: "from-gray-600/40 via-blue-500/30 to-gray-800/40",
+    accentColor: "#6b7280"
   };
 
   // Get the first product's image for the banner background

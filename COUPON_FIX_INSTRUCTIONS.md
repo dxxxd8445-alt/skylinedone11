@@ -54,7 +54,7 @@ Your coupon creation will work perfectly! You can:
 1. Go to `/mgmt-x9k2m7/coupons`
 2. Click "Create Coupon"
 3. Fill in:
-   - Coupon Code: `SKYLINE10`
+   - Coupon Code: `RING-010`
    - Select some products (or use Select All)
    - Set dates (optional)
    - Discount: 10%

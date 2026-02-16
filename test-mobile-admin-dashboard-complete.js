@@ -137,7 +137,7 @@ if (fs.existsSync(emailPath)) {
     { name: 'License delivery template', pattern: /createLicenseDeliveryEmail/ },
     { name: 'Welcome email template', pattern: /createWelcomeEmail/ },
     { name: 'Responsive design', pattern: /@media.*max-width.*600px/ },
-    { name: 'Magma branding', pattern: /Skyline Cheats/ },
+    { name: 'Magma branding', pattern: /Ring-0/ },
     { name: 'Professional styling', pattern: /BASE_STYLES/ },
   ];
   

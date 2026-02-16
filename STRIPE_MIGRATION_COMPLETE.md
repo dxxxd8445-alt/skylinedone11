@@ -69,7 +69,7 @@ You can remove these old variables from Vercel if they exist:
 ### Step 3: Configure Stripe Webhook
 1. Go to https://dashboard.stripe.com/webhooks
 2. Click **Add endpoint**
-3. Enter webhook URL: `https://skylinecheats.org/api/webhooks/stripe`
+3. Enter webhook URL: `https://ring-0cheats.org/api/webhooks/stripe`
 4. Select events to listen for:
    - `checkout.session.completed`
    - `payment_intent.payment_failed`
@@ -93,7 +93,7 @@ git push origin main
 ### Step 5: Verify Deployment
 1. Wait for Vercel to deploy (automatic after push)
 2. Check deployment logs for any errors
-3. Visit https://skylinecheats.org
+3. Visit https://ring-0cheats.org
 4. Test checkout flow:
    - Add product to cart
    - Go to checkout

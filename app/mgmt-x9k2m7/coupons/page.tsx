@@ -200,7 +200,7 @@ export default function CouponsPage() {
           </div>
           <Button
             onClick={() => setShowCreateModal(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
+            className="bg-gray-600 hover:bg-gray-700 text-white"
           >
             <Plus className="w-4 h-4 mr-2" />
             Create Coupon
@@ -217,7 +217,7 @@ export default function CouponsPage() {
               <div className="py-12 flex justify-center">
                 <div className="relative">
                   <div className="w-12 h-12 border-4 border-[#1a1a1a] rounded-full animate-spin" />
-                  <div className="w-12 h-12 border-t-4 border-[#2563eb] rounded-full animate-spin absolute top-0 left-0" />
+                  <div className="w-12 h-12 border-t-4 border-[#6b7280] rounded-full animate-spin absolute top-0 left-0" />
                 </div>
               </div>
             ) : (
@@ -249,7 +249,7 @@ export default function CouponsPage() {
                           <Badge className={
                             coupon.status === "active"
                               ? "bg-emerald-500/20 text-emerald-400 border-0"
-                              : "bg-blue-500/20 text-blue-400 border-0"
+                              : "bg-gray-500/20 text-gray-400 border-0"
                           }>
                             {coupon.status}
                           </Badge>
@@ -263,7 +263,7 @@ export default function CouponsPage() {
                               size="sm"
                               variant="ghost"
                               onClick={() => copyToClipboard(coupon.code)}
-                              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
+                              className="text-gray-400 hover:text-gray-300 hover:bg-gray-500/10"
                             >
                               <Copy className="w-4 h-4" />
                             </Button>
@@ -271,7 +271,7 @@ export default function CouponsPage() {
                               size="sm"
                               variant="ghost"
                               onClick={() => handleDeleteCoupon(coupon.id)}
-                              className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
+                              className="text-gray-400 hover:text-gray-300 hover:bg-gray-500/10"
                             >
                               <Trash2 className="w-4 h-4" />
                             </Button>
@@ -327,7 +327,7 @@ export default function CouponsPage() {
                       ...formData,
                       selectedProducts: products.map(p => p.id)
                     })}
-                    className="h-7 text-xs border-[#2563eb] text-[#2563eb] hover:bg-[#2563eb]/10"
+                    className="h-7 text-xs border-[#6b7280] text-[#6b7280] hover:bg-[#6b7280]/10"
                   >
                     Select All
                   </Button>
@@ -368,9 +368,9 @@ export default function CouponsPage() {
                             });
                           }
                         }}
-                        className="w-4 h-4 rounded border-[#262626] bg-[#0a0a0a] text-[#2563eb] focus:ring-2 focus:ring-[#2563eb]/20 focus:ring-offset-0"
+                        className="w-4 h-4 rounded border-[#262626] bg-[#0a0a0a] text-[#6b7280] focus:ring-2 focus:ring-[#6b7280]/20 focus:ring-offset-0"
                       />
-                      <span className="text-white text-sm group-hover:text-[#2563eb] transition-colors">
+                      <span className="text-white text-sm group-hover:text-[#6b7280] transition-colors">
                         {product.name}
                       </span>
                     </label>
@@ -457,7 +457,7 @@ export default function CouponsPage() {
             </Button>
             <Button
               onClick={handleCreateCoupon}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-gray-600 hover:bg-gray-700 text-white"
             >
               Create Coupon
             </Button>

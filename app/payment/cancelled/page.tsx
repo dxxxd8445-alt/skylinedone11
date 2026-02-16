@@ -25,18 +25,18 @@ function PaymentCancelledContent() {
         {/* Cancelled Card */}
         <div className="bg-[#111111] border border-[#262626] rounded-2xl overflow-hidden">
           {/* Header */}
-          <div className="relative bg-gradient-to-r from-blue-500/20 via-blue-500/10 to-transparent p-8 border-b border-[#262626] overflow-hidden">
+          <div className="relative bg-gradient-to-r from-gray-500/20 via-blue-500/10 to-transparent p-8 border-b border-[#262626] overflow-hidden">
             {/* Animated background */}
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-gray-500/10 rounded-full blur-3xl animate-pulse" />
               <div
-                className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl animate-pulse"
+                className="absolute -bottom-10 -left-10 w-32 h-32 bg-gray-500/10 rounded-full blur-2xl animate-pulse"
                 style={{ animationDelay: "0.5s" }}
               />
             </div>
 
             <div className="relative flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
+              <div className="w-16 h-16 rounded-2xl bg-gray-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <XCircle className="w-10 h-10 text-white" />
               </div>
               <div>
@@ -68,7 +68,7 @@ function PaymentCancelledContent() {
             {/* Action Buttons */}
             <div className="flex flex-col gap-3 pt-4">
               <Link href="/store">
-                <Button className="w-full bg-[#2563eb] hover:bg-[#3b82f6] text-white py-6">
+                <Button className="w-full bg-[#6b7280] hover:bg-[#9ca3af] text-white py-6">
                   <RefreshCw className="w-5 h-5 mr-2" />
                   Try Again
                 </Button>
@@ -90,10 +90,10 @@ function PaymentCancelledContent() {
                 <HelpCircle className="w-4 h-4" />
                 Having issues?{" "}
                 <a 
-                  href="https://discord.gg/skylineggs" 
+                  href="https://discord.gg/ring-0" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-[#2563eb] hover:underline"
+                  className="text-[#6b7280] hover:underline"
                 >
                   Contact support
                 </a>
@@ -110,7 +110,7 @@ export default function PaymentCancelledPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-[#2563eb] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#6b7280] animate-spin" />
       </div>
     }>
       <PaymentCancelledContent />

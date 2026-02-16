@@ -124,8 +124,8 @@ export default function AdminDashboard() {
       <AdminShell title="Dashboard" subtitle="Welcome back, Admin">
         <div className="flex flex-col items-center justify-center h-64 gap-6">
           <div className="relative">
-            <div className="w-16 h-16 rounded-full border-4 border-[#2563eb]/20 border-t-[#2563eb] animate-spin" />
-            <div className="absolute inset-2 w-12 h-12 rounded-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] blur-xl animate-pulse" />
+            <div className="w-16 h-16 rounded-full border-4 border-[#6b7280]/20 border-t-[#6b7280] animate-spin" />
+            <div className="absolute inset-2 w-12 h-12 rounded-full bg-gradient-to-r from-[#6b7280] to-[#9ca3af] blur-xl animate-pulse" />
           </div>
           <div className="text-center">
             <p className="text-white font-semibold text-lg mb-1">Loading Dashboard</p>
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
                     }}
                     className={cn(
                       "w-full px-3 py-2 text-left text-sm transition-colors",
-                      dateRange === range.value ? "bg-[#2563eb]/20 text-[#2563eb]" : "text-white/80 hover:bg-white/5"
+                      dateRange === range.value ? "bg-[#6b7280]/20 text-[#6b7280]" : "text-white/80 hover:bg-white/5"
                     )}
                   >
                     {range.label}
@@ -186,7 +186,7 @@ export default function AdminDashboard() {
           <button
             onClick={handleRefresh}
             disabled={refreshing}
-            className="flex items-center gap-2 px-4 py-2 bg-[#2563eb] hover:bg-[#b91c1c] border border-[#2563eb] rounded-lg text-white transition-colors disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 bg-[#6b7280] hover:bg-[#b91c1c] border border-[#6b7280] rounded-lg text-white transition-colors disabled:opacity-50"
           >
             <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
             <span className="text-sm">Refresh</span>
@@ -223,7 +223,7 @@ export default function AdminDashboard() {
               {stats.growthRate !== 0 && (
                 <div className={cn(
                   "flex items-center gap-1 px-2 py-1 rounded-md text-xs font-semibold",
-                  stats.growthRate > 0 ? "bg-emerald-500/10 text-emerald-400" : "bg-blue-500/10 text-blue-400"
+                  stats.growthRate > 0 ? "bg-emerald-500/10 text-emerald-400" : "bg-gray-500/10 text-gray-400"
                 )}>
                   <TrendingUp className={cn("w-3 h-3", stats.growthRate < 0 && "rotate-180")} />
                   {Math.abs(stats.growthRate)}%
@@ -240,11 +240,11 @@ export default function AdminDashboard() {
 
         {/* Total Orders */}
         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" />
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gray-500/10 rounded-full blur-xl" />
           <div className="relative">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                <ShoppingCart className="w-6 h-6 text-blue-400" />
+              <div className="w-12 h-12 rounded-lg bg-gray-500/10 border border-gray-500/20 flex items-center justify-center">
+                <ShoppingCart className="w-6 h-6 text-gray-400" />
               </div>
             </div>
             <div>
@@ -274,11 +274,11 @@ export default function AdminDashboard() {
 
         {/* New Customers */}
         <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#262626] rounded-xl p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-[#2563eb]/10 rounded-full blur-xl" />
+          <div className="absolute top-0 right-0 w-20 h-20 bg-[#6b7280]/10 rounded-full blur-xl" />
           <div className="relative">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center">
-                <Users className="w-6 h-6 text-[#2563eb]" />
+              <div className="w-12 h-12 rounded-lg bg-[#6b7280]/10 border border-[#6b7280]/20 flex items-center justify-center">
+                <Users className="w-6 h-6 text-[#6b7280]" />
               </div>
             </div>
             <div>
@@ -303,11 +303,11 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center gap-4 text-xs">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#2563eb]" />
+                <div className="w-3 h-3 rounded-full bg-[#6b7280]" />
                 <span className="text-white/60">Revenue</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-blue-500" />
+                <div className="w-3 h-3 rounded-full bg-gray-500" />
                 <span className="text-white/60">Orders</span>
               </div>
             </div>
@@ -339,10 +339,10 @@ export default function AdminDashboard() {
                 <div className="flex-1 flex flex-col items-center gap-2 max-w-[120px]">
                   <div className="w-full relative group">
                     <div 
-                      className="w-full bg-gradient-to-t from-[#2563eb] to-[#3b82f6] rounded-t-lg transition-all duration-500 hover:from-[#3b82f6] hover:to-[#2563eb] cursor-pointer"
+                      className="w-full bg-gradient-to-t from-[#6b7280] to-[#9ca3af] rounded-t-lg transition-all duration-500 hover:from-[#9ca3af] hover:to-[#6b7280] cursor-pointer"
                       style={{ height: `${Math.min((stats.revenue / (stats.revenue * 1.2)) * 100, 100)}%` }}
                     >
-                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-[#2563eb] rounded px-2 py-1 text-xs text-white whitespace-nowrap">
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-[#6b7280] rounded px-2 py-1 text-xs text-white whitespace-nowrap">
                         ${stats.revenue.toFixed(2)}
                       </div>
                     </div>
@@ -357,10 +357,10 @@ export default function AdminDashboard() {
                 <div className="flex-1 flex flex-col items-center gap-2 max-w-[120px]">
                   <div className="w-full relative group">
                     <div 
-                      className="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg transition-all duration-500 hover:from-blue-400 hover:to-blue-300 cursor-pointer"
+                      className="w-full bg-gradient-to-t from-gray-500 to-gray-400 rounded-t-lg transition-all duration-500 hover:from-gray-400 hover:to-gray-300 cursor-pointer"
                       style={{ height: `${Math.min((stats.orders / Math.max(stats.orders, 10)) * 100, 100)}%` }}
                     >
-                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-blue-500 rounded px-2 py-1 text-xs text-white whitespace-nowrap">
+                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[#1a1a1a] border border-gray-500 rounded px-2 py-1 text-xs text-white whitespace-nowrap">
                         {stats.orders} orders
                       </div>
                     </div>
@@ -418,7 +418,7 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-semibold text-white">Recent Activity</h3>
               <p className="text-sm text-white/50">Latest transactions</p>
             </div>
-            <Activity className="w-5 h-5 text-[#2563eb]" />
+            <Activity className="w-5 h-5 text-[#6b7280]" />
           </div>
 
           <div className="space-y-4">
@@ -455,18 +455,18 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-semibold text-white">Top 5 Customers</h3>
               <p className="text-sm text-white/50">Highest spending customers</p>
             </div>
-            <Target className="w-5 h-5 text-[#2563eb]" />
+            <Target className="w-5 h-5 text-[#6b7280]" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {topCustomers.map((customer: any, index) => (
               <div key={customer.email} className="p-4 rounded-lg bg-[#0a0a0a]/50 border border-[#262626]/50">
                 <div className="text-center">
-                  <div className="w-10 h-10 rounded-full bg-[#2563eb]/10 border border-[#2563eb]/20 flex items-center justify-center mx-auto mb-2">
-                    <span className="text-[#2563eb] font-semibold text-sm">#{index + 1}</span>
+                  <div className="w-10 h-10 rounded-full bg-[#6b7280]/10 border border-[#6b7280]/20 flex items-center justify-center mx-auto mb-2">
+                    <span className="text-[#6b7280] font-semibold text-sm">#{index + 1}</span>
                   </div>
                   <p className="text-white text-sm font-medium truncate">{customer.email}</p>
-                  <p className="text-[#2563eb] text-lg font-bold">${customer.spent.toFixed(2)}</p>
+                  <p className="text-[#6b7280] text-lg font-bold">${customer.spent.toFixed(2)}</p>
                   <p className="text-white/40 text-xs">{customer.orders} orders</p>
                 </div>
               </div>
@@ -502,7 +502,7 @@ export default function AdminDashboard() {
                   value={customStartDate}
                   onChange={(e) => setCustomStartDate(e.target.value)}
                   max={customEndDate || new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
                 />
               </div>
 
@@ -516,16 +516,16 @@ export default function AdminDashboard() {
                   onChange={(e) => setCustomEndDate(e.target.value)}
                   min={customStartDate}
                   max={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
                 />
               </div>
 
               {customStartDate && customEndDate && (
-                <div className="p-3 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20">
-                  <p className="text-sm text-[#2563eb]">
+                <div className="p-3 rounded-lg bg-[#6b7280]/10 border border-[#6b7280]/20">
+                  <p className="text-sm text-[#6b7280]">
                     <strong>Selected Range:</strong> {new Date(customStartDate).toLocaleDateString()} - {new Date(customEndDate).toLocaleDateString()}
                   </p>
-                  <p className="text-xs text-[#2563eb]/70 mt-1">
+                  <p className="text-xs text-[#6b7280]/70 mt-1">
                     {Math.ceil((new Date(customEndDate).getTime() - new Date(customStartDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} days
                   </p>
                 </div>
@@ -561,7 +561,7 @@ export default function AdminDashboard() {
                     }
                   }}
                   disabled={!customStartDate || !customEndDate}
-                  className="flex-1 px-4 py-2 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold transition-colors"
+                  className="flex-1 px-4 py-2 bg-[#6b7280] hover:bg-[#9ca3af] disabled:bg-[#6b7280]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold transition-colors"
                 >
                   Apply Range
                 </button>

@@ -109,7 +109,7 @@ CREATE INDEX IF NOT EXISTS idx_user_preferences_user_id ON user_preferences(user
 
 -- Insert sample announcements
 INSERT INTO announcements (title, message, type, is_active, priority) VALUES
-('Welcome to Skyline Cheats!', 'We are excited to have you here. Check out our latest products and enjoy gaming!', 'info', true, 1),
+('Welcome to Ring-0!', 'We are excited to have you here. Check out our latest products and enjoy gaming!', 'info', true, 1),
 ('New Products Available', 'Check out our latest cheats for the newest games. Updated daily!', 'success', true, 2),
 ('Maintenance Notice', 'Scheduled maintenance will occur tonight from 2-4 AM EST. Some services may be temporarily unavailable.', 'warning', false, 3)
 ON CONFLICT DO NOTHING;
@@ -120,7 +120,7 @@ ON CONFLICT DO NOTHING;
 ## 🎨 DESIGN FEATURES
 
 ### Red/Black Theme:
-- ✅ Gradient backgrounds using your brand colors (#2563eb, #3b82f6)
+- ✅ Gradient backgrounds using your brand colors (#6b7280, #9ca3af)
 - ✅ Dark backgrounds with red accents
 - ✅ Consistent with your existing site design
 - ✅ Professional and modern appearance

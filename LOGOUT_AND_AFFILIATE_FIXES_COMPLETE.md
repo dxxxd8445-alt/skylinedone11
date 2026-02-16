@@ -21,7 +21,7 @@
   <Button
     size="sm"
     onClick={handleLogout}
-    className="bg-blue-600 hover:bg-blue-700 text-white"
+    className="bg-gray-600 hover:bg-gray-700 text-white"
   >
     <Power className="h-4 w-4 mr-1" />
     Logout
@@ -32,7 +32,7 @@
 <Button
   size="sm"
   onClick={handleLogout}
-  className="bg-blue-600 hover:bg-blue-700 text-white"
+  className="bg-gray-600 hover:bg-gray-700 text-white"
 >
   <Power className="h-4 w-4 mr-1" />
   Logout

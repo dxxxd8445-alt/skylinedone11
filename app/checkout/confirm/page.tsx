@@ -156,7 +156,7 @@ export default function CheckoutConfirmPage() {
 
           {/* Header */}
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center">
               <Lock className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -195,7 +195,7 @@ export default function CheckoutConfirmPage() {
                         <p className="text-white/40 text-xs">Qty: {item.quantity}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[#2563eb] font-bold text-xl">
+                        <p className="text-[#6b7280] font-bold text-xl">
                           {formatMoney({ amountUsd: item.price * item.quantity, currency, locale: 'en-US' })}
                         </p>
                       </div>
@@ -220,13 +220,13 @@ export default function CheckoutConfirmPage() {
                             value={guestEmail}
                             onChange={(e) => setGuestEmail(e.target.value)}
                             placeholder="your@email.com"
-                            className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none"
+                            className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border-2 border-[#1a1a1a] rounded-xl text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none"
                             onKeyPress={(e) => e.key === 'Enter' && handleEmailSubmit()}
                           />
                         </div>
                         <button
                           onClick={handleEmailSubmit}
-                          className="px-6 py-3 bg-[#2563eb] hover:bg-[#3b82f6] text-white rounded-xl font-semibold transition-all"
+                          className="px-6 py-3 bg-[#6b7280] hover:bg-[#9ca3af] text-white rounded-xl font-semibold transition-all"
                         >
                           Apply
                         </button>
@@ -243,7 +243,7 @@ export default function CheckoutConfirmPage() {
                     {!user && (
                       <button
                         onClick={() => setEmailConfirmed(false)}
-                        className="text-[#2563eb] hover:text-[#3b82f6] text-sm font-medium transition-colors"
+                        className="text-[#6b7280] hover:text-[#9ca3af] text-sm font-medium transition-colors"
                       >
                         Change
                       </button>
@@ -257,8 +257,8 @@ export default function CheckoutConfirmPage() {
             <div className="lg:col-span-1">
               <div className="bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-6 sticky top-24">
                 <div className="flex items-center gap-2 mb-6">
-                  <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center">
-                    <Tag className="w-5 h-5 text-[#2563eb]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#6b7280]/10 flex items-center justify-center">
+                    <Tag className="w-5 h-5 text-[#6b7280]" />
                   </div>
                   <h2 className="text-xl font-bold text-white">Payment</h2>
                 </div>
@@ -267,7 +267,7 @@ export default function CheckoutConfirmPage() {
                 {!appliedCoupon && emailConfirmed && (
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <Tag className="w-4 h-4 text-[#2563eb]" />
+                      <Tag className="w-4 h-4 text-[#6b7280]" />
                       <span className="text-white/80 text-sm font-medium">Have a coupon code?</span>
                     </div>
                     <div className="flex gap-2">
@@ -279,19 +279,19 @@ export default function CheckoutConfirmPage() {
                           setCouponError(null);
                         }}
                         placeholder="SAVE10"
-                        className="flex-1 px-4 py-2.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none text-sm font-mono uppercase"
+                        className="flex-1 px-4 py-2.5 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none text-sm font-mono uppercase"
                         onKeyPress={(e) => e.key === 'Enter' && handleApplyCoupon()}
                       />
                       <button
                         onClick={handleApplyCoupon}
                         disabled={couponLoading || !couponCode.trim()}
-                        className="px-5 py-2.5 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all whitespace-nowrap flex items-center justify-center shrink-0"
+                        className="px-5 py-2.5 bg-[#6b7280] hover:bg-[#9ca3af] disabled:bg-[#6b7280]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold text-sm transition-all whitespace-nowrap flex items-center justify-center shrink-0"
                       >
                         {couponLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Apply'}
                       </button>
                     </div>
                     {couponError && (
-                      <p className="text-blue-400 text-xs mt-2">{couponError}</p>
+                      <p className="text-gray-400 text-xs mt-2">{couponError}</p>
                     )}
                   </div>
                 )}
@@ -310,7 +310,7 @@ export default function CheckoutConfirmPage() {
                       </div>
                       <button
                         onClick={() => removeCoupon()}
-                        className="text-white/40 hover:text-blue-400 text-xs transition-colors"
+                        className="text-white/40 hover:text-gray-400 text-xs transition-colors"
                       >
                         Remove
                       </button>
@@ -339,7 +339,7 @@ export default function CheckoutConfirmPage() {
                   <div className="pt-3 border-t border-[#1a1a1a]">
                     <div className="flex items-center justify-between">
                       <span className="text-white font-bold text-lg">Total</span>
-                      <span className="text-[#2563eb] font-bold text-2xl">
+                      <span className="text-[#6b7280] font-bold text-2xl">
                         {formatMoney({ amountUsd: total, currency, locale: 'en-US' })}
                       </span>
                     </div>
@@ -350,7 +350,7 @@ export default function CheckoutConfirmPage() {
                 <button
                   onClick={handleCompletePayment}
                   disabled={!emailConfirmed || checkoutLoading}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] disabled:from-[#2563eb]/50 disabled:to-[#3b82f6]/50 disabled:cursor-not-allowed text-white font-bold text-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 mb-3"
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] disabled:from-[#6b7280]/50 disabled:to-[#9ca3af]/50 disabled:cursor-not-allowed text-white font-bold text-lg transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 mb-3"
                 >
                   {checkoutLoading ? (
                     <>
@@ -379,9 +379,9 @@ export default function CheckoutConfirmPage() {
                 <button
                   onClick={() => setCryptoModalOpen(true)}
                   disabled={!emailConfirmed}
-                  className="w-full py-3.5 rounded-xl bg-[#0a0a0a] hover:bg-[#1a1a1a] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold border-2 border-[#2563eb]/30 hover:border-[#2563eb]/60 transition-all flex items-center justify-center gap-2 group"
+                  className="w-full py-3.5 rounded-xl bg-[#0a0a0a] hover:bg-[#1a1a1a] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold border-2 border-[#6b7280]/30 hover:border-[#6b7280]/60 transition-all flex items-center justify-center gap-2 group"
                 >
-                  <Bitcoin className="w-5 h-5 text-[#2563eb] group-hover:scale-110 transition-transform" />
+                  <Bitcoin className="w-5 h-5 text-[#6b7280] group-hover:scale-110 transition-transform" />
                   <span>Pay with Crypto</span>
                   <span className="text-white/60 text-sm">(BTC/LTC)</span>
                 </button>
@@ -403,7 +403,7 @@ export default function CheckoutConfirmPage() {
                     </div>
                   </div>
                   <p className="text-center text-white/40 text-xs">
-                    Powered by <span className="text-[#2563eb]">Stripe</span>
+                    Powered by <span className="text-[#6b7280]">Stripe</span>
                   </p>
                 </div>
               </div>

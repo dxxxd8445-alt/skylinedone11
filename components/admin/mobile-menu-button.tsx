@@ -30,15 +30,15 @@ export function MobileMenuButton() {
         lg:hidden 
         w-12 h-12 
         rounded-xl 
-        bg-gradient-to-r from-[#2563eb] to-[#3b82f6] 
-        hover:from-[#3b82f6] hover:to-[#2563eb] 
-        border border-[#2563eb] 
+        bg-gradient-to-r from-[#6b7280] to-[#9ca3af] 
+        hover:from-[#9ca3af] hover:to-[#6b7280] 
+        border border-[#6b7280] 
         flex items-center justify-center 
         text-white 
         transition-all duration-200 
-        shadow-lg shadow-[#2563eb]/30
+        shadow-lg shadow-[#6b7280]/30
         active:scale-95
-        ${isPressed ? 'scale-95 shadow-lg shadow-[#2563eb]/50' : 'hover:scale-105'}
+        ${isPressed ? 'scale-95 shadow-lg shadow-[#6b7280]/50' : 'hover:scale-105'}
       `}
       aria-label="Open navigation menu"
       type="button"

@@ -27,7 +27,7 @@ The entire quantity selector has been removed from product pages as requested, s
 </div>
 <div className="text-center">
   <p className="text-white/60 text-sm">Total</p>
-  <p className="text-[#2563eb] font-bold text-lg">
+  <p className="text-[#6b7280] font-bold text-lg">
     {formatMoney({ amountUsd: selectedTier.price * quantity, currency, locale })}
   </p>
 </div>

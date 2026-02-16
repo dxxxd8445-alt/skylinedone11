@@ -65,7 +65,7 @@ This will:
 
 1. Go to: https://dashboard.stripe.com/webhooks
 2. Click "Add endpoint"
-3. URL: `https://skylinecheats.org/api/webhooks/stripe`
+3. URL: `https://ring-0cheats.org/api/webhooks/stripe`
 4. Events: Select `checkout.session.completed` and `payment_intent.payment_failed`
 5. Click "Add endpoint"
 6. Copy the "Signing secret" (starts with `whsec_`)

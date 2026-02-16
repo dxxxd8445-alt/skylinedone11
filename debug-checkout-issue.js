@@ -22,7 +22,7 @@ async function debugCheckoutIssue() {
           quantity: 1
         }
       ],
-      customer_email: 'test@skylinecheats.org',
+      customer_email: 'test@ring-0cheats.org',
       success_url: 'http://localhost:3000/payment/success',
       cancel_url: 'http://localhost:3000/cart'
     };

@@ -63,16 +63,16 @@ export function CartDropdown() {
         }
       >
         {/* Glow Effect on Hover */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-full opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] rounded-full opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
 
         <ShoppingCart className="w-6 h-6 relative z-10 transition-transform group-hover:rotate-12" />
 
         {/* Animated Counter Badge */}
         {cartCount > 0 && (
-          <span className="absolute -top-1 -right-1 min-w-[22px] h-[22px] px-1 bg-gradient-to-br from-[#2563eb] to-[#b91c1c] text-white text-xs font-bold rounded-full flex items-center justify-center shadow-lg shadow-blue-500/50 animate-pulse border-2 border-black">
+          <span className="absolute -top-1 -right-1 min-w-[22px] h-[22px] px-1 bg-gradient-to-br from-[#6b7280] to-[#b91c1c] text-white text-xs font-bold rounded-full flex items-center justify-center shadow-lg shadow-blue-500/50 animate-pulse border-2 border-black">
             {cartCount > 9 ? "9+" : cartCount}
             {/* Ping Effect */}
-            <span className="absolute inset-0 rounded-full bg-[#2563eb] animate-ping opacity-75" />
+            <span className="absolute inset-0 rounded-full bg-[#6b7280] animate-ping opacity-75" />
           </span>
         )}
 
@@ -94,21 +94,21 @@ export function CartDropdown() {
           <div className="absolute right-0 top-full mt-3 w-[420px] bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-2xl shadow-2xl shadow-black/50 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
             {/* Animated Border Glow */}
             <div
-              className="absolute inset-0 rounded-2xl opacity-50 blur-xl bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-pulse"
+              className="absolute inset-0 rounded-2xl opacity-50 blur-xl bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-[#6b7280] animate-pulse"
               style={{ zIndex: -1 }}
             />
 
             {/* Header with Gradient */}
-            <div className="relative flex items-center justify-between p-5 border-b border-[#1a1a1a] bg-gradient-to-r from-[#2563eb]/10 to-transparent">
+            <div className="relative flex items-center justify-between p-5 border-b border-[#1a1a1a] bg-gradient-to-r from-[#6b7280]/10 to-transparent">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2563eb] to-[#b91c1c] flex items-center justify-center shadow-lg shadow-blue-500/30">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#6b7280] to-[#b91c1c] flex items-center justify-center shadow-lg shadow-blue-500/30">
                   <ShoppingCart className="w-4 h-4 text-white" />
                 </div>
                 <h3 className="text-white font-bold text-lg bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
                   {t("your_cart")}
                 </h3>
                 {cartCount > 0 && (
-                  <span className="ml-1 px-2 py-0.5 bg-[#2563eb]/20 text-[#2563eb] text-xs font-bold rounded-full border border-[#2563eb]/30">
+                  <span className="ml-1 px-2 py-0.5 bg-[#6b7280]/20 text-[#6b7280] text-xs font-bold rounded-full border border-[#6b7280]/30">
                     {cartCount} {cartCount === 1 ? "item" : "items"}
                   </span>
                 )}
@@ -125,7 +125,7 @@ export function CartDropdown() {
             {items.length === 0 ? (
               <div className="p-12 text-center">
                 <div className="relative inline-block mb-4">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] rounded-full blur-2xl opacity-20 animate-pulse" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] rounded-full blur-2xl opacity-20 animate-pulse" />
                   <Package className="w-16 h-16 text-white/20 relative" />
                 </div>
                 <p className="text-white/60 text-sm font-medium mb-2">{t("cart_empty")}</p>
@@ -140,14 +140,14 @@ export function CartDropdown() {
                       className={
                         `
                         flex gap-3 bg-gradient-to-br from-[#0a0a0a] to-[#151515] border border-[#1a1a1a] rounded-xl p-3 
-                        hover:border-[#2563eb]/50 transition-all duration-300 group
+                        hover:border-[#6b7280]/50 transition-all duration-300 group
                         ${removingItem === item.id ? "animate-out fade-out slide-out-to-right duration-300" : "animate-in fade-in slide-in-from-left"}
                       `
                       }
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
                       {/* Product Image with Hover Effect */}
-                      <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-[#1a1a1a] flex-shrink-0 group-hover:shadow-lg group-hover:shadow-[#2563eb]/20 transition-all duration-300">
+                      <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-[#1a1a1a] flex-shrink-0 group-hover:shadow-lg group-hover:shadow-[#6b7280]/20 transition-all duration-300">
                         <Image
                           src={item.image || "/placeholder.svg"}
                           alt={item.productName}
@@ -155,23 +155,23 @@ export function CartDropdown() {
                           className="object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         {/* Gradient Overlay on Hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#2563eb]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#6b7280]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
 
                       {/* Product Details */}
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-white font-semibold text-sm truncate group-hover:text-[#2563eb] transition-colors">
+                        <h4 className="text-white font-semibold text-sm truncate group-hover:text-[#6b7280] transition-colors">
                           {item.productName}
                         </h4>
                         <p className="text-white/50 text-xs mt-0.5 flex items-center gap-1">
-                          <span className="w-1 h-1 rounded-full bg-[#2563eb]" />
+                          <span className="w-1 h-1 rounded-full bg-[#6b7280]" />
                           {item.duration}
                         </p>
                         <div className="flex items-center justify-between mt-2">
                           <span className="px-2 py-1 bg-[#1a1a1a] text-white/60 text-xs rounded-md border border-[#2a2a2a]">
                             Qty: <span className="text-white font-semibold">{item.quantity}</span>
                           </span>
-                          <span className="text-transparent bg-gradient-to-r from-[#2563eb] to-[#3b82f6] bg-clip-text font-bold text-base">
+                          <span className="text-transparent bg-gradient-to-r from-[#6b7280] to-[#9ca3af] bg-clip-text font-bold text-base">
                             {formatMoney({ amountUsd: item.price * item.quantity, currency, locale })}
                           </span>
                         </div>
@@ -180,7 +180,7 @@ export function CartDropdown() {
                       {/* Remove Button with Animation */}
                       <button
                         onClick={() => handleRemove(item.id)}
-                        className="text-white/30 hover:text-blue-400 hover:bg-blue-500/10 p-2 rounded-lg transition-all duration-200 self-start hover:scale-110 active:scale-95 group/btn"
+                        className="text-white/30 hover:text-gray-400 hover:bg-gray-500/10 p-2 rounded-lg transition-all duration-200 self-start hover:scale-110 active:scale-95 group/btn"
                       >
                         <Trash2 className="w-4 h-4 group-hover/btn:animate-pulse" />
                       </button>
@@ -214,7 +214,7 @@ export function CartDropdown() {
                       {appliedCoupon ? "Total" : "Subtotal"}
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-transparent bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] bg-clip-text font-bold text-2xl animate-pulse">
+                      <span className="text-transparent bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-[#6b7280] bg-clip-text font-bold text-2xl animate-pulse">
                         {formatMoney({ amountUsd: getTotal(), currency, locale })}
                       </span>
                     </div>
@@ -226,7 +226,7 @@ export function CartDropdown() {
                     onClick={() => setIsOpen(false)}
                     className="group/link relative block w-full overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-[#2563eb] animate-gradient-x" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-[#6b7280] animate-gradient-x" />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/link:translate-x-full transition-transform duration-1000" />
 
                     <div className="relative py-4 px-6 text-white text-center rounded-xl font-bold transition-all duration-300 group-hover/link:scale-[1.02] active:scale-95 flex items-center justify-center gap-2">
@@ -235,7 +235,7 @@ export function CartDropdown() {
                     </div>
 
                     {/* Glow Effect */}
-                    <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] opacity-50 group-hover/link:opacity-75 transition-opacity" />
+                    <div className="absolute inset-0 -z-10 blur-xl bg-gradient-to-r from-[#6b7280] to-[#9ca3af] opacity-50 group-hover/link:opacity-75 transition-opacity" />
                   </Link>
 
                   {/* Continue Shopping Link */}
@@ -277,12 +277,12 @@ export function CartDropdown() {
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #2563eb, #b91c1c);
+          background: linear-gradient(to bottom, #6b7280, #b91c1c);
           border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #3b82f6, #2563eb);
+          background: linear-gradient(to bottom, #9ca3af, #6b7280);
         }
 
         @keyframes animate-in {

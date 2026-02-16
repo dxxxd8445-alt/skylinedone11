@@ -25,7 +25,7 @@
 
 ## 📊 Security Dashboard
 
-**Access:** `https://skylinecheats.org/mgmt-x9k2m7/security`
+**Access:** `https://ring-0cheats.org/mgmt-x9k2m7/security`
 
 **What You Can See:**
 - All login attempts (successful + failed)

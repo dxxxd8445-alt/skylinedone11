@@ -104,13 +104,13 @@ if (!licenseKey) {
 - 🔑 License key in highlighted box
 - ⏰ Expiration date (if applicable)
 - 🚀 Next steps with numbered instructions
-- 💬 Discord server link (https://discord.gg/skylineggs)
+- 💬 Discord server link (https://discord.gg/ring-0)
 - 📱 Account dashboard link
 - ✨ Pro tip to join Discord
 
 **Email Design:**
 - Modern, professional HTML template
-- Gradient header with Skyline branding
+- Gradient header with Ring-0 branding
 - Success icon with animated checkmark
 - License key in monospace font with copy-friendly format
 - Discord button with Discord brand colors (#5865F2)
@@ -127,7 +127,7 @@ if (!licenseKey) {
 7. **Account Link** - Button to view account
 8. **Pro Tip** - Highlighted tip to join Discord
 9. **Footer Links** - Discord, Guides, Account
-10. **Branding** - Consistent Skyline colors and fonts
+10. **Branding** - Consistent Ring-0 colors and fonts
 
 ---
 
@@ -181,7 +181,7 @@ if (!licenseKey) {
 ### Viewing Orders
 
 **Step 1: Log In**
-- Go to https://skylinecheats.org
+- Go to https://ring-0cheats.org
 - Click "Account" or "Login"
 - Enter email and password
 
@@ -210,7 +210,7 @@ if (!licenseKey) {
 
 **Immediately After Purchase:**
 - Check email inbox
-- Open "Your Skyline License Key" email
+- Open "Your Ring-0 License Key" email
 - See order confirmation
 - Copy license key
 - Click "Join Discord Server" button
@@ -311,8 +311,8 @@ if (!licenseKey) {
 **Sender:** lib/email.ts
 
 **Email Configuration:**
-- From: Skyline Cheats <noreply@skylinecheats.org>
-- Subject: "Your Skyline License Key - Order {orderNumber}"
+- From: Ring-0 <noreply@ring-0cheats.org>
+- Subject: "Your Ring-0 License Key - Order {orderNumber}"
 - Format: HTML with inline CSS
 - Responsive: Mobile-friendly design
 

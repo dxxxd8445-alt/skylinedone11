@@ -50,7 +50,7 @@ STRIPE_WEBHOOK_SECRET=whsec_UNhwqMCJFUUmKs1zapCxGrPI0xvb8vVK
 #### Resend (Email Delivery)
 ```
 RESEND_API_KEY=re_...
-RESEND_FROM_EMAIL=Skyline <noreply@skylinecheats.org>
+RESEND_FROM_EMAIL=Ring-0 <noreply@ring-0cheats.org>
 ```
 
 #### Supabase (Database)
@@ -62,14 +62,14 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 #### Application Settings
 ```
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 ADMIN_PASSWORD=your_secure_admin_password
 STORE_SESSION_SECRET=your_32_char_secret_key
 ```
 
 #### Discord
 ```
-NEXT_PUBLIC_DISCORD_URL=https://discord.gg/skylineggs
+NEXT_PUBLIC_DISCORD_URL=https://discord.gg/ring-0
 ```
 
 ---
@@ -132,7 +132,7 @@ All errors are properly caught and logged:
 
 ### Webhook Endpoint
 ```
-https://skylinecheats.org/api/webhooks/stripe
+https://ring-0cheats.org/api/webhooks/stripe
 ```
 
 ### Events to Listen For
@@ -357,8 +357,8 @@ If critical issues occur:
 ## Contact Information
 
 ### Support Channels
-- Discord: https://discord.gg/skylineggs
-- Admin Dashboard: https://skylinecheats.org/mgmt-x9k2m7
+- Discord: https://discord.gg/ring-0
+- Admin Dashboard: https://ring-0cheats.org/mgmt-x9k2m7
 - Vercel Dashboard: https://vercel.com/dashboard
 - Stripe Dashboard: https://dashboard.stripe.com
 - Supabase Dashboard: https://supabase.com/dashboard

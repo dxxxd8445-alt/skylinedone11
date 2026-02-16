@@ -55,7 +55,7 @@ export default function SecurityPage() {
       case "critical": return "text-red-400 bg-red-500/10 border-red-500/20";
       case "high": return "text-orange-400 bg-orange-500/10 border-orange-500/20";
       case "medium": return "text-yellow-400 bg-yellow-500/10 border-yellow-500/20";
-      case "low": return "text-blue-400 bg-blue-500/10 border-blue-500/20";
+      case "low": return "text-gray-400 bg-gray-500/10 border-gray-500/20";
       default: return "text-white/60 bg-white/5 border-white/10";
     }
   };
@@ -65,7 +65,7 @@ export default function SecurityPage() {
       case "login_success": return <CheckCircle className="w-4 h-4 text-green-400" />;
       case "login_failed": return <XCircle className="w-4 h-4 text-red-400" />;
       case "lockout": return <AlertTriangle className="w-4 h-4 text-orange-400" />;
-      case "password_change": return <Shield className="w-4 h-4 text-blue-400" />;
+      case "password_change": return <Shield className="w-4 h-4 text-gray-400" />;
       case "suspicious_activity": return <AlertTriangle className="w-4 h-4 text-red-400" />;
       default: return <Clock className="w-4 h-4 text-white/40" />;
     }
@@ -83,8 +83,8 @@ export default function SecurityPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                <Shield className="w-5 h-5 text-blue-400" />
+              <div className="w-10 h-10 rounded-lg bg-gray-500/10 border border-gray-500/20 flex items-center justify-center">
+                <Shield className="w-5 h-5 text-gray-400" />
               </div>
               <div>
                 <p className="text-white/60 text-xs">Total Events</p>
@@ -147,7 +147,7 @@ export default function SecurityPage() {
               }}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === severity
-                  ? "bg-[#2563eb] text-white"
+                  ? "bg-[#6b7280] text-white"
                   : "bg-[#1a1a1a] text-white/60 hover:bg-[#262626]"
               }`}
             >
@@ -174,7 +174,7 @@ export default function SecurityPage() {
                   <tr>
                     <td colSpan={5} className="px-4 py-8 text-center">
                       <div className="flex items-center justify-center gap-2">
-                        <div className="w-5 h-5 border-2 border-[#2563eb] border-t-transparent rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-[#6b7280] border-t-transparent rounded-full animate-spin" />
                         <span className="text-white/60">Loading security logs...</span>
                       </div>
                     </td>
@@ -231,12 +231,12 @@ export default function SecurityPage() {
         </div>
 
         {/* Security Tips */}
-        <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-4">
+        <div className="bg-gray-500/10 border border-gray-500/20 rounded-xl p-4">
           <div className="flex items-start gap-3">
-            <Shield className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <Shield className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-blue-400 font-semibold mb-1">Security Best Practices</h3>
-              <ul className="text-blue-400/80 text-sm space-y-1">
+              <h3 className="text-gray-400 font-semibold mb-1">Security Best Practices</h3>
+              <ul className="text-gray-400/80 text-sm space-y-1">
                 <li>• Monitor failed login attempts regularly</li>
                 <li>• Change your admin password every 30 days</li>
                 <li>• Use a strong password with 12+ characters</li>

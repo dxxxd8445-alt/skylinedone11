@@ -12,19 +12,19 @@ Your Discord webhook system is **fully implemented and working**. Here's what's 
 - **Trigger**: When customer clicks checkout
 - **Location**: `app/api/stripe/create-checkout-session/route.ts` (line 176)
 - **Event**: `checkout.started`
-- **Color**: Blue (#3b82f6)
+- **Color**: Blue (#9ca3af)
 
 ### ✅ Pending Order Notifications  
 - **Trigger**: When order is created (awaiting payment)
 - **Location**: `app/api/stripe/create-checkout-session/route.ts` (line 191)
 - **Event**: `order.pending`
-- **Color**: Light Blue (#3b82f6)
+- **Color**: Light Blue (#9ca3af)
 
 ### ✅ Completed Order Notifications
 - **Trigger**: When payment succeeds
 - **Location**: `app/api/stripe/webhook/route.ts` (lines 222 & 238)
 - **Events**: `payment.completed` AND `order.completed`
-- **Color**: Skyline Blue (#2563eb)
+- **Color**: Ring-0 Blue (#6b7280)
 
 ### ✅ Failed Payment Notifications
 - **Trigger**: When payment fails or expires
@@ -56,7 +56,7 @@ DELETE FROM webhooks WHERE url LIKE '%discord.com%';
 
 INSERT INTO webhooks (name, url, events, is_active) VALUES
   (
-    'Skyline Discord - All Order Events', 
+    'Ring-0 Discord - All Order Events', 
     'https://discord.com/api/webhooks/1466894801541533707/6Z-YfKfQbE-UuakpsNLfULuf_3WefNpMbwLLiNJKMSf__Xv-7GL4e4b0M1F7409S5L54',
     ARRAY['checkout.started', 'order.pending', 'order.completed', 'payment.completed', 'payment.failed', 'order.refunded', 'order.disputed'],
     true
@@ -98,7 +98,7 @@ A new order has been successfully processed and completed.
 🛒 Items:
 • Fortnite Cheat - 30 Days (x1) - 29.99
 
-Skyline Cheats • Order System
+Ring-0 • Order System
 ```
 
 ### Pending Order Example:
@@ -113,7 +113,7 @@ A new order is awaiting payment confirmation.
 🛒 Items:
 • Fortnite Cheat - 30 Days (x1) - 29.99
 
-Skyline Cheats • Order System
+Ring-0 • Order System
 ```
 
 ---
@@ -124,8 +124,8 @@ Skyline Cheats • Order System
 - [x] Webhook system coded in `lib/discord-webhook.ts`
 - [x] Checkout webhooks integrated
 - [x] Payment webhooks integrated
-- [x] All colors changed to Skyline blue
-- [x] All "Magma" → "Skyline" branding
+- [x] All colors changed to Ring-0 blue
+- [x] All "Magma" → "Ring-0" branding
 - [x] Test endpoint available
 - [ ] **SQL script run** (DO THIS NOW)
 - [ ] **Test order placed** (DO THIS AFTER SQL)
@@ -134,9 +134,9 @@ Skyline Cheats • Order System
 
 ## 🎨 Color Scheme
 
-All webhooks use Skyline blue branding:
-- **Completed**: #2563eb (Skyline Blue)
-- **Pending**: #3b82f6 (Light Blue)
+All webhooks use Ring-0 blue branding:
+- **Completed**: #6b7280 (Ring-0 Blue)
+- **Pending**: #9ca3af (Light Blue)
 - **Failed**: #1e40af (Dark Blue)
 - **Refund**: #6b7280 (Gray)
 

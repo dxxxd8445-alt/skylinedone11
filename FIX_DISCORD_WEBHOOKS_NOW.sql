@@ -3,12 +3,12 @@
 -- ============================================================================
 
 -- Step 1: Clean up any old webhooks
-DELETE FROM webhooks WHERE name LIKE '%Discord%' OR name LIKE '%Skyline%';
+DELETE FROM webhooks WHERE name LIKE '%Discord%' OR name LIKE '%Ring-0%';
 
 -- Step 2: Insert your Discord webhook
 -- REPLACE THE URL BELOW WITH YOUR ACTUAL DISCORD WEBHOOK URL
 INSERT INTO webhooks (name, url, events, is_active) VALUES (
-  'Skyline Discord - Order Notifications',
+  'Ring-0 Discord - Order Notifications',
   'YOUR_DISCORD_WEBHOOK_URL_HERE',
   ARRAY['checkout.started', 'order.pending', 'order.completed', 'payment.completed', 'payment.failed', 'order.refunded'],
   true

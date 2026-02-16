@@ -31,7 +31,7 @@ The code is 100% correct and working. But it looks up webhooks from the database
 You provided new Stripe keys. Update them in Vercel:
 
 1. Go to: https://vercel.com/dashboard
-2. Select: `skylinedone11` project
+2. Select: `ring-0done11` project
 3. Go to: Settings → Environment Variables
 4. Update these 3 variables:
    - `STRIPE_PUBLISHABLE_KEY` (the pk_live key you provided)
@@ -43,9 +43,9 @@ You provided new Stripe keys. Update them in Vercel:
 ### STEP 3: Configure Stripe Webhook
 
 1. Go to: https://dashboard.stripe.com/webhooks
-2. Delete any old webhooks for skylinecheats.org
+2. Delete any old webhooks for ring-0cheats.org
 3. Click: "Add endpoint"
-4. Enter URL: `https://skylinecheats.org/api/webhooks/stripe`
+4. Enter URL: `https://ring-0cheats.org/api/webhooks/stripe`
 5. Select these events:
    - `checkout.session.completed`
    - `payment_intent.succeeded`
@@ -59,7 +59,7 @@ You provided new Stripe keys. Update them in Vercel:
 ```
 Customer Pays with Stripe
          ↓
-Stripe sends webhook to: skylinecheats.org/api/webhooks/stripe
+Stripe sends webhook to: ring-0cheats.org/api/webhooks/stripe
          ↓
 Your webhook handler processes the payment
          ↓

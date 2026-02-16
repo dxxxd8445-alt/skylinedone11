@@ -1,5 +1,5 @@
 /**
- * Beautiful Email Templates for Skyline Cheats
+ * Beautiful Email Templates for Ring-0
  * 
  * Professional HTML email templates with consistent branding
  */
@@ -15,7 +15,7 @@ interface EmailTemplateData {
 }
 
 const BRAND_COLORS = {
-  primary: '#2563eb',
+  primary: '#6b7280',
   primaryDark: '#1e40af',
   background: '#0a0a0a',
   surface: '#1a1a1a',
@@ -196,20 +196,20 @@ export function createPasswordResetEmail(data: EmailTemplateData): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Reset Your Skyline Password</title>
+      <title>Reset Your Ring-0 Password</title>
       ${BASE_STYLES}
     </head>
     <body style="background-color: ${BRAND_COLORS.background}; padding: 20px 0;">
       <div class="container">
         <div class="header">
-          <h1 class="logo">🔥 Skyline Cheats</h1>
+          <h1 class="logo">🔥 Ring-0</h1>
         </div>
         
         <div class="content">
           <h2 class="greeting">Hi ${username}!</h2>
           
           <p class="message">
-            You requested a password reset for your Skyline account. No worries, it happens to the best of us!
+            You requested a password reset for your Ring-0 account. No worries, it happens to the best of us!
           </p>
           
           <p class="message">
@@ -240,11 +240,11 @@ export function createPasswordResetEmail(data: EmailTemplateData): string {
             Need help? Contact our support team anytime.
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/skylineggs" class="footer-link">Discord Support</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}" class="footer-link">Visit Store</a>
+            <a href="https://discord.gg/ring-0" class="footer-link">Discord Support</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://ring-0cheats.org'}" class="footer-link">Visit Store</a>
           </div>
           <p class="footer-text" style="margin-top: 16px;">
-            © 2025 Skyline Cheats. All rights reserved.
+            © 2025 Ring-0. All rights reserved.
           </p>
         </div>
       </div>
@@ -269,7 +269,7 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Your Skyline License Key</title>
+      <title>Your Ring-0 License Key</title>
       ${BASE_STYLES}
       <style>
         .success-icon {
@@ -378,7 +378,7 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
     <body style="background-color: ${BRAND_COLORS.background}; padding: 20px 0;">
       <div class="container">
         <div class="header">
-          <h1 class="logo">🔥 Skyline Cheats</h1>
+          <h1 class="logo">🔥 Ring-0</h1>
         </div>
         
         <div class="content">
@@ -476,13 +476,13 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
           </div>
           
           <div style="text-align: center; margin: 32px 0;">
-            <a href="https://discord.gg/skylineggs" class="discord-button">
+            <a href="https://discord.gg/ring-0" class="discord-button">
               💬 Join Discord Server
             </a>
           </div>
           
           <div style="text-align: center; margin: 24px 0;">
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/account" class="button">
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://ring-0cheats.org'}/account" class="button">
               📱 View My Account
             </a>
           </div>
@@ -503,12 +503,12 @@ export function createLicenseDeliveryEmail(data: EmailTemplateData): string {
             Need help getting started? Our community is here to help!
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/skylineggs" class="footer-link">Join Discord</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/guides" class="footer-link">Setup Guides</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/account" class="footer-link">My Account</a>
+            <a href="https://discord.gg/ring-0" class="footer-link">Join Discord</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://ring-0cheats.org'}/guides" class="footer-link">Setup Guides</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://ring-0cheats.org'}/account" class="footer-link">My Account</a>
           </div>
           <p class="footer-text" style="margin-top: 16px;">
-            © 2025 Skyline Cheats. All rights reserved.
+            © 2025 Ring-0. All rights reserved.
           </p>
         </div>
       </div>
@@ -526,20 +526,20 @@ export function createWelcomeEmail(data: EmailTemplateData): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Welcome to Skyline Cheats</title>
+      <title>Welcome to Ring-0</title>
       ${BASE_STYLES}
     </head>
     <body style="background-color: ${BRAND_COLORS.background}; padding: 20px 0;">
       <div class="container">
         <div class="header">
-          <h1 class="logo">🔥 Skyline Cheats</h1>
+          <h1 class="logo">🔥 Ring-0</h1>
         </div>
         
         <div class="content">
-          <h2 class="greeting">Welcome to Skyline, ${username}! 🎮</h2>
+          <h2 class="greeting">Welcome to Ring-0, ${username}! 🎮</h2>
           
           <p class="message">
-            Thanks for joining the Skyline community! You're now part of thousands of gamers who trust us for the best cheats and hacks.
+            Thanks for joining the Ring-0 community! You're now part of thousands of gamers who trust us for the best cheats and hacks.
           </p>
           
           <div class="info-box">
@@ -553,13 +553,13 @@ export function createWelcomeEmail(data: EmailTemplateData): string {
           </div>
           
           <div style="text-align: center; margin: 32px 0;">
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/store" class="button">
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://ring-0cheats.org'}/store" class="button">
               Browse Cheats
             </a>
           </div>
           
           <p class="message">
-            <strong>Why choose Skyline?</strong>
+            <strong>Why choose Ring-0?</strong>
           </p>
           <ul style="color: ${BRAND_COLORS.textMuted}; padding-left: 20px;">
             <li>🛡️ Undetected cheats with regular updates</li>
@@ -574,12 +574,12 @@ export function createWelcomeEmail(data: EmailTemplateData): string {
             Ready to dominate? Start browsing our cheats now!
           </p>
           <div class="footer-links">
-            <a href="https://discord.gg/skylineggs" class="footer-link">Discord</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/store" class="footer-link">Store</a>
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://skylinecheats.org'}/guides" class="footer-link">Guides</a>
+            <a href="https://discord.gg/ring-0" class="footer-link">Discord</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://ring-0cheats.org'}/store" class="footer-link">Store</a>
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://ring-0cheats.org'}/guides" class="footer-link">Guides</a>
           </div>
           <p class="footer-text" style="margin-top: 16px;">
-            © 2025 Skyline Cheats. All rights reserved.
+            © 2025 Ring-0. All rights reserved.
           </p>
         </div>
       </div>

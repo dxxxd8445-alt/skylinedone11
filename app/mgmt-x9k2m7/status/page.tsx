@@ -111,7 +111,7 @@ export default function AdminStatusPage() {
       case "active":
         return "text-green-400 bg-green-500/10 border-green-500/20";
       case "inactive":
-        return "text-blue-400 bg-blue-500/10 border-blue-500/20";
+        return "text-gray-400 bg-gray-500/10 border-gray-500/20";
       case "maintenance":
         return "text-yellow-400 bg-yellow-500/10 border-yellow-500/20";
       default:
@@ -123,7 +123,7 @@ export default function AdminStatusPage() {
     return (
       <AdminShell title="Product Status" subtitle="Manage product detection status">
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2563eb]" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6b7280]" />
         </div>
       </AdminShell>
     );
@@ -159,7 +159,7 @@ export default function AdminStatusPage() {
           <p className="text-white/50 mb-6">Add products to manage their status</p>
           <Button
             onClick={() => window.location.href = "/mgmt-x9k2m7/products"}
-            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+            className="bg-[#6b7280] hover:bg-[#9ca3af] text-white"
           >
             Go to Products
           </Button>
@@ -175,7 +175,7 @@ export default function AdminStatusPage() {
                 {/* Product Header */}
                 <div className="flex items-start gap-4 mb-6">
                   {/* Product Image */}
-                  <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-[#1a1a1a] border border-[#262626] flex-shrink-0 group-hover:border-[#2563eb]/30 transition-colors">
+                  <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-[#1a1a1a] border border-[#262626] flex-shrink-0 group-hover:border-[#6b7280]/30 transition-colors">
                     {product.image ? (
                       <Image
                         src={product.image}
@@ -192,7 +192,7 @@ export default function AdminStatusPage() {
 
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold text-white mb-1 truncate group-hover:text-[#2563eb] transition-colors">
+                    <h3 className="text-lg font-bold text-white mb-1 truncate group-hover:text-[#6b7280] transition-colors">
                       {product.name}
                     </h3>
                     <p className="text-sm text-white/50 mb-2">{product.game}</p>
@@ -210,7 +210,7 @@ export default function AdminStatusPage() {
                 {/* Status Change Buttons */}
                 <div className="space-y-2">
                   <p className="text-xs text-white/40 mb-3 flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full bg-[#2563eb]" />
+                    <span className="w-1 h-1 rounded-full bg-[#6b7280]" />
                     Quick Status Change
                   </p>
                   <div className="grid grid-cols-3 gap-2">
@@ -263,8 +263,8 @@ export default function AdminStatusPage() {
                       disabled={product.status === "inactive" || updating === product.id}
                       className={`relative px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
                         product.status === "inactive"
-                          ? "bg-blue-500/20 text-blue-400 border-2 border-blue-500/40 cursor-default shadow-lg shadow-blue-500/10"
-                          : "bg-[#111111] text-white/70 border-2 border-[#262626] hover:bg-blue-500/10 hover:text-blue-400 hover:border-blue-500/30 hover:scale-105"
+                          ? "bg-gray-500/20 text-gray-400 border-2 border-gray-500/40 cursor-default shadow-lg shadow-blue-500/10"
+                          : "bg-[#111111] text-white/70 border-2 border-[#262626] hover:bg-gray-500/10 hover:text-gray-400 hover:border-gray-500/30 hover:scale-105"
                       } ${updating === product.id ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
                       {updating === product.id && product.status !== "inactive" ? (
@@ -276,7 +276,7 @@ export default function AdminStatusPage() {
                         </div>
                       )}
                       {product.status === "inactive" && (
-                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-400 rounded-full animate-pulse" />
+                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-gray-400 rounded-full animate-pulse" />
                       )}
                     </button>
                   </div>
@@ -295,7 +295,7 @@ export default function AdminStatusPage() {
       {/* Status Legend */}
       <div className="mt-8 bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6">
         <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
-          <div className="w-1 h-4 bg-[#2563eb] rounded-full" />
+          <div className="w-1 h-4 bg-[#6b7280] rounded-full" />
           Status Guide
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -318,8 +318,8 @@ export default function AdminStatusPage() {
             </div>
           </div>
           <div className="flex items-start gap-3 p-3 bg-[#111111] rounded-lg border border-[#262626]">
-            <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-              <AlertCircle className="w-5 h-5 text-blue-400" />
+            <div className="w-10 h-10 rounded-lg bg-gray-500/10 border border-gray-500/20 flex items-center justify-center flex-shrink-0">
+              <AlertCircle className="w-5 h-5 text-gray-400" />
             </div>
             <div>
               <p className="text-sm font-medium text-white mb-1">Offline (Detected)</p>
@@ -330,9 +330,9 @@ export default function AdminStatusPage() {
       </div>
 
       {/* Quick Tip */}
-      <div className="mt-4 bg-gradient-to-r from-[#2563eb]/10 to-transparent border border-[#2563eb]/20 rounded-xl p-4">
+      <div className="mt-4 bg-gradient-to-r from-[#6b7280]/10 to-transparent border border-[#6b7280]/20 rounded-xl p-4">
         <p className="text-sm text-white/70">
-          💡 <span className="font-semibold">Tip:</span> Status changes are reflected immediately on your public status page at <code className="px-2 py-0.5 bg-[#0a0a0a] rounded text-[#2563eb]">/status</code>
+          💡 <span className="font-semibold">Tip:</span> Status changes are reflected immediately on your public status page at <code className="px-2 py-0.5 bg-[#0a0a0a] rounded text-[#6b7280]">/status</code>
         </p>
       </div>
     </AdminShell>

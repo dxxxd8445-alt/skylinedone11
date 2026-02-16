@@ -17,7 +17,7 @@ Ensured all required columns exist in `team_members` table:
 ### 2. Branding Update
 **File:** `app/staff/accept-invite/page.tsx`
 
-Changed "Welcome to Magma" → "Welcome to Skyline"
+Changed "Welcome to Magma" → "Welcome to Ring-0"
 
 ---
 
@@ -33,8 +33,8 @@ Changed "Welcome to Magma" → "Welcome to Skyline"
 Make sure these are set in `.env.local`:
 ```env
 RESEND_API_KEY=re_xxxxxxxxxxxxx
-RESEND_FROM_EMAIL=Skyline <noreply@yourdomain.com>
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+RESEND_FROM_EMAIL=Ring-0 <noreply@yourdomain.com>
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 ```
 
 ### Step 3: Deploy Code Changes
@@ -57,7 +57,7 @@ The code fix is already in place, just deploy to production.
    - Stores in database with status "pending"
 
 3. **Email sent to team member**
-   - Subject: "You're invited to join Skyline Admin Team"
+   - Subject: "You're invited to join Ring-0 Admin Team"
    - Contains invitation link with token
    - Shows assigned permissions
 
@@ -98,7 +98,7 @@ The code fix is already in place, just deploy to production.
 ### Email Security:
 - ✅ Sent via Resend API
 - ✅ Professional HTML templates
-- ✅ Branded with Skyline
+- ✅ Branded with Ring-0
 - ✅ Includes permission details
 
 ---
@@ -128,7 +128,7 @@ The code fix is already in place, just deploy to production.
 ## 📧 Email Templates
 
 ### Invitation Email:
-- **Subject:** "You're invited to join Skyline Admin Team"
+- **Subject:** "You're invited to join Ring-0 Admin Team"
 - **Content:**
   - Welcome message
   - Username
@@ -137,7 +137,7 @@ The code fix is already in place, just deploy to production.
   - 7-day expiration notice
 
 ### Reminder Email:
-- **Subject:** "Reminder: Join Skyline Admin Team"
+- **Subject:** "Reminder: Join Ring-0 Admin Team"
 - **Content:**
   - Reminder message
   - Accept button

@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create Stripe checkout session
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://skylinecheats.org";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ring-0cheats.org";
     
     const lineItems = items.map(item => ({
       price_data: {

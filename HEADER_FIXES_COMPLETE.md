@@ -57,7 +57,7 @@
 - **STATUS**: `/status` - Product status page
 - **GUIDES**: `/guides` - User guides
 - **REVIEWS**: `/reviews` - Customer reviews
-- **SUPPORT**: `https://discord.gg/skylineggs` - Discord support
+- **SUPPORT**: `https://discord.gg/ring-0` - Discord support
 
 ## ?? FINAL VERIFICATION
 
@@ -77,7 +77,7 @@
 
 ## ?? READY FOR USE
 
-Your Skyline Store header is now fully functional with:
+Your Ring-0 Store header is now fully functional with:
 - ? Visible HOME link in navigation
 - ? Working Magma logo that redirects to homepage
 - ? Complete navigation structure

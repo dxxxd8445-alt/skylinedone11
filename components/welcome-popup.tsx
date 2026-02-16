@@ -46,13 +46,13 @@ export function WelcomePopup() {
   return (
     <Dialog open={showWelcome} onOpenChange={() => {}}>
       <DialogContent 
-        className="bg-gradient-to-br from-[#1a1f3a] via-[#0f1629] to-[#1a1f3a] border-2 border-[#3b82f6]/50 text-white max-w-2xl overflow-hidden"
+        className="bg-gradient-to-br from-[#1a1f3a] via-[#0f1629] to-[#1a1f3a] border-2 border-[#9ca3af]/50 text-white max-w-2xl overflow-hidden"
         hideCloseButton
       >
         {/* Animated background effects */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#3b82f6]/10 rounded-full blur-3xl animate-pulse delay-1000" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#6b7280]/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#9ca3af]/10 rounded-full blur-3xl animate-pulse delay-1000" />
         </div>
         
         {/* Close button */}
@@ -69,14 +69,14 @@ export function WelcomePopup() {
           <div className="flex justify-center mb-8">
             <div className="relative">
               {/* Outer glow */}
-              <div className="absolute inset-0 bg-[#3b82f6]/40 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute inset-0 bg-[#9ca3af]/40 rounded-full blur-3xl animate-pulse" />
               {/* Icon container */}
-              <div className="relative w-28 h-28 rounded-full bg-[#3b82f6] flex items-center justify-center shadow-2xl shadow-[#3b82f6]/60 animate-float">
+              <div className="relative w-28 h-28 rounded-full bg-[#9ca3af] flex items-center justify-center shadow-2xl shadow-[#9ca3af]/60 animate-float">
                 <Shield className="w-14 h-14 text-white" />
               </div>
               {/* Sparkle effects */}
-              <Sparkles className="absolute -top-2 -right-2 w-7 h-7 text-[#3b82f6] animate-pulse" />
-              <Sparkles className="absolute -bottom-1 -left-1 w-5 h-5 text-[#2563eb] animate-pulse delay-500" />
+              <Sparkles className="absolute -top-2 -right-2 w-7 h-7 text-[#9ca3af] animate-pulse" />
+              <Sparkles className="absolute -bottom-1 -left-1 w-5 h-5 text-[#6b7280] animate-pulse delay-500" />
             </div>
           </div>
 
@@ -93,7 +93,7 @@ export function WelcomePopup() {
             {/* Primary CTA - CHECK IT OUT (left side, blue button) */}
             <Button
               onClick={handleCheckOut}
-              className="flex-1 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#3b82f6]/40 text-sm relative overflow-hidden group"
+              className="flex-1 bg-[#9ca3af] hover:bg-[#6b7280] text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-[#9ca3af]/40 text-sm relative overflow-hidden group"
             >
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -114,7 +114,7 @@ export function WelcomePopup() {
         </div>
 
         {/* Animated border glow */}
-        <div className="absolute inset-0 rounded-lg border-2 border-[#3b82f6]/30 pointer-events-none animate-pulse" />
+        <div className="absolute inset-0 rounded-lg border-2 border-[#9ca3af]/30 pointer-events-none animate-pulse" />
       </DialogContent>
 
       <style jsx>{`

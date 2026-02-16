@@ -35,7 +35,7 @@ For each active session, you can see:
 ## 🎨 Visual Design
 
 The Active Sessions card features:
-- **Blue gradient background** matching your Skyline theme
+- **Blue gradient background** matching your Ring-0 theme
 - **Role-based icons**: Shield for Admin, Users for Staff
 - **Color-coded badges**: Blue for roles
 - **Hover effects** on session cards

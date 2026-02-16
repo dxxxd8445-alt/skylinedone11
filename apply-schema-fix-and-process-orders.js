@@ -125,7 +125,7 @@ async function processPendingSession(session) {
       items = JSON.parse(session.items || '[]');
     } catch (e) {
       items = [{
-        productName: 'Skyline Cheat',
+        productName: 'Ring-0 Cheat',
         game: 'Unknown',
         duration: '24 Hours',
         price: session.total,
@@ -148,7 +148,7 @@ async function processPendingSession(session) {
       payment_method: 'stripe',
       payment_intent_id: `pi_${session.session_id.slice(-10)}`,
       stripe_session_id: session.session_id,
-      product_name: firstItem.productName || 'Skyline Cheat',
+      product_name: firstItem.productName || 'Ring-0 Cheat',
       duration: firstItem.duration || '24 Hours',
       coupon_code: session.coupon_code || null,
       coupon_discount_amount: session.coupon_discount_amount || null,
@@ -181,7 +181,7 @@ async function processPendingSession(session) {
         order_id: order.id,
         product_id: item.productId || null,
         variant_id: item.variantId || null,
-        product_name: item.productName || 'Skyline Cheat',
+        product_name: item.productName || 'Ring-0 Cheat',
         customer_email: session.customer_email,
         status: 'active',
         expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),

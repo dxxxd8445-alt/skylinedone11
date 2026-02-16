@@ -50,7 +50,7 @@ Select a payment method:
 ### Step 4: Verify Dashboard
 After successful registration, you should see:
 - ✅ Your unique affiliate code
-- ✅ Your affiliate link (https://skylinecheats.org?ref=YOUR_CODE)
+- ✅ Your affiliate link (https://ring-0cheats.org?ref=YOUR_CODE)
 - ✅ Commission rate (5%)
 - ✅ Stats dashboard
 - ✅ Recent referrals table
@@ -104,7 +104,7 @@ After successful registration, you should see:
 ## 🔗 AFFILIATE LINK FORMAT
 
 ```
-https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
+https://ring-0cheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 **Commission Rate**: 5% per sale

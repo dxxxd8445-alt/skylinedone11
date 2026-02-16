@@ -45,7 +45,7 @@ export function Hero() {
 
       {/* Animated glow effect with mouse tracking */}
       <div 
-        className="absolute w-[1000px] h-[500px] bg-[#2563eb]/10 blur-[120px] rounded-full transition-all duration-1000 ease-out"
+        className="absolute w-[1000px] h-[500px] bg-[#6b7280]/10 blur-[120px] rounded-full transition-all duration-1000 ease-out"
         style={{
           left: `${mousePosition.x}%`,
           top: `${mousePosition.y}%`,
@@ -54,7 +54,7 @@ export function Hero() {
       />
       
       {/* Secondary ambient glow */}
-      <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-[#2563eb]/5 blur-[100px] rounded-full animate-pulse" 
+      <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-[#6b7280]/5 blur-[100px] rounded-full animate-pulse" 
         style={{ animationDuration: '4s' }}
       />
 
@@ -63,7 +63,7 @@ export function Hero() {
         {particles.map((particle, i) => (
           <div
             key={i}
-            className="absolute bg-[#2563eb]/40 rounded-full animate-float backdrop-blur-sm"
+            className="absolute bg-[#6b7280]/40 rounded-full animate-float backdrop-blur-sm"
             style={{
               left: `${particle.left}%`,
               top: `${particle.top}%`,
@@ -80,7 +80,7 @@ export function Hero() {
       {/* Diagonal grid lines for depth */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(45deg, #2563eb 1px, transparent 1px), linear-gradient(-45deg, #2563eb 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(45deg, #6b7280 1px, transparent 1px), linear-gradient(-45deg, #6b7280 1px, transparent 1px)`,
           backgroundSize: '100px 100px',
         }} />
       </div>
@@ -100,12 +100,12 @@ export function Hero() {
           A Powerful, Instant Solution{" "}
           <br className="hidden sm:block" />
           to{" "}
-          <span className="text-[#2563eb] relative inline-block group">
+          <span className="text-[#6b7280] relative inline-block group">
             Play Without Limits
             {/* Animated underline */}
-            <span className="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-1 sm:h-1.5 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-transparent rounded-full transform origin-left transition-transform duration-700 group-hover:scale-x-110" />
+            <span className="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-1 sm:h-1.5 bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-transparent rounded-full transform origin-left transition-transform duration-700 group-hover:scale-x-110" />
             {/* Glow effect */}
-            <span className="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-1 sm:h-1.5 bg-gradient-to-r from-[#2563eb] via-[#3b82f6] to-transparent rounded-full blur-sm opacity-50" />
+            <span className="absolute -bottom-2 sm:-bottom-3 left-0 w-full h-1 sm:h-1.5 bg-gradient-to-r from-[#6b7280] via-[#9ca3af] to-transparent rounded-full blur-sm opacity-50" />
           </span>
           .
         </h1>
@@ -133,7 +133,7 @@ export function Hero() {
           <div className="flex justify-center mb-6 sm:mb-8">
             <Link
               href="/store"
-              className="group relative bg-[#2563eb] text-white font-semibold px-8 sm:px-10 py-4 sm:py-4 rounded-full flex items-center gap-3 text-base sm:text-lg transition-all duration-500 hover:scale-105 active:scale-95 overflow-hidden"
+              className="group relative bg-[#6b7280] text-white font-semibold px-8 sm:px-10 py-4 sm:py-4 rounded-full flex items-center gap-3 text-base sm:text-lg transition-all duration-500 hover:scale-105 active:scale-95 overflow-hidden"
             >
               {/* Animated background shimmer */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
@@ -143,27 +143,27 @@ export function Hero() {
               <ArrowRight className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-2" />
               
               {/* Glow effect */}
-              <div className="absolute -inset-1 bg-[#2563eb] blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
+              <div className="absolute -inset-1 bg-[#6b7280] blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500" />
             </Link>
           </div>
 
           {/* Enhanced video container */}
           <div className="relative group">
             {/* Multiple layered glows for depth */}
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-[#2563eb]/20 via-[#2563eb]/10 to-[#2563eb]/20 blur-2xl opacity-50 group-hover:opacity-100 transition-all duration-700" />
-            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-[#2563eb]/10 to-[#2563eb]/10 blur-lg opacity-50 group-hover:opacity-80 transition-all duration-700" />
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-[#6b7280]/20 via-[#6b7280]/10 to-[#6b7280]/20 blur-2xl opacity-50 group-hover:opacity-100 transition-all duration-700" />
+            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-[#6b7280]/10 to-[#6b7280]/10 blur-lg opacity-50 group-hover:opacity-80 transition-all duration-700" />
             
             {/* Video container with enhanced border animation */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border-2 border-[#262626] group-hover:border-[#2563eb]/60 transition-all duration-700 transform group-hover:scale-[1.02]">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/50 border-2 border-[#262626] group-hover:border-[#6b7280]/60 transition-all duration-700 transform group-hover:scale-[1.02]">
               {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#2563eb]/50 rounded-tl-2xl transition-all duration-500 group-hover:w-24 group-hover:h-24" />
-              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#2563eb]/50 rounded-br-2xl transition-all duration-500 group-hover:w-24 group-hover:h-24" />
+              <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#6b7280]/50 rounded-tl-2xl transition-all duration-500 group-hover:w-24 group-hover:h-24" />
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#6b7280]/50 rounded-br-2xl transition-all duration-500 group-hover:w-24 group-hover:h-24" />
               
               {/* YouTube Embed */}
               <div className="relative aspect-video bg-black">
                 <iframe
                   src="https://www.youtube.com/embed/n3qSwEew7Ec?rel=0&modestbranding=1"
-                  title="I Used These $4.95 R6 Cheats... | Skyline Cheats"
+                  title="I Used These $4.95 R6 Cheats... | Ring-0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   className="absolute inset-0 w-full h-full"
@@ -172,7 +172,7 @@ export function Hero() {
               
               {/* Scan line effect */}
               <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-20 transition-opacity duration-500">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#2563eb]/10 to-transparent animate-scan" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#6b7280]/10 to-transparent animate-scan" />
               </div>
             </div>
           </div>

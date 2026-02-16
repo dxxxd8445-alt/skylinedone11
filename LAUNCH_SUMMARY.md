@@ -1,4 +1,4 @@
-# 🎉 Skyline Cheats - Launch Summary
+# 🎉 Ring-0 - Launch Summary
 
 ## What Was Completed
 
@@ -10,7 +10,7 @@
 **Implemented:**
 - **MoneyMotion** as primary card payment processor
   - API Key: `mk_live_DU5DYpjWqwjf96CY1mG7haGMi1Ut8x6`
-  - Webhook: `https://skylinecheats.org/api/webhooks/moneymotion`
+  - Webhook: `https://ring-0cheats.org/api/webhooks/moneymotion`
   - Automatic order processing
   - License key generation
   - Email notifications

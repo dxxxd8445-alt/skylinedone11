@@ -18,7 +18,7 @@ async function testDiscordWebhook() {
     // Test webhook with a simple message
     const testMessage = {
       embeds: [{
-        title: "🧪 Test Message from Skyline Cheats Admin",
+        title: "🧪 Test Message from Ring-0 Admin",
         description: "This is a test message to verify the Discord webhook is working correctly.",
         color: 0xdc2626, // Red color matching your theme
         fields: [
@@ -34,8 +34,8 @@ async function testDiscordWebhook() {
           }
         ],
         footer: {
-          text: "Skyline Cheats Admin Panel",
-          icon_url: "https://skylinecheats.org/icon.svg"
+          text: "Ring-0 Admin Panel",
+          icon_url: "https://ring-0cheats.org/icon.svg"
         },
         timestamp: new Date().toISOString()
       }]
@@ -96,8 +96,8 @@ async function testDiscordWebhook() {
             }
           ],
           footer: {
-            text: "Skyline Cheats Order System",
-            icon_url: "https://skylinecheats.org/icon.svg"
+            text: "Ring-0 Order System",
+            icon_url: "https://ring-0cheats.org/icon.svg"
           },
           timestamp: new Date().toISOString()
         }]

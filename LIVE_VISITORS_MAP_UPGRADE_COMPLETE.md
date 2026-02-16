@@ -58,7 +58,7 @@ The Live Visitors page has been successfully upgraded from a canvas-based globe 
 
 ### Map Styling
 - ✅ Dark theme background (#0a0a0a)
-- ✅ Red accent color (#2563eb) for markers
+- ✅ Red accent color (#6b7280) for markers
 - ✅ Custom popup styling
 - ✅ Rounded corners
 - ✅ Smooth animations

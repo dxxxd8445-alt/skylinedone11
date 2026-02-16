@@ -46,8 +46,8 @@ if (hasNiceOrganization) {
 
 // Test 3: Check Sign Up button has gradient styling
 console.log('\n3. Checking Sign Up button styling...');
-const hasGradientStyling = headerContent.includes('bg-gradient-to-r from-[#2563eb] to-[#3b82f6]') &&
-                          headerContent.includes('shadow-lg shadow-[#2563eb]/20');
+const hasGradientStyling = headerContent.includes('bg-gradient-to-r from-[#6b7280] to-[#9ca3af]') &&
+                          headerContent.includes('shadow-lg shadow-[#6b7280]/20');
 
 if (hasGradientStyling) {
   console.log('✅ Sign Up button has attractive gradient styling');
@@ -59,7 +59,7 @@ if (hasGradientStyling) {
 console.log('\n4. Checking Sign In button styling...');
 const hasSignInStyling = headerContent.includes('bg-[#262626]') &&
                         headerContent.includes('border border-[#333333]') &&
-                        headerContent.includes('hover:border-[#2563eb]/30');
+                        headerContent.includes('hover:border-[#6b7280]/30');
 
 if (hasSignInStyling) {
   console.log('✅ Sign In button has proper styling with borders and hover effects');
@@ -70,7 +70,7 @@ if (hasSignInStyling) {
 // Test 5: Check mobile menu button is properly styled
 console.log('\n5. Checking mobile menu button...');
 const hasMobileMenuStyling = headerContent.includes('border border-[#262626]') &&
-                            headerContent.includes('hover:border-[#2563eb]/30') &&
+                            headerContent.includes('hover:border-[#6b7280]/30') &&
                             headerContent.includes('min-h-[44px] min-w-[44px]');
 
 if (hasMobileMenuStyling) {

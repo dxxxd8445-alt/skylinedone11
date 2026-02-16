@@ -113,9 +113,9 @@ export function AuthDropdown() {
       <div ref={dropdownRef} className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="group flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:from-[#262626] hover:to-[#1a1a1a] border border-[#262626] hover:border-[#2563eb]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#2563eb]/20"
+          className="group flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] hover:from-[#262626] hover:to-[#1a1a1a] border border-[#262626] hover:border-[#6b7280]/50 transition-all duration-300 hover:shadow-lg hover:shadow-[#6b7280]/20"
         >
-          <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center text-white text-sm font-bold overflow-hidden ring-2 ring-[#2563eb]/30 group-hover:ring-[#2563eb]/60 transition-all">
+          <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center text-white text-sm font-bold overflow-hidden ring-2 ring-[#6b7280]/30 group-hover:ring-[#6b7280]/60 transition-all">
             {user.avatarUrl ? (
               <Image
                 src={user.avatarUrl || "/placeholder.svg"}
@@ -138,10 +138,10 @@ export function AuthDropdown() {
         {isOpen && (
           <div className="absolute top-full right-0 mt-2 w-64 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
             {/* User Info Header */}
-            <div className="relative px-4 py-4 border-b border-[#1a1a1a] bg-gradient-to-br from-[#2563eb]/10 to-transparent">
-              <div className="absolute top-0 right-0 w-20 h-20 bg-[#2563eb]/10 rounded-full blur-2xl" />
+            <div className="relative px-4 py-4 border-b border-[#1a1a1a] bg-gradient-to-br from-[#6b7280]/10 to-transparent">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#6b7280]/10 rounded-full blur-2xl" />
               <div className="relative flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center text-white font-bold overflow-hidden ring-2 ring-[#2563eb]/30">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center text-white font-bold overflow-hidden ring-2 ring-[#6b7280]/30">
                   {user.avatarUrl ? (
                     <Image
                       src={user.avatarUrl || "/placeholder.svg"}
@@ -168,8 +168,8 @@ export function AuthDropdown() {
                 onClick={() => setIsOpen(false)}
                 className="group flex items-center gap-3 px-3 py-2.5 text-white/70 hover:text-white hover:bg-[#1a1a1a] rounded-lg transition-all duration-200"
               >
-                <div className="w-8 h-8 rounded-lg bg-[#2563eb]/10 flex items-center justify-center group-hover:bg-[#2563eb]/20 transition-colors">
-                  <User className="w-4 h-4 text-[#2563eb]" />
+                <div className="w-8 h-8 rounded-lg bg-[#6b7280]/10 flex items-center justify-center group-hover:bg-[#6b7280]/20 transition-colors">
+                  <User className="w-4 h-4 text-[#6b7280]" />
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-medium">My Account</p>
@@ -186,10 +186,10 @@ export function AuthDropdown() {
                     description: "See you next time!",
                   });
                 }}
-                className="group w-full flex items-center gap-3 px-3 py-2.5 text-white/70 hover:text-[#2563eb] hover:bg-blue-500/10 rounded-lg transition-all duration-200"
+                className="group w-full flex items-center gap-3 px-3 py-2.5 text-white/70 hover:text-[#6b7280] hover:bg-gray-500/10 rounded-lg transition-all duration-200"
               >
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
-                  <LogOut className="w-4 h-4 text-blue-400" />
+                <div className="w-8 h-8 rounded-lg bg-gray-500/10 flex items-center justify-center group-hover:bg-gray-500/20 transition-colors">
+                  <LogOut className="w-4 h-4 text-gray-400" />
                 </div>
                 <div className="flex-1 text-left">
                   <p className="text-sm font-medium">Sign Out</p>
@@ -211,20 +211,20 @@ export function AuthDropdown() {
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/95 backdrop-blur-xl animate-in fade-in duration-300">
           {/* Animated background */}
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2563eb]/20 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#3b82f6]/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#2563eb]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6b7280]/20 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#9ca3af]/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#6b7280]/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
           </div>
 
           {/* Loading content */}
           <div className="relative z-10 text-center">
             {/* Animated logo/icon */}
             <div className="relative w-24 h-24 mx-auto mb-8">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] animate-spin" style={{ animationDuration: "3s" }}>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#6b7280] to-[#9ca3af] animate-spin" style={{ animationDuration: "3s" }}>
                 <div className="absolute inset-2 rounded-full bg-black" />
               </div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Shield className="w-12 h-12 text-[#2563eb] animate-pulse" />
+                <Shield className="w-12 h-12 text-[#6b7280] animate-pulse" />
               </div>
             </div>
 
@@ -238,14 +238,14 @@ export function AuthDropdown() {
 
             {/* Loading dots */}
             <div className="flex items-center justify-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#2563eb] animate-bounce" />
-              <div className="w-2 h-2 rounded-full bg-[#2563eb] animate-bounce" style={{ animationDelay: "0.2s" }} />
-              <div className="w-2 h-2 rounded-full bg-[#2563eb] animate-bounce" style={{ animationDelay: "0.4s" }} />
+              <div className="w-2 h-2 rounded-full bg-[#6b7280] animate-bounce" />
+              <div className="w-2 h-2 rounded-full bg-[#6b7280] animate-bounce" style={{ animationDelay: "0.2s" }} />
+              <div className="w-2 h-2 rounded-full bg-[#6b7280] animate-bounce" style={{ animationDelay: "0.4s" }} />
             </div>
 
             {/* Progress bar */}
             <div className="mt-8 w-64 h-1 bg-white/10 rounded-full overflow-hidden mx-auto">
-              <div className="h-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] animate-loading-bar" />
+              <div className="h-full bg-gradient-to-r from-[#6b7280] to-[#9ca3af] animate-loading-bar" />
             </div>
           </div>
         </div>
@@ -271,7 +271,7 @@ export function AuthDropdown() {
             <div className="absolute top-full left-0 mt-2 w-96 bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#1a1a1a] rounded-xl shadow-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
           {/* Enhanced Tabs */}
           <div className="relative flex border-b border-[#1a1a1a]">
-            <div className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] transition-all duration-300"
+            <div className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] transition-all duration-300"
               style={{
                 width: "50%",
                 transform: activeTab === "signup" ? "translateX(100%)" : "translateX(0)"
@@ -290,7 +290,7 @@ export function AuthDropdown() {
             >
               <span className="relative z-10">Sign In</span>
               {activeTab === "signin" && (
-                <div className="absolute inset-0 bg-[#2563eb]/5" />
+                <div className="absolute inset-0 bg-[#6b7280]/5" />
               )}
             </button>
             <button
@@ -306,7 +306,7 @@ export function AuthDropdown() {
             >
               <span className="relative z-10">Sign Up</span>
               {activeTab === "signup" && (
-                <div className="absolute inset-0 bg-[#2563eb]/5" />
+                <div className="absolute inset-0 bg-[#6b7280]/5" />
               )}
             </button>
           </div>
@@ -326,7 +326,7 @@ export function AuthDropdown() {
 
             {/* Error Message */}
             {error && (
-              <div className="mb-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-blue-400 text-sm flex items-start gap-2 animate-in fade-in slide-in-from-top-1 duration-200">
+              <div className="mb-4 p-3 bg-gray-500/10 border border-gray-500/30 rounded-lg text-gray-400 text-sm flex items-start gap-2 animate-in fade-in slide-in-from-top-1 duration-200">
                 <Shield className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span>{error}</span>
               </div>
@@ -338,14 +338,14 @@ export function AuthDropdown() {
                 <div className="group">
                   <label className="block text-white/70 text-sm font-medium mb-2">Username</label>
                   <div className="relative">
-                    <UserCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within:text-[#2563eb] transition-colors" />
+                    <UserCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within:text-[#6b7280] transition-colors" />
                     <input
                       type="text"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       placeholder="Choose a username"
                       required
-                      className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white text-sm placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                      className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white text-sm placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                     />
                   </div>
                 </div>
@@ -355,14 +355,14 @@ export function AuthDropdown() {
               <div className="group">
                 <label className="block text-white/70 text-sm font-medium mb-2">Email Address</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within:text-[#2563eb] transition-colors" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within:text-[#6b7280] transition-colors" />
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
                     required
-                    className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white text-sm placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white text-sm placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                   />
                 </div>
               </div>
@@ -371,14 +371,14 @@ export function AuthDropdown() {
               <div className="group">
                 <label className="block text-white/70 text-sm font-medium mb-2">Password</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within:text-[#2563eb] transition-colors" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40 group-focus-within:text-[#6b7280] transition-colors" />
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white text-sm placeholder:text-white/40 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#2563eb]/20 transition-all"
+                    className="w-full pl-11 pr-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white text-sm placeholder:text-white/40 focus:border-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#6b7280]/20 transition-all"
                   />
                 </div>
                 {activeTab === "signup" && (
@@ -394,7 +394,7 @@ export function AuthDropdown() {
                     id="remember"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 mt-0.5 rounded border-[#262626] bg-[#0a0a0a] text-[#2563eb] focus:ring-[#2563eb] focus:ring-offset-0"
+                    className="w-4 h-4 mt-0.5 rounded border-[#262626] bg-[#0a0a0a] text-[#6b7280] focus:ring-[#6b7280] focus:ring-offset-0"
                   />
                   <label htmlFor="remember" className="flex-1 cursor-pointer">
                     <span className="text-white text-sm">Remember me</span>
@@ -407,7 +407,7 @@ export function AuthDropdown() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="group relative w-full py-3.5 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white text-sm font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#2563eb]/50 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+                className="group relative w-full py-3.5 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white text-sm font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#6b7280]/50 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 <span className="relative flex items-center justify-center gap-2">
@@ -429,7 +429,7 @@ export function AuthDropdown() {
               {activeTab === "signin" && (
                 <Link
                   href="/forgot-password"
-                  className="block text-center text-[#2563eb] hover:text-[#3b82f6] text-sm font-medium transition-colors"
+                  className="block text-center text-[#6b7280] hover:text-[#9ca3af] text-sm font-medium transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   Forgot your password?
@@ -467,7 +467,7 @@ export function AuthDropdown() {
             setIsOpen(true);
             setError("");
           }}
-          className="px-4 py-2 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#2563eb]/50"
+          className="px-4 py-2 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-[#6b7280]/50"
         >
           Sign Up
         </button>

@@ -82,7 +82,7 @@ async function completeSetup() {
     const { error: settingsError } = await supabase
       .from('settings')
       .upsert([
-        { key: 'site_name', value: '"Skyline Store"', description: 'Website name' },
+        { key: 'site_name', value: '"Ring-0 Store"', description: 'Website name' },
         { key: 'site_description', value: '"Premium gaming software and cheats"', description: 'Website description' },
         { key: 'maintenance_mode', value: 'false', description: 'Enable/disable maintenance mode' },
         { key: 'max_licenses_per_order', value: '5', description: 'Maximum licenses per order' },

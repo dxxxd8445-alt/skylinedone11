@@ -107,7 +107,6 @@ export function Header() {
   }, [mobileMenuOpen]);
 
   const navItems = [
-    { icon: null, label: "HOME", href: "/", isLogo: true },
     { icon: Home, label: "HOME", href: "/" },
     { icon: Store, label: t("nav_store"), href: "/store" },
     { icon: BarChart3, label: t("nav_status"), href: "/status" },
@@ -116,7 +115,7 @@ export function Header() {
     {
       icon: Shield,
       label: t("nav_support"),
-      href: "https://discord.gg/skylineggs",
+      href: "https://discord.gg/ring-0",
       external: true,
     },
   ];
@@ -221,23 +220,10 @@ export function Header() {
     <header className="fixed left-0 right-0 z-[9998] bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#1a1a1a]" style={{ top: 'var(--announcement-height, 0px)' }}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 gap-3 sm:gap-6">
-          {/* Logo - Mobile Optimized */}
-          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-            <div className="relative transition-transform duration-300 group-hover:scale-110">
-              <Image
-                src="/images/magma-logo.png"
-                alt="Skyline Cheats"
-                width={300}
-                height={80}
-                className="h-5 sm:h-6 md:h-7 lg:h-8 w-auto transition-all duration-300 group-hover:drop-shadow-[0_0_14px_rgba(37,99,235,0.6)]"
-                priority
-              />
-            </div>
-          </Link>
-
+          
           {/* Mobile Search Bar - Always Visible */}
           <div ref={searchRef} className="relative flex-1 max-w-xs sm:max-w-sm lg:hidden">
-            <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#2563eb]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
+            <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#6b7280]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
               <Search className="w-4 h-4 text-white/50 transition-colors duration-300 flex-shrink-0" />
               <input
                 type="text"
@@ -310,28 +296,28 @@ export function Header() {
 
           {/* Navigation - Desktop */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
-            {navItems.filter(item => !item.isLogo && item.label !== "HOME").map((item, i) =>
+            {navItems.map((item, i) =>
               item.external ? (
                 <a
                   key={i}
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-white/70 hover:text-[#2563eb] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-[#6b7280] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
                 >
                   {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
                   <span>{item.label}</span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#2563eb] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#6b7280] transition-all duration-300 group-hover:w-full" />
                 </a>
               ) : (
                 <Link
                   key={i}
                   href={item.href}
-                  className="flex items-center gap-1.5 text-white/70 hover:text-[#2563eb] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-[#6b7280] text-xs xl:text-sm font-semibold transition-all duration-300 relative group whitespace-nowrap min-h-[44px] px-2 py-2"
                 >
                   {item.icon && <item.icon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />}
                   <span>{item.label}</span>
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#2563eb] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#6b7280] transition-all duration-300 group-hover:w-full" />
                 </Link>
               )
             )}
@@ -359,7 +345,7 @@ export function Header() {
 
             {/* Desktop Search */}
             <div ref={searchRef} className="relative hidden lg:block">
-              <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#2563eb]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
+              <div className="flex items-center gap-2 bg-[#1a1a1a] rounded-lg px-3 py-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-[#6b7280]/50 focus-within:bg-[#1a1a1a]/80 hover:bg-[#1f1f1f]">
                 <Search className="w-4 h-4 text-white/50 transition-colors duration-300" />
                 <input
                   type="text"
@@ -439,7 +425,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
+                        className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#6b7280]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
                         aria-label="Currency"
                         type="button"
                         suppressHydrationWarning
@@ -482,7 +468,7 @@ export function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
-                      className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#2563eb]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
+                      className="h-10 px-3 rounded-lg bg-[#1a1a1a] text-white/70 hover:text-white hover:bg-[#262626] border border-[#262626] hover:border-[#6b7280]/30 transition-all duration-300 text-xs font-semibold min-h-[44px]"
                       aria-label="Language"
                       type="button"
                       suppressHydrationWarning
@@ -549,20 +535,7 @@ export function Header() {
           {/* Menu Content */}
           <div className="w-full h-full flex flex-col">
             {/* Menu Header - Compact */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a] bg-[#0a0a0a]/90">
-              <Link 
-                href="/" 
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2"
-              >
-                <Image
-                  src="/images/magma-logo.png"
-                  alt="Skyline Cheats"
-                  width={200}
-                  height={53}
-                  className="h-6 w-auto"
-                />
-              </Link>
+            <div className="flex items-center justify-end px-4 py-3 border-b border-[#1a1a1a] bg-[#0a0a0a]/90">
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-center w-10 h-10 rounded-lg border border-[#262626] text-white/70 hover:text-white hover:bg-[#1a1a1a] transition-all min-h-[44px] min-w-[44px]"
@@ -594,7 +567,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#2563eb]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
+                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#6b7280]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
                         type="button"
                         aria-label="Currency"
                         suppressHydrationWarning
@@ -637,7 +610,7 @@ export function Header() {
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <button
-                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#2563eb]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
+                        className="w-full h-12 px-4 rounded-xl bg-[#1a1a1a] text-white/80 border border-[#262626] hover:border-[#6b7280]/30 hover:bg-[#262626] transition-all text-sm font-semibold min-h-[44px]"
                         type="button"
                         aria-label="Language"
                         suppressHydrationWarning
@@ -683,7 +656,7 @@ export function Header() {
             <nav className="flex-1 px-4 py-4 overflow-y-auto">
               <div className="space-y-2">
                 {/* Main Navigation */}
-                {navItems.filter(item => !item.isLogo).map((item, i) => (
+                {navItems.map((item, i) => (
                   <div key={i}>
                     {item.external ? (
                       <a
@@ -691,11 +664,11 @@ export function Header() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#2563eb]/20"
+                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#6b7280]/20"
                       >
                         {item.icon && (
-                          <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-[#2563eb]" />
+                          <div className="w-10 h-10 rounded-lg bg-[#6b7280]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[#6b7280]" />
                           </div>
                         )}
                         <div className="flex-1">
@@ -708,11 +681,11 @@ export function Header() {
                       <Link
                         href={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#2563eb]/20"
+                        className="flex items-center gap-4 py-4 px-4 rounded-xl text-white/80 hover:text-white hover:bg-[#1a1a1a] transition-colors active:bg-[#262626] min-h-[56px] border border-transparent hover:border-[#6b7280]/20"
                       >
                         {item.icon && (
-                          <div className="w-10 h-10 rounded-lg bg-[#2563eb]/10 flex items-center justify-center flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-[#2563eb]" />
+                          <div className="w-10 h-10 rounded-lg bg-[#6b7280]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[#6b7280]" />
                           </div>
                         )}
                         <div className="flex-1">
@@ -736,18 +709,18 @@ export function Header() {
             <div className="px-4 py-4 border-t border-[#1a1a1a] bg-[#0a0a0a]/90">
               <div className="text-center">
                 <p className="text-white/40 text-xs">
-                  • 2025 Skyline Cheats. All rights reserved.
+                  • 2025 Ring-0. All rights reserved.
                 </p>
                 <div className="flex items-center justify-center gap-4 mt-2">
-                  <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
+                  <Link href="/terms" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#6b7280] text-xs transition-colors">
                     Terms
                   </Link>
                   <span className="text-white/30">•</span>
-                  <Link href="/privacy" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
+                  <Link href="/privacy" onClick={() => setMobileMenuOpen(false)} className="text-white/50 hover:text-[#6b7280] text-xs transition-colors">
                     Privacy
                   </Link>
                   <span className="text-white/30">•</span>
-                  <a href="https://discord.gg/skylineggs" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#2563eb] text-xs transition-colors">
+                  <a href="https://discord.gg/ring-0" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#6b7280] text-xs transition-colors">
                     Support
                   </a>
                 </div>

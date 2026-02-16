@@ -3,7 +3,7 @@
 ## 🎉 Changes Successfully Pushed to GitHub!
 
 **Commit:** `80b416f`  
-**Repository:** https://github.com/dxxxd8445-alt/skylinedone11  
+**Repository:** https://github.com/dxxxd8445-alt/ring-0done11  
 **Branch:** main  
 **Date:** February 9, 2026
 
@@ -66,18 +66,18 @@ Vercel will automatically detect the GitHub push and deploy your site.
 
 **Check deployment status:**
 - Go to https://vercel.com/dashboard
-- Look for "skylinedone11" project
+- Look for "ring-0done11" project
 - Wait for "Building" → "Ready" status
 
 ### 2. Test on Production Site
 Once deployed, test the complete checkout flow:
 
-1. **Go to:** https://skylinecheats.org
+1. **Go to:** https://ring-0cheats.org
 2. **Browse products** and click "Add to Cart"
 3. **Go to cart** and click "Proceed to Checkout"
 4. **Enter your email** and click "Apply"
 5. **Click "Complete Secure Payment"**
-6. **You should be redirected to:** `https://skylinecheats.org/payment/checkout?order_id=XXX`
+6. **You should be redirected to:** `https://ring-0cheats.org/payment/checkout?order_id=XXX`
 7. **Fill in card details** (test card: 4242 4242 4242 4242, any future date, any CVV)
 8. **Click "Pay"**
 9. **You should see success page** with license key
@@ -146,7 +146,7 @@ The following SQL scripts were already run on your database:
 
 ### Environment Variables
 Make sure these are set in Vercel:
-- `NEXT_PUBLIC_SITE_URL` - Your site URL (https://skylinecheats.org)
+- `NEXT_PUBLIC_SITE_URL` - Your site URL (https://ring-0cheats.org)
 - `RESEND_API_KEY` - For sending emails
 - `DISCORD_WEBHOOK_URL` - For purchase notifications
 - All Supabase variables
@@ -171,7 +171,7 @@ But since localhost doesn't have the code, it showed "Invalid Payment Link".
 
 On **production** (after deployment), it will redirect to:
 ```
-https://skylinecheats.org/payment/checkout?order_id=XXX
+https://ring-0cheats.org/payment/checkout?order_id=XXX
 ```
 
 And the payment page will load correctly because the code is deployed!
@@ -182,7 +182,7 @@ And the payment page will load correctly because the code is deployed!
 
 After Vercel deployment completes:
 
-- [ ] Site loads at https://skylinecheats.org
+- [ ] Site loads at https://ring-0cheats.org
 - [ ] Can browse products
 - [ ] Can add products to cart
 - [ ] Cart shows correct items

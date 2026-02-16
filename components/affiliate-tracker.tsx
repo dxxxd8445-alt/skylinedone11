@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 
-const AFFILIATE_STORAGE_KEY = "skyline_affiliate_ref";
-const AFFILIATE_EXPIRY_KEY = "skyline_affiliate_expiry";
+const AFFILIATE_STORAGE_KEY = "ring-0_affiliate_ref";
+const AFFILIATE_EXPIRY_KEY = "ring-0_affiliate_expiry";
 const AFFILIATE_EXPIRY_DAYS = 30; // Affiliate cookie lasts 30 days
 
 export function AffiliateTracker() {

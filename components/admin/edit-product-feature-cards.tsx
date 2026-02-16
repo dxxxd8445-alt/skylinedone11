@@ -57,7 +57,7 @@ export function EditProductFeatureCards({
             type="button"
             onClick={addCard}
             size="sm"
-            className="bg-[#2563eb] hover:bg-[#3b82f6]"
+            className="bg-[#6b7280] hover:bg-[#9ca3af]"
           >
             <Plus className="w-4 h-4 mr-1" />
             Add Card
@@ -76,7 +76,7 @@ export function EditProductFeatureCards({
             >
               {/* Preview */}
               <div className="bg-[#0a0a0a] border border-[#262626] rounded-lg p-3 text-center">
-                <IconComponent className="w-8 h-8 text-[#2563eb] mx-auto mb-2" />
+                <IconComponent className="w-8 h-8 text-[#6b7280] mx-auto mb-2" />
                 <p className="text-white text-sm font-semibold mb-1">{card.title}</p>
                 <p className="text-white/50 text-xs">{card.description}</p>
               </div>
@@ -87,7 +87,7 @@ export function EditProductFeatureCards({
                 <select
                   value={card.icon}
                   onChange={(e) => updateCard(index, "icon", e.target.value)}
-                  className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white text-sm focus:border-[#2563eb] focus:outline-none"
+                  className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#1a1a1a] rounded-lg text-white text-sm focus:border-[#6b7280] focus:outline-none"
                 >
                   {iconOptions.map((opt) => (
                     <option key={opt.value} value={opt.value}>
@@ -125,7 +125,7 @@ export function EditProductFeatureCards({
                 onClick={() => removeCard(index)}
                 variant="outline"
                 size="sm"
-                className="w-full border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
+                className="w-full border-gray-500/30 text-gray-400 hover:bg-gray-500/10"
               >
                 <Trash2 className="w-4 h-4 mr-1" />
                 Remove
@@ -142,7 +142,7 @@ export function EditProductFeatureCards({
             type="button"
             onClick={addCard}
             size="sm"
-            className="bg-[#2563eb] hover:bg-[#3b82f6]"
+            className="bg-[#6b7280] hover:bg-[#9ca3af]"
           >
             <Plus className="w-4 h-4 mr-1" />
             Add First Card

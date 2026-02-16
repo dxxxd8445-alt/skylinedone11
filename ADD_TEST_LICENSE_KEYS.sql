@@ -9,7 +9,7 @@ SELECT
   p.id,
   pv.id,
   p.name || ' - ' || pv.duration,
-  'SKYLINE-' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 8)) || '-' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 8)),
+  'RING-0-' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 8)) || '-' || UPPER(SUBSTRING(MD5(RANDOM()::TEXT) FROM 1 FOR 8)),
   'unused',
   ''
 FROM products p

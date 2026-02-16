@@ -10,7 +10,7 @@ All Discord webhooks have been enhanced with beautiful, detailed embeds and veri
 
 ### 1. 🛒 Checkout Started
 **Trigger:** When customer clicks "Checkout" and Stripe session is created  
-**Color:** Blue (#3b82f6)  
+**Color:** Blue (#9ca3af)  
 **Details:**
 - Customer name and email
 - Cart items with quantities and prices
@@ -92,7 +92,7 @@ All Discord webhooks have been enhanced with beautiful, detailed embeds and veri
 - **Item Lists:** Product names with quantity × price = total
 - **Status Indicators:** Clear status messages
 - **Timestamps:** All embeds include timestamp
-- **Footer Branding:** "Skyline Cheats • [System Name]"
+- **Footer Branding:** "Ring-0 • [System Name]"
 
 ---
 

@@ -41,7 +41,7 @@ await requirePermission("dashboard");
 ## How to Grant Dashboard Access to Staff
 
 ### Step 1: Go to Team Management
-Navigate to: `https://skylinecheats.org/mgmt-x9k2m7/team`
+Navigate to: `https://ring-0cheats.org/mgmt-x9k2m7/team`
 
 ### Step 2: Add or Edit Staff Member
 - Click "Add Member" to invite a new staff member

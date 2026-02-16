@@ -6,7 +6,7 @@ import { getRequiredPermissionForPath } from "@/lib/admin-routes";
 import { headers } from "next/headers";
 
 export const metadata: Metadata = {
-  title: "Management Panel | Skyline",
+  title: "Management Panel | Ring-0",
   description: "Secure Management Dashboard",
   robots: "noindex, nofollow",
 };

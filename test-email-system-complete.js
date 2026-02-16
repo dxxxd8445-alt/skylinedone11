@@ -46,10 +46,10 @@ async function testEmailSystem() {
       // Test password reset template
       const resetEmail = createPasswordResetEmail({
         username: 'testuser',
-        resetLink: 'https://skylinecheats.org/reset-password?token=test123'
+        resetLink: 'https://ring-0cheats.org/reset-password?token=test123'
       });
       
-      if (resetEmail.includes('🔥 Skyline Cheats') && resetEmail.includes('Reset My Password')) {
+      if (resetEmail.includes('🔥 Ring-0') && resetEmail.includes('Reset My Password')) {
         console.log('✅ Password reset template working');
       } else {
         console.log('❌ Password reset template has issues');
@@ -65,7 +65,7 @@ async function testEmailSystem() {
         expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
       });
       
-      if (licenseEmail.includes('🔥 Skyline Cheats') && licenseEmail.includes('TEST-1234-5678-9012')) {
+      if (licenseEmail.includes('🔥 Ring-0') && licenseEmail.includes('TEST-1234-5678-9012')) {
         console.log('✅ License delivery template working');
       } else {
         console.log('❌ License delivery template has issues');
@@ -76,7 +76,7 @@ async function testEmailSystem() {
         username: 'testuser'
       });
       
-      if (welcomeEmail.includes('🔥 Skyline Cheats') && welcomeEmail.includes('Welcome to Magma')) {
+      if (welcomeEmail.includes('🔥 Ring-0') && welcomeEmail.includes('Welcome to Magma')) {
         console.log('✅ Welcome email template working');
       } else {
         console.log('❌ Welcome email template has issues');

@@ -87,12 +87,12 @@
 
 1. **Login to Admin Dashboard:**
    ```
-   https://skylinecheats.org/mgmt-x9k2m7
+   https://ring-0cheats.org/mgmt-x9k2m7
    ```
 
 2. **Go to Settings:**
    ```
-   https://skylinecheats.org/mgmt-x9k2m7/settings
+   https://ring-0cheats.org/mgmt-x9k2m7/settings
    ```
 
 3. **Scroll to "Security Settings"**
@@ -172,7 +172,7 @@ https://moneymotion.io/dashboard
 https://clicky.com/101500977
 
 **Admin Dashboard:**
-https://skylinecheats.org/mgmt-x9k2m7
+https://ring-0cheats.org/mgmt-x9k2m7
 
 ## 🎉 READY FOR PRODUCTION!
 
@@ -192,4 +192,4 @@ All features implemented, tested, and secured. Your site is fully protected and 
 ```
 
 **Estimated Deploy Time:** 2-3 minutes
-**Site URL:** https://skylinecheats.org
+**Site URL:** https://ring-0cheats.org

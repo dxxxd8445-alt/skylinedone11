@@ -9,7 +9,7 @@ Storrik works on localhost but not on Vercel production because environment vari
 Go to: https://vercel.com/dashboard
 
 ### Step 2: Select Your Project
-Click on your `skylinecheats.org` project
+Click on your `ring-0cheats.org` project
 
 ### Step 3: Go to Settings → Environment Variables
 Click **Settings** in the top menu, then **Environment Variables** in the left sidebar
@@ -34,7 +34,7 @@ Environments: ✓ Production ✓ Preview ✓ Development
 Vercel will automatically redeploy after you add the variables. Wait 1-2 minutes for deployment to complete.
 
 ### Step 6: Test
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add a product to cart
 3. Go to checkout
 4. Enter your email

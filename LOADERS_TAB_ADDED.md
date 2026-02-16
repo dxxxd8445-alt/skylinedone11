@@ -16,7 +16,7 @@ Position: Between "Delivered" and "Affiliate" tabs
 
 #### 1. Main Download Card
 - **Large download button** with gradient styling
-- **Loader version**: Skyline Loader v1.0
+- **Loader version**: Ring-0 Loader v1.0
 - **Download link**: Direct link to loader_1.exe
 - **Status badges**:
   - ✅ Latest Version (green)
@@ -32,7 +32,7 @@ Position: Between "Delivered" and "Affiliate" tabs
 
 #### 3. Discord Support Section
 - **Help card** with Discord branding
-- **Discord button** linking to https://discord.gg/skylineggs
+- **Discord button** linking to https://discord.gg/ring-0
 - **Support message** encouraging users to join
 
 ### Design Features
@@ -44,7 +44,7 @@ Position: Between "Delivered" and "Affiliate" tabs
 - **Responsive layout** - Works on all devices
 
 #### Color Scheme
-- Primary: #2563eb (blue)
+- Primary: #6b7280 (blue)
 - Accent: Blue-600
 - Background: Dark gradients
 - Text: White with opacity variations
@@ -112,10 +112,10 @@ const navItems = [
   href="[loader-url]"
   download
   className="inline-flex items-center gap-2 px-6 py-3 
-    bg-gradient-to-r from-[#2563eb] to-blue-600 
-    hover:from-blue-600 hover:to-[#2563eb] 
+    bg-gradient-to-r from-[#6b7280] to-gray-600 
+    hover:from-gray-600 hover:to-[#6b7280] 
     text-white font-semibold rounded-xl 
-    shadow-lg shadow-[#2563eb]/30 
+    shadow-lg shadow-[#6b7280]/30 
     transition-all hover:scale-105"
 >
   <Download className="w-5 h-5" />
@@ -212,7 +212,7 @@ PUSH_CHANGES.bat
 
 ### Loaders Tab
 - Large download card with gradient background
-- Skyline Loader v1.0 title
+- Ring-0 Loader v1.0 title
 - Three status badges (Latest, Secure, Fast)
 - Prominent blue download button
 - 20x20 download icon

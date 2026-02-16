@@ -91,13 +91,13 @@ When Storrik sends a webhook:
 
 ### Checkout Modal Colors
 The checkout modal uses your brand colors:
-- Primary: `#2563eb` (blue)
+- Primary: `#6b7280` (blue)
 - Button Text: `#ffffff` (white)
 
 To customize, edit `lib/storrik.ts`:
 ```typescript
 colors: {
-  primary: "#2563eb",      // Your brand color
+  primary: "#6b7280",      // Your brand color
   buttonText: "#ffffff",   // Button text color
   background: "#0a0a0a",   // Modal background
   surface: "#111111",      // Card background

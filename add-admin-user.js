@@ -19,7 +19,7 @@ async function addAdminUser() {
       .from('team_members')
       .upsert({
         name: 'Admin User',
-        email: 'admin@skyline.local',
+        email: 'admin@ring-0.local',
         username: 'admin',
         role: 'Owner',
         status: 'active',
@@ -95,7 +95,7 @@ async function addAdminUser() {
     const { data: adminUser } = await supabase
       .from('team_members')
       .select('name, email, role, permissions')
-      .eq('email', 'admin@skyline.local')
+      .eq('email', 'admin@ring-0.local')
       .single();
 
     if (adminUser) {

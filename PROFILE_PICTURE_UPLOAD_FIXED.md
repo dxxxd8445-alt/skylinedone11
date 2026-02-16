@@ -47,7 +47,7 @@ The profile picture upload in the customer dashboard now works properly with:
 
 To test the profile picture upload:
 
-1. Go to https://skylinecheats.org/account
+1. Go to https://ring-0cheats.org/account
 2. Click on "Profile" tab
 3. Hover over your avatar
 4. Click the camera icon

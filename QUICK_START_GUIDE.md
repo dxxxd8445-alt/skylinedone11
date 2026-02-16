@@ -1,4 +1,4 @@
-# 🚀 Skyline Cheats - Quick Start Guide
+# 🚀 Ring-0 - Quick Start Guide
 
 ## ⚡ Get Started in 3 Steps
 
@@ -83,7 +83,7 @@ npm run dev
 2. Click on any product
 3. Click "Add to Cart"
 4. Click "Checkout"
-5. Fill in test email: `test@skyline.com`
+5. Fill in test email: `test@ring-0.com`
 6. Use Stripe test card:
    - Card: `4242 4242 4242 4242`
    - Expiry: Any future date (e.g., 12/25)
@@ -117,7 +117,7 @@ Go to your Discord channel - you should see **4 messages**:
 ✅ **Discord Webhooks** - Automatic notifications for all order events
 ✅ **Order System** - Complete checkout → payment → license flow
 ✅ **License Assignment** - Automatic key delivery on purchase
-✅ **Email Delivery** - Blue Skyline branded emails
+✅ **Email Delivery** - Blue Ring-0 branded emails
 ✅ **Revenue Tracking** - Real-time stats in admin panel
 
 ---
@@ -176,7 +176,7 @@ When ready to go live:
 
 3. Verify Resend domain:
    - Go to Resend dashboard
-   - Add and verify `skylinecheats.org`
+   - Add and verify `ring-0cheats.org`
    - Update DNS records
 
 ---
@@ -192,7 +192,7 @@ SELECT * FROM webhooks WHERE is_active = true;
 
 **Test webhook manually:**
 ```bash
-curl -X POST "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN" -H "Content-Type: application/json" -d "{\"content\": \"Test from Skyline!\"}"
+curl -X POST "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN" -H "Content-Type: application/json" -d "{\"content\": \"Test from Ring-0!\"}"
 ```
 
 ### Orders Not Creating?
@@ -247,7 +247,7 @@ If no keys available, add some (see "Stock License Keys" above).
 
 ## 🎉 You're All Set!
 
-Your Skyline Cheats store is now:
+Your Ring-0 store is now:
 - ✅ Fully branded with blue theme
 - ✅ Database configured and ready
 - ✅ Discord webhooks working

@@ -25,8 +25,8 @@ export function StatCard({ title, value, change, icon: Icon, prefix }: StatCardP
             {value}
           </p>
         </div>
-        <div className="w-12 h-12 rounded-xl bg-[#2563eb]/10 flex items-center justify-center group-hover:bg-[#2563eb]/20 transition-colors">
-          <Icon className="w-6 h-6 text-[#2563eb]" />
+        <div className="w-12 h-12 rounded-xl bg-[#6b7280]/10 flex items-center justify-center group-hover:bg-[#6b7280]/20 transition-colors">
+          <Icon className="w-6 h-6 text-[#6b7280]" />
         </div>
       </div>
       <div className="mt-4 flex items-center gap-2">
@@ -35,7 +35,7 @@ export function StatCard({ title, value, change, icon: Icon, prefix }: StatCardP
             "flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium",
             isPositive
               ? "bg-green-500/10 text-green-400"
-              : "bg-blue-500/10 text-blue-400"
+              : "bg-gray-500/10 text-gray-400"
           )}
         >
           {isPositive ? (

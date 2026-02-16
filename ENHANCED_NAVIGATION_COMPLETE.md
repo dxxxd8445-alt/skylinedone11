@@ -6,7 +6,7 @@
 
 #### **1. Animated Underlines**
 - **Expanding line effect** - Starts from center and expands to full width on hover
-- **Red gradient colors** - `from-[#2563eb] to-[#3b82f6]`
+- **Red gradient colors** - `from-[#6b7280] to-[#9ca3af]`
 - **Smooth animation** - 300ms transition duration
 - **Rounded edges** - Professional look with `rounded-full`
 
@@ -36,10 +36,10 @@
 ```css
 /* Animated Underline */
 w-0 h-0.5 → group-hover:w-full
-bg-gradient-to-r from-[#2563eb] to-[#3b82f6]
+bg-gradient-to-r from-[#6b7280] to-[#9ca3af]
 
 /* Glow Effect */
-from-[#2563eb]/0 to-[#3b82f6]/0 → group-hover:from-[#2563eb]/10 group-hover:to-[#3b82f6]/10
+from-[#6b7280]/0 to-[#9ca3af]/0 → group-hover:from-[#6b7280]/10 group-hover:to-[#9ca3af]/10
 
 /* Icon Animation */
 scale-100 → group-hover:scale-110

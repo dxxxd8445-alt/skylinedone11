@@ -78,7 +78,7 @@ export function MobileAdminShell({ children, title, subtitle }: MobileAdminShell
   if (!mounted) {
     return (
       <div className="min-h-screen bg-[#050505] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#2563eb]/30 border-t-[#2563eb] rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#6b7280]/30 border-t-[#6b7280] rounded-full animate-spin" />
       </div>
     );
   }
@@ -105,13 +105,13 @@ export function MobileAdminShell({ children, title, subtitle }: MobileAdminShell
         )}
       >
         {/* Logo Header */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-[#1a1a1a] bg-gradient-to-r from-[#2563eb]/10 to-transparent">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-[#1a1a1a] bg-gradient-to-r from-[#6b7280]/10 to-transparent">
           <Link href="/mgmt-x9k2m7" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center shadow-lg">
               <Flame className="w-6 h-6 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-white text-lg">Skyline</span>
+              <span className="font-bold text-white text-lg">Ring-0</span>
               <span className="text-[10px] text-white/40 uppercase tracking-wider">Admin Panel</span>
             </div>
           </Link>
@@ -137,7 +137,7 @@ export function MobileAdminShell({ children, title, subtitle }: MobileAdminShell
                 className={cn(
                   "flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group",
                   isActive
-                    ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white shadow-lg"
+                    ? "bg-gradient-to-r from-[#6b7280] to-[#9ca3af] text-white shadow-lg"
                     : "text-white/60 hover:bg-[#1a1a1a] hover:text-white"
                 )}
               >
@@ -163,7 +163,7 @@ export function MobileAdminShell({ children, title, subtitle }: MobileAdminShell
                 window.location.href = "/";
               }
             }}
-            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-white/60 hover:bg-blue-500/10 hover:text-blue-400 transition-colors"
+            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-white/60 hover:bg-gray-500/10 hover:text-gray-400 transition-colors"
           >
             <span className="text-lg">🚪</span>
             <span className="font-medium">Exit Admin</span>
@@ -183,7 +183,7 @@ export function MobileAdminShell({ children, title, subtitle }: MobileAdminShell
             {/* Mobile Menu Button - ALWAYS VISIBLE ON MOBILE */}
             <button
               onClick={handleMenuClick}
-              className="lg:hidden w-12 h-12 rounded-xl bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] flex items-center justify-center text-white transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg shadow-[#2563eb]/30"
+              className="lg:hidden w-12 h-12 rounded-xl bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] flex items-center justify-center text-white transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg shadow-[#6b7280]/30"
               aria-label="Open navigation menu"
               type="button"
             >

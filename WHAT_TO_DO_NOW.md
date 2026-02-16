@@ -47,7 +47,7 @@ Environment: Production, Preview, Development
 
 1. Go to https://dashboard.stripe.com/webhooks
 2. Click **Add endpoint**
-3. Enter: `https://skylinecheats.org/api/webhooks/stripe`
+3. Enter: `https://ring-0cheats.org/api/webhooks/stripe`
 4. Click **Select events**
 5. Select these 2 events:
    - `checkout.session.completed`
@@ -74,7 +74,7 @@ Vercel will automatically deploy after push.
 
 ## ✅ How to Test (After Deployment)
 
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add a product to cart
 3. Go to checkout
 4. Enter your email

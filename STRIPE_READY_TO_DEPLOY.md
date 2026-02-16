@@ -44,7 +44,7 @@ git push
 Go to: https://dashboard.stripe.com/webhooks
 
 Make sure your webhook endpoint is:
-- URL: `https://skylinecheats.org/api/webhooks/stripe`
+- URL: `https://ring-0cheats.org/api/webhooks/stripe`
 - Events: `checkout.session.completed`, `payment_intent.succeeded`, `payment_intent.payment_failed`
 - Status: Enabled
 
@@ -77,7 +77,7 @@ Make sure your webhook endpoint is:
 ## 🧪 Testing
 
 After deployment:
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add a product to cart
 3. Go to checkout
 4. Enter your email

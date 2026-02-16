@@ -23,8 +23,8 @@ CREATE INDEX idx_store_users_reset_token ON store_users(password_reset_token);
 ### Verify Environment Variables:
 ```env
 RESEND_API_KEY=re_xxxxxxxxxxxxx
-RESEND_FROM_EMAIL=Skyline <noreply@yourdomain.com>
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+RESEND_FROM_EMAIL=Ring-0 <noreply@yourdomain.com>
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 ```
 
 ## Test It

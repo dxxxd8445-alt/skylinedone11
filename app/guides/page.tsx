@@ -88,19 +88,19 @@ export default function GuidesPage() {
         <div
           className="absolute w-[600px] h-[600px] rounded-full blur-[140px] opacity-[0.06] transition-all duration-1000"
           style={{
-            background: "radial-gradient(circle, #2563eb, transparent)",
+            background: "radial-gradient(circle, #6b7280, transparent)",
             left: `${mousePosition.x - 300}px`,
             top: `${mousePosition.y - 300}px`,
           }}
         />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2563eb]/3 rounded-full blur-[160px]" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#3b82f6]/3 rounded-full blur-[160px]" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#6b7280]/3 rounded-full blur-[160px]" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#9ca3af]/3 rounded-full blur-[160px]" />
       </div>
 
       {particles.map((particle) => (
         <div
           key={particle.id}
-          className="fixed w-2 h-2 bg-[#2563eb] rounded-full pointer-events-none animate-particle-explosion"
+          className="fixed w-2 h-2 bg-[#6b7280] rounded-full pointer-events-none animate-particle-explosion"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
@@ -113,12 +113,12 @@ export default function GuidesPage() {
       <div className="pt-24 pb-16 relative" ref={containerRef}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8 text-center relative">
-            <div className="inline-flex items-center gap-2 bg-[#111111]/80 border border-[#2563eb]/30 rounded-full px-6 py-2 mb-4 backdrop-blur-xl">
-              <Sparkles className="w-4 h-4 text-[#2563eb] animate-pulse" />
+            <div className="inline-flex items-center gap-2 bg-[#111111]/80 border border-[#6b7280]/30 rounded-full px-6 py-2 mb-4 backdrop-blur-xl">
+              <Sparkles className="w-4 h-4 text-[#6b7280] animate-pulse" />
               <span className="text-white/90 text-sm font-semibold">Ultimate Gaming Guides</span>
-              <Sparkles className="w-4 h-4 text-[#2563eb] animate-pulse" style={{ animationDelay: "0.5s" }} />
+              <Sparkles className="w-4 h-4 text-[#6b7280] animate-pulse" style={{ animationDelay: "0.5s" }} />
             </div>
-            <h1 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-[#2563eb] to-[#3b82f6] mb-2 animate-gradient">
+            <h1 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-[#6b7280] to-[#9ca3af] mb-2 animate-gradient">
               Level Up Your Game
             </h1>
             <p className="text-white/60 text-lg">Master every aspect with our comprehensive guides</p>
@@ -126,15 +126,15 @@ export default function GuidesPage() {
 
           <div className="flex flex-col lg:flex-row gap-8">
             <aside className="w-full lg:w-80 flex-shrink-0">
-              <div className="bg-gradient-to-br from-[#111111]/80 to-[#0a0a0a]/80 backdrop-blur-xl border border-[#1a1a1a] rounded-2xl p-6 sticky top-24 shadow-2xl shadow-[#2563eb]/10">
+              <div className="bg-gradient-to-br from-[#111111]/80 to-[#0a0a0a]/80 backdrop-blur-xl border border-[#1a1a1a] rounded-2xl p-6 sticky top-24 shadow-2xl shadow-[#6b7280]/10">
                 <div className="mb-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-white/60 text-sm">Progress</span>
-                    <span className="text-[#2563eb] font-bold text-sm">{Math.round(progress)}%</span>
+                    <span className="text-[#6b7280] font-bold text-sm">{Math.round(progress)}%</span>
                   </div>
                   <div className="h-2 bg-[#1a1a1a] rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-[#2563eb] to-[#3b82f6] transition-all duration-500 ease-out relative"
+                      className="h-full bg-gradient-to-r from-[#6b7280] to-[#9ca3af] transition-all duration-500 ease-out relative"
                       style={{ width: `${progress}%` }}
                     >
                       <div className="absolute inset-0 bg-white/30 animate-shimmer" />
@@ -144,14 +144,14 @@ export default function GuidesPage() {
 
                 {guideCategories.map((category, catIndex) => (
                   <div key={catIndex} className="mb-6 last:mb-0">
-                    <div className="flex items-center gap-2 text-[#2563eb] text-sm font-bold mb-3 group">
+                    <div className="flex items-center gap-2 text-[#6b7280] text-sm font-bold mb-3 group">
                       {category.icon === "gamepad" ? (
                         <Gamepad2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
                       ) : (
                         <Shield className="w-5 h-5 group-hover:scale-110 transition-transform" />
                       )}
                       <span className="group-hover:text-white transition-colors">{category.name}</span>
-                      <div className="ml-auto w-2 h-2 bg-[#2563eb] rounded-full animate-pulse" />
+                      <div className="ml-auto w-2 h-2 bg-[#6b7280] rounded-full animate-pulse" />
                     </div>
                     <nav className="space-y-2">
                       {category.guides.map((guide) => {
@@ -162,7 +162,7 @@ export default function GuidesPage() {
                             onClick={() => handleGuideSelect(guide)}
                             className={`group w-full text-left px-4 py-3 rounded-xl text-sm transition-all duration-300 relative overflow-hidden ${
                               isSelected
-                                ? "bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white font-bold shadow-lg shadow-[#2563eb]/50 scale-105"
+                                ? "bg-gradient-to-r from-[#6b7280] to-[#9ca3af] text-white font-bold shadow-lg shadow-[#6b7280]/50 scale-105"
                                 : "text-white/70 hover:bg-[#1a1a1a] hover:text-white hover:scale-105"
                             }`}
                           >
@@ -182,12 +182,12 @@ export default function GuidesPage() {
 
                 <div className="mt-6 pt-6 border-t border-[#1a1a1a]">
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-[#0a0a0a] rounded-lg p-3 border border-[#2563eb]/20">
-                      <div className="text-2xl font-bold text-[#2563eb]">{completedSteps.size}</div>
+                    <div className="bg-[#0a0a0a] rounded-lg p-3 border border-[#6b7280]/20">
+                      <div className="text-2xl font-bold text-[#6b7280]">{completedSteps.size}</div>
                       <div className="text-xs text-white/50">Completed</div>
                     </div>
-                    <div className="bg-[#0a0a0a] rounded-lg p-3 border border-[#2563eb]/20">
-                      <div className="text-2xl font-bold text-[#2563eb]">{selectedGuide.steps.length}</div>
+                    <div className="bg-[#0a0a0a] rounded-lg p-3 border border-[#6b7280]/20">
+                      <div className="text-2xl font-bold text-[#6b7280]">{selectedGuide.steps.length}</div>
                       <div className="text-xs text-white/50">Total Steps</div>
                     </div>
                   </div>
@@ -196,30 +196,30 @@ export default function GuidesPage() {
             </aside>
 
             <div className="flex-1 min-w-0">
-              <div className="relative bg-gradient-to-r from-[#111111]/90 to-[#0a0a0a]/90 backdrop-blur-xl border border-[#1a1a1a] rounded-2xl p-8 mb-8 overflow-hidden shadow-2xl shadow-[#2563eb]/20 group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/10 via-transparent to-[#2563eb]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#2563eb]/20 to-transparent rounded-full blur-3xl" />
+              <div className="relative bg-gradient-to-r from-[#111111]/90 to-[#0a0a0a]/90 backdrop-blur-xl border border-[#1a1a1a] rounded-2xl p-8 mb-8 overflow-hidden shadow-2xl shadow-[#6b7280]/20 group">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/10 via-transparent to-[#6b7280]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#6b7280]/20 to-transparent rounded-full blur-3xl" />
 
                 <div className="relative z-10">
-                  <div className="inline-flex items-center gap-2 bg-[#2563eb]/20 border border-[#2563eb]/40 rounded-full px-4 py-1.5 mb-4">
-                    <Star className="w-4 h-4 text-[#2563eb]" />
-                    <span className="text-[#2563eb] text-xs font-bold uppercase tracking-wider">Featured Guide</span>
+                  <div className="inline-flex items-center gap-2 bg-[#6b7280]/20 border border-[#6b7280]/40 rounded-full px-4 py-1.5 mb-4">
+                    <Star className="w-4 h-4 text-[#6b7280]" />
+                    <span className="text-[#6b7280] text-xs font-bold uppercase tracking-wider">Featured Guide</span>
                   </div>
-                  <h1 className="text-3xl md:text-4xl font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#2563eb] transition-all duration-300">
+                  <h1 className="text-3xl md:text-4xl font-black text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#6b7280] transition-all duration-300">
                     {selectedGuide.title}
                   </h1>
                   <p className="text-white/70 text-lg">{selectedGuide.subtitle}</p>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-[#111111]/90 to-[#0a0a0a]/90 backdrop-blur-xl border border-[#2563eb]/30 rounded-2xl p-6 mb-8 relative overflow-hidden group hover:border-[#2563eb]/60 transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="bg-gradient-to-r from-[#111111]/90 to-[#0a0a0a]/90 backdrop-blur-xl border border-[#6b7280]/30 rounded-2xl p-6 mb-8 relative overflow-hidden group hover:border-[#6b7280]/60 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#3b82f6] flex items-center justify-center shadow-lg shadow-[#2563eb]/50 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#6b7280] to-[#9ca3af] flex items-center justify-center shadow-lg shadow-[#6b7280]/50 group-hover:scale-110 transition-transform">
                     <Download className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-[#2563eb] font-bold text-lg mb-1 flex items-center gap-2">
+                    <h2 className="text-[#6b7280] font-bold text-lg mb-1 flex items-center gap-2">
                       Prerequisites Installation
                       <Rocket className="w-5 h-5 animate-bounce" />
                     </h2>
@@ -241,17 +241,17 @@ export default function GuidesPage() {
                       onMouseLeave={() => setHoveredStep(null)}
                       className={`relative bg-gradient-to-br from-[#111111]/90 to-[#0a0a0a]/90 backdrop-blur-xl border rounded-2xl p-8 transition-all duration-500 group ${
                         isCompleted
-                          ? "border-[#2563eb]/60 shadow-lg shadow-[#2563eb]/20 scale-[1.02]"
+                          ? "border-[#6b7280]/60 shadow-lg shadow-[#6b7280]/20 scale-[1.02]"
                           : isHovered
-                          ? "border-[#2563eb]/60 shadow-2xl shadow-[#2563eb]/30 scale-[1.02]"
-                          : "border-[#1a1a1a] hover:border-[#2563eb]/30"
+                          ? "border-[#6b7280]/60 shadow-2xl shadow-[#6b7280]/30 scale-[1.02]"
+                          : "border-[#1a1a1a] hover:border-[#6b7280]/30"
                       }`}
                     >
                       {isCompleted && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/10 to-transparent rounded-2xl animate-pulse" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/10 to-transparent rounded-2xl animate-pulse" />
                       )}
                       {isHovered && !isCompleted && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/5 via-[#2563eb]/0 to-transparent rounded-2xl" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/5 via-[#6b7280]/0 to-transparent rounded-2xl" />
                       )}
 
                       <div className="relative flex items-start gap-5 mb-6">
@@ -259,8 +259,8 @@ export default function GuidesPage() {
                           onClick={() => toggleStepCompletion(index)}
                           className={`relative w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xl flex-shrink-0 transition-all duration-300 ${
                             isCompleted
-                              ? "bg-gradient-to-br from-[#2563eb] to-[#3b82f6] shadow-lg shadow-[#2563eb]/50 rotate-[360deg]"
-                              : "bg-gradient-to-br from-[#2563eb] to-[#3b82f6] shadow-lg shadow-[#2563eb]/50 hover:scale-110 hover:rotate-12"
+                              ? "bg-gradient-to-br from-[#6b7280] to-[#9ca3af] shadow-lg shadow-[#6b7280]/50 rotate-[360deg]"
+                              : "bg-gradient-to-br from-[#6b7280] to-[#9ca3af] shadow-lg shadow-[#6b7280]/50 hover:scale-110 hover:rotate-12"
                           }`}
                         >
                           {isCompleted ? <span className="text-2xl">?</span> : <span>{index + 1}</span>}
@@ -270,29 +270,29 @@ export default function GuidesPage() {
                         </button>
 
                         <div className="flex-1">
-                          <h3 className="text-white font-bold text-xl mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#2563eb] transition-all">
+                          <h3 className="text-white font-bold text-xl mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#6b7280] transition-all">
                             {step.title}
                           </h3>
                           <p className="text-white/60">{step.description}</p>
                         </div>
 
                         {isCompleted && (
-                          <div className="flex items-center gap-2 bg-[#2563eb]/20 border border-[#2563eb]/40 rounded-full px-4 py-2">
-                            <span className="text-[#2563eb] text-sm font-bold">Complete</span>
-                            <Star className="w-4 h-4 text-[#2563eb]" />
+                          <div className="flex items-center gap-2 bg-[#6b7280]/20 border border-[#6b7280]/40 rounded-full px-4 py-2">
+                            <span className="text-[#6b7280] text-sm font-bold">Complete</span>
+                            <Star className="w-4 h-4 text-[#6b7280]" />
                           </div>
                         )}
                       </div>
 
                       <div className="ml-[76px]">
-                        <div className="bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#1a1a1a] rounded-xl p-6 mb-6 group-hover:border-[#2563eb]/20 transition-colors">
+                        <div className="bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#1a1a1a] rounded-xl p-6 mb-6 group-hover:border-[#6b7280]/20 transition-colors">
                           <ol className="space-y-3">
                             {step.instructions.map((instruction, instIndex) => (
                               <li
                                 key={instIndex}
                                 className="flex items-start gap-3 text-white/80 group/item hover:text-white transition-colors"
                               >
-                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#2563eb]/20 text-[#2563eb] text-xs font-bold flex-shrink-0 group-hover/item:bg-[#2563eb] group-hover/item:text-white transition-all">
+                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#6b7280]/20 text-[#6b7280] text-xs font-bold flex-shrink-0 group-hover/item:bg-[#6b7280] group-hover/item:text-white transition-all">
                                   {instIndex + 1}
                                 </span>
                                 <span className="leading-relaxed">{instruction}</span>
@@ -306,7 +306,7 @@ export default function GuidesPage() {
                             href={step.downloadUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group/btn inline-flex items-center gap-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] hover:from-[#3b82f6] hover:to-[#2563eb] text-white px-6 py-3.5 rounded-xl font-bold transition-all duration-300 hover:shadow-2xl hover:shadow-[#2563eb]/50 hover:scale-105 relative overflow-hidden"
+                            className="group/btn inline-flex items-center gap-3 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] hover:from-[#9ca3af] hover:to-[#6b7280] text-white px-6 py-3.5 rounded-xl font-bold transition-all duration-300 hover:shadow-2xl hover:shadow-[#6b7280]/50 hover:scale-105 relative overflow-hidden"
                           >
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover/btn:animate-shimmer" />
                             <Download className="w-5 h-5 group-hover/btn:animate-bounce" />
@@ -320,23 +320,23 @@ export default function GuidesPage() {
                 })}
               </div>
 
-              <div className="mt-10 relative bg-gradient-to-r from-[#2563eb]/10 via-[#2563eb]/5 to-transparent backdrop-blur-xl border border-[#2563eb]/30 rounded-2xl p-8 overflow-hidden group hover:border-[#2563eb]/60 transition-all">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#2563eb]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="mt-10 relative bg-gradient-to-r from-[#6b7280]/10 via-[#6b7280]/5 to-transparent backdrop-blur-xl border border-[#6b7280]/30 rounded-2xl p-8 overflow-hidden group hover:border-[#6b7280]/60 transition-all">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#6b7280]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute top-0 right-0 text-9xl opacity-5 group-hover:opacity-10 transition-opacity">??</div>
 
                 <div className="relative">
                   <h3 className="text-white font-black text-2xl mb-3 flex items-center gap-3">
                     Need Help?
-                    <Sparkles className="w-6 h-6 text-[#2563eb] animate-pulse" />
+                    <Sparkles className="w-6 h-6 text-[#6b7280] animate-pulse" />
                   </h3>
                   <p className="text-white/70 text-lg mb-6 max-w-2xl">
                     If you encounter any issues during setup, our support team is here to help you 24/7.
                   </p>
                   <a
-                    href="https://discord.gg/skylineggs"
+                    href="https://discord.gg/ring-0"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 bg-gradient-to-r from-[#2563eb] to-[#3b82f6] text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-2xl hover:shadow-[#2563eb]/50 hover:scale-105 group/discord"
+                    className="inline-flex items-center gap-3 bg-gradient-to-r from-[#6b7280] to-[#9ca3af] text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-2xl hover:shadow-[#6b7280]/50 hover:scale-105 group/discord"
                   >
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z" />

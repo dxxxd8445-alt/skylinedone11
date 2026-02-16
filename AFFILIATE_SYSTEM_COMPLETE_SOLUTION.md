@@ -140,7 +140,7 @@ After registration, you should see:
 ## 🔗 AFFILIATE LINK FORMAT
 
 ```
-https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
+https://ring-0cheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 **Commission**: 5% per sale

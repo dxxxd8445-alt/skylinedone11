@@ -4,7 +4,7 @@ const path = require('path');
 function replaceInFile(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
-    const newContent = content.replace(/discord\.gg\/skylinecheats/g, 'discord.gg/skylineggs');
+    const newContent = content.replace(/discord\.gg\/ring-0cheats/g, 'discord.gg/ring-0');
     
     if (content !== newContent) {
       fs.writeFileSync(filePath, newContent, 'utf8');
@@ -41,7 +41,7 @@ function walkDirectory(dir, fileList = []) {
   return fileList;
 }
 
-console.log('🔄 Reverting Discord links from skylinecheats to skylineggs...\n');
+console.log('🔄 Reverting Discord links from ring-0cheats to ring-0ggs...\n');
 
 const files = walkDirectory('.');
 let filesUpdated = 0;
@@ -56,4 +56,4 @@ files.forEach(file => {
 
 console.log(`\n📊 Summary:`);
 console.log(`Files updated: ${filesUpdated}`);
-console.log(`\n✅ All Discord links reverted to discord.gg/skylineggs`);
+console.log(`\n✅ All Discord links reverted to discord.gg/ring-0`);

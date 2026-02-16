@@ -103,7 +103,7 @@
 - 🔢 **Order number** for tracking
 - 🛒 **Items purchased** with quantities and prices
 - ⏰ **Timestamp** of the order
-- 🏷️ **Skyline Cheats branding**
+- 🏷️ **Ring-0 branding**
 
 ### Failed Payment Notifications:
 - ❌ **Payment Failed** with red embed

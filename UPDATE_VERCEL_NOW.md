@@ -4,7 +4,7 @@
 
 ### Step 1: Go to Vercel Dashboard
 1. Open https://vercel.com
-2. Click on your project: **skylinecheats**
+2. Click on your project: **ring-0cheats**
 3. Click **Settings** tab
 4. Click **Environment Variables** in left sidebar
 
@@ -28,7 +28,7 @@ After updating the variable:
 4. Wait 2-3 minutes for deployment to complete
 
 ### Step 4: Test
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add product to cart
 3. Go to checkout
 4. Click "Complete Secure Payment"

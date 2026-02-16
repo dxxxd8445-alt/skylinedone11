@@ -157,7 +157,7 @@ try {
   
   existingFiles.forEach(file => {
     const content = fs.readFileSync(file, 'utf8');
-    if (!content.includes('#2563eb') && !content.includes('bg-[#2563eb]')) {
+    if (!content.includes('#6b7280') && !content.includes('bg-[#6b7280]')) {
       magmaThemeConsistent = false;
     }
     if (!content.includes('lg:') && !content.includes('md:') && !content.includes('sm:')) {

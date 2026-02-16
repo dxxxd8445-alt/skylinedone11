@@ -10,7 +10,7 @@ Multiple build errors due to invalid UTF-8 sequences:
 
 ## Root Cause
 
-During the Discord link replacement process (`discord.gg/skylineeggs`), special characters like:
+During the Discord link replacement process (`discord.gg/ring-0eggs`), special characters like:
 - Bullet points (•)
 - Em dashes (—)
 - Copyright symbols (©)
@@ -69,4 +69,4 @@ Your site should now:
 
 ## Next Steps
 
-The dev server should now work without any UTF-8 encoding errors. All Discord links are correct (`discord.gg/skylineggs`) and all special characters are properly encoded.
+The dev server should now work without any UTF-8 encoding errors. All Discord links are correct (`discord.gg/ring-0`) and all special characters are properly encoded.

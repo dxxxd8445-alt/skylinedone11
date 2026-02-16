@@ -21,7 +21,7 @@ CREATE INDEX idx_store_users_reset_token ON store_users(password_reset_token);
 ### 2. Email Subject Update
 **File:** `app/api/store-auth/request-reset/route.ts`
 
-Changed email subject from "Reset your Magma password" to "Reset your Skyline password"
+Changed email subject from "Reset your Magma password" to "Reset your Ring-0 password"
 
 ---
 
@@ -38,8 +38,8 @@ Changed email subject from "Reset your Magma password" to "Reset your Skyline pa
 Make sure these are set in your `.env.local`:
 ```env
 RESEND_API_KEY=re_xxxxxxxxxxxxx
-RESEND_FROM_EMAIL=Skyline <noreply@yourdomain.com>
-NEXT_PUBLIC_SITE_URL=https://skylinecheats.org
+RESEND_FROM_EMAIL=Ring-0 <noreply@yourdomain.com>
+NEXT_PUBLIC_SITE_URL=https://ring-0cheats.org
 ```
 
 ### Step 3: Deploy the Code Changes
@@ -52,14 +52,14 @@ The code changes are already in place, just deploy to production.
 ### Test the Complete Flow:
 
 1. **Request Password Reset**
-   - Go to: `https://skylinecheats.org/forgot-password`
+   - Go to: `https://ring-0cheats.org/forgot-password`
    - Enter a valid customer email
    - Click "Send Reset Link"
    - Should see success message
 
 2. **Check Email**
-   - Customer receives email with subject "Reset your Skyline password"
-   - Email contains a reset link like: `https://skylinecheats.org/reset-password?token=abc123...`
+   - Customer receives email with subject "Reset your Ring-0 password"
+   - Email contains a reset link like: `https://ring-0cheats.org/reset-password?token=abc123...`
    - Link expires in 1 hour
 
 3. **Reset Password**

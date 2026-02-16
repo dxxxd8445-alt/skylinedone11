@@ -11,7 +11,7 @@
 ## Your Webhook URL
 
 ```
-https://skylinecheats.org/api/webhooks/storrik
+https://ring-0cheats.org/api/webhooks/storrik
 ```
 
 ## What You Need To Do RIGHT NOW
@@ -20,7 +20,7 @@ https://skylinecheats.org/api/webhooks/storrik
 
 Go to your Storrik dashboard and create a webhook with this URL:
 ```
-https://skylinecheats.org/api/webhooks/storrik
+https://ring-0cheats.org/api/webhooks/storrik
 ```
 
 Subscribe to these events:
@@ -54,7 +54,7 @@ After adding the variables:
 
 ### 4. Test
 
-1. Go to https://skylinecheats.org
+1. Go to https://ring-0cheats.org
 2. Add product to cart
 3. Go to checkout
 4. Click "Complete Secure Payment"

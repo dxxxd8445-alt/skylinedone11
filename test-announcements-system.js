@@ -120,7 +120,7 @@ async function testAnnouncementsSystem() {
     
     const sampleAnnouncements = [
       {
-        title: 'Welcome to Skyline Cheats!',
+        title: 'Welcome to Ring-0!',
         message: 'We are excited to have you here. Check out our latest products and enjoy gaming!',
         type: 'info',
         priority: 1

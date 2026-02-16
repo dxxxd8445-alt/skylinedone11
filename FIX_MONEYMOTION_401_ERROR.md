@@ -10,7 +10,7 @@ Environment variables in `.env.local` are only for local development. Vercel pro
 
 ### Step 1: Go to Vercel Dashboard
 1. Open https://vercel.com
-2. Click on your project: **skylinecheats**
+2. Click on your project: **ring-0cheats**
 3. Click **Settings** tab
 4. Click **Environment Variables** in the left sidebar
 
@@ -42,7 +42,7 @@ Run the `PUSH_ALL_CHANGES.bat` file to trigger a new deployment automatically.
 
 ### Step 4: Test
 1. Wait for deployment to complete (2-3 minutes)
-2. Go to https://skylinecheats.org
+2. Go to https://ring-0cheats.org
 3. Add a product to cart
 4. Try to checkout
 5. Should redirect to MoneyMotion payment page successfully

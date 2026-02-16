@@ -17,9 +17,9 @@ interface Settings {
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<Settings>({
-    site_name: "Skyline Cheats",
+    site_name: "Ring-0",
     site_description: "Premium undetected cheats for all games",
-    support_email: "support@skyline.local",
+    support_email: "support@ring-0.local",
     maintenance_mode: false,
     stripe_api_key: "",
   });
@@ -179,7 +179,7 @@ export default function SettingsPage() {
     return (
       <AdminShell title="Settings" subtitle="Configure your admin panel">
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2563eb]" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#6b7280]" />
         </div>
       </AdminShell>
     );
@@ -199,7 +199,7 @@ export default function SettingsPage() {
                 type="text"
                 value={settings.site_name}
                 onChange={(e) => setSettings({ ...settings, site_name: e.target.value })}
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
               />
             </div>
             <div>
@@ -210,7 +210,7 @@ export default function SettingsPage() {
                 type="text"
                 value={settings.site_description}
                 onChange={(e) => setSettings({ ...settings, site_description: e.target.value })}
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
               />
             </div>
             <div>
@@ -221,7 +221,7 @@ export default function SettingsPage() {
                 type="email"
                 value={settings.support_email}
                 onChange={(e) => setSettings({ ...settings, support_email: e.target.value })}
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
               />
             </div>
             <div className="flex items-center justify-between p-4 bg-[#111111] border border-[#262626] rounded-lg">
@@ -233,7 +233,7 @@ export default function SettingsPage() {
                 type="button"
                 onClick={() => setSettings({ ...settings, maintenance_mode: !settings.maintenance_mode })}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  settings.maintenance_mode ? "bg-[#2563eb]" : "bg-[#262626]"
+                  settings.maintenance_mode ? "bg-[#6b7280]" : "bg-[#262626]"
                 }`}
               >
                 <span
@@ -249,8 +249,8 @@ export default function SettingsPage() {
         <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-xl p-6">
           <h2 className="text-xl font-bold text-white mb-4">Payment Settings</h2>
           <div className="space-y-4">
-            <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-              <p className="text-sm text-blue-400">
+            <div className="p-4 bg-gray-500/10 border border-gray-500/20 rounded-lg">
+              <p className="text-sm text-gray-400">
                 <strong>Stripe Payment Processor:</strong> Enter your Stripe Publishable API Key below to enable card payments. 
                 Get your API key from your Stripe dashboard.
               </p>
@@ -264,7 +264,7 @@ export default function SettingsPage() {
                 value={settings.stripe_api_key}
                 onChange={(e) => setSettings({ ...settings, stripe_api_key: e.target.value })}
                 placeholder="pk_live_xxxxxxxxxxxxxxxxxxxxx"
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors font-mono"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors font-mono"
               />
               <p className="text-xs text-white/40 mt-1">
                 Your Stripe publishable key - safe to use in client-side code
@@ -294,7 +294,7 @@ export default function SettingsPage() {
                 value={passwordData.currentPassword}
                 onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
                 placeholder="Enter current password"
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
               />
             </div>
             <div>
@@ -306,7 +306,7 @@ export default function SettingsPage() {
                 value={passwordData.newPassword}
                 onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                 placeholder="Enter new password (min 12 characters)"
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
               />
               {passwordData.newPassword && (
                 <div className="mt-2 space-y-1">
@@ -352,7 +352,7 @@ export default function SettingsPage() {
                 value={passwordData.confirmPassword}
                 onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
                 placeholder="Confirm new password"
-                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                className="w-full px-4 py-2 bg-[#111111] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
               />
               {passwordData.confirmPassword && passwordData.newPassword !== passwordData.confirmPassword && (
                 <p className="text-xs text-red-400 mt-1">Passwords do not match</p>
@@ -392,7 +392,7 @@ export default function SettingsPage() {
           <Button 
             onClick={handleSave}
             disabled={saving}
-            className="bg-[#2563eb] hover:bg-[#3b82f6] text-white"
+            className="bg-[#6b7280] hover:bg-[#9ca3af] text-white"
           >
             {saving ? (
               <>

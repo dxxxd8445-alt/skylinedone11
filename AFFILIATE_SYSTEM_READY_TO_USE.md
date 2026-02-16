@@ -143,7 +143,7 @@ File: AFFILIATE_SYSTEM_FINAL_WORKING.sql
 ## 🔗 AFFILIATE LINK FORMAT
 
 ```
-https://skylinecheats.org?ref=YOUR_AFFILIATE_CODE
+https://ring-0cheats.org?ref=YOUR_AFFILIATE_CODE
 ```
 
 Commission Rate: **5%** on each sale

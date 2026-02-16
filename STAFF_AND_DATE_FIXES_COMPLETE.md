@@ -32,7 +32,7 @@ await requirePermission("dashboard");
 ### How to Grant Dashboard Access
 
 1. **Navigate to Team Management**
-   - Go to: `https://skylinecheats.org/mgmt-x9k2m7/team`
+   - Go to: `https://ring-0cheats.org/mgmt-x9k2m7/team`
 
 2. **Add or Edit Staff Member**
    - Click "Add Member" for new staff
@@ -226,7 +226,7 @@ PUSH_CHANGES.bat
 ### 2. Wait for Vercel Deployment
 - Deployment takes 2-3 minutes
 - Check Vercel dashboard for status
-- Site: https://skylinecheats.org
+- Site: https://ring-0cheats.org
 
 ### 3. Test Staff Permissions
 1. Go to `/mgmt-x9k2m7/team`

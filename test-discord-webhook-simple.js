@@ -63,7 +63,7 @@ function createTestOrderEmbed(orderData) {
       },
     ],
     footer: {
-      text: 'Skyline Cheats • Order System',
+      text: 'Ring-0 • Order System',
     },
     timestamp: new Date().toISOString(),
   };
@@ -102,7 +102,7 @@ async function testDiscordWebhook() {
     // 2. Create test order data
     const testOrderData = {
       order_number: 'TEST-' + Date.now(),
-      customer_email: 'test@skylinecheats.org',
+      customer_email: 'test@ring-0cheats.org',
       customer_name: 'Test Customer',
       amount: 27.99,
       currency: 'USD',
@@ -120,7 +120,7 @@ async function testDiscordWebhook() {
     const embed = createTestOrderEmbed(testOrderData);
     const payload = {
       embeds: [embed],
-      username: 'Skyline Cheats',
+      username: 'Ring-0',
       content: '🚨 **TEST ORDER NOTIFICATION** 🚨',
     };
 

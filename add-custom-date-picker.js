@@ -33,7 +33,7 @@ const customDatePickerModal = `
                   value={customStartDate}
                   onChange={(e) => setCustomStartDate(e.target.value)}
                   max={customEndDate || new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
                 />
               </div>
 
@@ -47,16 +47,16 @@ const customDatePickerModal = `
                   onChange={(e) => setCustomEndDate(e.target.value)}
                   min={customStartDate}
                   max={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#2563eb] transition-colors"
+                  className="w-full px-4 py-2 bg-[#0a0a0a] border border-[#262626] rounded-lg text-white focus:outline-none focus:border-[#6b7280] transition-colors"
                 />
               </div>
 
               {customStartDate && customEndDate && (
-                <div className="p-3 rounded-lg bg-[#2563eb]/10 border border-[#2563eb]/20">
-                  <p className="text-sm text-[#2563eb]">
+                <div className="p-3 rounded-lg bg-[#6b7280]/10 border border-[#6b7280]/20">
+                  <p className="text-sm text-[#6b7280]">
                     <strong>Selected Range:</strong> {new Date(customStartDate).toLocaleDateString()} - {new Date(customEndDate).toLocaleDateString()}
                   </p>
-                  <p className="text-xs text-[#2563eb]/70 mt-1">
+                  <p className="text-xs text-[#6b7280]/70 mt-1">
                     {Math.ceil((new Date(customEndDate).getTime() - new Date(customStartDate).getTime()) / (1000 * 60 * 60 * 24)) + 1} days
                   </p>
                 </div>
@@ -92,7 +92,7 @@ const customDatePickerModal = `
                     }
                   }}
                   disabled={!customStartDate || !customEndDate}
-                  className="flex-1 px-4 py-2 bg-[#2563eb] hover:bg-[#3b82f6] disabled:bg-[#2563eb]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold transition-colors"
+                  className="flex-1 px-4 py-2 bg-[#6b7280] hover:bg-[#9ca3af] disabled:bg-[#6b7280]/50 disabled:cursor-not-allowed text-white rounded-lg font-semibold transition-colors"
                 >
                   Apply Range
                 </button>

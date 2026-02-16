@@ -27,7 +27,7 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Skyline Cheats Order</title>
+  <title>Your Ring-0 Order</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #0a0a0a;">
@@ -41,7 +41,7 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
                 <tr>
                   <td>
                     <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold;">MAGMA</h1>
-                    <p style="margin: 4px 0 0; color: #2563eb; font-size: 14px;">Premium Gaming Solutions</p>
+                    <p style="margin: 4px 0 0; color: #6b7280; font-size: 14px;">Premium Gaming Solutions</p>
                   </td>
                   <td align="right">
                     <span style="background-color: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 8px 16px; border-radius: 20px; font-size: 14px;">Payment Successful</span>
@@ -87,7 +87,7 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
                       </tr>
                       <tr>
                         <td style="color: rgba(255,255,255,0.8); padding: 8px 0; border-top: 1px solid #262626; padding-top: 16px;">Total Paid</td>
-                        <td align="right" style="color: #2563eb; font-weight: bold; font-size: 20px; border-top: 1px solid #262626; padding-top: 16px;">$${data.totalPaid}</td>
+                        <td align="right" style="color: #6b7280; font-weight: bold; font-size: 20px; border-top: 1px solid #262626; padding-top: 16px;">$${data.totalPaid}</td>
                       </tr>
                     </table>
                   </td>
@@ -99,7 +99,7 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
                 <tr>
                   <td style="padding: 24px; text-align: center;">
                     <p style="color: rgba(255,255,255,0.6); font-size: 12px; text-transform: uppercase; margin: 0 0 12px;">Your License Key</p>
-                    <p style="color: #2563eb; font-size: 24px; font-weight: bold; font-family: 'Courier New', monospace; margin: 0; letter-spacing: 2px;">${data.licenseKey}</p>
+                    <p style="color: #6b7280; font-size: 24px; font-weight: bold; font-family: 'Courier New', monospace; margin: 0; letter-spacing: 2px;">${data.licenseKey}</p>
                     <p style="color: rgba(255,255,255,0.5); font-size: 12px; margin: 16px 0 0;">Save this key securely. You will need it to activate your product.</p>
                   </td>
                 </tr>
@@ -112,19 +112,19 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
                     <p style="color: #ffffff; font-size: 16px; font-weight: 600; margin: 0 0 16px;">Next Steps:</p>
                     <table role="presentation" cellspacing="0" cellpadding="0">
                       <tr>
-                        <td style="color: #2563eb; font-weight: bold; padding-right: 12px; vertical-align: top;">1.</td>
+                        <td style="color: #6b7280; font-weight: bold; padding-right: 12px; vertical-align: top;">1.</td>
                         <td style="color: rgba(255,255,255,0.8); padding-bottom: 8px;">Download the loader from our website or Discord</td>
                       </tr>
                       <tr>
-                        <td style="color: #2563eb; font-weight: bold; padding-right: 12px; vertical-align: top;">2.</td>
+                        <td style="color: #6b7280; font-weight: bold; padding-right: 12px; vertical-align: top;">2.</td>
                         <td style="color: rgba(255,255,255,0.8); padding-bottom: 8px;">Run the loader as Administrator</td>
                       </tr>
                       <tr>
-                        <td style="color: #2563eb; font-weight: bold; padding-right: 12px; vertical-align: top;">3.</td>
+                        <td style="color: #6b7280; font-weight: bold; padding-right: 12px; vertical-align: top;">3.</td>
                         <td style="color: rgba(255,255,255,0.8); padding-bottom: 8px;">Enter your license key when prompted</td>
                       </tr>
                       <tr>
-                        <td style="color: #2563eb; font-weight: bold; padding-right: 12px; vertical-align: top;">4.</td>
+                        <td style="color: #6b7280; font-weight: bold; padding-right: 12px; vertical-align: top;">4.</td>
                         <td style="color: rgba(255,255,255,0.8);">Enjoy your premium experience!</td>
                       </tr>
                     </table>
@@ -136,7 +136,7 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <td align="center" style="padding: 8px 0 24px;">
-                    <a href="https://discord.gg/skylineggs" style="display: inline-block; background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 8px; font-weight: 600;">Join Our Discord</a>
+                    <a href="https://discord.gg/ring-0" style="display: inline-block; background-color: #6b7280; color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 8px; font-weight: 600;">Join Our Discord</a>
                   </td>
                 </tr>
               </table>
@@ -152,7 +152,7 @@ function generatePurchaseConfirmationEmail(data: EmailTemplateData): string {
           <tr>
             <td style="background-color: #0a0a0a; padding: 24px; border-top: 1px solid #262626; text-align: center;">
               <p style="color: rgba(255,255,255,0.4); font-size: 12px; margin: 0;">
-                © ${new Date().getFullYear()} Skyline Cheats. All rights reserved.
+                © ${new Date().getFullYear()} Ring-0. All rights reserved.
               </p>
               <p style="color: rgba(255,255,255,0.3); font-size: 11px; margin: 8px 0 0;">
                 This email was sent to confirm your purchase. Please do not share your license key with others.
@@ -177,7 +177,7 @@ function generatePlainTextEmail(data: EmailTemplateData): string {
   });
 
   return `
-Skyline Cheats - ORDER CONFIRMATION
+Ring-0 - ORDER CONFIRMATION
 ================================
 
 Thank you for your purchase!
@@ -203,9 +203,9 @@ NEXT STEPS
 3. Enter your license key when prompted
 4. Enjoy your premium experience!
 
-Need help? Join our Discord: https://discord.gg/skylineggs
+Need help? Join our Discord: https://discord.gg/ring-0
 
-© ${new Date().getFullYear()} Skyline Cheats. All rights reserved.
+© ${new Date().getFullYear()} Ring-0. All rights reserved.
   `.trim();
 }
 

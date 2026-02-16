@@ -31,7 +31,7 @@ MONEYMOTION_API_KEY=mk_live_DU5DYpjWqwjf96CY1mG7haGMi1Ut8x6
 
 ### Webhook URL (Configure in MoneyMotion Dashboard)
 ```
-https://skylinecheats.org/api/webhooks/moneymotion
+https://ring-0cheats.org/api/webhooks/moneymotion
 ```
 
 ### Webhook Secret (Already Set)
@@ -61,7 +61,7 @@ MONEYMOTION_WEBHOOK_SECRET=201390195d17ee7f46c1dbb0b35e94de08582fa2b54662f295fd4
 ## Next Steps
 
 1. **Configure webhook in MoneyMotion dashboard:**
-   - URL: `https://skylinecheats.org/api/webhooks/moneymotion`
+   - URL: `https://ring-0cheats.org/api/webhooks/moneymotion`
    - Events: Select all checkout session events
    - Secret: Already configured in `.env.local`
 
@@ -117,4 +117,4 @@ If you encounter any issues:
 
 **Status:** ✅ READY FOR TESTING
 **Payment Processor:** MoneyMotion (Card Payments Only)
-**Webhook URL:** https://skylinecheats.org/api/webhooks/moneymotion
+**Webhook URL:** https://ring-0cheats.org/api/webhooks/moneymotion

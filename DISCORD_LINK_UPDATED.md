@@ -3,8 +3,8 @@
 ## Changes Made
 
 All Discord links have been updated from:
-- ❌ Old: `https://discord.gg/skylineeggs`
-- ✅ New: `https://discord.gg/skylineggs`
+- ❌ Old: `https://discord.gg/ring-0eggs`
+- ✅ New: `https://discord.gg/ring-0`
 
 ## Files Updated
 
@@ -34,8 +34,8 @@ The following files now have the correct Discord link:
 ## Verification
 
 Confirmed that:
-- ✅ No old links (`discord.gg/skylineeggs`) remain in any `.tsx` or `.ts` files
-- ✅ All links now point to `discord.gg/skylineggs`
+- ✅ No old links (`discord.gg/ring-0eggs`) remain in any `.tsx` or `.ts` files
+- ✅ All links now point to `discord.gg/ring-0`
 - ✅ Changes applied to 40+ locations across the codebase
 
 ## What This Means

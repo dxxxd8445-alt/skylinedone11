@@ -54,10 +54,10 @@ Each webhook includes:
 
 ## 🎨 Discord Embed Colors
 
-All embeds use your Skyline blue theme:
+All embeds use your Ring-0 blue theme:
 
-- 🔵 **Blue (#2563eb)** - Completed orders, successful payments
-- 🔵 **Light Blue (#3b82f6)** - Pending orders, checkout started
+- 🔵 **Blue (#6b7280)** - Completed orders, successful payments
+- 🔵 **Light Blue (#9ca3af)** - Pending orders, checkout started
 - 🔵 **Dark Blue (#1e40af)** - Failed payments
 - ⚪ **Gray** - Refunds
 
@@ -134,7 +134,7 @@ All embeds use your Skyline blue theme:
 1. Start dev server: `npm run dev`
 2. Go to: http://localhost:3000
 3. Add product to cart
-4. Checkout with test email: `test@skyline.com`
+4. Checkout with test email: `test@ring-0.com`
 5. Use Stripe test card: `4242 4242 4242 4242`
 6. Complete payment
 
@@ -300,7 +300,7 @@ CREATE TABLE webhooks (
 
 ✅ **Email Delivery**
 - Sent after successful payment
-- Blue Skyline branded template
+- Blue Ring-0 branded template
 - Includes all license keys
 - Professional formatting
 
@@ -341,7 +341,7 @@ SELECT * FROM webhooks WHERE is_active = true;
 ```bash
 curl -X POST "YOUR_WEBHOOK_URL" \
   -H "Content-Type: application/json" \
-  -d '{"content": "Test from Skyline!"}'
+  -d '{"content": "Test from Ring-0!"}'
 ```
 
 ### Orders Not Creating?

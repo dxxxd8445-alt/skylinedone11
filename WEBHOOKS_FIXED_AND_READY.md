@@ -22,7 +22,7 @@ Run this in Supabase SQL Editor:
 SELECT * FROM webhooks WHERE is_active = true;
 ```
 
-You should see your Skyline Discord webhook with 7 events.
+You should see your Ring-0 Discord webhook with 7 events.
 
 ### Step 2: Test Webhook Manually
 Open PowerShell and run:
@@ -30,7 +30,7 @@ Open PowerShell and run:
 $body = @{
     embeds = @(
         @{
-            title = "🧪 Test - Skyline Cheats"
+            title = "🧪 Test - Ring-0"
             description = "Webhook is working!"
             color = 2563235
             fields = @(

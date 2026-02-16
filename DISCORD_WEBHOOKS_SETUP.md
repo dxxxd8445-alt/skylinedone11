@@ -18,22 +18,22 @@ All the following events will trigger Discord notifications:
 
 #### 🛒 **Checkout Started** (`checkout.started`)
 - **When**: Customer initiates checkout
-- **Color**: Blue (#3b82f6)
+- **Color**: Blue (#9ca3af)
 - **Info Shown**: Customer email, items, total, session ID
 
 #### ⏳ **Order Pending** (`order.pending`)
 - **When**: Order created, awaiting payment
-- **Color**: Light Blue (#3b82f6)
+- **Color**: Light Blue (#9ca3af)
 - **Info Shown**: Order number, customer, amount, payment method, items
 
 #### 🎉 **Order Completed** (`order.completed`)
 - **When**: Payment successful, order fulfilled
-- **Color**: Skyline Blue (#2563eb)
+- **Color**: Ring-0 Blue (#6b7280)
 - **Info Shown**: Order number, customer, amount, items purchased
 
 #### 💰 **Payment Completed** (`payment.completed`)
 - **When**: Stripe payment processed successfully
-- **Color**: Skyline Blue (#2563eb)
+- **Color**: Ring-0 Blue (#6b7280)
 - **Info Shown**: Payment intent ID, order details, customer info
 
 #### ❌ **Payment Failed** (`payment.failed`)
@@ -67,12 +67,12 @@ All the following events will trigger Discord notifications:
 Copy and paste this SQL:
 
 ```sql
--- Setup Discord Webhooks for Skyline Cheats
+-- Setup Discord Webhooks for Ring-0
 DELETE FROM webhooks WHERE url LIKE '%discord.com%';
 
 INSERT INTO webhooks (name, url, events, is_active) VALUES
   (
-    'Skyline Discord - All Order Events', 
+    'Ring-0 Discord - All Order Events', 
     'https://discord.com/api/webhooks/1466894801541533707/6Z-YfKfQbE-UuakpsNLfULuf_3WefNpMbwLLiNJKMSf__Xv-7GL4e4b0M1F7409S5L54',
     ARRAY[
       'checkout.started',
@@ -106,7 +106,7 @@ After running the script, you should see output showing your webhook is active w
 ## 🧪 How to Test
 
 ### Test 1: Create a Test Order
-1. Go to your store: https://skylinecheats.org
+1. Go to your store: https://ring-0cheats.org
 2. Add a product to cart
 3. Go through checkout (use Stripe test card: `4242 4242 4242 4242`)
 4. Check your Discord channel for notifications
@@ -142,15 +142,15 @@ Dispute Opened           →  order.disputed         →  ⚖️ Order Disputed
 
 ## 🎨 Webhook Styling
 
-All Discord embeds use **Skyline blue branding**:
-- **Primary Blue**: #2563eb (completed orders)
-- **Light Blue**: #3b82f6 (pending/checkout)
+All Discord embeds use **Ring-0 blue branding**:
+- **Primary Blue**: #6b7280 (completed orders)
+- **Light Blue**: #9ca3af (pending/checkout)
 - **Dark Blue**: #1e40af (failures)
 - **Gray**: #6b7280 (refunds)
 
 All messages show:
-- Footer: "Skyline Cheats • [System Name]"
-- Username: "Skyline Cheats"
+- Footer: "Ring-0 • [System Name]"
+- Username: "Ring-0"
 - Timestamp: Automatic
 
 ---
@@ -175,7 +175,7 @@ All messages show:
    ```bash
    curl -X POST "https://discord.com/api/webhooks/1466894801541533707/6Z-YfKfQbE-UuakpsNLfULuf_3WefNpMbwLLiNJKMSf__Xv-7GL4e4b0M1F7409S5L54" \
      -H "Content-Type: application/json" \
-     -d '{"content":"Test from Skyline Cheats!","username":"Skyline Cheats"}'
+     -d '{"content":"Test from Ring-0!","username":"Ring-0"}'
    ```
 
 ### Common Issues
@@ -197,8 +197,8 @@ All messages show:
 - [x] Webhook system implemented in `lib/discord-webhook.ts`
 - [x] Checkout webhook triggers in `create-checkout-session` API
 - [x] Payment webhook triggers in Stripe webhook handler
-- [x] All embeds use Skyline blue branding
-- [x] All "Magma" references changed to "Skyline"
+- [x] All embeds use Ring-0 blue branding
+- [x] All "Magma" references changed to "Ring-0"
 - [ ] **SQL script run in Supabase** (YOU NEED TO DO THIS)
 - [ ] **Test order placed to verify** (YOU NEED TO DO THIS)
 

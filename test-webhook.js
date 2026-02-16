@@ -65,7 +65,7 @@ async function testWebhook() {
             fields: message.fields,
             timestamp: new Date().toISOString(),
             footer: {
-              text: 'Skyline Cheats'
+              text: 'Ring-0'
             }
           }]
         })

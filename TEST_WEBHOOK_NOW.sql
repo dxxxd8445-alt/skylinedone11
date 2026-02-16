@@ -12,10 +12,10 @@ WHERE is_active = true;
 -- If no results, the webhook might not have been inserted
 -- Run this to insert it again:
 
-DELETE FROM webhooks WHERE name LIKE '%Skyline%';
+DELETE FROM webhooks WHERE name LIKE '%Ring-0%';
 
 INSERT INTO webhooks (name, url, events, is_active) VALUES (
-  'Skyline Discord - Order Notifications',
+  'Ring-0 Discord - Order Notifications',
   'https://discord.com/api/webhooks/1470214571913646246/QtYckEUaUFeG8ybiRMY1CVH1VnybbxS3-R4fdRECQZ7zGVVwgwSTn2EdI4rseTrFUaHr',
   ARRAY['checkout.started', 'order.pending', 'payment.completed', 'order.completed', 'payment.failed', 'order.refunded', 'order.disputed'],
   true
@@ -27,7 +27,7 @@ curl -X POST "https://discord.com/api/webhooks/1470214571913646246/QtYckEUaUFeG8
 -H "Content-Type: application/json" \
 -d '{
   "embeds": [{
-    "title": "🧪 Test - Skyline Cheats",
+    "title": "🧪 Test - Ring-0",
     "description": "Webhook is working!",
     "color": 2563235,
     "fields": [
